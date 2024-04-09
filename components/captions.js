@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { fetchData } from './fetchData.js';
 
 const Captions = ({video}) => {
 
@@ -7,9 +8,8 @@ const Captions = ({video}) => {
     useEffect(() => {
         const fetchCaptions = async () => {
             let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-captions-fetch-json?videoId=${video.videoId}`;
-            const response = await fetch(url);
-            const captions = await response.json();
-            setCaptions(captions);
+            const captionData = await fetchData('captions', url);
+            setCaptions(captionData);
         };
         fetchCaptions();
     }, []);
@@ -24,7 +24,7 @@ const Captions = ({video}) => {
                 </tr>
             </thead>
             <tbody>
-                {captions.map(caption => (
+                {captions && captions.map(caption => (
                     <tr key={caption.start}>
                         <td><input className="form-check-input" type="checkbox" checked={caption.checked} /></td>
                         <td>{caption.start}</td>

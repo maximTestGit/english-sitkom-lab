@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import VideoRow from "./videoRow";
+import { fetchData } from './fetchData.js';
 
 const VideoList = ({selectVideo}) => {
     const [videos, setVideos] = useState([]);
@@ -7,8 +8,7 @@ const VideoList = ({selectVideo}) => {
     useEffect(() => {
         const fetchVideos = async () => {
             let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-get-playlst-content`;
-            const response = await fetch(url);
-            const videos = await response.json();
+            const videos = await fetchData('videos', url, 60*60); // Cache for 1 hour
             setVideos(videos);
         };
         fetchVideos();
