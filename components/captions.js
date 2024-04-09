@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-const Captions = ({video}) => {
+const Captions = ({videoId}) => {
 
     const [captions, setCaptions] = useState([]);
 
     useEffect(() => {
         const fetchCaptions = async () => {
-            let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-captions-fetch-json?videoId=${video.videoId}`;
+            let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-captions-fetch-json?videoId=${videoId}`;
             const response = await fetch(url);
             const captions = await response.json();
             setCaptions(captions);

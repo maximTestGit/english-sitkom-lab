@@ -12,7 +12,7 @@ const Exercise = ({ video, selectVideo }) => {
                     </div>
                 </div>
                 <div className="col-6">
-                    <Captions video={video} />
+                    <Captions videoId={video.videoId} />
                 </div>
             </div>
         </>
