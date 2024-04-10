@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import VideoRow from "./videoRow";
-import { fetchData } from './fetchData.js';
+import { fetchData } from './helpers/fetchData.js';
 
 const VideoList = ({selectVideo}) => {
     const [videos, setVideos] = useState([]);
