@@ -1,0 +1,29 @@
+/* WebcamView.module.css */
+.webcamContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.webcam {
+  margin-bottom: 10px;
+}
+
+.blinking {
+  width: 185px;
+  text-align: center;
+  font-weight: bold;
+  color: red;
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% { opacity: 0; }
+}
+
+.info {
+  width: 185px;
+  text-align: center;
+  font-weight: normal;
+  color: #666;
+}

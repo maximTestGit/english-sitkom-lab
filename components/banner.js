@@ -8,11 +8,11 @@ const subtitleStyle = {
 
 const Banner = () => {
   return (
-    <header className="row mb-4">
-      <div className="col-5">
+    <header className="row mb-1">
+      <div className="col-3">
         <img src="./SitcomEnglishLab.png" alt="logo" className={logo} />
       </div>
-      <div className="col-7 mt-5" style={subtitleStyle}>
+      <div className="col-6 mt-5" style={subtitleStyle}>
         Study Languages laughing
       </div>
     </header>
