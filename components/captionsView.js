@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { fetchData } from './helpers/fetchData.js';
 import { decodeHtml } from './helpers/presentationUtils.js';
 
@@ -6,15 +6,22 @@ const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaption
     const [captions, setCaptions] = useState([]);
     const [currentCaption, setCurrentCaption] = useState(null);
 
+    const setCaptionsWrapper = useCallback((newCaptions) => {
+        setCaptions(newCaptions);
+        if (onUpdateCaptions) {
+            onUpdateCaptions(newCaptions);
+        }
+    }, [onUpdateCaptions]);
+
     useEffect(() => {
         const fetchCaptions = async () => {
             let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-captions-fetch-json?videoId=${video.videoId}`;
-            const captionData = await fetchData('captions', url, 30);
+            const captionData = await fetchData('captions', url, null);
             if (captionData) {
                 const captionDataWithChecked = 
                     captionData
                         .map(caption => ({...caption, checked: caption && caption.text.startsWith(' ')}));
-                setCaptions(captionDataWithChecked);
+                setCaptionsWrapper(captionDataWithChecked);
             }
         };
         fetchCaptions();
@@ -27,7 +34,7 @@ const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaption
             }
             return c;
         });
-        setCaptions(updatedCaptions);
+        setCaptionsWrapper(updatedCaptions);
         onUpdateCaptions(updatedCaptions);
     }
 
