@@ -13,14 +13,20 @@ const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaption
         }
     }, [onUpdateCaptions]);
 
+    const determineCaptionChecked = (caption) => 
+    {
+        let result = caption && caption.text.startsWith(' ');
+        return result;
+    };
+    
     useEffect(() => {
         const fetchCaptions = async () => {
             let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-captions-fetch-json?videoId=${video.videoId}`;
-            const captionData = await fetchData('captions', url, null);
+            const captionData = await fetchData('captions', url, 40);
             if (captionData) {
                 const captionDataWithChecked = 
                     captionData
-                        .map(caption => ({...caption, checked: caption && caption.text.startsWith(' ')}));
+                        .map(caption => ({...caption, checked: determineCaptionChecked(caption)}));
                 setCaptionsWrapper(captionDataWithChecked);
             }
         };
