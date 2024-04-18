@@ -29,7 +29,7 @@ const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaption
 
     let fPosition = parseFloat(position);
     return (
-        <div style={{ overflow: 'auto', height: '450px' }}>
+        <>
             <table className="table table-striped">
                 <thead>
                     <tr>
@@ -64,7 +64,7 @@ const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaption
                     })}
                 </tbody>
             </table>
-        </div>
+        </>
     );
 
 };
