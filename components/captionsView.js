@@ -9,9 +9,13 @@ const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaption
     useEffect(() => {
         const fetchCaptions = async () => {
             let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-captions-fetch-json?videoId=${video.videoId}`;
-            const captionData = await fetchData('captions', url);
-            const captionDataWithChecked = captionData.map(caption => ({...caption, checked: false}));
-            setCaptions(captionDataWithChecked);
+            const captionData = await fetchData('captions', url, 30);
+            if (captionData) {
+                const captionDataWithChecked = 
+                    captionData
+                        .map(caption => ({...caption, checked: caption && caption.text.startsWith(' ')}));
+                setCaptions(captionDataWithChecked);
+            }
         };
         fetchCaptions();
     }, [video.videoId]);
