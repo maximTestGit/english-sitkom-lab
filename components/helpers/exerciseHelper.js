@@ -1,3 +1,6 @@
+//import publishExercise from './publishExercise.js';
+const exercise_storage_folder = 'Exercises';
+
 export function jumpToStart(playerRef) {
     playerRef.current.seekTo(0, 'fraction');
 };
@@ -7,6 +10,14 @@ export function handleSaveExercise(video, captions, recordedChunks, playbackRate
         .then(videoData => 
             {
                 saveJsonToFile(videoData);
+            }
+        );
+}
+export function handlePublishExercise(video, captions, recordedChunks, playbackRate, youLinePlaybackRate) {
+    buildExerciseData(video, captions, recordedChunks, playbackRate, youLinePlaybackRate)
+        .then(videoData => 
+            {
+                publishJsonToCloud(videoData);
             }
         );
 }
@@ -104,3 +115,45 @@ export function saveJsonToFile(videoData) {
     document.body.removeChild(downloadLink);
 }
 
+export async function publishJsonToCloud(videoData) {
+    const jsonData = JSON.stringify(videoData, null, 2); // The second parameter (null) is for replacer function or array, and the third parameter (2) is for indentation level (spaces).
+    // const jsonBlob = new Blob([jsonData], { type: 'application/json' });
+    // const jsonUrl = URL.createObjectURL(jsonBlob);
+
+let safeTitle = videoData.title.replace(/['<>:"/\\|?* ]+/g, '') + (videoData.videoRecordedChunks.length > 0 ? '-homework' : '-exercise');
+
+    try {
+        await publishExercise(exercise_storage_folder, `${safeTitle}.json`, jsonData);
+    } catch (error) {
+        console.error(`Error publishing to cloud: ${error}`);
+    }
+}
+
+export async function publishExercise(folderName, fileName, data) {
+    try {
+        const requestBody = {
+            folder: `${folderName}`,
+            file: `${fileName}`,
+            data: `${data}`
+        };
+        const bodyJson = JSON.stringify(requestBody, null, 2);
+        const response = 
+            await fetch(
+                'https://us-central1-youtube-project-404109.cloudfunctions.net/function-save-exercise', 
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain', 'Accept': '*/*' },
+                    body: bodyJson,
+                });
+  
+      if (!response.ok) {
+        throw new Error(`Error saving file: ${response.statusText}`);
+      }
+  
+      console.log('File saved successfully!');
+      alert('Exercise published successfully!');
+    } catch (error) {
+      console.error('Error saving file:', error);
+      alert('Error publishing exercise. Please try again later.');
+    }
+  }

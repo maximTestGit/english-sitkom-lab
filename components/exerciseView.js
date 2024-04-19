@@ -5,7 +5,7 @@ import PlaybackSettings from './playbackSettings.js';
 import ConditionalButton from './conditionalButton.js';
 import PlayerBox from './playerBox.js';
 import ExerciseStatus from './exerciseStatus.js';
-import { jumpToStart, handleSaveExercise } from './helpers/exerciseHelper.js';
+import { jumpToStart, handleSaveExercise, handlePublishExercise } from './helpers/exerciseHelper.js';
 
 const ExerciseView = ({ video, selectVideo }) => {
     const default_playback_rate = 1.0;
@@ -151,10 +151,9 @@ const ExerciseView = ({ video, selectVideo }) => {
                 <div id="PlayerControlArea" className="col-6">
                     <div id="ControlsArea" className="row">
                         <div id="ExitButtonArea" className="col">
-                            <ConditionalButton className="btn btn-danger mb-3 mr-3 ml-3" onClick={() => selectVideo()}>Back</ConditionalButton>
+                            <ConditionalButton className="btn btn-danger" onClick={() => selectVideo()}>Back</ConditionalButton>
                         </div>
                         <div className="col"></div>
-
                         <div id="PlayButtonArea" className="col">
                             <ConditionalButton
                                 condition={exerciseStatus !== ExerciseStatus.PLAYING}
@@ -178,8 +177,7 @@ const ExerciseView = ({ video, selectVideo }) => {
                                 Rec.Start
                             </ConditionalButton>
                         </div>
-                        <div className="col"></div>
-                        <div className="col">
+                        <div  id="SaveButtonArea" className="col">
                             <ConditionalButton
                                 isDisabled={exerciseStatus !== ExerciseStatus.STOPPED}
                                 className="btn btn-success mb-3 mr-3 ml-3" antiClassName="btn btn-success mb-3 mr-3 ml-3"
@@ -189,9 +187,18 @@ const ExerciseView = ({ video, selectVideo }) => {
                                 Save
                             </ConditionalButton>
                         </div>
-                        <div className="col"></div>
-                        <div className="col"></div>
-                        <div className="col"></div>
+                        <div id="PublishButtonArea" className="col">
+                            <ConditionalButton
+                                condition={true}
+                                isDisabled={exerciseStatus === ExerciseStatus.PLAYING
+                                            || 
+                                            exerciseStatus === ExerciseStatus.RECORDING}
+                                className="btn btn-success mb-3 mr-3 ml-3"
+                                onClick={() => handlePublishExercise(video, captions, recordedChunks, default_playback_rate, youLinePlaybackRate)}
+                                >
+                                Publish
+                            </ConditionalButton>
+                        </div>
                     </div>
                     <div className='row'>
                         <PlayerBox
