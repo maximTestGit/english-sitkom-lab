@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { fetchData } from './helpers/fetchData.js';
 import { decodeHtml } from './helpers/presentationUtils.js';
+//import { getIntervals } from './helpers/exerciseHelper.js';
 
 const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaptions=null }) => {
     const [captions, setCaptions] = useState([]);
@@ -22,7 +23,7 @@ const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaption
     useEffect(() => {
         const fetchCaptions = async () => {
             let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-captions-fetch-json?videoId=${video.videoId}`;
-            const captionData = await fetchData('captions', url, 40);
+            const captionData = await fetchData('captions', video.videoId, url, 40);
             if (captionData) {
                 const captionDataWithChecked = 
                     captionData

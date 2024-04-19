@@ -34,8 +34,8 @@ export async function saveDataToLocalStorage(prefix, theKey, result, expirationS
 }
 
 
-export async function fetchData(prefix, url, expirationSec) {
-    const theKey = `${prefix}#${url}`;
+export async function fetchData(prefix, key, url, expirationSec) {
+    const theKey = `${prefix}#${key}`;
     let result = JSON.parse(localStorage.getItem(theKey));
 
     if (result && expirationSec === 0) { // no cach, but if found - remove

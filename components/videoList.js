@@ -10,7 +10,7 @@ const VideoList = ({selectVideo}) => {
     useEffect(() => {
         const fetchVideos = async () => {
             let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-get-playlst-content?playlistId=${selectedPlayListId}`;
-            const videos = await fetchData('videos', url, 60*60); // Cache for 1 hour
+            const videos = await fetchData('videos', 'VideoList', url, 60*60); // Cache for 1 hour
             setVideos(videos);
         };
         fetchVideos();
