@@ -1,17 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { fetchData } from './helpers/fetchData.js';
+import { fetchData, saveDataToLocalStorage } from './helpers/fetchData.js';
 import { decodeHtml } from './helpers/presentationUtils.js';
 //import { getIntervals } from './helpers/exerciseHelper.js';
 
-const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaptions=null }) => {
+const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaptions }) => {
     const [captions, setCaptions] = useState([]);
     const [currentCaption, setCurrentCaption] = useState(null);
 
     const setCaptionsWrapper = useCallback((newCaptions) => {
         setCaptions(newCaptions);
-        if (onUpdateCaptions) {
-            onUpdateCaptions(newCaptions);
-        }
+        saveDataToLocalStorage('captions', video.videoId, newCaptions, null);
+        onUpdateCaptions(newCaptions);
     }, [onUpdateCaptions]);
 
     const determineCaptionChecked = (caption) => 
@@ -37,12 +36,17 @@ const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaption
     const captionChange = (caption) => {  
         const updatedCaptions = captions.map(c => {
             if (c.start === caption.target.id) {
-                return {...c, checked: !c.checked};
+                const newChecked = !c.checked;
+                if (newChecked) {
+                    c.text = ' ' + c.text;
+                } else {
+                    c.text = c.text.trim();
+                }
+                return {...c, checked: newChecked};
             }
             return c;
         });
         setCaptionsWrapper(updatedCaptions);
-        onUpdateCaptions(updatedCaptions);
     }
 
     let fPosition = parseFloat(position);

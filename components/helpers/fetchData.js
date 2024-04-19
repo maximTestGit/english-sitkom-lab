@@ -10,41 +10,49 @@ function removeDataFromStorage(theKey) {
 
 // expirationSec === null - infinit storage
 // expirationSec === 0 - no cache
-export async function saveDataToLocalStorage(prefix, theKey, result, expirationSec) {
+export async function saveDataToLocalStorage(prefix, key, data, expirationSec) {
     if (expirationSec !== 0) { // 0 means no cache
         const keys = Object.keys(localStorage)
-            .filter((key) => key.startsWith(prefix))
-            .map((key) => key.split('#')[1]);
+            .filter((k) => k.startsWith(prefix))
+            .map((k) => k.split('#')[1]);
 
         while (keys.length >= 10) {
             const keyToDelete = Math.floor(Math.random() * keys.length)
             removeDataFromStorage(`${prefix}#${keys[keyToDelete]}`);
             keys.splice(keyToDelete, 1);
         }
-
-        localStorage.setItem(theKey, JSON.stringify(result));
+        const dataKey = buildDataKey(prefix, key);
+        localStorage.setItem(dataKey, JSON.stringify(data));
 
         if (expirationSec !== null) { // null means infinit cache
             setTimeout(() => {
-                removeDataFromStorage(theKey);
-                console.log(`Removed expired data for key: ${theKey}`);
+                removeDataFromStorage(dataKey);
+                console.log(`Removed expired data for key: ${dataKey}`);
             }, expirationSec * 1000); // Convert to milliseconds
         }
     }
 }
 
+export function getDataFromLocalStorage(prefix, key, expirationSec) {
+    const dataKey = buildDataKey(prefix, key);
+    let result = JSON.parse(localStorage.getItem(dataKey));
+    if (result && expirationSec === 0) { // no cach, but if found - remove
+        removeDataFromStorage(dataKey);
+        result = null;
+    }    
+    return result;
+}
+
+function buildDataKey(prefix, key) {
+    return `${prefix}#${key}`;
+}
 
 export async function fetchData(prefix, key, url, expirationSec) {
-    const theKey = `${prefix}#${key}`;
-    let result = JSON.parse(localStorage.getItem(theKey));
+    let result = getDataFromLocalStorage(prefix, key, expirationSec);
 
-    if (result && expirationSec === 0) { // no cach, but if found - remove
-        removeDataFromStorage(theKey);
-        result = null;
-    }
     if (!result) { // not found or no cache
         result = await fetchDataFromSource(url);
-        saveDataToLocalStorage(prefix, theKey, result, expirationSec);
+        saveDataToLocalStorage(prefix, key, result, expirationSec);
     }
 
     return result;
