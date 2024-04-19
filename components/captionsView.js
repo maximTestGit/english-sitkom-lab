@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { fetchData, saveDataToLocalStorage } from './helpers/fetchData.js';
+import { fetchData, saveDataToLocalStorage, dataPrefixes } from './helpers/fetchData.js';
 import { decodeHtml } from './helpers/presentationUtils.js';
 //import { getIntervals } from './helpers/exerciseHelper.js';
 
@@ -7,9 +7,9 @@ const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaption
     const [captions, setCaptions] = useState([]);
     const [currentCaption, setCurrentCaption] = useState(null);
 
+    const captions_data_expiration = null;
     const setCaptionsWrapper = useCallback((newCaptions) => {
         setCaptions(newCaptions);
-        saveDataToLocalStorage('captions', video.videoId, newCaptions, null);
         onUpdateCaptions(newCaptions);
     }, [onUpdateCaptions]);
 
@@ -22,7 +22,7 @@ const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaption
     useEffect(() => {
         const fetchCaptions = async () => {
             let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-captions-fetch-json?videoId=${video.videoId}`;
-            const captionData = await fetchData('captions', video.videoId, url, 40);
+            const captionData = await fetchData(dataPrefixes.captions_data_prefix, video.videoId, url, captions_data_expiration);
             if (captionData) {
                 const captionDataWithChecked = 
                     captionData
@@ -47,6 +47,7 @@ const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaption
             return c;
         });
         setCaptionsWrapper(updatedCaptions);
+        saveDataToLocalStorage(dataPrefixes.captions_data_prefix, video.videoId, updatedCaptions, captions_data_expiration);
     }
 
     let fPosition = parseFloat(position);
