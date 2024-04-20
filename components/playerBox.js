@@ -9,8 +9,8 @@ const PlayerBox = ({ playerRef, video, exerciseStatus,
     handleOnProgress, handlePlayingEnd, handleStopRecording,
     cameraWidth=150 }) => 
 {
-    const handleStopRecordingWraper = () => {
-        handleStopRecording();
+    const handleStopRecordingWraper = (recordedChunks) => {
+        handleStopRecording(recordedChunks);
     };
     return (
         <div id="PlayerArea" className="row border border-secondary" style={{ position: 'relative' }}>
