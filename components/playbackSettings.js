@@ -1,5 +1,5 @@
 import React from 'react';
-import Switch from './switch';
+import Switch from './helpers/switch';
 
 const PlaybackSettings = ({ initLoop, initShowCaptions, initYourLineSourceVolume, onLoopChange, onShowCaptionsChange, onYourLinePlaybackRateChange, onYourLineSourceVolumeChange }) => {
     const handleYourLinePlaybackRateChange = (event) => {

@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
 import WebcamStreamCapture from './webcamStreamCapture';
-import styles from './webcamView.module.css';
-import ExerciseStatus from './exerciseStatus';
+import styles from './styles/playerBox.module.css';
+import ExerciseStatus from './data/exerciseStatus';
 
 const PlayerBox = ({ playerRef, video, exerciseStatus,
     muted, loop, playbackRate, currentVolume,

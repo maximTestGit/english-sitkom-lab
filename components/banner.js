@@ -1,4 +1,4 @@
-import { logo } from "./banner.module.css";
+import { logo } from "./styles/banner.module.css";
 
 const subtitleStyle = {
   fontStyle: "italic",

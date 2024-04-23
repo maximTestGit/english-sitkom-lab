@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import CaptionsView from './captionsView';
 import CaptionBox from './captionBox.js';
 import PlaybackSettings from './playbackSettings.js';
-import ConditionalButton from './conditionalButton.js';
+import ConditionalButton from './helpers/conditionalButton.js';
 import PlayerBox from './playerBox.js';
-import ExerciseStatus from './exerciseStatus.js';
+import ExerciseStatus from './data/exerciseStatus.js';
 import { jumpToStart, handleSaveExercise, handlePublishExercise } from './helpers/exerciseHelper.js';
 
 const ExerciseView = ({ video, selectVideo }) => {
@@ -14,7 +14,7 @@ const ExerciseView = ({ video, selectVideo }) => {
     const recording_your_line_volume = 0.0;
 
     // #region States
-    const [muted, setMuted] = useState(null);
+    const [muted, setMuted] = useState(false);
     const [position, setPosition] = useState(0);
     const [currentCaption, setCurrentCaption] = useState(null);
     const [loop, setLoop] = useState(false);
@@ -52,15 +52,8 @@ const ExerciseView = ({ video, selectVideo }) => {
 
     const setVolumeValue = (caption) => {
         let newVolume = caption && caption.checked ? yourLineSourceVolume : sourceVolume;
-        if (currentVolume !== newVolume) {
-            if (currentVolume === 0) {
-                setMuted(false);
-            }
-            setCurrentVolume(newVolume);
-            if (newVolume === 0) {
-                setMuted(true);
-            }
-        }
+        setCurrentVolume(newVolume);
+        setMuted(newVolume === 0);
     };
 
     // #endregion Exercise flow
@@ -145,6 +138,11 @@ const ExerciseView = ({ video, selectVideo }) => {
         setCaptions(captions);
     };
 
+    // start playing on the first open
+    useEffect(() => {
+        startPlay();
+    }, []);
+
     return (
         <>
             <div className="row">
@@ -177,7 +175,7 @@ const ExerciseView = ({ video, selectVideo }) => {
                                 Rec.Start
                             </ConditionalButton>
                         </div>
-                        <div  id="SaveButtonArea" className="col">
+                        <div id="SaveButtonArea" className="col">
                             <ConditionalButton
                                 isDisabled={exerciseStatus !== ExerciseStatus.STOPPED}
                                 className="btn btn-success mb-3 mr-3 ml-3" antiClassName="btn btn-success mb-3 mr-3 ml-3"
@@ -191,11 +189,11 @@ const ExerciseView = ({ video, selectVideo }) => {
                             <ConditionalButton
                                 condition={true}
                                 isDisabled={exerciseStatus === ExerciseStatus.PLAYING
-                                            || 
-                                            exerciseStatus === ExerciseStatus.RECORDING}
+                                    ||
+                                    exerciseStatus === ExerciseStatus.RECORDING}
                                 className="btn btn-success mb-3 mr-3 ml-3"
                                 onClick={() => handlePublishExercise(video, captions, recordedChunks, default_playback_rate, youLinePlaybackRate)}
-                                >
+                            >
                                 Publish
                             </ConditionalButton>
                         </div>

@@ -120,7 +120,8 @@ export async function publishJsonToCloud(videoData) {
     // const jsonBlob = new Blob([jsonData], { type: 'application/json' });
     // const jsonUrl = URL.createObjectURL(jsonBlob);
 
-let safeTitle = videoData.title.replace(/['<>:"/\\|?* ]+/g, '') + (videoData.videoRecordedChunks.length > 0 ? '-homework' : '-exercise');
+let safeTitle = videoData.title.replace(/['<>:"/\\|?*]+/g, '') + (videoData.videoRecordedChunks.length > 0 ? '-homework' : '-exercise');
+safeTitle = safeTitle.replace(/ /g, '-');
 
     try {
         await publishExercise(exercise_storage_folder, `${safeTitle}.json`, jsonData);
