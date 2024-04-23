@@ -3,6 +3,7 @@ import ReactPlayer from 'react-player';
 import WebcamStreamCapture from './webcamStreamCapture';
 import styles from './styles/playerBox.module.css';
 import ExerciseStatus from './data/exerciseStatus';
+import {getYoutubeUrl} from './data/configurator.js';
 
 const PlayerBox = ({ playerRef, video, exerciseStatus,
     muted, loop, playbackRate, currentVolume,
@@ -19,7 +20,7 @@ const PlayerBox = ({ playerRef, video, exerciseStatus,
                 playing={exerciseStatus === ExerciseStatus.PLAYING ||
                          exerciseStatus === ExerciseStatus.RECORDING}
                 muted={muted}
-                url={`https://www.youtube.com/embed/${video.videoId}`}
+                url={getYoutubeUrl(video.videoId)}
                 controls="false"
                 progressInterval={100}
                 onProgress={(state) => handleOnProgress(state)}

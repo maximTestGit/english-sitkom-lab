@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { fetchData, saveDataToLocalStorage, dataPrefixes } from './helpers/fetchData.js';
 import { decodeHtml } from './helpers/presentationUtils.js';
 //import { getIntervals } from './helpers/exerciseHelper.js';
+import { getFetchCaptionsUrl } from './data/configurator.js';
 
 const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaptions }) => {
     const [captions, setCaptions] = useState([]);
@@ -21,7 +22,7 @@ const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaption
     
     useEffect(() => {
         const fetchCaptions = async () => {
-            let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-captions-fetch-json?videoId=${video.videoId}`;
+            let url = getFetchCaptionsUrl(video.videoId);
             const captionData = await fetchData(dataPrefixes.captions_data_prefix, video.videoId, url, captions_data_expiration);
             if (captionData) {
                 const captionDataWithChecked = 

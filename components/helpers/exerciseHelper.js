@@ -1,3 +1,5 @@
+import { getYoutubeUrl } from "../data/configurator";
+
 //import publishExercise from './publishExercise.js';
 const exercise_storage_folder = 'Exercises';
 
@@ -25,7 +27,7 @@ export function buildExerciseData(video, captions, recordedChunks, playbackRate,
     const videoData = {
         videoId: video.videoId,
         title: video.title,
-        url: `https://www.youtube.com/embed/${video.videoId}`,
+        url: getYoutubeUrl(video.videoId),
         intervals: getIntervals(captions),
         playbackRate: playbackRate,
         studentName: 'Anonymous',
