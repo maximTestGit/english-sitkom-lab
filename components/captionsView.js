@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { fetchData, saveDataToLocalStorage, dataPrefixes } from './helpers/fetchData.js';
 import { decodeHtml } from './helpers/presentationUtils.js';
-//import { getIntervals } from './helpers/exerciseHelper.js';
-import { getFetchCaptionsUrl } from './data/configurator.js';
+import { getCaptionsUrl } from './data/configurator.js';
+import { playlistRegistry } from './data/playlistRegistry';
 
-const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaptions }) => {
+const CaptionsView = ({ videoData, exercise, position, onCurrentCaptionChange, onUpdateCaptions }) => {
     const [captions, setCaptions] = useState([]);
     const [currentCaption, setCurrentCaption] = useState(null);
 
@@ -14,27 +14,44 @@ const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaption
         onUpdateCaptions(newCaptions);
     }, [onUpdateCaptions]);
 
-    const determineCaptionChecked = (caption) => 
-    {
+    const determineCaptionChecked = useCallback((caption) => {
         let result = caption && caption.text.startsWith(' ');
+        if (exercise) {
+            let interval = null;
+            for (let i = 0; i < exercise.intervals.length; i++) {
+                interval = exercise.intervals[i];
+                const captionStart = parseFloat(caption.start);
+                const captionEnd = parseFloat(caption.start) + parseFloat(caption.duration);
+                const intervalStart = parseFloat(interval.start);
+                const intervalEnd = parseFloat(interval.end);
+                if (intervalStart <= captionStart &&
+                    intervalEnd >= captionEnd) {
+                    break;
+                } else {
+                    interval = null;
+                }
+            }
+            result = interval !== null && interval.checked;
+        }
         return result;
-    };
-    
+    }, [exercise]);
+
     useEffect(() => {
         const fetchCaptions = async () => {
-            let url = getFetchCaptionsUrl(video.videoId);
-            const captionData = await fetchData(dataPrefixes.captions_data_prefix, video.videoId, url, captions_data_expiration);
+            const playlistData = playlistRegistry.find(playlist => playlist.listId === videoData.playlistId);
+            let url = getCaptionsUrl(videoData.videoId, playlistData.language);
+            const captionData = await fetchData(dataPrefixes.captions_data_prefix, videoData.videoId, url, captions_data_expiration);
             if (captionData) {
-                const captionDataWithChecked = 
+                const captionDataWithChecked =
                     captionData
-                        .map(caption => ({...caption, checked: determineCaptionChecked(caption)}));
+                        .map(caption => ({ ...caption, checked: determineCaptionChecked(caption) }));
                 setCaptionsWrapper(captionDataWithChecked);
             }
         };
         fetchCaptions();
-    }, [video.videoId]);
-    
-    const captionChange = (caption) => {  
+    }, [videoData.videoId]);
+
+    const captionChange = (caption) => {
         const updatedCaptions = captions.map(c => {
             if (c.start === caption.target.id) {
                 const newChecked = !c.checked;
@@ -43,12 +60,12 @@ const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaption
                 } else {
                     c.text = c.text.trim();
                 }
-                return {...c, checked: newChecked};
+                return { ...c, checked: newChecked };
             }
             return c;
         });
         setCaptionsWrapper(updatedCaptions);
-        saveDataToLocalStorage(dataPrefixes.captions_data_prefix, video.videoId, updatedCaptions, captions_data_expiration);
+        saveDataToLocalStorage(dataPrefixes.captions_data_prefix, videoData.videoId, updatedCaptions, captions_data_expiration);
     }
 
     let fPosition = parseFloat(position);
@@ -78,7 +95,7 @@ const CaptionsView = ({ video, position, onCurrentCaptionChange, onUpdateCaption
                                         className="form-check-input"
                                         type="checkbox"
                                         checked={caption.checked}
-                                        onChange={(caption)=> captionChange(caption)}
+                                        onChange={(caption) => captionChange(caption)}
                                     />
                                 </td>
                                 <td>{caption.start}</td>

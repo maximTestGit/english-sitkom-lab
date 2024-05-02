@@ -27,7 +27,7 @@ function removeDataFromStorage(prefix, key) {
 
 function removeDataFromStorageByKey(dataKey) {
     localStorage.removeItem(dataKey);
-    console.log(`Removed data with key ${dataKey} from local storage.`);
+    console.log(`LingFlix: Removed data with key ${dataKey} from local storage.`);
     unregisterDataAtLocalStorageByKey(dataKey);
 }
 
@@ -80,7 +80,7 @@ async function unregisterDataAtLocalStorageByKey(dataKey) {
     // If the item exists in the registry, remove it
     if (index !== -1) {
         registry.splice(index, 1);
-        console.log(`Unregistered data with key ${dataKey} from local storage registry.`);
+        console.log(`LingFlix: Unregistered data with key ${dataKey} from local storage registry.`);
     }
 
     saveDataToLocalStorage(global_data_prefix, 'registry', registry, null);
@@ -101,13 +101,6 @@ export async function saveDataToLocalStorage(prefix, key, data, expirationSec) {
             keys.splice(keyToDelete, 1);
         }
         addDataToLocalStorage(prefix, key, data, expirationSec);
-
-        // if (expirationSec !== null) { // null means infinit cache
-        //     setTimeout(() => {
-        //         removeDataFromStorage(prefix, key);
-        //         console.log(`Removed expired data for key: ${dataKey}`);
-        //     }, expirationSec * 1000); // Convert to milliseconds
-        // }
     }
 }
 
@@ -135,7 +128,7 @@ export async function fetchData(prefix, key, url, expirationSec) {
 export async function cleanUpLocalStorage(deleteAll = false) {
     if (deleteAll) {
         localStorage.clear();
-        console.log('Cleared all data from local storage.');
+        console.log('LingFlix: Cleared all data from local storage.');
     } else {
         const registry = getDataFromLocalStorage(global_data_prefix, 'registry', null) || [];
         const currentTime = Date.now();

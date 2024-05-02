@@ -1,72 +1,161 @@
-import React from 'react';
-import ReactPlayer from 'react-player';
-import WebcamStreamCapture from './webcamStreamCapture';
-import styles from './styles/playerBox.module.css';
+import { React, useState, useRef, useEffect } from 'react';
 import ExerciseStatus from './data/exerciseStatus';
-import {getYoutubeUrl} from './data/configurator.js';
+import { getYoutubeUrl } from './data/configurator';
+import WebcamBox from './webcamBox';
+import WebcamBorderKeeper from './webcamBorderKeeper';
+import MediaUrlPlayer from './mediaUrlPlayer';
 
-const PlayerBox = ({ playerRef, video, exerciseStatus,
+const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
     muted, loop, playbackRate, currentVolume,
     handleOnProgress, handlePlayingEnd, handleStopRecording,
-    cameraWidth=150 }) => 
-{
-    const handleStopRecordingWraper = (recordedChunks) => {
-        handleStopRecording(recordedChunks);
+    clearRecordedChunks, afterClearRecordedChunks
+}) => {
+
+    const [recordedChunks, setRecordedChunks] = useState([]);
+    const [recordedChunksUrl, setRecordedChunksUrl] = useState(null);
+
+    const handleStopRecordingWraper = (chunks) => {
+        setRecordedChunks(chunks);
+
+        if (chunks?.length > 0) {
+            const blob = new Blob(chunks, { type: "video/x-matroska;codecs=avc1,opus" });
+            const videoUrl = window.URL.createObjectURL(blob);
+            setRecordedChunksUrl(videoUrl);
+        }
+        handleStopRecording(chunks);
     };
+
+    const doClearRecording = () => {
+        if (clearRecordedChunks && recordedChunks?.length > 0) {
+            setRecordedChunks([]);
+            setRecordedChunksUrl(null);
+            afterClearRecordedChunks();
+        }
+    };
+
+    if (clearRecordedChunks) {
+        doClearRecording();
+    }
+
+    function parseDataUrl(dataUrl) {
+        const dataContent = dataUrl.split(':')[1];
+        const dataArray = dataContent.split(';');
+
+        const mimeType = dataArray[0];
+        const data = (dataArray[dataArray.length - 1]).split(',')[1]; // To remove "base64," from the data
+        let codecString;
+        if (dataArray.length > 2) {
+            codecString = dataArray[1];
+        }
+        return {
+            mimeType: mimeType,
+            codecs: codecString,
+            data: data
+        };
+    }
+
+    useEffect(() => {
+        if (videoData.videoRecordedChunks?.length > 0) {
+            var exerciseRecordedChunks = videoData.videoRecordedChunks.map(dataUrl => {
+                var parsedDataUrl = parseDataUrl(dataUrl);
+                const byteString = atob(parsedDataUrl.data);
+                const mimeString = `${parseDataUrl.mimeType}; ${parsedDataUrl.codecs}`;//byteArray[0].split(':')[1].split(';')[0];
+                const arrayBuffer = new ArrayBuffer(byteString.length);
+                const uint8Array = new Uint8Array(arrayBuffer);
+                for (let i = 0; i < byteString.length; i++) {
+                    uint8Array[i] = byteString.charCodeAt(i);
+                }
+                return new Blob([uint8Array], { type: mimeString });
+            });
+            handleStopRecordingWraper(exerciseRecordedChunks);
+        }
+
+    }, []);
+
     return (
-        <div id="PlayerArea" className="row border border-secondary" style={{ position: 'relative' }}>
-            <div className="pe-none">
-            <ReactPlayer ref={playerRef}
-                playing={exerciseStatus === ExerciseStatus.PLAYING ||
-                         exerciseStatus === ExerciseStatus.RECORDING}
-                muted={muted}
-                url={getYoutubeUrl(video.videoId)}
-                controls="false"
-                progressInterval={100}
-                onProgress={(state) => handleOnProgress(state)}
-                onEnded={() => handlePlayingEnd()}
-                loop={loop}
-                playbackRate={playbackRate}
-                volume={currentVolume / 100}
-                width="100%"
-            />
+        <div className="row" style={{ position: 'relative' }}>
+            <div id="ExercisePlayerArea" className="pe-none">
+                {recordedChunksUrl && exerciseStatus !== ExerciseStatus.ORIGIN ?
+                    <MediaUrlPlayer playerRef={playerRef}
+                        url={recordedChunksUrl}
+                        playing={exerciseStatus === ExerciseStatus.PLAYING
+                            || exerciseStatus === ExerciseStatus.ORIGIN
+                            || exerciseStatus === ExerciseStatus.RECORDING}
+                        exerciseStatus={exerciseStatus}
+                        loop={loop}
+                        //onProgress={(state) => handleOnProgress(state)}
+                        onEnded={() => handlePlayingEnd()}
+                        width="100%"
+                    />
+                    :
+                    <MediaUrlPlayer playerRef={playerRef}
+                        url={getYoutubeUrl(videoData.videoId)}
+                        playing={exerciseStatus === ExerciseStatus.PLAYING
+                            || exerciseStatus === ExerciseStatus.ORIGIN
+                            || exerciseStatus === ExerciseStatus.RECORDING}
+                        exerciseStatus={exerciseStatus}
+                        muted={muted}
+                        loop={loop}
+                        playbackRate={playbackRate}
+                        onProgress={(state) => handleOnProgress(state)}
+                        onEnded={() => handlePlayingEnd()}
+                        volume={currentVolume}
+                        width="100%"
+                    />
+                }
             </div>
-            <div id="WebcamArea" style={{
+
+            {recordedChunksUrl && exerciseStatus !== ExerciseStatus.ORIGIN ?
+                <div id="FaceAreaRecorded" style={{
                     position: 'absolute',
                     top: 0,
-                    left: -11,
-                    width: {cameraWidth},
+                    left: 0,
+                    width: 200,
+                    height: 150,
                     backgroundColor: 'transparent',
+                    //border: '1px solid blue',
                     zIndex: 9990
                 }}>
-                <WebcamStreamCapture
-                    width={cameraWidth}
-                    recording={exerciseStatus === ExerciseStatus.RECORDING}
-                    clearRecord={false}
-                    onEndCapturing={handleStopRecordingWraper}
-                />
-            </div>
-            <div id="StatusLabelArea" style={{
-                position: 'absolute',
-                top: cameraWidth*0.7-8,
-                left: 10,
-                width: cameraWidth*0.8,
-                height: '25px',
-                backgroundColor: 'white',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                zIndex: 9999
-            }}>
-                {exerciseStatus === ExerciseStatus.RECORDING ?
-                    (
-                        <label className={styles.blinking}>Recording...</label>
-                    ) : (
-                        <label className={styles.dark}>Camera View</label>
-                    )}
-            </div>
+                    <MediaUrlPlayer
+                        playerRef={recPlayerRef}
+                        url={getYoutubeUrl(videoData.videoId)}
+                        playing={exerciseStatus === ExerciseStatus.PLAYING
+                            || exerciseStatus === ExerciseStatus.ORIGIN
+                            || exerciseStatus === ExerciseStatus.RECORDING}
+                        muted={muted}
+                        volume={currentVolume}
+                        loop={loop}
+                        playbackRate={playbackRate}
+                        width={220}
+                        height={170}
+                        onProgress={(state) => handleOnProgress(state)}
+                    />
+                </div>
+
+                :
+                <div id="FaceAreaView" style={{
+                    position: 'absolute',
+                    top: -15,
+                    left: -50,
+                    width: 150,
+                    height: 100,
+                    backgroundColor: 'transparent',
+                    //border: '1px solid blue',
+                    zIndex: 9990
+                }}>
+                    <WebcamBorderKeeper zIndex={9999} />
+                    <WebcamBox
+                        loop={loop}
+                        cameraWidth={150}
+                        exerciseStatus={exerciseStatus}
+                        onStopRecording={handleStopRecordingWraper}
+                        zIndex={9991}
+                    />
+                </div>
+            }
         </div>
     );
 };
 
 export default PlayerBox;
+

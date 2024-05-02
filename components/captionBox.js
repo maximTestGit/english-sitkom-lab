@@ -8,7 +8,7 @@ const CaptionBox = ({ caption }) => {
         <table className={`table table-bordered text-center ${caption.checked ? "table-warning" : ""}`}>
             <tbody>
                 <tr>
-                    <td className="fw-bold fs-5">
+                    <td className="fw-bold fs-6">
                         {decodeHtml(caption.text)}
                     </td>
                 </tr>

@@ -1,10 +1,15 @@
-import { getYoutubeUrl } from "../data/configurator";
+import { getYoutubeUrl, saveExerciseUrl } from "../data/configurator";
+import { playlistRegistry } from './../data/playlistRegistry';
 
 //import publishExercise from './publishExercise.js';
 const exercise_storage_folder = 'Exercises';
 
 export function jumpToStart(playerRef) {
-    playerRef.current.seekTo(0, 'fraction');
+    try {
+        playerRef?.current?.seekTo(0, 'fraction');
+    } catch (error) {
+        console.log(`LingFlix: Error in jumpToStart(${playerRef.current}): ${error}`);
+    }
 };
 
 export function handleSaveExercise(video, captions, recordedChunks, playbackRate, youLinePlaybackRate) {
@@ -15,22 +20,26 @@ export function handleSaveExercise(video, captions, recordedChunks, playbackRate
             }
         );
 }
-export function handlePublishExercise(video, captions, recordedChunks, playbackRate, youLinePlaybackRate) {
-    buildExerciseData(video, captions, recordedChunks, playbackRate, youLinePlaybackRate)
+export function handleShareExercise(video, captions, recordedChunks, playbackRate, youLinePlaybackRate, emailAddress, studentName) {
+    buildExerciseData(video, captions, recordedChunks, playbackRate, youLinePlaybackRate, emailAddress, studentName)
         .then(videoData => 
             {
                 publishJsonToCloud(videoData);
             }
         );
 }
-export function buildExerciseData(video, captions, recordedChunks, playbackRate, youLinePlaybackRate) {
+export function buildExerciseData(video, captions, recordedChunks, playbackRate, youLinePlaybackRate, emailAddress, studentName) {
+    const playlistData = playlistRegistry.find(playlist => playlist.listId === video.playlistId);
+    const language = playlistData.language;
     const videoData = {
         videoId: video.videoId,
         title: video.title,
         url: getYoutubeUrl(video.videoId),
         intervals: getIntervals(captions),
         playbackRate: playbackRate,
-        studentName: 'Anonymous',
+        studentName: studentName,
+        emailAddress: emailAddress,
+        playlistId: video.playlistId,
         uncheckedCaptions: [],
         captions: undefined,
         lengthSeconds: undefined,
@@ -38,7 +47,7 @@ export function buildExerciseData(video, captions, recordedChunks, playbackRate,
         videoRecordedChunks: [],
         notes: [],
         yourLanguage: undefined,
-        studyLanguage: undefined,
+        studyLanguage: language,
         yourLineEffect: undefined,
         shadowingVolume: undefined,
         yourLineRate: youLinePlaybackRate,
@@ -69,14 +78,14 @@ export function getIntervals(captions) {
     if (captions.length > 0) {
         result.push(
             {
-                // @ts-ignore
-                start: parseFloat(captions[0].start),
-                // @ts-ignore
-                end: parseFloat(captions[0].start) + parseFloat(captions[0].duration),
-                // @ts-ignore
-                checked: captions[0].checked,
-                count: 1,
-                index: index++
+            // @ts-ignore
+            start: parseFloat(captions[0].start).toFixed(3),
+            // @ts-ignore
+            end: (parseFloat(captions[0].start) + parseFloat(captions[0].duration)).toFixed(3),
+            // @ts-ignore
+            checked: captions[0].checked,
+            count: 1,
+            index: index++
             }
         );
         for (let i = 1; i < captions.length; i++) {
@@ -122,11 +131,14 @@ export async function publishJsonToCloud(videoData) {
     // const jsonBlob = new Blob([jsonData], { type: 'application/json' });
     // const jsonUrl = URL.createObjectURL(jsonBlob);
 
-let safeTitle = videoData.title.replace(/['<>:"/\\|?*]+/g, '') + (videoData.videoRecordedChunks.length > 0 ? '-homework' : '-exercise');
-safeTitle = safeTitle.replace(/ /g, '-');
-
+    let safeTitle = videoData.title.replace(/['<>:"/\\|?*]+/g, '') + (videoData.videoRecordedChunks.length > 0 ? '-homework' : '-exercise');
+    safeTitle = safeTitle.replace(/ /g, '-');
+    const randomSuffixLen5 = Math.floor(Math.random() * 100000);
     try {
-        await publishExercise(exercise_storage_folder, `${safeTitle}.json`, jsonData);
+        await publishExercise(
+            exercise_storage_folder, 
+            `${safeTitle}-${videoData.studentName}-${randomSuffixLen5}.json`, 
+            jsonData);
     } catch (error) {
         console.error(`Error publishing to cloud: ${error}`);
     }
@@ -142,7 +154,7 @@ export async function publishExercise(folderName, fileName, data) {
         const bodyJson = JSON.stringify(requestBody, null, 2);
         const response = 
             await fetch(
-                'https://us-central1-youtube-project-404109.cloudfunctions.net/function-save-exercise', 
+                saveExerciseUrl(), 
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'text/plain', 'Accept': '*/*' },
@@ -153,8 +165,8 @@ export async function publishExercise(folderName, fileName, data) {
         throw new Error(`Error saving file: ${response.statusText}`);
       }
   
-      console.log('File saved successfully!');
-      alert('Exercise published successfully!');
+      console.log('LingFlix: File saved successfully!');
+      //alert('Exercise published successfully!');
     } catch (error) {
       console.error('Error saving file:', error);
       alert('Error publishing exercise. Please try again later.');

@@ -1,6 +1,6 @@
-const VideoRow = ({ video, selectVideo }) => {
+const VideoRow = ({ video, onSelectVideo }) => {
     return (
-        <tr onClick={() => selectVideo(video)}>
+        <tr onClick={() => onSelectVideo(video)}>
             <td>
                 <img src={video.thumbnail} alt={video.title} />
             </td>

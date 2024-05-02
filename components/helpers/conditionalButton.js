@@ -5,7 +5,8 @@ const ConditionalButton = ({ condition=true,
         className, antiClassName=null, 
         onClick, antiOnClick=null, 
         children=null,
-        antiChildren=null }) => 
+        antiChildren=null,
+        dataToggle=null, dataTarget=null }) => 
     {
         let buttonClassName = (condition || !antiClassName) ? className : antiClassName;
         const buttonChildren = (condition || !antiChildren)? children : antiChildren;
@@ -15,7 +16,10 @@ const ConditionalButton = ({ condition=true,
         }
 
         return (
-            <button className={buttonClassName} onClick={buttonOnClick}>
+            <button className={buttonClassName}  
+            {...(dataToggle && { 'data-toggle': dataToggle })}
+            {...(dataTarget && { 'data-target': dataTarget })}
+            onClick={buttonOnClick}>
                 {buttonChildren}
             </button>
         );

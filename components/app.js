@@ -5,9 +5,8 @@ import ExerciseView from "./exerciseView";
 import { cleanUpLocalStorage } from './helpers/fetchData.js';
 
 const App = () => {
-  const [selectedVideo, setSelectedVideo] = useState();
-  const [recording, setRecording] = useState(false);
-  const [clearRecord, setClearRecord] = useState(false);
+  const [videoData, setVideoData] = useState(null);
+  const [selectedPlaylistId, setSelectedPlaylistId] = useState(null);
 
 
   useEffect(() => {
@@ -18,18 +17,41 @@ const App = () => {
     initApp();
   }, []);
 
-  const setSelectedVideoWrapper = (video) => {
-    setSelectedVideo(video);
-    setClearRecord(true);
+  const setSelectedVideoWrapper = (video, playlistId) => {
+    const videoData = {
+      videoId: video.videoId,
+      title: video.title,
+      yourLineRate: video.yourLineRate,
+      videoRecordedChunks: video.videoRecordedChunks,
+      intervals: video.intervals,
+      playlistId: playlistId,
+    };
+    setVideoData(videoData);
+    setSelectedPlaylistIdWrapper(playlistId);
+  };
+
+  const handleExerciseExit = () => {
+    setVideoData(null);
+  }
+
+  const setSelectedPlaylistIdWrapper = (playlistId) => {
+    setSelectedPlaylistId(playlistId);
   };
 
   return (
     <>
       <Banner />
-      {selectedVideo ? (
-        <ExerciseView video={selectedVideo} selectVideo={setSelectedVideoWrapper} />
+      {videoData ? (
+        <ExerciseView 
+          videoData={videoData} 
+          onExit={handleExerciseExit} 
+        />
       ) : (
-        <VideoList selectVideo={setSelectedVideoWrapper} />
+        <VideoList 
+          playlistId={selectedPlaylistId}
+          onSelectVideo={setSelectedVideoWrapper} 
+          onSelectPlaylistId={setSelectedPlaylistIdWrapper} 
+        />
       )}
     </>
   );

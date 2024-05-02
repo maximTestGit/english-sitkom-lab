@@ -3,7 +3,7 @@ import React from 'react';
 const Switch = ({ id, label, onChange, initValue }) => {
   const handleOnChange = (event) => {
     onChange(event.target.checked);
-    console.log(`Switch ${id} toggled.`);
+    console.log(`LingFlix: Switch ${id} toggled.`);
   };
 
   return (

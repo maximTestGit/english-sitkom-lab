@@ -1,7 +1,9 @@
 import React from 'react';
 import Switch from './helpers/switch';
 
-const PlaybackSettings = ({ initLoop, initShowCaptions, initYourLineSourceVolume, onLoopChange, onShowCaptionsChange, onYourLinePlaybackRateChange, onYourLineSourceVolumeChange }) => {
+const PlaybackSettings = ({ initLoop, initShowCaptions, 
+    initYourLineSourceVolume="0.0", initYourLinePlaybackRate="1.0",
+    onLoopChange, onShowCaptionsChange, onYourLinePlaybackRateChange, onYourLineSourceVolumeChange }) => {
     const handleYourLinePlaybackRateChange = (event) => {
         const newPlaybackRate = parseFloat(event.target.value);
         onYourLinePlaybackRateChange(newPlaybackRate);
@@ -20,8 +22,9 @@ const PlaybackSettings = ({ initLoop, initShowCaptions, initYourLineSourceVolume
             </div>
             <div className="col">
                 <select className="form-select form-select-sm"
-                    onChange={handleYourLinePlaybackRateChange}>
-                    <option value="0.5" selected>Your Playback:</option>
+                    onChange={handleYourLinePlaybackRateChange}
+                    value={initYourLinePlaybackRate}>
+                    <option value="1.0">Your Playback:</option>
                     <option value="0.4">0.4</option>
                     <option value="0.5">0.5</option>
                     <option value="0.6">0.6</option>
@@ -35,8 +38,9 @@ const PlaybackSettings = ({ initLoop, initShowCaptions, initYourLineSourceVolume
             </div>
             <div className="col">
                 <select className="form-select form-select-sm"
-                    onChange={handleSourceVolumeChange}>
-                    <option value={initYourLineSourceVolume} selected>Source Volume:</option>
+                    onChange={handleSourceVolumeChange}
+                    value={initYourLineSourceVolume}>
+                    <option value="1.0">Source Volume:</option>
                     <option value="0.0">mute</option>
                     <option value="1.0">1.0</option>
                     <option value="2.0">2.0</option>
