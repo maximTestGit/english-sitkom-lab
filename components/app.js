@@ -3,6 +3,7 @@ import Banner from "./banner";
 import VideoList from "./videoList";
 import ExerciseView from "./exerciseView";
 import { cleanUpLocalStorage } from './helpers/fetchData.js';
+import { buildExerciseRecordedChunks } from './helpers/exerciseHelper.js';
 
 const App = () => {
   const [videoData, setVideoData] = useState(null);
@@ -18,11 +19,15 @@ const App = () => {
   }, []);
 
   const setSelectedVideoWrapper = (video, playlistId) => {
+    let homeworkRecordedChunks = [];
+    if (video.videoRecordedChunks?.length > 0) {
+      homeworkRecordedChunks = buildExerciseRecordedChunks(video.videoRecordedChunks);
+    }
     const videoData = {
       videoId: video.videoId,
       title: video.title,
       yourLineRate: video.yourLineRate,
-      videoRecordedChunks: video.videoRecordedChunks,
+      videoRecordedChunks: homeworkRecordedChunks,
       intervals: video.intervals,
       playlistId: playlistId,
     };
@@ -42,15 +47,15 @@ const App = () => {
     <>
       <Banner />
       {videoData ? (
-        <ExerciseView 
-          videoData={videoData} 
-          onExit={handleExerciseExit} 
+        <ExerciseView
+          videoData={videoData}
+          onExit={handleExerciseExit}
         />
       ) : (
-        <VideoList 
+        <VideoList
           playlistId={selectedPlaylistId}
-          onSelectVideo={setSelectedVideoWrapper} 
-          onSelectPlaylistId={setSelectedPlaylistIdWrapper} 
+          onSelectVideo={setSelectedVideoWrapper}
+          onSelectPlaylistId={setSelectedPlaylistIdWrapper}
         />
       )}
     </>

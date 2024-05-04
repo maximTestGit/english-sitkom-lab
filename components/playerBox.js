@@ -6,7 +6,7 @@ import WebcamBorderKeeper from './webcamBorderKeeper';
 import MediaUrlPlayer from './mediaUrlPlayer';
 
 const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
-    muted, loop, playbackRate, currentVolume,
+    muted, loop, currentPlaybackRate, currentVolume,
     handleOnProgress, handlePlayingEnd, handleStopRecording,
     clearRecordedChunks, afterClearRecordedChunks
 }) => {
@@ -37,37 +37,9 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
         doClearRecording();
     }
 
-    function parseDataUrl(dataUrl) {
-        const dataContent = dataUrl.split(':')[1];
-        const dataArray = dataContent.split(';');
-
-        const mimeType = dataArray[0];
-        const data = (dataArray[dataArray.length - 1]).split(',')[1]; // To remove "base64," from the data
-        let codecString;
-        if (dataArray.length > 2) {
-            codecString = dataArray[1];
-        }
-        return {
-            mimeType: mimeType,
-            codecs: codecString,
-            data: data
-        };
-    }
-
     useEffect(() => {
         if (videoData.videoRecordedChunks?.length > 0) {
-            var exerciseRecordedChunks = videoData.videoRecordedChunks.map(dataUrl => {
-                var parsedDataUrl = parseDataUrl(dataUrl);
-                const byteString = atob(parsedDataUrl.data);
-                const mimeString = `${parseDataUrl.mimeType}; ${parsedDataUrl.codecs}`;//byteArray[0].split(':')[1].split(';')[0];
-                const arrayBuffer = new ArrayBuffer(byteString.length);
-                const uint8Array = new Uint8Array(arrayBuffer);
-                for (let i = 0; i < byteString.length; i++) {
-                    uint8Array[i] = byteString.charCodeAt(i);
-                }
-                return new Blob([uint8Array], { type: mimeString });
-            });
-            handleStopRecordingWraper(exerciseRecordedChunks);
+           handleStopRecordingWraper(videoData.videoRecordedChunks);
         }
 
     }, []);
@@ -96,7 +68,7 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                         exerciseStatus={exerciseStatus}
                         muted={muted}
                         loop={loop}
-                        playbackRate={playbackRate}
+                        playbackRate={currentPlaybackRate}
                         onProgress={(state) => handleOnProgress(state)}
                         onEnded={() => handlePlayingEnd()}
                         volume={currentVolume}
@@ -125,7 +97,7 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                         muted={muted}
                         volume={currentVolume}
                         loop={loop}
-                        playbackRate={playbackRate}
+                        playbackRate={currentPlaybackRate}
                         width={220}
                         height={170}
                         onProgress={(state) => handleOnProgress(state)}

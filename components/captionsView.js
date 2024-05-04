@@ -4,7 +4,7 @@ import { decodeHtml } from './helpers/presentationUtils.js';
 import { getCaptionsUrl } from './data/configurator.js';
 import { playlistRegistry } from './data/playlistRegistry';
 
-const CaptionsView = ({ videoData, exercise, position, onCurrentCaptionChange, onUpdateCaptions }) => {
+const CaptionsView = ({ videoData, position, onCurrentCaptionChange, onUpdateCaptions }) => {
     const [captions, setCaptions] = useState([]);
     const [currentCaption, setCurrentCaption] = useState(null);
 
@@ -16,10 +16,10 @@ const CaptionsView = ({ videoData, exercise, position, onCurrentCaptionChange, o
 
     const determineCaptionChecked = useCallback((caption) => {
         let result = caption && caption.text.startsWith(' ');
-        if (exercise) {
+        if (videoData && videoData.intervals?.length>0) {
             let interval = null;
-            for (let i = 0; i < exercise.intervals.length; i++) {
-                interval = exercise.intervals[i];
+            for (let i = 0; i < videoData.intervals.length; i++) {
+                interval = videoData.intervals[i];
                 const captionStart = parseFloat(caption.start);
                 const captionEnd = parseFloat(caption.start) + parseFloat(caption.duration);
                 const intervalStart = parseFloat(interval.start);
@@ -34,7 +34,7 @@ const CaptionsView = ({ videoData, exercise, position, onCurrentCaptionChange, o
             result = interval !== null && interval.checked;
         }
         return result;
-    }, [exercise]);
+    }, [videoData]);
 
     useEffect(() => {
         const fetchCaptions = async () => {
@@ -98,7 +98,7 @@ const CaptionsView = ({ videoData, exercise, position, onCurrentCaptionChange, o
                                         onChange={(caption) => captionChange(caption)}
                                     />
                                 </td>
-                                <td>{caption.start}</td>
+                                <td>{parseFloat(caption.start).toFixed(3)}</td>
                                 <td>{decodeHtml(caption.text)}</td>
                             </tr>
                         );

@@ -9,34 +9,42 @@ import { jumpToStart, handleSaveExercise, handleShareExercise } from './helpers/
 import Modal from 'react-bootstrap/Modal';
 
 const ExerciseView = ({ videoData, onExit }) => {
-    const default_playback_rate = 1.0;
-    const default_volume = 50;
-    const default_your_line_volume = 1.0;
-    const recording_your_line_volume = 0.0;
+    const default_playback_rate = 1.0; // 1x speed
+    const default_your_line_playback_rate = 1.0; // 1x speed
+
+    const default_volume = 50.0; // 50% of the volume
+    const default_your_line_volume = 1.0; // 1% of the volume
+    const recording_your_line_volume = 0.0; // mute
 
     // #region States
     const [muted, setMuted] = useState(false);
     const [position, setPosition] = useState(0);
     const [currentCaption, setCurrentCaption] = useState(null);
     const [loop, setLoop] = useState(false);
-    const [loopPreRec, setLoopPreRec] = useState(loop);
     const [showCaptions, setShowCaptions] = useState(true);
-    const [youLinePlaybackRate, setYoulinePlaybackRate] = useState(default_playback_rate);
-    const [playbackRate, setPlaybackRate] = useState(default_playback_rate);
-    const [yourLineSourceVolume, setYourLineSourceVolume] = useState(default_your_line_volume);
-    const [yourLineSourceVolumePreRec, setYourLineSourceVolumePreRec] = useState(yourLineSourceVolume);
-    const [sourceVolume, setSourceVolume] = useState(default_volume);
-    const [currentVolume, setCurrentVolume] = useState(default_volume);
     const [exerciseStatus, setExerciseStatus] = useState(ExerciseStatus.STOPPED);
     const [captions, setCaptions] = useState([]);
     const [recordedChunks, setRecordedChunks] = useState([]);
     const [clearRecordedChunks, setClearRecordedChunks] = useState(false);
+
+    const [sourcePlaybackRate, setSourcePlaybackRate] = useState(default_playback_rate); // rate of youtube lines during origing/exercise/recording
+    const [youLinePlaybackRate, setYouLinePlaybackRate] = useState(videoData.yourLineRate ? videoData.yourLineRate : default_your_line_playback_rate); // rate of your line during exercise/recording
+    const [currentPlaybackRate, setCurrentPlaybackRate] = useState(sourcePlaybackRate); // current, can be sourcePlaybackRate or youLinePlaybackRate
+
+    const [sourceVolume, setSourceVolume] = useState(default_volume); // volume of youtube lines during origing/exercise/recording
+    const [yourLineSourceVolume, setYourLineSourceVolume] = useState(default_your_line_volume); // volume of your line during origing/exercise/recording
+    const [currentVolume, setCurrentVolume] = useState(sourceVolume); // current, can be sourceVolume or yourLineSourceVolume
+
+    // save parameters before recording
+    const [loopPreRec, setLoopPreRec] = useState(loop);
+    const [yourLineSourceVolumePreRec, setYourLineSourceVolumePreRec] = useState(yourLineSourceVolume);
 
     const [showEmailForm, setShowEmailForm] = useState(false); // State variable to control modal visibility
     const [emailAddress, setEmailAddress] = useState(null); // State variable to store email address
     const [studentName, setStudentName] = useState('Unknown'); // State variable to store student name
     const emailInputRef = useRef(null);
     const nameInputRef = useRef(null);
+    const unlistedInputRef = useRef(false);
 
     const playerRef = useRef(null);
     const recPlayerRef = useRef(null);
@@ -44,34 +52,43 @@ const ExerciseView = ({ videoData, onExit }) => {
     // #endregion States
 
     // #region Exercise flow
+    const setCurrentVolumeWrapper = (volume) => {
+        setCurrentVolume(volume);
+        setMuted(volume === 0);
+    };
+
     const setPlayingCaption = (caption) => {
-        setCurrentCaption(caption);
-        setYoulinePlaybackRateValue(caption);
-        setVolumeValue(caption);
-    };
-
-    const setYoulinePlaybackRateValue = (caption) => {
-        if (caption && exerciseStatus !== ExerciseStatus.ORIGIN && caption.checked) {
-            if (playbackRate !== youLinePlaybackRate) {
-                setPlaybackRate(youLinePlaybackRate);
-            }
-        } else if (playbackRate !== default_playback_rate) {
-            setPlaybackRate(default_playback_rate);
-        }
-    };
-
-    const setVolumeValue = (caption) => {
-        let newVolume = 0;
-        if (recordedChunks?.length>0 && exerciseStatus !== ExerciseStatus.ORIGIN && caption.checked) {
-            newVolume = recording_your_line_volume;
-        } else if (caption && exerciseStatus !== ExerciseStatus.ORIGIN && caption.checked) {
-            newVolume = yourLineSourceVolume;
+        if (caption) {
+            setCurrentCaption(caption);
+            setCurrentPlaybackRateByCaption(caption);
+            setCurrentVolumeByCaption(caption);
         } else {
-            newVolume = sourceVolume;
+            setCurrentCaption(null);
+            setCurrentPlaybackRate(sourcePlaybackRate);
+            setCurrentVolumeWrapper(sourceVolume);
         }
-        console.log(`LingFlix: SetVolume: ${newVolume} caption:${caption?.text} checked:${caption?.checked}`); 
-        setCurrentVolume(newVolume);
-        setMuted(newVolume === 0);
+    };
+
+    const setCurrentPlaybackRateByCaption = (caption) => {
+        let newValue = sourcePlaybackRate;
+        if (exerciseStatus !== ExerciseStatus.ORIGIN && caption?.checked) {
+            newValue = youLinePlaybackRate;
+        }
+        if (newValue !== currentPlaybackRate) {
+            console.log(`LingFlix: SetPlaybackRate: ${newValue} caption:${caption?.text} checked:${caption?.checked}`);
+            setCurrentPlaybackRate(newValue);
+        }
+    };
+
+    const setCurrentVolumeByCaption = (caption) => {
+        let newVolume = sourceVolume;
+        if (exerciseStatus !== ExerciseStatus.ORIGIN && caption?.checked) {
+            newVolume = yourLineSourceVolume;
+        }
+        if (newVolume !== currentVolume) {
+            console.log(`LingFlix: SetVolume: ${newVolume} caption:${caption?.text} checked:${caption?.checked}`);
+            setCurrentVolumeWrapper(newVolume);
+        }
     };
 
     const handleUpdateCaptions = (captions) => {
@@ -81,6 +98,10 @@ const ExerciseView = ({ videoData, onExit }) => {
     // #endregion Exercise flow
 
     // #region Exercise settings
+    const setYoulinePlaybackRateWrapper = (rate) => {
+        setYouLinePlaybackRate(rate);
+    };
+
     const handleLoopChange = (checked) => {
         console.log(`LingFlix: Loop ${loop} changed to ${checked} current playerRef.current;${playerRef.current.loop}`);
         setLoop(checked);
@@ -91,7 +112,7 @@ const ExerciseView = ({ videoData, onExit }) => {
     };
 
     const handleYourLinePlaybackRateChange = (rate) => {
-        setYoulinePlaybackRate(parseFloat(rate));
+        setYoulinePlaybackRateWrapper(parseFloat(rate));
     };
 
     const handleYourLineSourceVolumeChange = (volume) => {
@@ -124,11 +145,11 @@ const ExerciseView = ({ videoData, onExit }) => {
     const startPlay = (origin = false) => {
         jumpToStart(playerRef);
         jumpToStart(recPlayerRef);
-        setCurrentVolume(default_volume);
+        setCurrentVolumeWrapper(default_volume);
         setExerciseStatus(origin ? ExerciseStatus.ORIGIN : ExerciseStatus.PLAYING);
     };
     const stopPlay = () => {
-        setCurrentVolume(sourceVolume);
+        setCurrentVolumeWrapper(sourceVolume);
         setExerciseStatus(ExerciseStatus.STOPPED);
     };
     // #endregion Play/Stop
@@ -136,23 +157,32 @@ const ExerciseView = ({ videoData, onExit }) => {
     // #region Recording
     const handleStartRecording = () => {
         if (exerciseStatus === ExerciseStatus.STOPPED) {
-            setLoopPreRec(loop);
-            setYourLineSourceVolumePreRec(yourLineSourceVolume);
-            setLoop(false);
-            setYourLineSourceVolume(recording_your_line_volume);
-            handleClearRecording();
-            startPlay();
-            setExerciseStatus(ExerciseStatus.RECORDING);
+            if (recordedChunks.length > 0) {
+                alert('You have already recorded something. Please clear recording first.("Clear Record" button)');
+            } else {
+                setLoopPreRec(loop);
+                setLoop(false);
+
+                setYourLineSourceVolumePreRec(yourLineSourceVolume);
+                if (parseFloat(captions[0].start) < 0.2) {
+                    setPlayingCaption(captions[0]);
+                } else {
+                    setPlayingCaption(null);
+                }
+
+                startPlay();
+                setExerciseStatus(ExerciseStatus.RECORDING);
+            }
         }
     };
-    const handleStopRecording = (chunks) => {
-        if (exerciseStatus === ExerciseStatus.RECORDING) {
-            setLoop(loopPreRec);
-            setYourLineSourceVolume(yourLineSourceVolumePreRec);
-            stopPlay();
-            setExerciseStatus(ExerciseStatus.STOPPED);
-            setRecordedChunks(chunks);
-        }
+    const saveRecording = (chunks) => {
+        //if (exerciseStatus === ExerciseStatus.RECORDING) {
+        setLoop(loopPreRec);
+        setYourLineSourceVolume(yourLineSourceVolumePreRec);
+        stopPlay();
+        setExerciseStatus(ExerciseStatus.STOPPED);
+        setRecordedChunks(chunks);
+        //}
         setClearRecordedChunks(false);
     };
     const handleClearRecording = () => {
@@ -161,16 +191,19 @@ const ExerciseView = ({ videoData, onExit }) => {
 
     const afterClearRecordedChunks = () => {
         setRecordedChunks([]);
+        videoData.videoRecordedChunks = [];
         setClearRecordedChunks(false);
     }
     // #endregion Recording
 
     // start playing on the first open
     useEffect(() => {
-        if (videoData) {
-            if (videoData.yourLineRate && videoData.yourLineRate !== youLinePlaybackRate) {
-                setYoulinePlaybackRate(videoData.yourLineRate);
-            }
+        if (videoData.yourLineRate && videoData.yourLineRate !== youLinePlaybackRate) {
+            setYoulinePlaybackRateWrapper(videoData.yourLineRate);
+        } 
+        if (videoData.videoRecordedChunks?.length > 0) {
+            saveRecording(videoData.videoRecordedChunks);
+            setYourLineSourceVolume(recording_your_line_volume);
         } else {
             startPlay(true);
         }
@@ -183,8 +216,9 @@ const ExerciseView = ({ videoData, onExit }) => {
         if (emailInputRef.current) {
             const emailToSend = emailInputRef.current.value;
             const name = nameInputRef.current.value;
+            const isUnlistedVideo = unlistedInputRef.current.checked;
             setShowEmailForm(false);
-            handleShareExercise(videoData, captions, recordedChunks, playbackRate, youLinePlaybackRate, emailToSend, name);
+            handleShareExercise(videoData, captions, recordedChunks, currentPlaybackRate, youLinePlaybackRate, name, emailToSend, isUnlistedVideo);
             setEmailAddress(emailToSend);
             setStudentName(name);
         }
@@ -219,11 +253,11 @@ const ExerciseView = ({ videoData, onExit }) => {
                             muted={muted}
                             videoData={videoData}
                             loop={loop}
-                            playbackRate={playbackRate}
+                            currentPlaybackRate={currentPlaybackRate}
                             currentVolume={currentVolume}
                             handleOnProgress={handleOnProgress}
                             handlePlayingEnd={handlePlayingEnd}
-                            handleStopRecording={handleStopRecording}
+                            handleStopRecording={saveRecording}
                             clearRecordedChunks={clearRecordedChunks}
                             afterClearRecordedChunks={afterClearRecordedChunks}
                         />
@@ -248,7 +282,8 @@ const ExerciseView = ({ videoData, onExit }) => {
                     <div id="ControlsArea" className="btn-group mb-1" role="group" >
 
                         <ConditionalButton
-                            className="btn btn-danger"
+                            className="btn btn-danger border border-dark rounded"
+                            hint='Return to the Playlist view'
                             onClick={() => onExit()}
                         >
                             Back
@@ -258,23 +293,25 @@ const ExerciseView = ({ videoData, onExit }) => {
                             condition={exerciseStatus !== ExerciseStatus.ORIGIN}
                             isDisabled={exerciseStatus === ExerciseStatus.RECORDING
                                 || exerciseStatus === ExerciseStatus.PLAYING}
-                            className="btn btn-success"
+                            className="btn btn-success border border-dark rounded"
+                            hint={'View the original video on YouTube'}
                             onClick={() => startPlay(true)}
                             antiOnClick={() => stopPlay()}
                             antiChildren={'Stop'}
-                        >YouTube
+                        >Play YouTube
                         </ConditionalButton>
 
                         <ConditionalButton
                             condition={exerciseStatus !== ExerciseStatus.PLAYING}
                             isDisabled={exerciseStatus === ExerciseStatus.RECORDING
                                 || exerciseStatus === ExerciseStatus.ORIGIN}
-                            className="btn btn-success"
+                            className="btn btn-success border border-dark rounded"
+                            hint={(recordedChunks?.length > 0) ? 'Play your recording' : 'Play exercise'}
                             onClick={() => startPlay()}
                             antiOnClick={() => stopPlay()}
                             antiChildren={'Stop'}
                         >
-                            Play
+                            {(recordedChunks?.length > 0) ? 'Play Record' : 'Play Exercise'}
                         </ConditionalButton>
 
                         <ConditionalButton
@@ -282,37 +319,43 @@ const ExerciseView = ({ videoData, onExit }) => {
                             isDisabled={exerciseStatus === ExerciseStatus.PLAYING
                                 ||
                                 exerciseStatus === ExerciseStatus.ORIGIN}
-                            className="btn btn-success"
+                            className="btn btn-success border border-dark rounded"
+                            hint={'Start recording'}
                             onClick={() => handleStartRecording()}
-                            antiOnClick={() => handleStopRecording()}
+                            antiOnClick={() => saveRecording()}
                             antiChildren={'Stop'} >
-                            Record
+                            Start Record
                         </ConditionalButton>
 
                         <ConditionalButton
                             condition={true}
                             dataToggle="modal" dataTarget="#emailModal"
                             isDisabled={exerciseStatus !== ExerciseStatus.STOPPED}
-                            className="btn btn-success"
-                            onClick={() => handleShareExerciseWrapper(videoData, captions, recordedChunks, default_playback_rate, youLinePlaybackRate)}
+                            className="btn btn-success border border-dark rounded"
+                            hint={(recordedChunks?.length > 0) ? 'Share your homework' : 'Share your exercise'}
+                            onClick={() => handleShareExerciseWrapper(videoData, captions, recordedChunks, sourcePlaybackRate, youLinePlaybackRate)}
                         >
-                            Share
+                            {(recordedChunks?.length > 0) ? 'Share Record' : 'Share Exercise'}
                         </ConditionalButton>
 
                         <ConditionalButton
                             isDisabled={exerciseStatus !== ExerciseStatus.STOPPED}
-                            className="btn btn-success" antiClassName="btn btn-success"
-                            onClick={() => handleSaveExercise(videoData, captions, recordedChunks, default_playback_rate, youLinePlaybackRate)}
+                            className="btn btn-success border border-dark rounded"
+                            antiClassName="btn btn-success border border-dark rounded"
+                            hint={(recordedChunks?.length > 0) ? 'Save your Recording to a local File' : 'Save your Exercise to a local File'}
+                            onClick={() => handleSaveExercise(videoData, captions, recordedChunks, sourcePlaybackRate, youLinePlaybackRate)}
                         >
-                            Save
+                            Save File
                         </ConditionalButton>
 
                         <ConditionalButton
-                            isDisabled={exerciseStatus !== ExerciseStatus.STOPPED}
-                            className="btn btn-success" antiClassName="btn btn-success"
+                            isDisabled={!recordedChunks || recordedChunks.length === 0}
+                            className="btn btn-success border border-dark rounded"
+                            antiClassName="btn btn-success border border-dark"
+                            hint="This will clear the recording and cannot be undone."
                             onClick={() => handleClearRecording()}
                         >
-                            Clear
+                            Clear Record
                         </ConditionalButton>
                     </div>
 
@@ -336,6 +379,11 @@ const ExerciseView = ({ videoData, onExit }) => {
                             <label htmlFor="emailInput">Email address to send Your Exercise</label>
                             <input type="email" className="form-control" id="emailInput" aria-describedby="emailHelp" ref={emailInputRef} />
                             <small id="emailHelp" className="form-text text-muted">We never share your email with anyone else.</small>
+                            <div className="form-check">
+                                <input type="checkbox" className="form-check-input" id="unlistedCheck" ref={unlistedInputRef} />
+                                <label className="form-check-label" htmlFor="unlistedCheck">Unlisted video</label>
+                                <p><small id="unlistedCheckHelp" className="form-text text-muted">The secret video only you can share with others</small></p>
+                            </div>
                         </div>
                     </form>
                 </Modal.Body>

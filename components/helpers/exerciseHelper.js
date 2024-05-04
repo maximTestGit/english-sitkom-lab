@@ -20,15 +20,15 @@ export function handleSaveExercise(video, captions, recordedChunks, playbackRate
             }
         );
 }
-export function handleShareExercise(video, captions, recordedChunks, playbackRate, youLinePlaybackRate, emailAddress, studentName) {
-    buildExerciseData(video, captions, recordedChunks, playbackRate, youLinePlaybackRate, emailAddress, studentName)
+export function handleShareExercise(video, captions, recordedChunks, playbackRate, youLinePlaybackRate, studentName, emailAddress, isUnlistedVideo) {
+    buildExerciseData(video, captions, recordedChunks, playbackRate, youLinePlaybackRate, studentName, emailAddress, isUnlistedVideo)
         .then(videoData => 
             {
                 publishJsonToCloud(videoData);
             }
         );
 }
-export function buildExerciseData(video, captions, recordedChunks, playbackRate, youLinePlaybackRate, emailAddress, studentName) {
+export function buildExerciseData(video, captions, recordedChunks, playbackRate, youLinePlaybackRate, studentName=null, emailAddress=null, isUnlistedVideo=false) {
     const playlistData = playlistRegistry.find(playlist => playlist.listId === video.playlistId);
     const language = playlistData.language;
     const videoData = {
@@ -40,6 +40,7 @@ export function buildExerciseData(video, captions, recordedChunks, playbackRate,
         studentName: studentName,
         emailAddress: emailAddress,
         playlistId: video.playlistId,
+        isUnlistedVideo: isUnlistedVideo,
         uncheckedCaptions: [],
         captions: undefined,
         lengthSeconds: undefined,
@@ -128,8 +129,6 @@ export function saveJsonToFile(videoData) {
 
 export async function publishJsonToCloud(videoData) {
     const jsonData = JSON.stringify(videoData, null, 2); // The second parameter (null) is for replacer function or array, and the third parameter (2) is for indentation level (spaces).
-    // const jsonBlob = new Blob([jsonData], { type: 'application/json' });
-    // const jsonUrl = URL.createObjectURL(jsonBlob);
 
     let safeTitle = videoData.title.replace(/['<>:"/\\|?*]+/g, '') + (videoData.videoRecordedChunks.length > 0 ? '-homework' : '-exercise');
     safeTitle = safeTitle.replace(/ /g, '-');
@@ -172,3 +171,38 @@ export async function publishExercise(folderName, fileName, data) {
       alert('Error publishing exercise. Please try again later.');
     }
   }
+
+export function buildExerciseRecordedChunks(chunks) {
+    const result = chunks.map(dataUrl => {
+        var parsedDataUrl = parseDataUrl(dataUrl);
+        const byteString = atob(parsedDataUrl.data);
+        const mimeString = `${parsedDataUrl.mimeType}; ${parsedDataUrl.codecs}`;//byteArray[0].split(':')[1].split(';')[0];
+        const arrayBuffer = new ArrayBuffer(byteString.length);
+        const uint8Array = new Uint8Array(arrayBuffer);
+        for (let i = 0; i < byteString.length; i++) {
+            uint8Array[i] = byteString.charCodeAt(i);
+        }
+        const blobChunk = new Blob([uint8Array], { type: mimeString });
+        return blobChunk;
+    });
+    return result;
+};
+
+export function parseDataUrl(dataUrl) {
+    const dataContent = dataUrl.split(':')[1];
+    const dataArray = dataContent.split(';');
+
+    const mimeType = dataArray[0];
+    const data = (dataArray[dataArray.length - 1]).split(',')[1]; // To remove "base64," from the data
+    let codecString;
+    if (dataArray.length > 2) {
+        codecString = dataArray[1];
+    }
+    return {
+        mimeType: mimeType,
+        codecs: codecString,
+        data: data
+    };
+}
+
+
