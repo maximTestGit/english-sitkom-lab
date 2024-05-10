@@ -48,7 +48,7 @@ const VideoList = ({ playlistId, onSelectVideo, onSelectPlaylistId }) => {
     };
     return (
         <>
-            <div className="row border border-2 p-1 rounded-3 mb-2 bg-secondary text-white">
+            <div className="row border border-2 p-1 rounded-3 mb-2 bg-danger text-white">
                 <div className="col-3 text-end">
                     <label className="form-select-lg text-end" htmlFor="playlistSelect">Select Playlist:</label>
                 </div>
