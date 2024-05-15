@@ -19,13 +19,13 @@ function addDataToLocalStorage(prefix, key, data, expirationSec) {
     }
 }
 
-function removeDataFromStorage(prefix, key) {
+export function removeDataFromLocalStorage(prefix, key) {
     const dataKey = buildDataKey(prefix, key);
-    removeDataFromStorageByKey(dataKey);
+    removeDataFromLocalStorageByKey(dataKey);
     unregisterDataAtLocalStorage(prefix, key);
 }
 
-function removeDataFromStorageByKey(dataKey) {
+function removeDataFromLocalStorageByKey(dataKey) {
     localStorage.removeItem(dataKey);
     console.log(`LingFlix: Removed data with key ${dataKey} from local storage.`);
     unregisterDataAtLocalStorageByKey(dataKey);
@@ -97,7 +97,7 @@ export async function saveDataToLocalStorage(prefix, key, data, expirationSec) {
 
         while (keys.length >= 10) {
             const keyToDelete = Math.floor(Math.random() * keys.length)
-            removeDataFromStorage(prefix, keys[keyToDelete]);
+            removeDataFromLocalStorage(prefix, keys[keyToDelete]);
             keys.splice(keyToDelete, 1);
         }
         addDataToLocalStorage(prefix, key, data, expirationSec);
@@ -108,13 +108,16 @@ export function getDataFromLocalStorage(prefix, key, expirationSec) {
     const dataKey = buildDataKey(prefix, key);
     let result = JSON.parse(localStorage.getItem(dataKey));
     if (result && expirationSec === 0) { // no cach, but if found - remove
-        removeDataFromStorage(prefix, key);
+        removeDataFromLocalStorage(prefix, key);
         result = null;
     }
     return result;
 }
 
-export async function fetchData(prefix, key, url, expirationSec) {
+export async function fetchData(prefix, key, url, expirationSec, refetchFromSource = false) {
+    if (refetchFromSource) {
+        removeDataFromLocalStorage(prefix, key);
+    }
     let result = getDataFromLocalStorage(prefix, key, expirationSec);
 
     if (!result) { // not found or no cache
@@ -134,7 +137,7 @@ export async function cleanUpLocalStorage(deleteAll = false) {
         const currentTime = Date.now();
         registry.forEach(item => {
             if (item.expirationSec !== null && currentTime - item.registeredAt > item.expirationSec * 1000) {
-                removeDataFromStorageByKey(item.key);
+                removeDataFromLocalStorageByKey(item.key);
             }
         });
 
@@ -145,7 +148,7 @@ export async function cleanUpLocalStorage(deleteAll = false) {
         });
         // Delete these keys from localStorage
         invalidKeys.forEach(key => {
-            removeDataFromStorageByKey(key);
+            removeDataFromLocalStorageByKey(key);
         });
     }
 }

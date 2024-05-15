@@ -4,7 +4,14 @@ import { decodeHtml } from './helpers/presentationUtils.js';
 import { getCaptionsUrl } from './data/configurator.js';
 import { playlistRegistry } from './data/playlistRegistry';
 
-const CaptionsView = ({ videoData, position, onCurrentCaptionChange, onUpdateCaptions }) => {
+const CaptionsView = ({ 
+    videoData, 
+    position, 
+    onCurrentCaptionChange, 
+    onUpdateCaptions, 
+    restoreDefaultExercise,
+    afterRestoreDefaultExercise
+ }) => {
     const [captions, setCaptions] = useState([]);
     const [currentCaption, setCurrentCaption] = useState(null);
 
@@ -15,7 +22,7 @@ const CaptionsView = ({ videoData, position, onCurrentCaptionChange, onUpdateCap
     }, [onUpdateCaptions]);
 
     const determineCaptionChecked = useCallback((caption) => {
-        let result = caption && caption.text.startsWith(' ');
+        let result = caption && caption.text?.startsWith(' ');
         if (videoData && videoData.intervals?.length>0) {
             let interval = null;
             for (let i = 0; i < videoData.intervals.length; i++) {
@@ -40,7 +47,16 @@ const CaptionsView = ({ videoData, position, onCurrentCaptionChange, onUpdateCap
         const fetchCaptions = async () => {
             const playlistData = playlistRegistry.find(playlist => playlist.listId === videoData.playlistId);
             let url = getCaptionsUrl(videoData.videoId, playlistData.language);
-            const captionData = await fetchData(dataPrefixes.captions_data_prefix, videoData.videoId, url, captions_data_expiration);
+            const captionData = 
+                await fetchData(
+                    dataPrefixes.captions_data_prefix, 
+                    videoData.videoId, 
+                    url, 
+                    captions_data_expiration,
+                    restoreDefaultExercise);
+                    if (restoreDefaultExercise) {
+                        afterRestoreDefaultExercise();
+                    }
             if (captionData) {
                 const captionDataWithChecked =
                     captionData
@@ -49,7 +65,7 @@ const CaptionsView = ({ videoData, position, onCurrentCaptionChange, onUpdateCap
             }
         };
         fetchCaptions();
-    }, [videoData.videoId]);
+    }, [videoData.videoId, restoreDefaultExercise]);
 
     const captionChange = (caption) => {
         const updatedCaptions = captions.map(c => {
@@ -68,7 +84,36 @@ const CaptionsView = ({ videoData, position, onCurrentCaptionChange, onUpdateCap
         saveDataToLocalStorage(dataPrefixes.captions_data_prefix, videoData.videoId, updatedCaptions, captions_data_expiration);
     }
 
-    let fPosition = parseFloat(position);
+    //let fPosition = parseFloat(position);
+    useEffect(() => {
+        const findCurrentCaption = (captions, position) => {
+            let fPosition = parseFloat(position);
+            let captionAtPosition = null;
+            for (let i = 0; i < captions.length; i++) {
+                let caption = captions[i];
+                let start = parseFloat(caption.start);
+                let duration = parseFloat(caption.duration);
+                if (fPosition >= start && fPosition < start + duration) {
+                    captionAtPosition = caption;
+                    break;
+                }
+            }
+            if (!captionAtPosition) {
+                setCurrentCaption(null)
+                onCurrentCaptionChange(null);
+            } else if (currentCaption !== captionAtPosition) {
+                setCurrentCaption(captionAtPosition)
+                onCurrentCaptionChange(captionAtPosition);
+            }
+            return captionAtPosition;
+        }
+
+        const handlePositionChange = () => {
+            findCurrentCaption(captions, position);
+        }
+
+        handlePositionChange();
+    }, [captions, currentCaption, onCurrentCaptionChange, position]);
     return (
         <>
             <table className="table table-striped">
@@ -81,13 +126,13 @@ const CaptionsView = ({ videoData, position, onCurrentCaptionChange, onUpdateCap
                 </thead>
                 <tbody>
                     {captions && captions.map((caption) => {
-                        let start = parseFloat(caption.start);
-                        let duration = parseFloat(caption.duration);
-                        let isPlaying = fPosition >= start && fPosition < start + duration;
-                        if (isPlaying && currentCaption !== caption) {
-                            setCurrentCaption(caption)
-                            onCurrentCaptionChange(caption);
-                        }
+                        //let start = parseFloat(caption.start);
+                        //let duration = parseFloat(caption.duration);
+                        let isPlaying = caption==currentCaption;// >= start && fPosition < start + duration;
+                        // if (isPlaying && currentCaption !== caption) {
+                        //     setCurrentCaption(caption)
+                        //     onCurrentCaptionChange(caption);
+                        // }
                         return (
                             <tr key={caption.start} className={isPlaying ? 'table-warning' : ''}>
                                 <td>

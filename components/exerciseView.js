@@ -7,6 +7,7 @@ import PlayerBox from './playerBox.js';
 import ExerciseStatus from './data/exerciseStatus.js';
 import { jumpToStart, handleSaveExercise, handleShareExercise } from './helpers/exerciseHelper.js';
 import Modal from 'react-bootstrap/Modal';
+import { removeDataFromLocalStorage, dataPrefixes } from './helpers/fetchData.js';
 
 const ExerciseView = ({ videoData, onExit }) => {
     const default_playback_rate = 1.0; // 1x speed
@@ -14,7 +15,7 @@ const ExerciseView = ({ videoData, onExit }) => {
 
     const default_volume = 50.0; // 50% of the volume
     const default_your_line_volume = 1.0; // 1% of the volume
-    const recording_your_line_volume = 0.0; // mute
+    const default_recording_your_line_volume = 0.0; // mute
 
     // #region States
     const [muted, setMuted] = useState(false);
@@ -48,6 +49,8 @@ const ExerciseView = ({ videoData, onExit }) => {
 
     const playerRef = useRef(null);
     const recPlayerRef = useRef(null);
+
+    const [restoreDefaultExercise, setRestoreDefaultExercise] = useState(false);
 
     // #endregion States
 
@@ -142,28 +145,33 @@ const ExerciseView = ({ videoData, onExit }) => {
     //         startPlay();
     //     }
     // };
+    const setExerciseStatusWrapper = (status, caller) => {  
+        setExerciseStatus(status);
+        console.log(`LingFlix: ExerciseStatus(${caller}): ${status}`);
+    }
     const startPlay = (origin = false) => {
         jumpToStart(playerRef);
         jumpToStart(recPlayerRef);
         setCurrentVolumeWrapper(default_volume);
-        setExerciseStatus(origin ? ExerciseStatus.ORIGIN : ExerciseStatus.PLAYING);
+        setExerciseStatusWrapper(origin ? ExerciseStatus.ORIGIN : ExerciseStatus.PLAYING, 'startPlay');
     };
     const stopPlay = () => {
         setCurrentVolumeWrapper(sourceVolume);
-        setExerciseStatus(ExerciseStatus.STOPPED);
+        setExerciseStatusWrapper(ExerciseStatus.STOPPED, 'stopPlay');
     };
     // #endregion Play/Stop
 
     // #region Recording
     const handleStartRecording = () => {
         if (exerciseStatus === ExerciseStatus.STOPPED) {
-            if (recordedChunks.length > 0) {
+            if (recordedChunks?.length > 0) {
                 alert('You have already recorded something. Please clear recording first.("Clear Record" button)');
             } else {
                 setLoopPreRec(loop);
                 setLoop(false);
 
                 setYourLineSourceVolumePreRec(yourLineSourceVolume);
+                setYourLineSourceVolume(default_recording_your_line_volume);
                 if (parseFloat(captions[0].start) < 0.2) {
                     setPlayingCaption(captions[0]);
                 } else {
@@ -171,7 +179,7 @@ const ExerciseView = ({ videoData, onExit }) => {
                 }
 
                 startPlay();
-                setExerciseStatus(ExerciseStatus.RECORDING);
+                setExerciseStatusWrapper(ExerciseStatus.RECORDING, 'handleStartRecording');
             }
         }
     };
@@ -180,7 +188,7 @@ const ExerciseView = ({ videoData, onExit }) => {
         setLoop(loopPreRec);
         setYourLineSourceVolume(yourLineSourceVolumePreRec);
         stopPlay();
-        setExerciseStatus(ExerciseStatus.STOPPED);
+        setExerciseStatusWrapper(ExerciseStatus.STOPPED, 'saveRecording');
         setRecordedChunks(chunks);
         //}
         setClearRecordedChunks(false);
@@ -188,11 +196,16 @@ const ExerciseView = ({ videoData, onExit }) => {
     const handleClearRecording = () => {
         setClearRecordedChunks(true);
     }
-
     const afterClearRecordedChunks = () => {
         setRecordedChunks([]);
         videoData.videoRecordedChunks = [];
         setClearRecordedChunks(false);
+    }
+    const handleRestoreDefaultExercise = () => {
+        setRestoreDefaultExercise(true);
+    }
+    const afterRestoreDefaultExercise = () => {
+        setRestoreDefaultExercise(false);
     }
     // #endregion Recording
 
@@ -203,7 +216,7 @@ const ExerciseView = ({ videoData, onExit }) => {
         } 
         if (videoData.videoRecordedChunks?.length > 0) {
             saveRecording(videoData.videoRecordedChunks);
-            setYourLineSourceVolume(recording_your_line_volume);
+            setYourLineSourceVolume(default_recording_your_line_volume);
         } else {
             startPlay(true);
         }
@@ -282,7 +295,7 @@ const ExerciseView = ({ videoData, onExit }) => {
                     <div id="ControlsArea" className="btn-group mb-1" role="group" >
 
                         <ConditionalButton
-                            className="btn btn-danger border border-dark rounded"
+                            className="btn btn-sm btn-danger border border-dark rounded"
                             hint='Return to the Playlist view'
                             onClick={() => onExit()}
                         >
@@ -293,7 +306,7 @@ const ExerciseView = ({ videoData, onExit }) => {
                             condition={exerciseStatus !== ExerciseStatus.ORIGIN}
                             isDisabled={exerciseStatus === ExerciseStatus.RECORDING
                                 || exerciseStatus === ExerciseStatus.PLAYING}
-                            className="btn btn-success border border-dark rounded"
+                            className="btn btn-sm btn-success border border-dark rounded"
                             hint={'View the original video on YouTube'}
                             onClick={() => startPlay(true)}
                             antiOnClick={() => stopPlay()}
@@ -305,7 +318,7 @@ const ExerciseView = ({ videoData, onExit }) => {
                             condition={exerciseStatus !== ExerciseStatus.PLAYING}
                             isDisabled={exerciseStatus === ExerciseStatus.RECORDING
                                 || exerciseStatus === ExerciseStatus.ORIGIN}
-                            className="btn btn-success border border-dark rounded"
+                            className="btn btn-sm btn-success border border-dark rounded"
                             hint={(recordedChunks?.length > 0) ? 'Play your recording' : 'Play exercise'}
                             onClick={() => startPlay()}
                             antiOnClick={() => stopPlay()}
@@ -319,7 +332,7 @@ const ExerciseView = ({ videoData, onExit }) => {
                             isDisabled={exerciseStatus === ExerciseStatus.PLAYING
                                 ||
                                 exerciseStatus === ExerciseStatus.ORIGIN}
-                            className="btn btn-success border border-dark rounded"
+                            className="btn btn-sm btn-success border border-dark rounded"
                             hint={'Start recording'}
                             onClick={() => handleStartRecording()}
                             antiOnClick={() => saveRecording()}
@@ -331,7 +344,7 @@ const ExerciseView = ({ videoData, onExit }) => {
                             condition={true}
                             dataToggle="modal" dataTarget="#emailModal"
                             isDisabled={exerciseStatus !== ExerciseStatus.STOPPED}
-                            className="btn btn-success border border-dark rounded"
+                            className="btn btn-sm btn-success border border-dark rounded"
                             hint={(recordedChunks?.length > 0) ? 'Share your homework' : 'Share your exercise'}
                             onClick={() => handleShareExerciseWrapper(videoData, captions, recordedChunks, sourcePlaybackRate, youLinePlaybackRate)}
                         >
@@ -340,8 +353,8 @@ const ExerciseView = ({ videoData, onExit }) => {
 
                         <ConditionalButton
                             isDisabled={exerciseStatus !== ExerciseStatus.STOPPED}
-                            className="btn btn-success border border-dark rounded"
-                            antiClassName="btn btn-success border border-dark rounded"
+                            className="btn btn-sm btn-success border border-dark rounded"
+                            antiClassName="btn btn-sm btn-success border border-dark rounded"
                             hint={(recordedChunks?.length > 0) ? 'Save your Recording to a local File' : 'Save your Exercise to a local File'}
                             onClick={() => handleSaveExercise(videoData, captions, recordedChunks, sourcePlaybackRate, youLinePlaybackRate)}
                         >
@@ -350,12 +363,19 @@ const ExerciseView = ({ videoData, onExit }) => {
 
                         <ConditionalButton
                             isDisabled={!recordedChunks || recordedChunks.length === 0}
-                            className="btn btn-success border border-dark rounded"
-                            antiClassName="btn btn-success border border-dark"
+                            className="btn btn-sm btn-success border border-dark rounded"
+                            antiClassName="btn btn-sm btn-success border border-dark"
                             hint="This will clear the recording and cannot be undone."
                             onClick={() => handleClearRecording()}
                         >
                             Clear Record
+                        </ConditionalButton>                       
+                        <ConditionalButton
+                            className="btn btn-sm btn-success border border-dark rounded"
+                            hint="This will restore the default exercise line marks."
+                            onClick={() => handleRestoreDefaultExercise()}
+                        >
+                            Restore Default
                         </ConditionalButton>
                     </div>
 
@@ -365,6 +385,8 @@ const ExerciseView = ({ videoData, onExit }) => {
                             position={position}
                             onCurrentCaptionChange={setPlayingCaption}
                             onUpdateCaptions={handleUpdateCaptions}
+                            restoreDefaultExercise={restoreDefaultExercise}
+                            afterRestoreDefaultExercise={afterRestoreDefaultExercise}
                         />
                     </div>
                 </div>
@@ -388,10 +410,10 @@ const ExerciseView = ({ videoData, onExit }) => {
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={handleCloseEmailForm}>
+                    <button type="button" className="btn btn-sm btn-secondary" data-dismiss="modal" onClick={handleCloseEmailForm}>
                         Close
                     </button>
-                    <button type="button" className="btn btn-primary" onClick={handleShareHomework}>
+                    <button type="button" className="btn btn-sm btn-primary" onClick={handleShareHomework}>
                         Send
                     </button>
                 </Modal.Footer>

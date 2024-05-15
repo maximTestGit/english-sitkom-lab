@@ -34,7 +34,6 @@ const PlaybackSettings = ({ initLoop, initShowCaptions,
                     onChange={handleYourLinePlaybackRateChange}
                     value={youLinePlaybackRate}>
                     <option value={1.0}>Speed:</option>
-                    <option value={0.4}>0.4</option>
                     <option value={0.5}>0.5</option>
                     <option value={0.6}>0.6</option>
                     <option value={0.7}>0.7</option>

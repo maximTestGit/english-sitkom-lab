@@ -40,6 +40,7 @@ export function buildExerciseData(video, captions, recordedChunks, playbackRate,
         studentName: studentName,
         emailAddress: emailAddress,
         playlistId: video.playlistId,
+        playlistName: playlistRegistry.find(playlist => playlist.listId === video.playlistId)?.listName,
         isUnlistedVideo: isUnlistedVideo,
         uncheckedCaptions: [],
         captions: undefined,
@@ -91,7 +92,7 @@ export function getIntervals(captions) {
         );
         for (let i = 1; i < captions.length; i++) {
             // @ts-ignore
-            if (captions[i].checked === captions[i - 1].checked) {
+            if (!captions[i].checked && captions[i].checked === captions[i - 1].checked) {
                 // @ts-ignore
                 result[result.length - 1].end = parseFloat(captions[i].start) + parseFloat(captions[i].duration);
                 result[result.length - 1].count = result[result.length - 1].count + 1;
