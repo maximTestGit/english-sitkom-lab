@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { fetchData, saveDataToLocalStorage, dataPrefixes } from './helpers/fetchData.js';
+import { fetchData, saveDataToLocalStorage, storageDataAttributes } from './helpers/fetchData.js';
 import { decodeHtml } from './helpers/presentationUtils.js';
 import { getCaptionsUrl } from './data/configurator.js';
 import { playlistRegistry } from './data/playlistRegistry';
@@ -49,7 +49,7 @@ const CaptionsView = ({
             let url = getCaptionsUrl(videoData.videoId, playlistData.language);
             const captionData = 
                 await fetchData(
-                    dataPrefixes.captions_data_prefix, 
+                    storageDataAttributes.captions_data_prefix, 
                     videoData.videoId, 
                     url, 
                     captions_data_expiration,
@@ -81,7 +81,7 @@ const CaptionsView = ({
             return c;
         });
         setCaptionsWrapper(updatedCaptions);
-        saveDataToLocalStorage(dataPrefixes.captions_data_prefix, videoData.videoId, updatedCaptions, captions_data_expiration);
+        saveDataToLocalStorage(storageDataAttributes.captions_data_prefix, videoData.videoId, updatedCaptions, captions_data_expiration);
     }
 
     //let fPosition = parseFloat(position);

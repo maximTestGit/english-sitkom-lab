@@ -7,7 +7,7 @@ import PlayerBox from './playerBox.js';
 import ExerciseStatus from './data/exerciseStatus.js';
 import { jumpToStart, handleSaveExercise, handleShareExercise } from './helpers/exerciseHelper.js';
 import Modal from 'react-bootstrap/Modal';
-import { removeDataFromLocalStorage, dataPrefixes } from './helpers/fetchData.js';
+import { removeDataFromLocalStorage, storageDataAttributes } from './helpers/fetchData.js';
 
 const ExerciseView = ({ videoData, onExit }) => {
     const default_playback_rate = 1.0; // 1x speed

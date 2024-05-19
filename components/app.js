@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Banner from "./banner";
 import VideoList from "./videoList";
 import ExerciseView from "./exerciseView";
-import { cleanUpLocalStorage } from './helpers/fetchData.js';
+import { cleanUpLocalStorage, fetchDataFromLocalStorage, saveDataToLocalStorage, storageDataAttributes } from './helpers/fetchData.js';
 import { buildExerciseRecordedChunks } from './helpers/exerciseHelper.js';
 
 const App = () => {
@@ -14,6 +14,13 @@ const App = () => {
     async function initApp() {
       await cleanUpLocalStorage();
       setInterval(cleanUpLocalStorage, 30000);
+      let playlistId = await fetchDataFromLocalStorage(
+        storageDataAttributes.session_data_prefix, 
+        storageDataAttributes.session_data_keys.playlist_key, 
+        null);
+      if (playlistId) {
+        setSelectedPlaylistId(playlistId);
+      }
     }
     initApp();
   }, []);
@@ -41,6 +48,10 @@ const App = () => {
 
   const setSelectedPlaylistIdWrapper = (playlistId) => {
     setSelectedPlaylistId(playlistId);
+    saveDataToLocalStorage(
+      storageDataAttributes.session_data_prefix, 
+      storageDataAttributes.session_data_keys.playlist_key, 
+      playlistId);
   };
 
   return (

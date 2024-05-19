@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import VideoRow from "./videoRow";
-import { fetchData, dataPrefixes } from './helpers/fetchData.js';
+import { fetchData, storageDataAttributes } from './helpers/fetchData.js';
 import { getPlaylistContentUrl } from './data/configurator';
 import { playlistRegistry } from './data/playlistRegistry';
 import Dropzone from 'react-dropzone'
@@ -21,7 +21,7 @@ const VideoList = ({ playlistId, onSelectVideo, onSelectPlaylistId }) => {
 
     const fetchVideos = async (playlistId) => {
         let url = getPlaylistContentUrl(playlistId);
-        const videos = await fetchData(dataPrefixes.videoList_data_prefix, `videoList%${playlistId}`, url, 60 * 60); // Cache for 1 hour
+        const videos = await fetchData(storageDataAttributes.videoList_data_prefix, `videoList%${playlistId}`, url, 60 * 60); // Cache for 1 hour
         setVideos(videos);
     };
 

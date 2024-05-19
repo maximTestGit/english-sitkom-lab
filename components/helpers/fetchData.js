@@ -1,8 +1,18 @@
 const global_data_prefix = 'global';
 const captions_data_prefix = 'captions';
 const videoList_data_prefix = 'videoList';
+const session_data_prefix = 'session';
+const playlist_key = 'playlist';
+const video_key = 'video';
 
-export const dataPrefixes = { global_data_prefix, captions_data_prefix, videoList_data_prefix };
+export const session_data_keys = { playlist_key, video_key };
+export const storageDataAttributes = 
+    { 
+        global_data_prefix, 
+        captions_data_prefix, 
+        videoList_data_prefix, 
+        session_data_prefix,
+        session_data_keys };
 
 async function fetchDataFromSource(url) {
     const response = await fetch(url);
@@ -14,6 +24,7 @@ async function fetchDataFromSource(url) {
 function addDataToLocalStorage(prefix, key, data, expirationSec) {
     const dataKey = buildDataKey(prefix, key);
     localStorage.setItem(dataKey, JSON.stringify(data));
+    console.log(`LingFlix: Saved data with key ${dataKey} to local storage.`);
     if (prefix !== global_data_prefix) {
         registerDataAtLocalStorage(prefix, key, expirationSec);
     }
@@ -52,7 +63,7 @@ async function registerDataAtLocalStorage(prefix, key, expirationSec) {
         expirationSec: expirationSec,
         registeredAt: Date.now()
     };
-    let registry = getDataFromLocalStorage(global_data_prefix, 'registry', null) || [];
+    let registry = fetchDataFromLocalStorage(global_data_prefix, 'registry', null) || [];
 
     // Find the index of the item with the same key in the registry
     const index = registry.findIndex(item => item.key === dataKey);
@@ -72,7 +83,7 @@ async function unregisterDataAtLocalStorage(prefix, key) {
 }
 
 async function unregisterDataAtLocalStorageByKey(dataKey) {
-    let registry = getDataFromLocalStorage(global_data_prefix, 'registry', null) || [];
+    let registry = fetchDataFromLocalStorage(global_data_prefix, 'registry', null) || [];
 
     // Find the index of the item with the same key in the registry
     const index = registry.findIndex(item => item.key === dataKey);
@@ -89,7 +100,7 @@ async function unregisterDataAtLocalStorageByKey(dataKey) {
 
 // expirationSec === null - infinit storage
 // expirationSec === 0 - no cache
-export async function saveDataToLocalStorage(prefix, key, data, expirationSec) {
+export async function saveDataToLocalStorage(prefix, key, data, expirationSec=null) {
     if (expirationSec !== 0) { // 0 means no cache
         const keys = Object.keys(localStorage)
             .filter((k) => k.startsWith(prefix))
@@ -104,13 +115,14 @@ export async function saveDataToLocalStorage(prefix, key, data, expirationSec) {
     }
 }
 
-export function getDataFromLocalStorage(prefix, key, expirationSec) {
+export function fetchDataFromLocalStorage(prefix, key, expirationSec) {
     const dataKey = buildDataKey(prefix, key);
     let result = JSON.parse(localStorage.getItem(dataKey));
     if (result && expirationSec === 0) { // no cach, but if found - remove
         removeDataFromLocalStorage(prefix, key);
         result = null;
     }
+    console.log(`LingFlix: Fetched data with key ${dataKey} from local storage.`);
     return result;
 }
 
@@ -118,7 +130,7 @@ export async function fetchData(prefix, key, url, expirationSec, refetchFromSour
     if (refetchFromSource) {
         removeDataFromLocalStorage(prefix, key);
     }
-    let result = getDataFromLocalStorage(prefix, key, expirationSec);
+    let result = fetchDataFromLocalStorage(prefix, key, expirationSec);
 
     if (!result) { // not found or no cache
         result = await fetchDataFromSource(url);
@@ -133,7 +145,7 @@ export async function cleanUpLocalStorage(deleteAll = false) {
         localStorage.clear();
         console.log('LingFlix: Cleared all data from local storage.');
     } else {
-        const registry = getDataFromLocalStorage(global_data_prefix, 'registry', null) || [];
+        const registry = fetchDataFromLocalStorage(global_data_prefix, 'registry', null) || [];
         const currentTime = Date.now();
         registry.forEach(item => {
             if (item.expirationSec !== null && currentTime - item.registeredAt > item.expirationSec * 1000) {
@@ -142,9 +154,9 @@ export async function cleanUpLocalStorage(deleteAll = false) {
         });
 
         const allKeys = Object.keys(localStorage);
-        // Filter out keys that don't start with any of the prefixes in dataPrefixes
+        // Filter out keys that don't start with any of the prefixes in storageDataAttributes
         const invalidKeys = allKeys.filter(key => {
-            return (!Object.values(dataPrefixes).some(prefix => key.startsWith(prefix)));
+            return (!Object.values(storageDataAttributes).some(prefix => key.startsWith(prefix)));
         });
         // Delete these keys from localStorage
         invalidKeys.forEach(key => {
