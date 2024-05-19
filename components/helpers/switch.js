@@ -16,7 +16,7 @@ const Switch = ({ id, label, onChange, initValue }) => {
         onChange={handleOnChange}
         checked={initValue}
       />
-      <label className="form-check-label" htmlFor={id}>{label}</label>
+      <label className="form-check-label fs-6" htmlFor={id}>{label}</label>
     </div>
   );
 }

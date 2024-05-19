@@ -8,7 +8,8 @@ import MediaUrlPlayer from './mediaUrlPlayer';
 const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
     muted, loop, currentPlaybackRate, currentVolume,
     handleOnProgress, handlePlayingEnd, handleStopRecording,
-    clearRecordedChunks, afterClearRecordedChunks
+    clearRecordedChunks, afterClearRecordedChunks,
+    imbededCaptionBluring=false
 }) => {
 
     const [recordedChunks, setRecordedChunks] = useState([]);
@@ -73,6 +74,7 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                         onEnded={() => handlePlayingEnd()}
                         volume={currentVolume}
                         width="100%"
+                        imbededCaptionBluring={imbededCaptionBluring}
                     />
                 }
             </div>

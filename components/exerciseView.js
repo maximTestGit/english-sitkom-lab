@@ -31,6 +31,7 @@ const ExerciseView = ({ videoData, onExit }) => {
     const [sourcePlaybackRate, setSourcePlaybackRate] = useState(default_playback_rate); // rate of youtube lines during origing/exercise/recording
     const [youLinePlaybackRate, setYouLinePlaybackRate] = useState(videoData.yourLineRate ? videoData.yourLineRate : default_your_line_playback_rate); // rate of your line during exercise/recording
     const [currentPlaybackRate, setCurrentPlaybackRate] = useState(sourcePlaybackRate); // current, can be sourcePlaybackRate or youLinePlaybackRate
+    const [imbededCaptionBluringValue, setImbededCaptionBluringValue] = useState(false);
 
     const [sourceVolume, setSourceVolume] = useState(default_volume); // volume of youtube lines during origing/exercise/recording
     const [yourLineSourceVolume, setYourLineSourceVolume] = useState(default_your_line_volume); // volume of your line during origing/exercise/recording
@@ -122,6 +123,9 @@ const ExerciseView = ({ videoData, onExit }) => {
         setYourLineSourceVolume(parseFloat(volume));
     };
 
+    const handleImbededCaptionBluringChange = (checked) => {
+        setImbededCaptionBluringValue(checked);
+    };
     // #endregion Exercise settings
 
     // #region Player position handlers
@@ -267,6 +271,7 @@ const ExerciseView = ({ videoData, onExit }) => {
                             muted={muted}
                             videoData={videoData}
                             loop={loop}
+                            imbededCaptionBluring={imbededCaptionBluringValue}
                             currentPlaybackRate={currentPlaybackRate}
                             currentVolume={currentVolume}
                             handleOnProgress={handleOnProgress}
@@ -286,10 +291,12 @@ const ExerciseView = ({ videoData, onExit }) => {
                             initShowCaptions={showCaptions}
                             initYourLineSourceVolume={yourLineSourceVolume}
                             initYourLinePlaybackRate={youLinePlaybackRate}
+                            initImbededCaptionBluring={imbededCaptionBluringValue}
                             onLoopChange={handleLoopChange}
                             onShowCaptionsChange={handleShowCaptionsChange}
                             onYourLinePlaybackRateChange={handleYourLinePlaybackRateChange}
                             onYourLineSourceVolumeChange={handleYourLineSourceVolumeChange}
+                            onImbededCaptionBluringChange ={handleImbededCaptionBluringChange}
                         />
                     </div>
 
