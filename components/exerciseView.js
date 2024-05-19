@@ -247,6 +247,7 @@ const ExerciseView = ({ videoData, onExit }) => {
             nameInputRef.current.value = inputValue;
         } else {
             nameInputRef.current.value = inputValue.replace(/[^a-zA-Z0-9.-]/g, '');
+            alert('Invalid character. Only english letters, numbers, and hyphens are allowed!');
         }
     };
 
@@ -396,11 +397,11 @@ const ExerciseView = ({ videoData, onExit }) => {
                 <Modal.Body>
                     <form>
                         <div className="form-group">
-                            <label htmlFor="nameInput">Your Name to identify Your Exercise</label>
-                            <input type="name" className="form-control" id="nameInput" ref={nameInputRef} onChange={handleNameInputChange} />
                             <label htmlFor="emailInput">Email address to send Your Exercise</label>
                             <input type="email" className="form-control" id="emailInput" aria-describedby="emailHelp" ref={emailInputRef} />
                             <small id="emailHelp" className="form-text text-muted">We never share your email with anyone else.</small>
+                            <label htmlFor="nameInput">Your Name to identify Your Exercise</label>
+                            <input type="name" className="form-control" id="nameInput" ref={nameInputRef} onChange={handleNameInputChange} />
                             <div className="form-check">
                                 <input type="checkbox" className="form-check-input" id="unlistedCheck" ref={unlistedInputRef} />
                                 <label className="form-check-label" htmlFor="unlistedCheck">Unlisted video</label>
