@@ -28,7 +28,7 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false, loop,
                 playing={playing}
                 muted={muted}
                 url={url}
-                controls="false"
+                controls
                 progressInterval={progressInterval}
                 onProgress={(state) => onProgress(state)}
                 onEnded={() => onEnded()}
@@ -38,6 +38,13 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false, loop,
                 width={width}
                 height={height}
                 zIndex={zIndex}
+                config={{
+                    youtube: {
+                      playerVars: {
+                        cc_load_policy: 0,
+                      },
+                    },
+                  }}
             />
 
             {imbededCaptionBluring &&
