@@ -130,7 +130,9 @@ const ExerciseView = ({ videoData, onExit }) => {
 
     // #region Player position handlers
     const handleOnProgress = (state) => {
-        setPosition(state.playedSeconds);
+        if (position!== state.playedSeconds) {
+            setPosition(state.playedSeconds);
+        }
     };
     const handlePlayingEnd = () => {
         if (exerciseStatus === ExerciseStatus.RECORDING) {
@@ -162,6 +164,9 @@ const ExerciseView = ({ videoData, onExit }) => {
     const stopPlay = () => {
         setCurrentVolumeWrapper(sourceVolume);
         setExerciseStatusWrapper(ExerciseStatus.STOPPED, 'stopPlay');
+    };
+    const handleResetStatus = (status) => {
+        setExerciseStatusWrapper(status,'resetStatus');
     };
     // #endregion Play/Stop
 
@@ -279,7 +284,8 @@ const ExerciseView = ({ videoData, onExit }) => {
                             handleStopRecording={saveRecording}
                             clearRecordedChunks={clearRecordedChunks}
                             afterClearRecordedChunks={afterClearRecordedChunks}
-                        />
+                            onResetStatus={handleResetStatus}
+                            />
                         {showCaptions && <CaptionBox caption={currentCaption} />}
                     </div>
                 </div>

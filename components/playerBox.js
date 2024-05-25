@@ -9,7 +9,8 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
     muted, loop, currentPlaybackRate, currentVolume,
     handleOnProgress, handlePlayingEnd, handleStopRecording,
     clearRecordedChunks, afterClearRecordedChunks,
-    imbededCaptionBluring=false
+    imbededCaptionBluring=false,
+    onResetStatus=()=>{},
 }) => {
 
     const [recordedChunks, setRecordedChunks] = useState([]);
@@ -45,9 +46,17 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
 
     }, []);
 
+    const handleResetStatus = (status) => {
+        if (status !== exerciseStatus) {
+            onResetStatus(status);
+        }
+    };
+
     return (
         <div className="row" style={{ position: 'relative' }}>
-            <div id="ExercisePlayerArea" className="pe-none">
+            <div id="ExercisePlayerArea" 
+                className={imbededCaptionBluring && (exerciseStatus===ExerciseStatus.ORIGIN || exerciseStatus===ExerciseStatus.PLAYING) ? 
+                    "" : "pe-none"}> 
                 {recordedChunksUrl && exerciseStatus !== ExerciseStatus.ORIGIN ?
                     <MediaUrlPlayer playerRef={playerRef}
                         url={recordedChunksUrl}
@@ -75,6 +84,7 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                         volume={currentVolume}
                         width="100%"
                         imbededCaptionBluring={imbededCaptionBluring}
+                        onResetStatus={handleResetStatus}
                     />
                 }
             </div>
@@ -103,6 +113,7 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                         width={220}
                         height={170}
                         onProgress={(state) => handleOnProgress(state)}
+                        onResetStatus={handleResetStatus}
                     />
                 </div>
 
