@@ -1,13 +1,18 @@
 import React from 'react';
 
-const ConditionalButton = ({ condition = true,
+const ConditionalButton = ({ 
+    condition = true,
     isDisabled = false,
-    className, antiClassName = null,
-    onClick, antiOnClick = null,
+    className, 
+    antiClassName = null,
+    onClick, 
+    antiOnClick = null,
     hint = null,
     children = null,
     antiChildren = null,
-    dataToggle = null, dataTarget = null }) => {
+    dataToggle = null, 
+    dataTarget = null,
+    width = '70px' }) => { 
     let buttonClassName = (condition || !antiClassName) ? className : antiClassName;
     const buttonChildren = (condition || !antiChildren) ? children : antiChildren;
     const buttonOnClick = (condition) ? onClick : antiOnClick;
@@ -20,7 +25,8 @@ const ConditionalButton = ({ condition = true,
             {...(dataToggle && { 'data-toggle': dataToggle })}
             {...(dataTarget && { 'data-target': dataTarget })}
             data-bs-toggle="tooltip" data-bs-placement="top" title={hint ? hint : children}
-            onClick={buttonOnClick}>
+            onClick={buttonOnClick}
+            style={{ width: width }}>  
             {buttonChildren}
         </button>
     );
