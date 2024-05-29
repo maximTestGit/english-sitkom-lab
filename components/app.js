@@ -15,8 +15,8 @@ const App = () => {
       await cleanUpLocalStorage();
       setInterval(cleanUpLocalStorage, 30000);
       let playlistId = await fetchDataFromLocalStorage(
-        storageDataAttributes.session_data_prefix, 
-        storageDataAttributes.session_data_keys.playlist_key, 
+        storageDataAttributes.session_data_prefix,
+        storageDataAttributes.session_data_keys.playlist_key,
         null);
       if (playlistId) {
         setSelectedPlaylistId(playlistId);
@@ -49,27 +49,27 @@ const App = () => {
   const setSelectedPlaylistIdWrapper = (playlistId) => {
     setSelectedPlaylistId(playlistId);
     saveDataToLocalStorage(
-      storageDataAttributes.session_data_prefix, 
-      storageDataAttributes.session_data_keys.playlist_key, 
+      storageDataAttributes.session_data_prefix,
+      storageDataAttributes.session_data_keys.playlist_key,
       playlistId);
   };
 
   return (
-    <>
+    <div>
       <Banner />
-      {videoData ? (
-        <ExerciseView
-          videoData={videoData}
-          onExit={handleExerciseExit}
-        />
-      ) : (
-        <VideoList
-          playlistId={selectedPlaylistId}
-          onSelectVideo={setSelectedVideoWrapper}
-          onSelectPlaylistId={setSelectedPlaylistIdWrapper}
-        />
-      )}
-    </>
+        {videoData ? (
+          <ExerciseView 
+            videoData={videoData}
+            onExit={handleExerciseExit}
+          />
+        ) : (
+          <VideoList
+            playlistId={selectedPlaylistId}
+            onSelectVideo={setSelectedVideoWrapper}
+            onSelectPlaylistId={setSelectedPlaylistIdWrapper}
+          />
+        )}
+    </div>
   );
 };
 

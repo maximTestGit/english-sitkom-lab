@@ -11,22 +11,25 @@ const ConditionalButton = ({
     children = null,
     antiChildren = null,
     dataToggle = null, 
-    dataTarget = null,
-    width = '70px' }) => { 
+    dataTarget = null
+    }) => { 
     let buttonClassName = (condition || !antiClassName) ? className : antiClassName;
     const buttonChildren = (condition || !antiChildren) ? children : antiChildren;
     const buttonOnClick = (condition) ? onClick : antiOnClick;
     if (isDisabled) {
         buttonClassName = `${buttonClassName} disabled`;
     }
-
+    const buttonClickWrapper = (e) => {
+        console.log(`LingFlix: ConditionalButton: buttonClick "${buttonChildren}"`);
+        buttonOnClick();
+    };
     return (
         <button className={buttonClassName}
             {...(dataToggle && { 'data-toggle': dataToggle })}
             {...(dataTarget && { 'data-target': dataTarget })}
             data-bs-toggle="tooltip" data-bs-placement="top" title={hint ? hint : children}
-            onClick={buttonOnClick}
-            style={{ width: width }}>  
+            onClick={buttonClickWrapper}
+            >  
             {buttonChildren}
         </button>
     );

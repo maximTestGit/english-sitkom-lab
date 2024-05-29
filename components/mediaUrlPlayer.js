@@ -5,40 +5,33 @@ import ExerciseStatus from './data/exerciseStatus';
 
 const MediaUrlPlayer = ({ url, exerciseStatus, muted = false, loop,
     playbackRate, volume = 100, progressInterval = 100, onProgress = () => { }, onEnded = () => { },
-    width, height, playerRef, zIndex = 9000, playing,
+    playerRef, zIndex = 9000, playing,
     imbededCaptionBluring = false,
-    onResetStatus=()=>{},
+    //onResetStatus=()=>{},
     top = 0 }) => {
 
     //const [imbededCaptionBluringValue, setImbededCaptionBluringValue] = useState(imbededCaptionBluring);
 
-    const handlePlay = () => {
-        if (exerciseStatus === ExerciseStatus.STOPPED) {
-            onResetStatus(ExerciseStatus.ORIGIN);
-        }
-      };
-    
-      const handlePause = () => {
-        if (exerciseStatus !== ExerciseStatus.STOPPED) {
-            onResetStatus(ExerciseStatus.STOPPED);
-        }
-    };
-      
-      useEffect(() => {
+    // const handlePlay = () => {
+    //     if (exerciseStatus === ExerciseStatus.STOPPED) {
+    //         onResetStatus(ExerciseStatus.ORIGIN);
+    //     }
+    // };
+
+    // const handlePause = () => {
+    //     if (exerciseStatus !== ExerciseStatus.STOPPED) {
+    //         onResetStatus(ExerciseStatus.STOPPED);
+    //     }
+    // };
+
+    useEffect(() => {
         if (playerRef.current) {
             playerRef.current.seekTo(0);
         }
     }, []);
 
     return (
-        <div position="relative"
-            style={
-                {
-                    width: { width },
-                    height: { height },
-                    backgroundColor: "transparent",
-                }}
-        >
+        <div>
             <ReactPlayer ref={playerRef}
                 playing={playing}
                 muted={muted}
@@ -50,8 +43,7 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false, loop,
                 loop={loop}
                 playbackRate={playbackRate}
                 volume={volume / 100}
-                width={width}
-                height={height}
+                width="100%"
                 zIndex={zIndex}
                 config={{
                     youtube: {
@@ -61,21 +53,21 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false, loop,
                         },
                     },
                 }}
-                onPlay={handlePlay}
-                onPause={handlePause}           
+            // onPlay={handlePlay}
+            // onPause={handlePause}            
             />
 
             {imbededCaptionBluring &&
                 <BluringPanel id="captionsBluringPanel"
-                    bottom={'5%'}
+                    //bottom={'1%'}
                     startLeft={'15%'}
                     width={'70%'}
                     height={'20%'}
                     backgroundColor={'rgba(0, 0, 0, 0.1)'}
                     backdropFilter={'blur(5px)'}
                     zIndex={9999}
-                    hint={(exerciseStatus===ExerciseStatus.ORIGIN || exerciseStatus===ExerciseStatus.PLAYING) ?
-                        "Drag it!":""}
+                    // hint={(exerciseStatus === ExerciseStatus.ORIGIN || exerciseStatus === ExerciseStatus.PLAYING) ?
+                    //     "Drag it!" : ""}
                 />
             }
         </div>

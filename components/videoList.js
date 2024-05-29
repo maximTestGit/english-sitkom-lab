@@ -83,7 +83,6 @@ const VideoList = ({ playlistId, onSelectVideo, onSelectPlaylistId }) => {
                     <tr className="container-lg table-secondary">
                         <th className="col-1" >YouTube</th>
                         <th className="col-7" >Exercise</th>
-                        <th className="col-4" >Description</th>
                     </tr>
                 </thead>
                 <tbody>

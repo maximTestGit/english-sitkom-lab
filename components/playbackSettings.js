@@ -24,40 +24,37 @@ const PlaybackSettings = ({ initLoop, initShowCaptions,
     // }, []);
     return (
         <>
-            <div className="row">
-                <div className="col">
+            <div className="row mb-2">
+                <div className="col-3">
                     <Switch id="loopPlaySwitch" label="Loop Playing Erercise" onChange={onLoopChange} initValue={initLoop} />
                 </div>
-                <div className="col">
+                <div className="col-3">
                     <Switch id="imbededCaptionBluringSwitch" label="Blure Imbeded Captions" onChange={onImbededCaptionBluringChange} initValue={initImbededCaptionBluring} />
                 </div>
-                <div className="col">
+                <div className="col-3">
                     <Switch id="showCaptionsSwitch" label="Show Exercise Captions" onChange={onShowCaptionsChange} initValue={initShowCaptions} />
                 </div>
             </div>
-            <div className="row">
-                <div className="col">
+            <div className="row mb-2">
+                <div className="col-2">Your line</div>
+                <div className="col-5 col-lg-3">
                     <select className="form-select form-select-sm"
                         onChange={handleYourLinePlaybackRateChange}
                         value={youLinePlaybackRate}>
-                        <option value={1.0}>Your Line Speed(normal):</option>
-                        <option value={0.5}>0.5</option>
-                        <option value={0.6}>0.6</option>
-                        <option value={0.7}>0.7</option>
-                        <option value={0.8}>0.8</option>
-                        <option value={0.9}>0.9</option>
-                        <option value={1.0}>normal</option>
-                        <option value={2.0}>2.0</option>
-                        <option value={3.0}>3.0</option>
+                        <option value={0.5}>0.5 of Normal Speed</option>
+                        <option value={0.6}>0.6 of Normal Speed</option>
+                        <option value={0.7}>0.7 of Normal Speed</option>
+                        <option value={0.8}>0.8 of Normal Speed</option>
+                        <option value={0.9}>0.9 of Normal Speed</option>
+                        <option value={1.0} selected>Normal Speed</option>
                     </select>
                 </div>
-                <div className="col">
+                <div className="col-5 col-lg-3">
                     <select className="form-select form-select-sm"
                         onChange={handleSourceVolumeChange}
                         value={yourLineSourceVolume}>
-                        <option value={1.0}>Your Line Volume(Whisper):</option>
                         <option value={0.0}>Mute</option>
-                        <option value={1.0}>Whisper</option>
+                        <option value={2.0}>Whisper</option>
                         <option value={5.0}>Moderate</option>
                         <option value={10.0}>Loud Whisper</option>
                     </select>

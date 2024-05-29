@@ -126,13 +126,7 @@ const CaptionsView = ({
                 </thead>
                 <tbody>
                     {captions && captions.map((caption) => {
-                        //let start = parseFloat(caption.start);
-                        //let duration = parseFloat(caption.duration);
-                        let isPlaying = caption==currentCaption;// >= start && fPosition < start + duration;
-                        // if (isPlaying && currentCaption !== caption) {
-                        //     setCurrentCaption(caption)
-                        //     onCurrentCaptionChange(caption);
-                        // }
+                        let isPlaying = caption==currentCaption;
                         return (
                             <tr key={caption.start} className={isPlaying ? 'table-warning' : ''}>
                                 <td>

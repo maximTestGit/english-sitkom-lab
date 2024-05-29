@@ -10,7 +10,7 @@ const BlurringPanel = ({
     height = '200px',
     backgroundColor = 'rgba(255, 255, 255, 0.8)',
     backdropFilter = 'blur(5px)',
-    hint = 'Drag it!'
+    hint = undefined
 }) => {
     return (
         <Draggable>
@@ -24,10 +24,10 @@ const BlurringPanel = ({
                     backgroundColor: backgroundColor,
                     backdropFilter: backdropFilter,
                     zIndex: zIndex,
-                    cursor: 'move',
+                    //cursor: 'move',
                 }}>
                 <p style={{ color: 'white', textAlign: 'right', position: 'absolute', bottom: '0', right: '0', fontStyle: 'italic' }}>
-                    {hint}
+                    {hint ? hint : ""}
                 </p>            
             </div>
         </Draggable>

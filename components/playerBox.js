@@ -10,7 +10,7 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
     handleOnProgress, handlePlayingEnd, handleStopRecording,
     clearRecordedChunks, afterClearRecordedChunks,
     imbededCaptionBluring=false,
-    onResetStatus=()=>{},
+    //onResetStatus=()=>{},
 }) => {
 
     const [recordedChunks, setRecordedChunks] = useState([]);
@@ -46,17 +46,19 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
 
     }, []);
 
-    const handleResetStatus = (status) => {
-        if (status !== exerciseStatus) {
-            onResetStatus(status);
-        }
-    };
+    // const handleResetStatus = (status) => {
+    //     if (status !== exerciseStatus) {
+    //         onResetStatus(status);
+    //     }
+    // };
 
     return (
-        <div className="row" style={{ position: 'relative' }}>
+        <div style={{ position: 'relative' }}>
             <div id="ExercisePlayerArea" 
-                className={imbededCaptionBluring && (exerciseStatus===ExerciseStatus.ORIGIN || exerciseStatus===ExerciseStatus.PLAYING) ? 
-                    "" : "pe-none"}> 
+                className="pe-none"
+                // className={imbededCaptionBluring && (exerciseStatus===ExerciseStatus.ORIGIN || exerciseStatus===ExerciseStatus.PLAYING) ? 
+                //     "" : "pe-none"}
+                > 
                 {recordedChunksUrl && exerciseStatus !== ExerciseStatus.ORIGIN ?
                     <MediaUrlPlayer playerRef={playerRef}
                         url={recordedChunksUrl}
@@ -67,8 +69,7 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                         loop={loop}
                         //onProgress={(state) => handleOnProgress(state)}
                         onEnded={() => handlePlayingEnd()}
-                        width="100%"
-                    />
+                   />
                     :
                     <MediaUrlPlayer playerRef={playerRef}
                         url={getYoutubeUrl(videoData.videoId)}
@@ -82,10 +83,9 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                         onProgress={(state) => handleOnProgress(state)}
                         onEnded={() => handlePlayingEnd()}
                         volume={currentVolume}
-                        width="100%"
                         imbededCaptionBluring={imbededCaptionBluring}
-                        onResetStatus={handleResetStatus}
-                    />
+                        //onResetStatus={handleResetStatus}
+            />
                 }
             </div>
 
@@ -113,15 +113,14 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                         width={220}
                         height={170}
                         onProgress={(state) => handleOnProgress(state)}
-                        onResetStatus={handleResetStatus}
+                        //onResetStatus={handleResetStatus}
                     />
                 </div>
-
                 :
                 <div id="FaceAreaView" style={{
                     position: 'absolute',
                     top: -15,
-                    left: -50,
+                    left: -62,
                     width: 150,
                     height: 100,
                     backgroundColor: 'transparent',
