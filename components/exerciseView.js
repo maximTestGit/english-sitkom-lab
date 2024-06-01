@@ -2,12 +2,11 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import CaptionsView from './captionsView';
 import CaptionBox from './captionBox.js';
 import PlaybackSettings from './playbackSettings.js';
-import ConditionalButton from './helpers/conditionalButton.js';
 import PlayerBox from './playerBox.js';
 import ExerciseStatus from './data/exerciseStatus.js';
 import { jumpToStart, handleSaveExercise, handleShareExercise } from './helpers/exerciseHelper.js';
 import Modal from 'react-bootstrap/Modal';
-import { removeDataFromLocalStorage, storageDataAttributes } from './helpers/fetchData.js';
+import ControlsArea from './controlsArea.js';
 
 const ExerciseView = ({ videoData, onExit }) => {
     const default_playback_rate = 1.0; // 1x speed
@@ -144,13 +143,6 @@ const ExerciseView = ({ videoData, onExit }) => {
     // #endregion Player position handlers
 
     // #region Play/Stop
-    // const handlePlayStop = (status) => {
-    //     if (status === ExerciseStatus.PLAYING) {
-    //         stopPlay();
-    //     } else if (status === ExerciseStatus.STOPPED) {
-    //         startPlay();
-    //     }
-    // };
     const setExerciseStatusWrapper = (status, caller) => {
         setExerciseStatus(status);
         console.log(`LingFlix: ExerciseStatus(${caller}): ${status}`);
@@ -283,92 +275,23 @@ const ExerciseView = ({ videoData, onExit }) => {
                 />
             </div>
 
-            <div id="ControlsArea" className="row mb-3 col-12 col-md-12 col-lg-10"> {/* className="btn-group mb-3"  role="group"  */}
-                <ConditionalButton
-                    className="btn btn-danger border border-dark rounded  col-2 col-md-1"
-                    hint='Return to the Playlist view'
-                    onClick={() => onExit()}
-                >
-                    Back
-                </ConditionalButton>
-
-                <ConditionalButton
-                    condition={exerciseStatus !== ExerciseStatus.ORIGIN}
-                    isDisabled={exerciseStatus === ExerciseStatus.RECORDING
-                        || exerciseStatus === ExerciseStatus.PLAYING}
-                    className="btn btn-success border border-dark rounded col-2 col-md-1"
-                    hint={'View the original video on YouTube'}
-                    onClick={() => startPlay(true, 'Play YouTube')}
-                    antiOnClick={() => stopPlay()}
-                    antiChildren={'Stop'}
-                >Play YouTube
-                </ConditionalButton>
-
-                <ConditionalButton
-                    condition={exerciseStatus !== ExerciseStatus.PLAYING}
-                    isDisabled={exerciseStatus === ExerciseStatus.RECORDING
-                        || exerciseStatus === ExerciseStatus.ORIGIN}
-                    className="btn btn-success border border-dark rounded col-2 col-md-1"
-                    hint={(recordedChunks?.length > 0) ? 'Play your recording' : 'Play exercise'}
-                    onClick={() => startPlay(false, 'Play Exercise')}
-                    antiOnClick={() => stopPlay()}
-                    antiChildren={'Stop'}
-                >
-                    {(recordedChunks?.length > 0) ? 'Play Record' : 'Play Exercise'}
-                </ConditionalButton>
-
-                <ConditionalButton
-                    condition={exerciseStatus !== ExerciseStatus.RECORDING}
-                    isDisabled={exerciseStatus === ExerciseStatus.PLAYING
-                        ||
-                        exerciseStatus === ExerciseStatus.ORIGIN}
-                    className="btn btn-success border border-dark rounded col-2 col-md-1"
-                    hint={'Start recording'}
-                    onClick={() => handleStartRecording()}
-                    antiOnClick={() => saveRecording()}
-                    antiChildren={'Stop'} >
-                    Start Record
-                </ConditionalButton>
-
-                <ConditionalButton
-                    condition={true}
-                    dataToggle="modal" dataTarget="#emailModal"
-                    isDisabled={exerciseStatus !== ExerciseStatus.STOPPED}
-                    className="btn btn-success border border-dark rounded col-2 col-md-1"
-                    hint={(recordedChunks?.length > 0) ? 'Share your homework' : 'Share your exercise'}
-                    onClick={() => handleShareExerciseWrapper(videoData, captions, recordedChunks, sourcePlaybackRate, youLinePlaybackRate)}
-                >
-                    {(recordedChunks?.length > 0) ? 'Share Record' : 'Share Exercise'}
-                </ConditionalButton>
-
-                <ConditionalButton
-                    isDisabled={exerciseStatus !== ExerciseStatus.STOPPED}
-                    className="btn btn-success border border-dark rounded col-2 col-md-1"
-                    antiClassName="btn btn-success border border-dark rounded col-2 col-md-1"
-                    hint={(recordedChunks?.length > 0) ? 'Save your Recording to a local File' : 'Save your Exercise to a local File'}
-                    onClick={() => handleSaveExercise(videoData, captions, recordedChunks, sourcePlaybackRate, youLinePlaybackRate)}
-                >
-                    Save File
-                </ConditionalButton>
-
-                <ConditionalButton
-                    isDisabled={!recordedChunks || recordedChunks.length === 0}
-                    className="btn btn-success border border-dark rounded col-2 col-md-1"
-                    antiClassName="btn btn-success border border-dark col-2 col-md-1"
-                    hint="This will clear the recording and cannot be undone."
-                    onClick={() => handleClearRecording()}
-                >
-                    Clear Record
-                </ConditionalButton>
-                <ConditionalButton
-                    className="btn btn-success border border-dark rounded col-2 col-md-1"
-                    hint="This will restore the default exercise line marks."
-                    onClick={() => handleRestoreDefaultExercise()}
-                >
-                    Restore Default
-                </ConditionalButton>
-            </div>
-
+            <ControlsArea
+                exerciseStatus={exerciseStatus}
+                onExit={onExit}
+                startPlay={startPlay}
+                stopPlay={stopPlay}
+                recordedChunks={recordedChunks}
+                handleStartRecording={handleStartRecording}
+                saveRecording={saveRecording}
+                videoData={videoData}
+                captions={captions}
+                sourcePlaybackRate={sourcePlaybackRate}
+                youLinePlaybackRate={youLinePlaybackRate}
+                handleShareExerciseWrapper={handleShareExerciseWrapper}
+                handleSaveExercise={handleSaveExercise}
+                handleClearRecording={handleClearRecording}
+                handleRestoreDefaultExercise={handleRestoreDefaultExercise}
+            />
 
             <div className="row col-12 col-md-6">
                 <PlayerBox

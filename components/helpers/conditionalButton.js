@@ -11,7 +11,8 @@ const ConditionalButton = ({
     children = null,
     antiChildren = null,
     dataToggle = null, 
-    dataTarget = null
+    dataTarget = null,
+    fontSize = '1.0em'
     }) => { 
     let buttonClassName = (condition || !antiClassName) ? className : antiClassName;
     const buttonChildren = (condition || !antiChildren) ? children : antiChildren;
@@ -25,6 +26,7 @@ const ConditionalButton = ({
     };
     return (
         <button className={buttonClassName}
+            style={{ fontSize: fontSize }}
             {...(dataToggle && { 'data-toggle': dataToggle })}
             {...(dataTarget && { 'data-target': dataTarget })}
             data-bs-toggle="tooltip" data-bs-placement="top" title={hint ? hint : children}
