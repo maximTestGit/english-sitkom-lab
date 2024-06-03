@@ -54,8 +54,8 @@ const PlaybackSettings = ({ initLoop, initShowCaptions,
                         onChange={handleSourceVolumeChange}
                         value={yourLineSourceVolume}>
                         <option value={0.0}>Mute</option>
-                        <option value={2.0}>Whisper</option>
-                        <option value={5.0}>Moderate</option>
+                        <option value={2.0}>Slight Whisper</option>
+                        <option value={5.0}>Whisper</option>
                         <option value={10.0}>Loud Whisper</option>
                     </select>
                 </div>

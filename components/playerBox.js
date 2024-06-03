@@ -1,6 +1,6 @@
 import { React, useState, useRef, useEffect } from 'react';
 import ExerciseStatus from './data/exerciseStatus';
-import { getYoutubeUrl, isFullFunctioning } from './data/configurator';
+import { getYoutubeUrl, isRunningOnBigScreen } from './data/configurator';
 import WebcamBox from './webcamBox';
 import WebcamBorderKeeper from './webcamBorderKeeper';
 import MediaUrlPlayer from './mediaUrlPlayer';
@@ -10,6 +10,7 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
     handleOnProgress, handlePlayingEnd, handleStopRecording,
     clearRecordedChunks, afterClearRecordedChunks,
     imbededCaptionBluring = false,
+    clipSelection = { start: undefined, end: undefined },
     //onResetStatus=()=>{},
 }) => {
 
@@ -66,9 +67,9 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                             || exerciseStatus === ExerciseStatus.ORIGIN
                             || exerciseStatus === ExerciseStatus.RECORDING}
                         exerciseStatus={exerciseStatus}
-                        loop={loop}
                         //onProgress={(state) => handleOnProgress(state)}
                         onEnded={() => handlePlayingEnd()}
+                        clipSelection={clipSelection}
                     />
                     :
                     <MediaUrlPlayer playerRef={playerRef}
@@ -78,18 +79,18 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                             || exerciseStatus === ExerciseStatus.RECORDING}
                         exerciseStatus={exerciseStatus}
                         muted={muted}
-                        loop={loop}
                         playbackRate={currentPlaybackRate}
                         onProgress={(state) => handleOnProgress(state)}
                         onEnded={() => handlePlayingEnd()}
                         volume={currentVolume}
                         imbededCaptionBluring={imbededCaptionBluring}
+                        clipSelection={clipSelection}
                     //onResetStatus={handleResetStatus}
                     />
                 }
             </div>
 
-            {isFullFunctioning
+            {isRunningOnBigScreen
                 &&
                 (recordedChunksUrl && exerciseStatus !== ExerciseStatus.ORIGIN ?
                     <div id="FaceAreaRecorded" style={{
@@ -109,7 +110,6 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                                 || exerciseStatus === ExerciseStatus.RECORDING}
                             muted={muted}
                             volume={currentVolume}
-                            loop={loop}
                             playbackRate={currentPlaybackRate}
                             width={220}
                             height={170}

@@ -16,7 +16,7 @@ const ConditionalButton = ({
     }) => { 
     let buttonClassName = (condition || !antiClassName) ? className : antiClassName;
     const buttonChildren = (condition || !antiChildren) ? children : antiChildren;
-    const buttonOnClick = (condition) ? onClick : antiOnClick;
+    const buttonOnClick = (condition || !antiOnClick) ? onClick : antiOnClick;
     if (isDisabled) {
         buttonClassName = `${buttonClassName} disabled`;
     }

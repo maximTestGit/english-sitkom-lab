@@ -3,10 +3,11 @@ import ReactPlayer from 'react-player';
 import BluringPanel from './bluringPanel';
 import ExerciseStatus from './data/exerciseStatus';
 
-const MediaUrlPlayer = ({ url, exerciseStatus, muted = false, loop,
+const MediaUrlPlayer = ({ url, exerciseStatus, muted = false, 
     playbackRate, volume = 100, progressInterval = 100, onProgress = () => { }, onEnded = () => { },
     playerRef, zIndex = 9000, playing,
     imbededCaptionBluring = false,
+    clipSelection = { start: undefined, end: undefined },
     //onResetStatus=()=>{},
     top = 0 }) => {
 
@@ -24,11 +25,25 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false, loop,
     //     }
     // };
 
-    useEffect(() => {
+    const resetPlayerPosition = (playerRef, clipSelection) => {
         if (playerRef.current) {
-            playerRef.current.seekTo(0);
+            let start = clipSelection.start ? clipSelection.start : 0;
+            playerRef.current.seekTo(start);
         }
+    }
+
+    useEffect(() => {
+        resetPlayerPosition(playerRef, clipSelection);
     }, []);
+
+    const onProgressWrapper = (state) => {
+        if (state.playedSeconds < clipSelection.start) {
+            resetPlayerPosition(playerRef, clipSelection);
+        } else if (state.playedSeconds > clipSelection.end) {
+            onEnded();
+        }
+        onProgress(state);
+    };
 
     return (
         <div>
@@ -38,9 +53,8 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false, loop,
                 url={url}
                 controls
                 progressInterval={progressInterval}
-                onProgress={(state) => onProgress(state)}
+                onProgress={(state) => onProgressWrapper(state)}
                 onEnded={() => onEnded()}
-                loop={loop}
                 playbackRate={playbackRate}
                 volume={volume / 100}
                 width="100%"
@@ -66,8 +80,8 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false, loop,
                     backgroundColor={'rgba(0, 0, 0, 0.1)'}
                     backdropFilter={'blur(5px)'}
                     zIndex={9999}
-                    // hint={(exerciseStatus === ExerciseStatus.ORIGIN || exerciseStatus === ExerciseStatus.PLAYING) ?
-                    //     "Drag it!" : ""}
+                // hint={(exerciseStatus === ExerciseStatus.ORIGIN || exerciseStatus === ExerciseStatus.PLAYING) ?
+                //     "Drag it!" : ""}
                 />
             }
         </div>

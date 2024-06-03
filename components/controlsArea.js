@@ -1,21 +1,21 @@
 import React from 'react';
 import ConditionalButton from './helpers/conditionalButton.js';
 import ExerciseStatus from './data/exerciseStatus.js';
-import { getYoutubeUrl, isFullFunctioning } from './data/configurator';
+import { getYoutubeUrl, isRunningOnBigScreen } from './data/configurator';
 
 const ControlsArea = ({ exerciseStatus, 
     onExit, startPlay, stopPlay, saveRecording,
     recordedChunks, handleStartRecording,
-    videoData, captions,
+    videoData, captions, isClipMode=false,
     sourcePlaybackRate, youLinePlaybackRate,
     handleShareExerciseWrapper, handleSaveExercise, handleClearRecording, handleRestoreDefaultExercise }
 ) => {
     const btnCommonAttributes = 'border border-dark rounded col-3 col-md-1';
-    const btnFontSize=isFullFunctioning ? '0.7em' : '1em';
+    const btnFontSize=isRunningOnBigScreen ? '0.7em' : '1em';
     
     return (
         <div id="ControlsArea" className="row mb-3 col-12 col-md-12 col-lg-10">
-            <ConditionalButton
+            <ConditionalButton id="btnExit"
                 condition={exerciseStatus === ExerciseStatus.ORIGIN}
                 className={`btn btn-danger border ${btnCommonAttributes}`}
                 hint='Return to the Playlist view'
@@ -25,7 +25,7 @@ const ControlsArea = ({ exerciseStatus,
                 {'Back to Playlists'}
             </ConditionalButton>
 
-            <ConditionalButton
+            <ConditionalButton id="btnPlayYoutube"
                 condition={exerciseStatus !== ExerciseStatus.ORIGIN}
                 isDisabled={exerciseStatus === ExerciseStatus.RECORDING
                     || exerciseStatus === ExerciseStatus.PLAYING}
@@ -39,7 +39,7 @@ const ControlsArea = ({ exerciseStatus,
                 {'Play YouTube'}
             </ConditionalButton>
 
-            <ConditionalButton
+            <ConditionalButton id="btnPlayExercise"
                 condition={exerciseStatus !== ExerciseStatus.PLAYING}
                 isDisabled={exerciseStatus === ExerciseStatus.RECORDING
                     || exerciseStatus === ExerciseStatus.ORIGIN}
@@ -53,12 +53,14 @@ const ControlsArea = ({ exerciseStatus,
                 {(recordedChunks?.length > 0) ? 'Play Record' : 'Play Exercise'}
             </ConditionalButton>
 
-            {isFullFunctioning && 
-                <ConditionalButton
+            {isRunningOnBigScreen && 
+                <ConditionalButton id="btnStartRecording"
                     condition={exerciseStatus !== ExerciseStatus.RECORDING}
                     isDisabled={exerciseStatus === ExerciseStatus.PLAYING
                         ||
-                        exerciseStatus === ExerciseStatus.ORIGIN}
+                        exerciseStatus === ExerciseStatus.ORIGIN
+                        ||
+                        isClipMode}
                     className={`btn  btn-success  ${btnCommonAttributes}`}
                     hint={'Start recording'}
                     onClick={() => handleStartRecording()}
@@ -69,11 +71,17 @@ const ControlsArea = ({ exerciseStatus,
                         {'Start Record'}
                 </ConditionalButton>
             }
-            {isFullFunctioning && 
-                <ConditionalButton
+            {isRunningOnBigScreen && 
+                <ConditionalButton id="btnShareExercise"
                     condition={true}
                     dataToggle="modal" dataTarget="#emailModal"
-                    isDisabled={exerciseStatus !== ExerciseStatus.STOPPED}
+                    isDisabled={exerciseStatus !== ExerciseStatus.STOPPED
+                        ||
+                        isClipMode
+                        ||
+                        !recordedChunks
+                        ||
+                        recordedChunks.length==0}
                     className={`btn  btn-success  ${btnCommonAttributes}`}
                     hint={(recordedChunks?.length > 0) ? 'Share your homework' : 'Share your exercise'}
                     onClick={() => handleShareExerciseWrapper(videoData, captions, recordedChunks, sourcePlaybackRate, youLinePlaybackRate)}
@@ -82,8 +90,8 @@ const ControlsArea = ({ exerciseStatus,
                     {(recordedChunks?.length > 0) ? 'Share Record' : 'Share Exercise'}
                 </ConditionalButton>
             }
-            {isFullFunctioning && 
-                <ConditionalButton
+            {isRunningOnBigScreen && 
+                <ConditionalButton id="btnSaveFile"
                     isDisabled={exerciseStatus !== ExerciseStatus.STOPPED}
                     className={`btn  btn-success  ${btnCommonAttributes}`}
                     anticlassName={`btn  btn-success  ${btnCommonAttributes}`}
@@ -94,8 +102,8 @@ const ControlsArea = ({ exerciseStatus,
                     {'Save File'}
                 </ConditionalButton>
             }
-            {isFullFunctioning && 
-                <ConditionalButton
+            {isRunningOnBigScreen && 
+                <ConditionalButton id="btnClearRecording"
                     isDisabled={!recordedChunks || recordedChunks.length === 0}
                     className={`btn  btn-success  ${btnCommonAttributes}`}
                     anticlassName={`btn  btn-success ${btnCommonAttributes}`}
@@ -106,7 +114,7 @@ const ControlsArea = ({ exerciseStatus,
                     {'Clear Record'}
                 </ConditionalButton>
             }
-            <ConditionalButton
+            <ConditionalButton id="btnRestoreDefaultExercise"
                 isDisabled={exerciseStatus !== ExerciseStatus.STOPPED}
                 className={`btn  btn-success  ${btnCommonAttributes}`}
                 hint="This will restore the default exercise line marks."

@@ -15,19 +15,11 @@ const VideoList = ({ playlistId, onSelectVideo, onSelectPlaylistId }) => {
         onSelectPlaylistId(newSelectedPlayListId);
     };
 
-    if (playlistId && playlistId != selectedPlayListId) {
-        setSelectedPlayListId(playlistId);
-    }
-
-    const fetchVideos = async (playlistId) => {
+     const fetchVideos = async (playlistId) => {
         let url = getPlaylistContentUrl(playlistId);
         const videos = await fetchData(storageDataAttributes.videoList_data_prefix, `videoList%${playlistId}`, url, 60 * 60); // Cache for 1 hour
         setVideos(videos);
     };
-
-    useEffect(() => {
-        fetchVideos(selectedPlayListId);
-    }, [selectedPlayListId]);
 
     const selectVideoWrapper = (video) => {
         onSelectVideo(video, selectedPlayListId);
@@ -46,6 +38,16 @@ const VideoList = ({ playlistId, onSelectVideo, onSelectPlaylistId }) => {
         };
         reader.readAsText(file);
     };
+    
+   if (playlistId && playlistId != selectedPlayListId) {
+        setSelectedPlayListId(playlistId);
+        fetchVideos(playlistId);
+    }
+
+    useEffect(() => {
+        fetchVideos(selectedPlayListId);
+    }, [selectedPlayListId]);
+
     return (
         <>
             <div className="row p-1 rounded-3 mb-2 text-white" style={{ backgroundColor: '#ee3e38' }}>

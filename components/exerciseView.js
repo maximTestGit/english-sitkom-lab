@@ -43,6 +43,7 @@ const ExerciseView = ({ videoData, onExit }) => {
     const [showEmailForm, setShowEmailForm] = useState(false); // State variable to control modal visibility
     const [emailAddress, setEmailAddress] = useState(null); // State variable to store email address
     const [studentName, setStudentName] = useState('Unknown'); // State variable to store student name
+    const [isClipMode, setIsClipMode] = useState(false); 
     const emailInputRef = useRef(null);
     const nameInputRef = useRef(null);
     const unlistedInputRef = useRef(false);
@@ -51,6 +52,7 @@ const ExerciseView = ({ videoData, onExit }) => {
     const recPlayerRef = useRef(null);
 
     const [restoreDefaultExercise, setRestoreDefaultExercise] = useState(false);
+    const [clipSelection, setClipSelection] = useState({ start: undefined, end: undefined });
 
     // #endregion States
 
@@ -138,7 +140,8 @@ const ExerciseView = ({ videoData, onExit }) => {
             stopPlay();
         } else if (!loop) {
             stopPlay();
-        }
+        } else {
+            jumpToStart(playerRef);        }
     }
     // #endregion Player position handlers
 
@@ -167,7 +170,7 @@ const ExerciseView = ({ videoData, onExit }) => {
     const handleStartRecording = () => {
         if (exerciseStatus === ExerciseStatus.STOPPED) {
             if (recordedChunks?.length > 0) {
-                alert('You have already recorded something. Please clear recording first.("Clear Record" button)');
+                alert('You have already recorded something. Please clear recording first.\n(Click "Clear Record" button)');
             } else {
                 setLoopPreRec(loop);
                 setLoop(false);
@@ -258,6 +261,20 @@ const ExerciseView = ({ videoData, onExit }) => {
     const handleShareExerciseWrapper = () => handleShowEmailForm(); // TODO: use handleShowEmailForm
     // #endregion Email form
 
+    const handleChangeClipSelection=(clipRange) => {
+        setClipSelection(clipRange);
+        setIsClipMode(determineClipMode(clipRange));
+    }
+
+    const determineClipMode = (clipRange) => {
+        let result = captions?.length>0 && clipRange?.start !== undefined;
+        if (result) {
+            let lastCaptionEnd = parseFloat(captions[captions.length - 1].start) + parseFloat(captions[captions.length - 1].duration);
+            result = clipRange.start > 0 || clipRange.end < lastCaptionEnd;
+        }
+        return result;
+    }
+
     return (
         <>
             <div id="PlaybackSettingsArea" className="row mb-3 col-12 col-md-12 col-lg-9">
@@ -277,6 +294,7 @@ const ExerciseView = ({ videoData, onExit }) => {
 
             <ControlsArea
                 exerciseStatus={exerciseStatus}
+                isClipMode = {isClipMode}
                 onExit={onExit}
                 startPlay={startPlay}
                 stopPlay={stopPlay}
@@ -309,6 +327,7 @@ const ExerciseView = ({ videoData, onExit }) => {
                     handleStopRecording={saveRecording}
                     clearRecordedChunks={clearRecordedChunks}
                     afterClearRecordedChunks={afterClearRecordedChunks}
+                    clipSelection={clipSelection}
                 //onResetStatus={handleResetStatus}
                 />
                 {showCaptions && <CaptionBox caption={currentCaption} />}
@@ -321,6 +340,8 @@ const ExerciseView = ({ videoData, onExit }) => {
                     onUpdateCaptions={handleUpdateCaptions}
                     restoreDefaultExercise={restoreDefaultExercise}
                     afterRestoreDefaultExercise={afterRestoreDefaultExercise}
+                    onChangeClipSelection={handleChangeClipSelection}
+                    hasRecordedChunks={recordedChunks?.length > 0}
                 />
             </div>
             <Modal show={showEmailForm} >

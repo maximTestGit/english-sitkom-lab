@@ -18,4 +18,4 @@ export function getPlaylistContentUrl(playlistId) {
     return url;
 }
 
-export const isFullFunctioning = !isMobile;
+export const isRunningOnBigScreen = !isMobile;

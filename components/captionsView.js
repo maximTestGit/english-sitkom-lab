@@ -4,26 +4,40 @@ import { decodeHtml } from './helpers/presentationUtils.js';
 import { getCaptionsUrl } from './data/configurator.js';
 import { playlistRegistry } from './data/playlistRegistry';
 
-const CaptionsView = ({ 
-    videoData, 
-    position, 
-    onCurrentCaptionChange, 
-    onUpdateCaptions, 
+const CaptionsView = ({
+    videoData,
+    position,
+    onCurrentCaptionChange,
+    onUpdateCaptions,
     restoreDefaultExercise,
-    afterRestoreDefaultExercise
- }) => {
+    afterRestoreDefaultExercise,
+    onChangeClipSelection,
+    hasRecordedChunks
+}) => {
     const [captions, setCaptions] = useState([]);
     const [currentCaption, setCurrentCaption] = useState(null);
+    const [captionsRange, setCaptionsRange] = useState({ startIndex: undefined, endIndex: undefined });
 
     const captions_data_expiration = null;
     const setCaptionsWrapper = useCallback((newCaptions) => {
         setCaptions(newCaptions);
         onUpdateCaptions(newCaptions);
+        setClipRangeWrapper(newCaptions, 0, newCaptions.length - 1);
     }, [onUpdateCaptions]);
+
+    const setClipRangeWrapper = (theCaptions, start, end) => {
+        let startTime = start == 0 ? 0 : theCaptions[start].start;
+        let endTime = parseFloat(theCaptions[end].start) + parseFloat(theCaptions[end].duration);
+        setCaptionsRange({ startIndex: start, endIndex: end });
+        if (onChangeClipSelection) {
+            let clipSelection = { start: startTime, end: endTime };
+            onChangeClipSelection(clipSelection);
+        }
+    }
 
     const determineCaptionChecked = useCallback((caption) => {
         let result = caption && caption.text?.startsWith(' ');
-        if (videoData && videoData.intervals?.length>0) {
+        if (videoData && videoData.intervals?.length > 0) {
             let interval = null;
             for (let i = 0; i < videoData.intervals.length; i++) {
                 interval = videoData.intervals[i];
@@ -47,16 +61,16 @@ const CaptionsView = ({
         const fetchCaptions = async () => {
             const playlistData = playlistRegistry.find(playlist => playlist.listId === videoData.playlistId);
             let url = getCaptionsUrl(videoData.videoId, playlistData.language);
-            const captionData = 
+            const captionData =
                 await fetchData(
-                    storageDataAttributes.captions_data_prefix, 
-                    videoData.videoId, 
-                    url, 
+                    storageDataAttributes.captions_data_prefix,
+                    videoData.videoId,
+                    url,
                     captions_data_expiration,
                     restoreDefaultExercise);
-                    if (restoreDefaultExercise) {
-                        afterRestoreDefaultExercise();
-                    }
+            if (restoreDefaultExercise) {
+                afterRestoreDefaultExercise();
+            }
             if (captionData) {
                 const captionDataWithChecked =
                     captionData
@@ -114,22 +128,50 @@ const CaptionsView = ({
 
         handlePositionChange();
     }, [captions, currentCaption, onCurrentCaptionChange, position]);
+
+    const handleSelectCaptionClick = (event) => {
+        if (hasRecordedChunks) {
+            alert('You are not allowed to change Selection, when you have recorded exercise.\nPlease clear recording first.(Click "Clear Record" button)');
+        } else {
+        const position = parseInt(event.target.id);
+        let start = captionsRange.startIndex;
+        let end = captionsRange.endIndex;
+        if (position >= start
+            && position <= end) {
+            start = position;
+            end = position;
+        } else if (position < start) {
+            start = position;
+        } else {
+            end = position;
+        }
+        setClipRangeWrapper(captions, start, end);
+    }
+    };
+
     return (
         <>
             <table className="table table-striped">
                 <thead>
                     <tr>
-                        <th>Checked</th>
-                        <th>Start(sec)</th>
+                        <th>Select</th>
+                        <th>Your Line</th>
+                        <th>Start (sec)</th>
                         <th>Text</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {captions && captions.map((caption) => {
-                        let isPlaying = caption==currentCaption;
+                    {captions && captions.map((caption, index) => {
+                        let isPlaying = caption == currentCaption;
                         return (
-                            <tr key={caption.start} className={isPlaying ? 'table-warning' : ''}>
-                                <td>
+                            <tr key={caption.start} >
+                                <td id={index}
+                                    onClick={handleSelectCaptionClick}
+                                    style={{ backgroundColor: (captionsRange.startIndex <= index && index <= captionsRange.endIndex) ? 'blue' : 'lightgray' }}
+                                >
+
+                                </td>
+                                <td className={isPlaying ? 'table-warning' : ''}>
                                     <input id={caption.start}
                                         className="form-check-input"
                                         type="checkbox"
@@ -137,8 +179,12 @@ const CaptionsView = ({
                                         onChange={(caption) => captionChange(caption)}
                                     />
                                 </td>
-                                <td>{parseFloat(caption.start).toFixed(3)}</td>
-                                <td>{decodeHtml(caption.text)}</td>
+                                <td className={isPlaying ? 'table-warning' : ''}>
+                                    {parseFloat(caption.start).toFixed(3)}
+                                </td>
+                                <td className={isPlaying ? 'table-warning' : ''}>
+                                    {decodeHtml(caption.text)}\
+                                </td>
                             </tr>
                         );
                     })}
