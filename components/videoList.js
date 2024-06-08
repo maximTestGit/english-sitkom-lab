@@ -55,7 +55,7 @@ const VideoList = ({ playlistId, onSelectVideo, onSelectPlaylistId }) => {
                 <div className="col-3 text-end">
                     <label className="form-select-lg text-end" htmlFor="playlistSelect">Select Playlist:</label>
                 </div>
-                <div className="col-8 col-md-6">
+                <div className="col-9 col-md-6 col-lg-4">
                     <select className="form-select form-select-lg"
                         value={selectedPlayListId}
                         onChange={(e) => setSelectedPlayListIdWrapper(e.target.value)}>
