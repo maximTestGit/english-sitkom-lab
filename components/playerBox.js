@@ -70,6 +70,7 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                         //onProgress={(state) => handleOnProgress(state)}
                         onEnded={() => handlePlayingEnd()}
                         clipSelection={clipSelection}
+                        hasRecording={true}
                     />
                     :
                     <MediaUrlPlayer playerRef={playerRef}
@@ -85,6 +86,7 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                         volume={currentVolume}
                         imbededCaptionBluring={imbededCaptionBluring}
                         clipSelection={clipSelection}
+                        hasRecording={false}
                     //onResetStatus={handleResetStatus}
                     />
                 }
@@ -114,6 +116,7 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                             width={220}
                             height={170}
                             onProgress={(state) => handleOnProgress(state)}
+                            hasRecording={true}
                         />
                     </div>
                     :

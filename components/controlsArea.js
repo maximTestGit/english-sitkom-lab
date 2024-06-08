@@ -68,7 +68,7 @@ const ControlsArea = ({ exerciseStatus,
                     antiChildren={'Stop'}
                     fontSize={btnFontSize}
                     >
-                        {'Start Record'}
+                        {'Start Record Homework'}
                 </ConditionalButton>
             }
             {isRunningOnBigScreen && 
@@ -87,7 +87,7 @@ const ControlsArea = ({ exerciseStatus,
                     onClick={() => handleShareExerciseWrapper(videoData, captions, recordedChunks, sourcePlaybackRate, youLinePlaybackRate)}
                     fontSize={btnFontSize}
                     >
-                    {(recordedChunks?.length > 0) ? 'Share Record' : 'Share Exercise'}
+                    {'Share Homework'}
                 </ConditionalButton>
             }
             {isRunningOnBigScreen && 
@@ -111,7 +111,7 @@ const ControlsArea = ({ exerciseStatus,
                     onClick={() => handleClearRecording()}
                     fontSize={btnFontSize}
                     >
-                    {'Clear Record'}
+                    {'Clear Homework Record'}
                 </ConditionalButton>
             }
             <ConditionalButton id="btnRestoreDefaultExercise"

@@ -3,11 +3,12 @@ import ReactPlayer from 'react-player';
 import BluringPanel from './bluringPanel';
 import ExerciseStatus from './data/exerciseStatus';
 
-const MediaUrlPlayer = ({ url, exerciseStatus, muted = false, 
+const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
     playbackRate, volume = 100, progressInterval = 100, onProgress = () => { }, onEnded = () => { },
     playerRef, zIndex = 9000, playing,
     imbededCaptionBluring = false,
     clipSelection = { start: undefined, end: undefined },
+    hasRecording = false,
     //onResetStatus=()=>{},
     top = 0 }) => {
 
@@ -37,10 +38,12 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
     }, []);
 
     const onProgressWrapper = (state) => {
-        if (state.playedSeconds < clipSelection.start) {
-            resetPlayerPosition(playerRef, clipSelection);
-        } else if (state.playedSeconds > clipSelection.end) {
-            onEnded();
+        if (!hasRecording) {
+            if (state.playedSeconds < clipSelection.start) {
+                resetPlayerPosition(playerRef, clipSelection);
+            } else if (state.playedSeconds > clipSelection.end) {
+                onEnded();
+            }
         }
         onProgress(state);
     };

@@ -28,6 +28,7 @@ const ExerciseView = ({ videoData, onExit }) => {
     const [clearRecordedChunks, setClearRecordedChunks] = useState(false);
 
     const [sourcePlaybackRate, setSourcePlaybackRate] = useState(default_playback_rate); // rate of youtube lines during origing/exercise/recording
+    const [playerLinePlaybackRate, setPlayerLinePlaybackRate] = useState(sourcePlaybackRate); // rate of player line during exercise/recording
     const [youLinePlaybackRate, setYouLinePlaybackRate] = useState(videoData.yourLineRate ? videoData.yourLineRate : default_your_line_playback_rate); // rate of your line during exercise/recording
     const [currentPlaybackRate, setCurrentPlaybackRate] = useState(sourcePlaybackRate); // current, can be sourcePlaybackRate or youLinePlaybackRate
     const [imbededCaptionBluringValue, setImbededCaptionBluringValue] = useState(false);
@@ -75,7 +76,10 @@ const ExerciseView = ({ videoData, onExit }) => {
     };
 
     const setCurrentPlaybackRateByCaption = (caption) => {
-        let newValue = sourcePlaybackRate;
+        let newValue = (exerciseStatus === ExerciseStatus.RECORDING
+                            ||
+                        (exerciseStatus === ExerciseStatus.PLAYING && recordedChunks?.length > 0)
+                       )?sourcePlaybackRate:playerLinePlaybackRate;
         if (exerciseStatus !== ExerciseStatus.ORIGIN && caption?.checked) {
             newValue = youLinePlaybackRate;
         }
@@ -107,6 +111,10 @@ const ExerciseView = ({ videoData, onExit }) => {
         setYouLinePlaybackRate(rate);
     };
 
+    const setPlayerLinePlaybackRateWrapper = (rate) => {
+        setPlayerLinePlaybackRate(rate);
+    };
+
     const handleLoopChange = (checked) => {
         console.log(`LingFlix: Loop ${loop} changed to ${checked} current playerRef.current;${playerRef.current.loop}`);
         setLoop(checked);
@@ -118,6 +126,10 @@ const ExerciseView = ({ videoData, onExit }) => {
 
     const handleYourLinePlaybackRateChange = (rate) => {
         setYoulinePlaybackRateWrapper(parseFloat(rate));
+    };
+
+    const handlePlayerLinePlaybackRateChange = (rate) => {
+        setPlayerLinePlaybackRateWrapper(parseFloat(rate));
     };
 
     const handleYourLineSourceVolumeChange = (volume) => {
@@ -282,10 +294,12 @@ const ExerciseView = ({ videoData, onExit }) => {
                     initLoop={loop}
                     initShowCaptions={showCaptions}
                     initYourLineSourceVolume={yourLineSourceVolume}
+                    initPlayerLinePlaybackRate={sourcePlaybackRate}
                     initYourLinePlaybackRate={youLinePlaybackRate}
                     initImbededCaptionBluring={imbededCaptionBluringValue}
                     onLoopChange={handleLoopChange}
                     onShowCaptionsChange={handleShowCaptionsChange}
+                    onPlayerLinePlaybackRateChange={handlePlayerLinePlaybackRateChange}
                     onYourLinePlaybackRateChange={handleYourLinePlaybackRateChange}
                     onYourLineSourceVolumeChange={handleYourLineSourceVolumeChange}
                     onImbededCaptionBluringChange={handleImbededCaptionBluringChange}
