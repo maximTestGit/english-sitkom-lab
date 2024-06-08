@@ -4,6 +4,7 @@ import { fetchData, storageDataAttributes } from './helpers/fetchData.js';
 import { getPlaylistContentUrl } from './data/configurator';
 import { playlistRegistry } from './data/playlistRegistry';
 import Dropzone from 'react-dropzone'
+import { isRunningOnBigScreen } from './data/configurator';
 
 const VideoList = ({ playlistId, onSelectVideo, onSelectPlaylistId }) => {
     const default_selected_playList_id = playlistRegistry[0].listId;
@@ -15,7 +16,7 @@ const VideoList = ({ playlistId, onSelectVideo, onSelectPlaylistId }) => {
         onSelectPlaylistId(newSelectedPlayListId);
     };
 
-     const fetchVideos = async (playlistId) => {
+    const fetchVideos = async (playlistId) => {
         let url = getPlaylistContentUrl(playlistId);
         const videos = await fetchData(storageDataAttributes.videoList_data_prefix, `videoList%${playlistId}`, url, 60 * 60); // Cache for 1 hour
         setVideos(videos);
@@ -27,7 +28,7 @@ const VideoList = ({ playlistId, onSelectVideo, onSelectPlaylistId }) => {
 
     const openExercise = (file) => {
         const reader = new FileReader();
-        reader.onload = function(event) {
+        reader.onload = function (event) {
             const contents = event.target.result;
             try {
                 const exerciseJson = JSON.parse(contents);
@@ -38,8 +39,8 @@ const VideoList = ({ playlistId, onSelectVideo, onSelectPlaylistId }) => {
         };
         reader.readAsText(file);
     };
-    
-   if (playlistId && playlistId != selectedPlayListId) {
+
+    if (playlistId && playlistId != selectedPlayListId) {
         setSelectedPlayListId(playlistId);
         fetchVideos(playlistId);
     }
@@ -54,7 +55,7 @@ const VideoList = ({ playlistId, onSelectVideo, onSelectPlaylistId }) => {
                 <div className="col-3 text-end">
                     <label className="form-select-lg text-end" htmlFor="playlistSelect">Select Playlist:</label>
                 </div>
-                <div className="col-4">
+                <div className="col-8 col-md-6">
                     <select className="form-select form-select-lg"
                         value={selectedPlayListId}
                         onChange={(e) => setSelectedPlayListIdWrapper(e.target.value)}>
@@ -63,22 +64,21 @@ const VideoList = ({ playlistId, onSelectVideo, onSelectPlaylistId }) => {
                         ))}
                     </select>
                 </div>
-                <div className="col-1 text-center">
-                    <label className="form-select-lg text-center" >OR</label>
-                </div>
 
-                <div className="col-4 text-center">
-                    <Dropzone onDrop={acceptedFiles => openExercise(acceptedFiles[0])}>
-                        {({ getRootProps, getInputProps }) => (
-                            <section>
-                                <div {...getRootProps()}>
-                                    <input {...getInputProps()} />
-                                    <button type="button" className="btn btn-warning btn-lg">Open or Drop File</button>
-                                </div>
-                            </section>
-                        )}
-                    </Dropzone>                
-                </div>
+                { isRunningOnBigScreen &&
+                    <div className="col-3 text-center">
+                        <Dropzone onDrop={acceptedFiles => openExercise(acceptedFiles[0])}>
+                            {({ getRootProps, getInputProps }) => (
+                                <section>
+                                    <div {...getRootProps()}>
+                                        <input {...getInputProps()} />
+                                        <button type="button" className="btn btn-warning btn-lg">Open or Drop File</button>
+                                    </div>
+                                </section>
+                            )}
+                        </Dropzone>
+                    </div>
+                }
             </div>
             <table className="table table-hover table-striped">
                 <thead>
