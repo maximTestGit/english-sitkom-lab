@@ -31,7 +31,7 @@ const ControlsArea = ({ exerciseStatus,
                     || exerciseStatus === ExerciseStatus.PLAYING}
                 className={`btn  btn-success  ${btnCommonAttributes}`}
                 hint={'View the original video on YouTube'}
-                onClick={() => startPlay(true, 'Play YouTube')}
+                onClick={() => startPlay(ExerciseStatus.ORIGIN, 'Play YouTube')}
                 antiOnClick={() => stopPlay()}
                 antiChildren={'Stop'}
                 fontSize={btnFontSize}
@@ -45,12 +45,12 @@ const ControlsArea = ({ exerciseStatus,
                     || exerciseStatus === ExerciseStatus.ORIGIN}
                 className={`btn  btn-success  ${btnCommonAttributes}`}
                 hint={(recordedChunks?.length > 0) ? 'Play your recording' : 'Play exercise'}
-                onClick={() => startPlay(false, 'Play Exercise')}
+                onClick={() => startPlay(ExerciseStatus.PLAYING, 'Play Exercise')}
                 antiOnClick={() => stopPlay()}
                 antiChildren={'Stop'}
                 fontSize={btnFontSize}
             >
-                {(recordedChunks?.length > 0) ? 'Play Record' : 'Play Exercise'}
+                {(recordedChunks?.length > 0) ? 'Play Homework Record' : 'Play Exercise'}
             </ConditionalButton>
 
             {isRunningOnBigScreen && 

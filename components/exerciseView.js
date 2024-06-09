@@ -162,12 +162,12 @@ const ExerciseView = ({ videoData, onExit }) => {
         setExerciseStatus(status);
         console.log(`LingFlix: ExerciseStatus(${caller}): ${status}`);
     }
-    const startPlay = (origin, caller) => {
-        console.log(`LingFlix: startPlay from ${caller}: Origin=${origin}`);
+    const startPlay = (status, caller) => {
+        console.log(`LingFlix: startPlay from ${caller}: status=${status}`);
         jumpToStart(playerRef);
         jumpToStart(recPlayerRef);
         setCurrentVolumeWrapper(default_volume);
-        setExerciseStatusWrapper(origin ? ExerciseStatus.ORIGIN : ExerciseStatus.PLAYING, 'startPlay');
+        setExerciseStatusWrapper(status, 'startPlay');
     };
     const stopPlay = () => {
         setCurrentVolumeWrapper(sourceVolume);
@@ -182,7 +182,7 @@ const ExerciseView = ({ videoData, onExit }) => {
     const handleStartRecording = () => {
         if (exerciseStatus === ExerciseStatus.STOPPED) {
             if (recordedChunks?.length > 0) {
-                alert('You have already recorded something. Please clear recording first.\n(Click "Clear Record" button)');
+                alert('You have already recorded something. Please clear recording first.\n(Click "Clear Homework Record" button)');
             } else {
                 setLoopPreRec(loop);
                 setLoop(false);
@@ -195,8 +195,8 @@ const ExerciseView = ({ videoData, onExit }) => {
                     setPlayingCaption(null);
                 }
 
-                startPlay(false, 'handleStartRecording');;
-                setExerciseStatusWrapper(ExerciseStatus.RECORDING, 'handleStartRecording');
+                startPlay(ExerciseStatus.RECORDING, 'handleStartRecording');;
+                //setExerciseStatusWrapper(ExerciseStatus.RECORDING, 'handleStartRecording');
             }
         }
     };
@@ -237,7 +237,7 @@ const ExerciseView = ({ videoData, onExit }) => {
             saveRecording(videoData.videoRecordedChunks);
             setYourLineSourceVolume(default_recording_your_line_volume);
         } else {
-            startPlay(true, 'useEffect');
+            startPlay(ExerciseStatus.ORIGIN, 'useEffect');
         }
     }, []);
 
