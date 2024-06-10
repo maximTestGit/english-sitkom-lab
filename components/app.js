@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Banner from "./banner";
 import VideoList from "./videoList";
 import ExerciseView from "./exerciseView";
-import TopMenu from './TopMenu';
+import TopMenu from './topMenu';
 import { cleanUpLocalStorage, fetchDataFromLocalStorage, saveDataToLocalStorage, storageDataAttributes } from './helpers/fetchData.js';
 import { buildExerciseRecordedChunks } from './helpers/exerciseHelper.js';
 
