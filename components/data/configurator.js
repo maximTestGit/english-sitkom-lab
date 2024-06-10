@@ -23,3 +23,5 @@ export const isRunningOnBigScreen = !isMobile;
 export const learningLanguage = process.env.NEXT_PUBLIC_LEARNING_LANGUAGE // vercel env.var.
                                 ||
                                 process.env.REACT_APP_LEARNING_LANGUAGE; // netlify env.var.
+console.log(`LingFlix: learningLanguage: ${learningLanguage}`);
+console.log(`LingFlix: process.env: ${process?.env}`);
