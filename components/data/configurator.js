@@ -19,3 +19,5 @@ export function getPlaylistContentUrl(playlistId) {
 }
 
 export const isRunningOnBigScreen = !isMobile;
+
+export const learningLanguage = process.env.LEARNING_LANGUAGE_CULTURE ?? 'en-US';
