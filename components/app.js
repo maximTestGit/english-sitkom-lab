@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Banner from "./banner";
 import VideoList from "./videoList";
 import ExerciseView from "./exerciseView";
+import TopMenu from './TopMenu';
 import { cleanUpLocalStorage, fetchDataFromLocalStorage, saveDataToLocalStorage, storageDataAttributes } from './helpers/fetchData.js';
 import { buildExerciseRecordedChunks } from './helpers/exerciseHelper.js';
 
@@ -56,19 +57,24 @@ const App = () => {
 
   return (
     <div>
-      <Banner />
-        {videoData ? (
-          <ExerciseView 
-            videoData={videoData}
-            onExit={handleExerciseExit}
-          />
-        ) : (
+      <TopMenu
+        onGoHome={handleExerciseExit}
+      />
+      {videoData ? (
+        <ExerciseView
+          videoData={videoData}
+          onExit={handleExerciseExit}
+        />
+      ) : (
+        <>
+          <Banner />
           <VideoList
             playlistId={selectedPlaylistId}
             onSelectVideo={setSelectedVideoWrapper}
             onSelectPlaylistId={setSelectedPlaylistIdWrapper}
           />
-        )}
+        </>
+      )}
     </div>
   );
 };
