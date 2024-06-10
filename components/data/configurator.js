@@ -22,6 +22,8 @@ export const isRunningOnBigScreen = !isMobile;
 
 export const learningLanguage = process.env.NEXT_PUBLIC_LEARNING_LANGUAGE // vercel env.var.
                                 ||
+                                process.env.LEARNING_LANGUAGE
+                                ||
                                 process.env.REACT_APP_LEARNING_LANGUAGE; // netlify env.var.
 console.log(`LingFlix: configurator: learningLanguage: ${learningLanguage}`);
 console.log(`LingFlix: configurator: process.env as list: ${Object.keys(process.env).map(key => `${key}: ${process.env[key]}`).join(', ')}`);
