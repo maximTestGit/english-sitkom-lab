@@ -1,3 +1,10 @@
-.nav-link-hover:hover {
+.bold-on-hover {
+    text-decoration: none;
+    color: gray;
+}
+
+/* Make the link bold on hover */
+.bold-on-hover:hover {
     font-weight: bold;
+    color: black;
 }
