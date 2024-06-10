@@ -49,4 +49,4 @@ export const playlistRegistry = [
         language: 'Hebrew',
         languageCulture: 'he-IL',
     },
-].filter(item => item.languageCulture === learningLanguage);
+].filter(item => !learningLanguage || item.languageCulture === learningLanguage);
