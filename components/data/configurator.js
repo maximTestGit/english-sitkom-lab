@@ -20,6 +20,6 @@ export function getPlaylistContentUrl(playlistId) {
 
 export const isRunningOnBigScreen = !isMobile;
 
-export const learningLanguage = process.env.REACT_APP_LEARNING_LANGUAGE // vercel env.var.
+export const learningLanguage = process.env.NEXT_PUBLIC_LEARNING_LANGUAGE // vercel env.var.
                                 ||
-                                process.env.NEXT_PUBLIC_LEARNING_LANGUAGE; // netlify env.var.
+                                process.env.REACT_APP_LEARNING_LANGUAGE; // netlify env.var.
