@@ -24,4 +24,4 @@ export const learningLanguage = process.env.NEXT_PUBLIC_LEARNING_LANGUAGE // ver
                                 ||
                                 process.env.REACT_APP_LEARNING_LANGUAGE; // netlify env.var.
 console.log(`LingFlix: configurator: learningLanguage: ${learningLanguage}`);
-console.log(`LingFlix: configurator: process.env: ${JSON.stringify(process?.env)}`);
+console.log(`LingFlix: configurator: process.env: ${Object.keys(process.env).map(key => `${key}: ${process.env[key]}`).join(', ')}`);
