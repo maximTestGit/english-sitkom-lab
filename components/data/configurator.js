@@ -20,9 +20,8 @@ export function getPlaylistContentUrl(playlistId) {
 
 export const isRunningOnBigScreen = !isMobile;
 
-console.log(`LingFlix: learningLanguage section`);
 export const learningLanguage = process.env.NEXT_PUBLIC_LEARNING_LANGUAGE // vercel env.var.
                                 ||
                                 process.env.REACT_APP_LEARNING_LANGUAGE; // netlify env.var.
-console.log(`LingFlix: learningLanguage: ${learningLanguage}`);
-console.log(`LingFlix: process.env: ${process?.env}`);
+console.log(`LingFlix: configurator: learningLanguage: ${learningLanguage}`);
+console.log(`LingFlix: configurator: process.env: ${JSON.stringify(process?.env)}`);
