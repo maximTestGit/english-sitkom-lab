@@ -113,9 +113,11 @@ const CaptionsView = ({
                 }
             }
             if (!captionAtPosition) {
+                console.log(`LingFlix: No caption found at position ${position}`);
                 setCurrentCaption(null)
                 onCurrentCaptionChange(null);
-            } else if (currentCaption !== captionAtPosition) {
+            } else if (currentCaption?.start<0.1 || currentCaption !== captionAtPosition) {
+                console.log(`LingFlix: Caption found at position ${position} is ${captionAtPosition.text}`);
                 setCurrentCaption(captionAtPosition)
                 onCurrentCaptionChange(captionAtPosition);
             }
@@ -124,6 +126,7 @@ const CaptionsView = ({
 
         const handlePositionChange = () => {
             findCurrentCaption(captions, position);
+            //console.log(`LingFlix: CaptionsView handlePositionChange position: ${position}, cap: ${cap?.text}, currentCaption: ${currentCaption?.text}`);    
         }
 
         handlePositionChange();

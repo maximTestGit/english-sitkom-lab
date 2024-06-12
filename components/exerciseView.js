@@ -13,7 +13,7 @@ const ExerciseView = ({ videoData, onExit }) => {
     const default_your_line_playback_rate = 1.0; // 1x speed
 
     const default_volume = 50.0; // 50% of the volume
-    const default_your_line_volume = 1.0; // 1% of the volume
+    const default_your_line_volume = 0.0; // mute
     const default_recording_your_line_volume = 0.0; // mute
 
     // #region States
@@ -143,7 +143,7 @@ const ExerciseView = ({ videoData, onExit }) => {
 
     // #region Player position handlers
     const handleOnProgress = (state) => {
-        if (position !== state.playedSeconds) {
+        if (state.playedSeconds===0 || position===0 || position !== state.playedSeconds) {
             setPosition(state.playedSeconds);
         }
     };
@@ -153,7 +153,9 @@ const ExerciseView = ({ videoData, onExit }) => {
         } else if (!loop) {
             stopPlay();
         } else {
-            jumpToStart(playerRef);        }
+            jumpToStart(playerRef);        
+            setPosition(0);
+        }
     }
     // #endregion Player position handlers
 
@@ -165,6 +167,7 @@ const ExerciseView = ({ videoData, onExit }) => {
     const startPlay = (status, caller) => {
         console.log(`LingFlix: startPlay from ${caller}: status=${status}`);
         jumpToStart(playerRef);
+        setPosition(0);
         jumpToStart(recPlayerRef);
         setCurrentVolumeWrapper(default_volume);
         setExerciseStatusWrapper(status, 'startPlay');

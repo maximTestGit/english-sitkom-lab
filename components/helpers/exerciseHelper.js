@@ -7,6 +7,7 @@ const exercise_storage_folder = 'Exercises';
 export function jumpToStart(playerRef) {
     try {
         playerRef?.current?.seekTo(0, 'fraction');
+        console.log(`LingFlix: jumpToStart(${playerRef.current})`);
     } catch (error) {
         console.log(`LingFlix: Error in jumpToStart(${playerRef.current}): ${error}`);
     }
