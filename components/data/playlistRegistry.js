@@ -39,7 +39,7 @@ export const playlistRegistry = [
     },
     {
         listId: 'PLuMmOfYkVMQ413qlCiq-0TR6vzcf3bjpC',
-        listName: 'Others...',
+        listName: 'Others',
         language: 'English',
         languageCulture: 'en-US',
     },
