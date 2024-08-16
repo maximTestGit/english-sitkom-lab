@@ -7,6 +7,7 @@ import ExerciseStatus from './data/exerciseStatus.js';
 import { jumpToStart, handleSaveExercise, handleShareExercise } from './helpers/exerciseHelper.js';
 import Modal from 'react-bootstrap/Modal';
 import ControlsArea from './controlsArea.js';
+import { isInAdminRole } from './data/configurator.js';
 
 const ExerciseView = ({ videoData, onExit }) => {
     const default_playback_rate = 1.0; // 1x speed
@@ -44,7 +45,7 @@ const ExerciseView = ({ videoData, onExit }) => {
     const [showEmailForm, setShowEmailForm] = useState(false); // State variable to control modal visibility
     const [emailAddress, setEmailAddress] = useState(null); // State variable to store email address
     const [studentName, setStudentName] = useState('Unknown'); // State variable to store student name
-    const [isClipMode, setIsClipMode] = useState(false); 
+    const [isClipMode, setIsClipMode] = useState(false);
     const emailInputRef = useRef(null);
     const nameInputRef = useRef(null);
     const unlistedInputRef = useRef(false);
@@ -77,9 +78,9 @@ const ExerciseView = ({ videoData, onExit }) => {
 
     const setCurrentPlaybackRateByCaption = (caption) => {
         let newValue = (exerciseStatus === ExerciseStatus.RECORDING
-                            ||
-                        (exerciseStatus === ExerciseStatus.PLAYING && recordedChunks?.length > 0)
-                       )?sourcePlaybackRate:playerLinePlaybackRate;
+            ||
+            (exerciseStatus === ExerciseStatus.PLAYING && recordedChunks?.length > 0)
+        ) ? sourcePlaybackRate : playerLinePlaybackRate;
         if (exerciseStatus !== ExerciseStatus.ORIGIN && caption?.checked) {
             newValue = youLinePlaybackRate;
         }
@@ -143,7 +144,7 @@ const ExerciseView = ({ videoData, onExit }) => {
 
     // #region Player position handlers
     const handleOnProgress = (state) => {
-        if (state.playedSeconds===0 || position===0 || position !== state.playedSeconds) {
+        if (state.playedSeconds === 0 || position === 0 || position !== state.playedSeconds) {
             setPosition(state.playedSeconds);
         }
     };
@@ -153,7 +154,7 @@ const ExerciseView = ({ videoData, onExit }) => {
         } else if (!loop) {
             stopPlay();
         } else {
-            jumpToStart(playerRef);        
+            jumpToStart(playerRef);
             setPosition(0);
         }
     }
@@ -276,13 +277,13 @@ const ExerciseView = ({ videoData, onExit }) => {
     const handleShareExerciseWrapper = () => handleShowEmailForm(); // TODO: use handleShowEmailForm
     // #endregion Email form
 
-    const handleChangeClipSelection=(clipRange) => {
+    const handleChangeClipSelection = (clipRange) => {
         setClipSelection(clipRange);
         setIsClipMode(determineClipMode(clipRange));
     }
 
     const determineClipMode = (clipRange) => {
-        let result = captions?.length>0 && clipRange?.start !== undefined;
+        let result = captions?.length > 0 && clipRange?.start !== undefined;
         if (result) {
             let lastCaptionEnd = parseFloat(captions[captions.length - 1].start) + parseFloat(captions[captions.length - 1].duration);
             result = clipRange.start > 0 || clipRange.end < lastCaptionEnd;
@@ -292,6 +293,14 @@ const ExerciseView = ({ videoData, onExit }) => {
 
     return (
         <>
+            {isInAdminRole &&
+                <div id="AdminToolsArea" className="row mb-3 col-12 d-flex align-items-center">
+                    <label htmlFor="adminUrl" className="col-1 text-end">Url</label>
+                    <input type="text" className="col-4 me-2" id="adminUrl" placeholder="Enter URL" />
+                    <button type="button" className="btn btn-primary col-1">Open</button>
+                </div>
+            }
+
             <div id="PlaybackSettingsArea" className="row mb-3 col-12 col-md-12 col-lg-9">
                 <PlaybackSettings
                     initLoop={loop}
@@ -311,7 +320,7 @@ const ExerciseView = ({ videoData, onExit }) => {
 
             <ControlsArea
                 exerciseStatus={exerciseStatus}
-                isClipMode = {isClipMode}
+                isClipMode={isClipMode}
                 onExit={onExit}
                 startPlay={startPlay}
                 stopPlay={stopPlay}
