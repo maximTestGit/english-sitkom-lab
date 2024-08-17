@@ -1,14 +1,16 @@
 import React, { use } from 'react';
 import { useState } from 'react';
 import Switch from './helpers/switch';
+import { isRunningOnBigScreen } from './data/configurator.js';
 
 const PlaybackSettings = ({ initLoop, initShowCaptions,
     initYourLineSourceVolume, initPlayerLinePlaybackRate, initYourLinePlaybackRate, initImbededCaptionBluring = false,
+    initAllowCamera,
     onLoopChange, onShowCaptionsChange, onPlayerLinePlaybackRateChange, onYourLinePlaybackRateChange, onYourLineSourceVolumeChange,
-    onImbededCaptionBluringChange }) => {
-        const [youLinePlaybackRate, setYouLinePlaybackRate] = useState(initYourLinePlaybackRate);
-        const [playerLinePlaybackRate, setPlayerLinePlaybackRate] = useState(initPlayerLinePlaybackRate);
-        const [yourLineSourceVolume, setYourLineSourceVolume] = useState(initYourLineSourceVolume);
+    onImbededCaptionBluringChange, onAllowCameraChange }) => {
+    const [youLinePlaybackRate, setYouLinePlaybackRate] = useState(initYourLinePlaybackRate);
+    const [playerLinePlaybackRate, setPlayerLinePlaybackRate] = useState(initPlayerLinePlaybackRate);
+    const [yourLineSourceVolume, setYourLineSourceVolume] = useState(initYourLineSourceVolume);
     const handleYourLinePlaybackRateChange = (event) => {
         const newPlaybackRate = parseFloat(event.target.value);
         setYouLinePlaybackRate(event.target.value);
@@ -31,14 +33,19 @@ const PlaybackSettings = ({ initLoop, initShowCaptions,
     return (
         <>
             <div className="row mb-2">
-                <div className="col-3">
-                    <Switch id="loopPlaySwitch" label="Loop Playing" onChange={onLoopChange} initValue={initLoop} />
+                <div className="col-2">
+                    <Switch id="loopPlaySwitch" label="Loop" onChange={onLoopChange} initValue={initLoop} />
                 </div>
                 <div className="col-3">
                     <Switch id="imbededCaptionBluringSwitch" label="Blure Imbeded Captions" onChange={onImbededCaptionBluringChange} initValue={initImbededCaptionBluring} />
                 </div>
+                {isRunningOnBigScreen && 
+                    <div className="col-2">
+                        <Switch id="allowCameraSwitch" label="Camera" onChange={onAllowCameraChange} initValue={initAllowCamera} />
+                    </div>
+                }
                 <div className="col-3">
-                    <Switch id="showCaptionsSwitch" label="Show Exercise Captions" onChange={onShowCaptionsChange} initValue={initShowCaptions} />
+                    <Switch id="showCaptionsSwitch" label="Exercise Captions" onChange={onShowCaptionsChange} initValue={initShowCaptions} />
                 </div>
             </div>
             <div className="row mb-2">
@@ -64,7 +71,7 @@ const PlaybackSettings = ({ initLoop, initShowCaptions,
                         <option value={10.0}>Loud Whisper Player when you talk</option>
                     </select>
                 </div>
-            <div className="col-4 col-lg-3">
+                <div className="col-4 col-lg-3">
                     <select className="form-select form-select-sm"
                         onChange={handlePlayerLinePlaybackRateChange}
                         value={playerLinePlaybackRate}>

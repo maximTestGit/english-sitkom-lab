@@ -10,6 +10,7 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
     handleOnProgress, handlePlayingEnd, handleStopRecording,
     clearRecordedChunks, afterClearRecordedChunks,
     imbededCaptionBluring = false,
+    allowCamera = true,
     clipSelection = { start: undefined, end: undefined },
     //onResetStatus=()=>{},
 }) => {
@@ -92,7 +93,7 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                 }
             </div>
 
-            {isRunningOnBigScreen
+            {isRunningOnBigScreen && allowCamera
                 &&
                 (recordedChunksUrl && exerciseStatus !== ExerciseStatus.ORIGIN ?
                     <div id="FaceAreaRecorded" style={{

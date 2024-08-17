@@ -7,6 +7,7 @@ const ControlsArea = ({ exerciseStatus,
     onExit, startPlay, stopPlay, saveRecording,
     recordedChunks, handleStartRecording,
     videoData, captions, isClipMode=false,
+    allowCamera,
     sourcePlaybackRate, youLinePlaybackRate,
     handleShareExerciseWrapper, handleSaveExercise, handleClearRecording, handleRestoreDefaultExercise }
 ) => {
@@ -60,7 +61,10 @@ const ControlsArea = ({ exerciseStatus,
                         ||
                         exerciseStatus === ExerciseStatus.ORIGIN
                         ||
-                        isClipMode}
+                        isClipMode
+                        ||
+                        !allowCamera
+                    }
                     className={`btn  btn-success  ${btnCommonAttributes}`}
                     hint={'Start recording'}
                     onClick={() => handleStartRecording()}

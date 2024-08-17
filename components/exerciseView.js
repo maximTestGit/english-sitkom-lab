@@ -7,7 +7,7 @@ import ExerciseStatus from './data/exerciseStatus.js';
 import { jumpToStart, handleSaveExercise, handleShareExercise } from './helpers/exerciseHelper.js';
 import Modal from 'react-bootstrap/Modal';
 import ControlsArea from './controlsArea.js';
-import { isInAdminRole } from './data/configurator.js';
+import { isInAdminRole, isRunningOnBigScreen } from './data/configurator.js';
 
 const ExerciseView = ({ videoData, onExit }) => {
     const default_playback_rate = 1.0; // 1x speed
@@ -33,6 +33,7 @@ const ExerciseView = ({ videoData, onExit }) => {
     const [youLinePlaybackRate, setYouLinePlaybackRate] = useState(videoData.yourLineRate ? videoData.yourLineRate : default_your_line_playback_rate); // rate of your line during exercise/recording
     const [currentPlaybackRate, setCurrentPlaybackRate] = useState(sourcePlaybackRate); // current, can be sourcePlaybackRate or youLinePlaybackRate
     const [imbededCaptionBluringValue, setImbededCaptionBluringValue] = useState(false);
+    const [allowCameraValue, setAllowCameraValue] = useState(isRunningOnBigScreen);
 
     const [sourceVolume, setSourceVolume] = useState(default_volume); // volume of youtube lines during origing/exercise/recording
     const [yourLineSourceVolume, setYourLineSourceVolume] = useState(default_your_line_volume); // volume of your line during origing/exercise/recording
@@ -139,6 +140,10 @@ const ExerciseView = ({ videoData, onExit }) => {
 
     const handleImbededCaptionBluringChange = (checked) => {
         setImbededCaptionBluringValue(checked);
+    };
+
+    const handleAllowCameraChange = (checked) => {
+        setAllowCameraValue(checked);
     };
     // #endregion Exercise settings
 
@@ -309,12 +314,14 @@ const ExerciseView = ({ videoData, onExit }) => {
                     initPlayerLinePlaybackRate={sourcePlaybackRate}
                     initYourLinePlaybackRate={youLinePlaybackRate}
                     initImbededCaptionBluring={imbededCaptionBluringValue}
+                    initAllowCamera={allowCameraValue}
                     onLoopChange={handleLoopChange}
                     onShowCaptionsChange={handleShowCaptionsChange}
                     onPlayerLinePlaybackRateChange={handlePlayerLinePlaybackRateChange}
                     onYourLinePlaybackRateChange={handleYourLinePlaybackRateChange}
                     onYourLineSourceVolumeChange={handleYourLineSourceVolumeChange}
                     onImbededCaptionBluringChange={handleImbededCaptionBluringChange}
+                    onAllowCameraChange={handleAllowCameraChange}
                 />
             </div>
 
@@ -324,6 +331,7 @@ const ExerciseView = ({ videoData, onExit }) => {
                 onExit={onExit}
                 startPlay={startPlay}
                 stopPlay={stopPlay}
+                allowCamera={allowCameraValue}
                 recordedChunks={recordedChunks}
                 handleStartRecording={handleStartRecording}
                 saveRecording={saveRecording}
@@ -346,6 +354,7 @@ const ExerciseView = ({ videoData, onExit }) => {
                     videoData={videoData}
                     loop={loop}
                     imbededCaptionBluring={imbededCaptionBluringValue}
+                    allowCamera={allowCameraValue}
                     currentPlaybackRate={currentPlaybackRate}
                     currentVolume={currentVolume}
                     handleOnProgress={handleOnProgress}
