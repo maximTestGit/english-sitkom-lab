@@ -44,8 +44,21 @@ export const playlistRegistry = [
         languageCulture: 'en-US',
     },
     {
+        listId: 'PLuMmOfYkVMQ6srhqxBt-bVPK4kL6EPK4f',
+        listName: 'External English',
+        language: 'English',
+        languageCulture: 'en-US',
+        isExternal: true,
+    },
+    {
         listId: 'PLuMmOfYkVMQ5BVRFMfLKXmnabpNNIr8yX',
         listName: 'Hebrew',
+        language: 'Hebrew',
+        languageCulture: 'he-IL',
+    },
+    {
+        listId: 'PLuMmOfYkVMQ7Eg8LYDP_SZvwryiH2BpGE',
+        listName: 'External Hebrew',
         language: 'Hebrew',
         languageCulture: 'he-IL',
     },

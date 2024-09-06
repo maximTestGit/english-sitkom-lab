@@ -8,10 +8,18 @@ export function saveExerciseUrl() {
     return 'https://us-central1-youtube-project-404109.cloudfunctions.net/function-save-exercise';
 }
 
-export function getCaptionsUrl(videoId, language) {
+export function loginUrl() {
+    return 'https://me-west1-youtube-project-404109.cloudfunctions.net/function-login';
+}
+
+export function getCaptionsUrl(videoId, language, user) {
     //let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-captions-fetch-json?videoId=${videoId}&language=${language}`;
-    let url = `https://me-west1-youtube-project-404109.cloudfunctions.net/function-captions-fetch-json-1?videoId=${videoId}&language=${language}`;
+    let url = `https://me-west1-youtube-project-404109.cloudfunctions.net/function-captions-fetch-json-1?videoId=${videoId}&language=${language}&user=${user}`;
     return url;
+}
+
+export function captionsSaveToStorageUrl() {
+    return 'https://us-central1-youtube-project-404109.cloudfunctions.net/function-captions-save-storage';
 }
 
 export function getPlaylistContentUrl(playlistId) {
@@ -20,11 +28,30 @@ export function getPlaylistContentUrl(playlistId) {
 }
 
 export const isRunningOnBigScreen = !isMobile;
-export const isInAdminRole = false;
 
 export const learningLanguage = process.env.NEXT_PUBLIC_LEARNING_LANGUAGE // vercel env.var.
     ||
     process.env.LEARNING_LANGUAGE
     ||
-    process.env.REACT_APP_LEARNING_LANGUAGE; // netlify env.var.
-console.log(`LingFlix: configurator: learningLanguage: ${learningLanguage}`);
+    process.env.REACT_APP_LEARNING_LANGUAGE
+    ||
+    'he-IL'; 
+    //'en-US'; // netlify env.var.
+
+export function getLearningLanguageName(language) {
+    switch (language) {
+        case 'en-US':
+            return 'English';
+        case 'ru-RU':
+            return 'Russian';
+        case 'he-IL':
+            return 'Hebrew';
+        default:
+            return 'English';
+    }
+}
+//console.log(`LingFlix: configurator: learningLanguage: ${learningLanguage}`);
+
+
+
+

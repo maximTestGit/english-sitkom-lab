@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import CaptionsView from './captionsView';
 import CaptionBox from './captionBox.js';
 import PlaybackSettings from './playbackSettings.js';
@@ -7,9 +7,17 @@ import ExerciseStatus from './data/exerciseStatus.js';
 import { jumpToStart, handleSaveExercise, handleShareExercise } from './helpers/exerciseHelper.js';
 import Modal from 'react-bootstrap/Modal';
 import ControlsArea from './controlsArea.js';
-import { isInAdminRole, isRunningOnBigScreen } from './data/configurator.js';
+import { isRunningOnBigScreen, learningLanguage } from './data/configurator.js';
+import {
+    storageDataAttributes,
+    fetchDataFromLocalStorage,
+    saveDataToLocalStorage,
+} from './helpers/storageHelper';
+import { saveCaptionObjectsToFile } from './helpers/srtHelper.js';
+import AdminArea from './adminArea.js';
+import { captionsSaveToStorage } from './helpers/fetchData.js';
 
-const ExerciseView = ({ videoData, onExit }) => {
+const ExerciseView = ({ videoData, onExit, currentUserData }) => {
     const default_playback_rate = 1.0; // 1x speed
     const default_your_line_playback_rate = 1.0; // 1x speed
 
@@ -27,13 +35,14 @@ const ExerciseView = ({ videoData, onExit }) => {
     const [captions, setCaptions] = useState([]);
     const [recordedChunks, setRecordedChunks] = useState([]);
     const [clearRecordedChunks, setClearRecordedChunks] = useState(false);
+    const [loadedCaptionsData, setLoadedCaptionsData] = useState(null);
 
     const [sourcePlaybackRate, setSourcePlaybackRate] = useState(default_playback_rate); // rate of youtube lines during origing/exercise/recording
     const [playerLinePlaybackRate, setPlayerLinePlaybackRate] = useState(sourcePlaybackRate); // rate of player line during exercise/recording
     const [youLinePlaybackRate, setYouLinePlaybackRate] = useState(videoData.yourLineRate ? videoData.yourLineRate : default_your_line_playback_rate); // rate of your line during exercise/recording
     const [currentPlaybackRate, setCurrentPlaybackRate] = useState(sourcePlaybackRate); // current, can be sourcePlaybackRate or youLinePlaybackRate
     const [imbededCaptionBluringValue, setImbededCaptionBluringValue] = useState(false);
-    const [allowCameraValue, setAllowCameraValue] = useState(isRunningOnBigScreen);
+    const [allowCameraValue, setAllowCameraValue] = useState(false);
 
     const [sourceVolume, setSourceVolume] = useState(default_volume); // volume of youtube lines during origing/exercise/recording
     const [yourLineSourceVolume, setYourLineSourceVolume] = useState(default_your_line_volume); // volume of your line during origing/exercise/recording
@@ -56,6 +65,9 @@ const ExerciseView = ({ videoData, onExit }) => {
 
     const [restoreDefaultExercise, setRestoreDefaultExercise] = useState(false);
     const [clipSelection, setClipSelection] = useState({ start: undefined, end: undefined });
+
+    const [currentUser, setCurrentUser] = useState(currentUserData);
+
 
     // #endregion States
 
@@ -144,6 +156,10 @@ const ExerciseView = ({ videoData, onExit }) => {
 
     const handleAllowCameraChange = (checked) => {
         setAllowCameraValue(checked);
+        saveDataToLocalStorage(
+            storageDataAttributes.session_data_prefix,
+            storageDataAttributes.session_data_keys.allow_camera_key,
+            checked);
     };
     // #endregion Exercise settings
 
@@ -248,7 +264,20 @@ const ExerciseView = ({ videoData, onExit }) => {
         } else {
             startPlay(ExerciseStatus.ORIGIN, 'useEffect');
         }
+        let allowCameraValue = fetchDataFromLocalStorage(
+            storageDataAttributes.session_data_prefix,
+            storageDataAttributes.session_data_keys.allow_camera_key);
+        if (allowCameraValue === null || allowCameraValue === undefined) {
+            allowCameraValue = false;
+            handleAllowCameraChange(allowCameraValue);
+        } else {
+            setAllowCameraValue(allowCameraValue);
+        }
     }, []);
+
+    useEffect(() => {
+        setCurrentUser(currentUserData);
+    }, [currentUserData]);
 
     // #region Email form
     const handleCloseEmailForm = () => setShowEmailForm(false);
@@ -296,16 +325,42 @@ const ExerciseView = ({ videoData, onExit }) => {
         return result;
     }
 
+    const handleSrtOpen = (captions) => {
+        setLoadedCaptionsData(captions);
+    }
+
+    const handleUploadCaptions = async () => {
+        const result = await captionsSaveToStorage(videoData.videoId, videoData.learningLanguage, currentUser.username, captions);
+        if (result) {
+            alert(`Captions for "${videoData.title}" uploaded successfully!`);
+        } else {
+            alert(`Error uploading Captions for "${videoData.title}"!`);
+        }
+    }
+
+    const handleSrtSave = () => {
+        let fileName = null;
+        try {
+            fileName = saveCaptionObjectsToFile(captions, videoData.title);
+        } catch (error) {
+
+        }
+        if (fileName) {
+            alert(`File "${fileName}" saved successfully!`);
+        } else {
+            alert('Error saving file.');
+        }
+    }
+
     return (
         <>
-            {isInAdminRole &&
-                <div id="AdminToolsArea" className="row mb-3 col-12 d-flex align-items-center">
-                    <label htmlFor="adminUrl" className="col-1 text-end">Url</label>
-                    <input type="text" className="col-4 me-2" id="adminUrl" placeholder="Enter URL" />
-                    <button type="button" className="btn btn-primary col-1">Open</button>
-                </div>
+            {currentUser?.role == 'Admin' && isRunningOnBigScreen &&
+                <AdminArea
+                    onSrtOpen={handleSrtOpen}
+                    onSrtSave={handleSrtSave}
+                    onUploadCaptions={handleUploadCaptions}
+                />
             }
-
             <div id="PlaybackSettingsArea" className="row mb-3 col-12 col-md-12 col-lg-9">
                 <PlaybackSettings
                     initLoop={loop}
@@ -377,6 +432,8 @@ const ExerciseView = ({ videoData, onExit }) => {
                     afterRestoreDefaultExercise={afterRestoreDefaultExercise}
                     onChangeClipSelection={handleChangeClipSelection}
                     hasRecordedChunks={recordedChunks?.length > 0}
+                    loadedCaptionsData={loadedCaptionsData}
+                    currentUserData={currentUser}
                 />
             </div>
             <Modal show={showEmailForm} >

@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { fetchData, saveDataToLocalStorage, storageDataAttributes } from './helpers/fetchData.js';
+import { fetchData } from './helpers/fetchData.js';
 import { decodeHtml } from './helpers/presentationUtils.js';
 import { getCaptionsUrl } from './data/configurator.js';
 import { playlistRegistry } from './data/playlistRegistry';
+import {
+    storageDataAttributes,
+    saveDataToLocalStorage,
+} from './helpers/storageHelper';
 
 const CaptionsView = ({
     videoData,
@@ -12,11 +16,14 @@ const CaptionsView = ({
     restoreDefaultExercise,
     afterRestoreDefaultExercise,
     onChangeClipSelection,
-    hasRecordedChunks
+    hasRecordedChunks,
+    loadedCaptionsData = null,
+    currentUserData,
 }) => {
     const [captions, setCaptions] = useState([]);
     const [currentCaption, setCurrentCaption] = useState(null);
     const [captionsRange, setCaptionsRange] = useState({ startIndex: undefined, endIndex: undefined });
+    const [currentUser, setCurrentUser] = useState(currentUserData);
 
     const captions_data_expiration = null;
     const setCaptionsWrapper = useCallback((newCaptions) => {
@@ -58,10 +65,16 @@ const CaptionsView = ({
     }, [videoData]);
 
     useEffect(() => {
+        setCurrentUser(currentUserData);
+    }, [currentUserData]);
+
+    useEffect(() => {
         const fetchCaptions = async () => {
             const playlistData = playlistRegistry.find(playlist => playlist.listId === videoData.playlistId);
-            let url = getCaptionsUrl(videoData.videoId, playlistData.language);
+            let url = getCaptionsUrl(videoData.videoId, videoData.learningLanguage, currentUser?.username);
             const captionData =
+                loadedCaptionsData
+                ||
                 await fetchData(
                     storageDataAttributes.captions_data_prefix,
                     videoData.videoId,
@@ -72,14 +85,24 @@ const CaptionsView = ({
                 afterRestoreDefaultExercise();
             }
             if (captionData) {
-                const captionDataWithChecked =
-                    captionData
-                        .map(caption => ({ ...caption, checked: determineCaptionChecked(caption) }));
-                setCaptionsWrapper(captionDataWithChecked);
+                if (loadedCaptionsData) {
+                    saveDataToLocalStorage(
+                        storageDataAttributes.captions_data_prefix,
+                        videoData.videoId,
+                        captionData
+                    );
+
+                }
+                if (captionData?.length > 0) {
+                    const captionDataWithChecked =
+                        captionData
+                            .map(caption => ({ ...caption, checked: determineCaptionChecked(caption) }));
+                    setCaptionsWrapper(captionDataWithChecked);
+                }
             }
         };
         fetchCaptions();
-    }, [videoData.videoId, restoreDefaultExercise]);
+    }, [videoData.videoId, restoreDefaultExercise, loadedCaptionsData]);
 
     const captionChange = (caption) => {
         const updatedCaptions = captions.map(c => {
@@ -116,7 +139,7 @@ const CaptionsView = ({
                 console.log(`LingFlix: No caption found at position ${position}`);
                 setCurrentCaption(null)
                 onCurrentCaptionChange(null);
-            } else if (currentCaption?.start<0.1 || currentCaption !== captionAtPosition) {
+            } else if (currentCaption?.start < 0.1 || currentCaption !== captionAtPosition) {
                 console.log(`LingFlix: Caption found at position ${position} is ${captionAtPosition.text}`);
                 setCurrentCaption(captionAtPosition)
                 onCurrentCaptionChange(captionAtPosition);
@@ -136,20 +159,20 @@ const CaptionsView = ({
         if (hasRecordedChunks) {
             alert('You are not allowed to change Selection, when you have recorded exercise.\nPlease clear recording first.(Click "Clear Record" button)');
         } else {
-        const position = parseInt(event.target.id);
-        let start = captionsRange.startIndex;
-        let end = captionsRange.endIndex;
-        if (position >= start
-            && position <= end) {
-            start = position;
-            end = position;
-        } else if (position < start) {
-            start = position;
-        } else {
-            end = position;
+            const position = parseInt(event.target.id);
+            let start = captionsRange.startIndex;
+            let end = captionsRange.endIndex;
+            if (position >= start
+                && position <= end) {
+                start = position;
+                end = position;
+            } else if (position < start) {
+                start = position;
+            } else {
+                end = position;
+            }
+            setClipRangeWrapper(captions, start, end);
         }
-        setClipRangeWrapper(captions, start, end);
-    }
     };
 
     return (
