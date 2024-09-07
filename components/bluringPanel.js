@@ -24,11 +24,14 @@ const BlurringPanel = ({
                     backgroundColor: backgroundColor,
                     backdropFilter: backdropFilter,
                     zIndex: zIndex,
+                    alignContent: 'center',
+                    textAlign: 'center',
+                    color: 'yellow',
+                    fontSize: '1.5em',
+                    fontWeight: 'bold',
                     //cursor: 'move',
                 }}>
-                <p style={{ color: 'white', textAlign: 'right', position: 'absolute', bottom: '0', right: '0', fontStyle: 'italic' }}>
-                    {hint ? hint : ""}
-                </p>            
+                    {hint}
             </div>
         </Draggable>
     );

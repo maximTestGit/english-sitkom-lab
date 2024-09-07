@@ -45,9 +45,13 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
         if (videoData.videoRecordedChunks?.length > 0) {
             handleStopRecordingWraper(videoData.videoRecordedChunks);
         }
-
     }, []);
 
+    const handlePlayingEndWrapper = () => {
+        console.log('LingFlix: PlayerBox: Playing ended');
+        handlePlayingEnd();
+    };
+    
     // const handleResetStatus = (status) => {
     //     if (status !== exerciseStatus) {
     //         onResetStatus(status);
@@ -58,8 +62,6 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
         <div style={{ position: 'relative' }}>
             <div id="ExercisePlayerArea"
                 className="pe-none"
-            // className={imbededCaptionBluring && (exerciseStatus===ExerciseStatus.ORIGIN || exerciseStatus===ExerciseStatus.PLAYING) ? 
-            //     "" : "pe-none"}
             >
                 {recordedChunksUrl && exerciseStatus !== ExerciseStatus.ORIGIN ?
                     <MediaUrlPlayer playerRef={playerRef}
@@ -83,7 +85,7 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                         muted={muted}
                         playbackRate={currentPlaybackRate}
                         onProgress={(state) => handleOnProgress(state)}
-                        onEnded={() => handlePlayingEnd()}
+                        onEnded={() => handlePlayingEndWrapper()}
                         volume={currentVolume}
                         imbededCaptionBluring={imbededCaptionBluring}
                         clipSelection={clipSelection}

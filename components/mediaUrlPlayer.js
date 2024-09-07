@@ -25,6 +25,7 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
     //         onResetStatus(ExerciseStatus.STOPPED);
     //     }
     // };
+    const [exercisePlayingCounter, setExercisePlayingCounter] = useState(0);
 
     const resetPlayerPosition = (playerRef, clipSelection) => {
         if (playerRef.current) {
@@ -35,19 +36,36 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
 
     useEffect(() => {
         resetPlayerPosition(playerRef, clipSelection);
+        setExercisePlayingCounter(0);
     }, []);
+
+    useEffect(() => {
+        if (playing
+            && exerciseStatus !== ExerciseStatus.PLAYING) {
+            setExercisePlayingCounter(0);
+        }
+    }, [playing]);
 
     const onProgressWrapper = (state) => {
         if (!hasRecording) {
             if (state.playedSeconds < clipSelection.start) {
                 resetPlayerPosition(playerRef, clipSelection);
             } else if (state.playedSeconds > clipSelection.end) {
+                if (exerciseStatus === ExerciseStatus.PLAYING) {
+                    setExercisePlayingCounter(exercisePlayingCounter + 1);
+                }
                 onEnded();
             }
         }
         onProgress(state);
     };
-
+    const onEndedWrapper = () => {
+        onEnded();
+    }
+    const onStartedWrapper = () => {
+        console.log('LingFlix: MediaUrlPlayer: onStartedWrapper:', exerciseStatus);
+    }
+    
     return (
         <div>
             <ReactPlayer ref={playerRef}
@@ -57,7 +75,8 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
                 controls
                 progressInterval={progressInterval}
                 onProgress={(state) => onProgressWrapper(state)}
-                onEnded={() => onEnded()}
+                onEnded={() => onEndedWrapper()}
+                onStart={() => onStartedWrapper()}
                 playbackRate={playbackRate}
                 volume={volume / 100}
                 width="100%"
@@ -73,7 +92,21 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
             // onPlay={handlePlay}
             // onPause={handlePause}            
             />
-
+            {(exerciseStatus === ExerciseStatus.PLAYING
+                ||
+                exerciseStatus === ExerciseStatus.STOPPED
+            ) &&
+                <BluringPanel id="exerciseCounterPanel"
+                    bottom={'78%'}
+                    startLeft={'75%'}
+                    width={'10%'}
+                    height={'12%'}
+                    backgroundColor={'rgba(0, 0, 0, 0.1)'}
+                    backdropFilter={'blur(5px)'}
+                    zIndex={9999}
+                    hint={exercisePlayingCounter}
+                />
+            }
             {imbededCaptionBluring &&
                 <BluringPanel id="captionsBluringPanel"
                     //bottom={'1%'}
