@@ -44,7 +44,8 @@ function calculateDuration(start, end) {
 
 function parseTimecode(timecode) {
   const [hh, mm, ss] = timecode.replace(',', '.').split(':').map(parseFloat);
-  return (hh * 3600 + mm * 60 + ss); // Convert to milliseconds
+  const result = (hh * 3600 + mm * 60 + ss).toString(); // Convert to seconds
+  return result;
 }
 
 function formatTime(seconds) {
