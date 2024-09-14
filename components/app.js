@@ -15,11 +15,10 @@ import {
 import { learningLanguage, getLearningLanguageName } from './data/configurator';
 
 const App = () => {
-  const default_selected_playList_id = playlistRegistry[0].listId;
   const [videoData, setVideoData] = useState(null);
   const [clipIndexRange, setClipIndexRange] = useState({ startIndex: undefined, endIndex: undefined });
   const [captions, setCaptions] = useState([]);
-  const [playlistId, setPlaylistId] = useState(default_selected_playList_id);
+  const [playlistId, setPlaylistId] = useState(playlistRegistry[0].listId);
   const [currentUser, setCurrentUser] = useState(null);
   const [token, setToken] = useState(null);
 
@@ -31,7 +30,9 @@ const App = () => {
         storageDataAttributes.session_data_prefix,
         storageDataAttributes.session_data_keys.playlist_key,
         null);
-      setPlaylistId(playlistId ?? default_selected_playList_id);
+      if (playlistId) {
+        setPlaylistId(playlistId);
+      }
     }
     initApp();
   }, []);
