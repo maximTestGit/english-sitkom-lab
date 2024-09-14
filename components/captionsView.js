@@ -9,7 +9,7 @@ import {
     fetchDataFromLocalStorage,
 } from './helpers/storageHelper';
 
-export const CaptionsView = forwardRef(({
+const CaptionsView = forwardRef(({
     videoData,
     captions,
     currentUser,
@@ -265,4 +265,5 @@ export const CaptionsView = forwardRef(({
 
 });
 
-//export default CaptionsView;
+CaptionsView.displayName = 'CaptionsView';
+export default CaptionsView;

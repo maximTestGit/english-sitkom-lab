@@ -5,7 +5,7 @@ import WebcamBox from './webcamBox';
 import WebcamBorderKeeper from './webcamBorderKeeper';
 import MediaUrlPlayer from './mediaUrlPlayer';
 
-export const PlayerBox = forwardRef(({
+const PlayerBox = forwardRef(({
     playerRef,
     recPlayerRef,
     exerciseStatus,
@@ -70,7 +70,7 @@ export const PlayerBox = forwardRef(({
                             || exerciseStatus === ExerciseStatus.ORIGIN
                             || exerciseStatus === ExerciseStatus.RECORDING}
                         exerciseStatus={exerciseStatus}
-                        onProgress={() => {}}
+                        onProgress={() => { }}
                         onEnded={() => onPlayingEnd()}
                         clipRange={clipRange}
                         hasRecording={true}
@@ -148,5 +148,6 @@ export const PlayerBox = forwardRef(({
     );
 });
 
-//export default PlayerBox;
+PlayerBox.displayName = 'PlayerBox';
+export default PlayerBox;
 
