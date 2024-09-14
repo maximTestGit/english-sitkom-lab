@@ -5,7 +5,7 @@ import WebcamBox from './webcamBox';
 import WebcamBorderKeeper from './webcamBorderKeeper';
 import MediaUrlPlayer from './mediaUrlPlayer';
 
-const PlayerBox = forwardRef(({
+export const PlayerBox = forwardRef(({
     playerRef,
     recPlayerRef,
     exerciseStatus,
@@ -148,5 +148,5 @@ const PlayerBox = forwardRef(({
     );
 });
 
-export default PlayerBox;
+//export default PlayerBox;
 
