@@ -15,8 +15,11 @@ import {
 import { learningLanguage, getLearningLanguageName } from './data/configurator';
 
 const App = () => {
+  const default_selected_playList_id = playlistRegistry[0].listId;
   const [videoData, setVideoData] = useState(null);
-  const [selectedPlaylistId, setSelectedPlaylistId] = useState(null);
+  const [clipIndexRange, setClipIndexRange] = useState({ startIndex: undefined, endIndex: undefined });
+  const [captions, setCaptions] = useState([]);
+  const [playlistId, setPlaylistId] = useState(default_selected_playList_id);
   const [currentUser, setCurrentUser] = useState(null);
   const [token, setToken] = useState(null);
 
@@ -28,36 +31,94 @@ const App = () => {
         storageDataAttributes.session_data_prefix,
         storageDataAttributes.session_data_keys.playlist_key,
         null);
-      if (playlistId) {
-        setSelectedPlaylistId(playlistId);
-      }
+      setPlaylistId(playlistId ?? default_selected_playList_id);
     }
     initApp();
   }, []);
 
-  const setSelectedVideoWrapper = (video, playlistId) => {
-    let homeworkRecordedChunks = [];
-    if (video.videoRecordedChunks?.length > 0) {
-      homeworkRecordedChunks = buildExerciseRecordedChunks(video.videoRecordedChunks);
+  //#region simple handlers
+  const handleUpdateCaptions = (newCaptions) => {
+    setCaptions(newCaptions);
+    if (!clipIndexRange || !clipIndexRange.startIndex || !clipIndexRange.endIndex) {
+      setClipIndexRange({ startIndex: 0, endIndex: newCaptions.length - 1 });
     }
-    const playlistData = playlistRegistry.find(playlist => playlist.listId === playlistId);
+  }
+
+  const handleClipIndexRangeChange = (newClipIndexRange) => {
+    setClipIndexRange(newClipIndexRange);
+  }
+
+  const handleSlectPlaylistId = (playlistId) => {
+    setPlaylistId(playlistId);
+    saveDataToLocalStorage(
+      storageDataAttributes.session_data_prefix,
+      storageDataAttributes.session_data_keys.playlist_key,
+      playlistId);
+  };
+
+  //#endregion simple handlers
+
+  //#region exercise handlers
+  const extractVideoIdFromUrl = (videoUrl) => {
+    const videoId = videoUrl.split("v=")[1];
+    return videoId;
+  }
+
+  function buildVideoData(video, playlistId = null) {
+    const playlistData = playlistId && playlistRegistry.find(playlist => playlist.listId === playlistId);
+    let learningLanguageName = playlistData?.language ?? getLearningLanguageName(learningLanguage);
     const videoData = {
       videoId: video.videoId,
       title: video.title,
-      yourLineRate: video.yourLineRate,
-      videoRecordedChunks: homeworkRecordedChunks,
-      intervals: video.intervals,
       playlistId: playlistId,
-      learningLanguage: playlistData.language,
+      learningLanguage: learningLanguageName,
     };
+    return videoData;
+  }
+
+  const handleSelectedVideo = (video, playlistId) => {
+    const videoData = buildVideoData(video, playlistId);
     setVideoData(videoData);
-    setSelectedPlaylistIdWrapper(playlistId);
+    handleSlectPlaylistId(videoData.playlistId);
   };
+
+  const handleExerciseOpen = (exercise) => {
+    let videoData = buildVideoData(exercise, exercise.playlistId);
+    let homeworkRecordedChunks = [];
+    if (exercise.videoRecordedChunks?.length > 0) {
+      homeworkRecordedChunks = buildExerciseRecordedChunks(exercise.videoRecordedChunks);
+    }
+    const exerciseData = {
+      yourLineRate: exercise.yourLineRate,
+      videoRecordedChunks: homeworkRecordedChunks,
+      intervals: exercise.intervals,
+      clipIndexRange: exercise.clipIndexRange,
+    };
+    videoData = { ...videoData, ...exerciseData };
+    setVideoData(videoData);
+    setClipIndexRange(videoData.clipIndexRange);
+    handleSlectPlaylistId(videoData.playlistId);
+  };
+
+  const handleCustomVideoOpen = (videoUrl, title) => {
+    const videoData = buildVideoData(
+      {
+        videoId: extractVideoIdFromUrl(videoUrl),
+        title: title,
+      });
+    setVideoData(videoData);
+    //setSelectedPlaylistIdWrapper(playlistId);
+  }
 
   const handleExerciseExit = () => {
     setVideoData(null);
+    setClipIndexRange(null);
+    setCaptions(null);
   }
 
+  //#endregion exercise handlers
+
+  // #region login handlers
   const handleLogout = () => {
     setCurrentUser(null);
     setToken(null);
@@ -84,34 +145,7 @@ const App = () => {
     return result;
   }
 
-  const setSelectedPlaylistIdWrapper = (playlistId) => {
-    setSelectedPlaylistId(playlistId);
-    saveDataToLocalStorage(
-      storageDataAttributes.session_data_prefix,
-      storageDataAttributes.session_data_keys.playlist_key,
-      playlistId);
-  };
-
-  const extractVideoIdFromLink = (videoLink) => {
-    const videoId = videoLink.split("v=")[1];
-    return videoId;
-  }
-
-  const handleVideoLinkOpen = (videoLink, title) => {
-    let homeworkRecordedChunks = [];
-    //const playlistData = playlistRegistry.find(playlist => playlist.listId === playlistId);
-    const videoData = {
-      videoId: extractVideoIdFromLink(videoLink),
-      title: title,
-      yourLineRate: null,
-      videoRecordedChunks: [],
-      intervals: [],
-      playlistId: null,
-      learningLanguage: getLearningLanguageName(learningLanguage),
-    };
-    setVideoData(videoData);
-    //setSelectedPlaylistIdWrapper(playlistId);
-  }
+  //#endregion login handlers
 
   return (
     <div>
@@ -124,18 +158,23 @@ const App = () => {
       {videoData ? (
         <ExerciseView
           videoData={videoData}
+          captions={captions}
+          currentUser={currentUser}
+          clipIndexRange={clipIndexRange}
           onExit={handleExerciseExit}
-          currentUserData={currentUser}
+          onClipIndexRangeChange={handleClipIndexRangeChange}
+          onUpdateCaptions={handleUpdateCaptions}
         />
       ) : (
         <>
           <Banner />
           <VideoListView
-            playlistId={selectedPlaylistId}
-            onSelectVideo={setSelectedVideoWrapper}
-            onSelectPlaylistId={setSelectedPlaylistIdWrapper}
-            currentUserData={currentUser}
-            onVideoLinkOpen={handleVideoLinkOpen}
+            playlistId={playlistId}
+            currentUser={currentUser}
+            onSelectVideo={handleSelectedVideo}
+            onExerciseOpen={handleExerciseOpen}
+            onSelectPlaylistId={handleSlectPlaylistId}
+            onCustomVideoOpen={handleCustomVideoOpen}
           />
         </>
       )}
@@ -144,3 +183,4 @@ const App = () => {
 };
 
 export default App;
+

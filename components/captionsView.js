@@ -1,48 +1,68 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { fetchData } from './helpers/fetchData.js';
-import { decodeHtml } from './helpers/presentationUtils.js';
-import { getCaptionsUrl } from './data/configurator.js';
-import { playlistRegistry } from './data/playlistRegistry';
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import { fetchData } from './helpers/fetchData';
+import { decodeHtml } from './helpers/presentationUtils';
+import { getCaptionsUrl } from './data/configurator';
+import { getIntervals } from './helpers/exerciseHelper';
 import {
     storageDataAttributes,
     saveDataToLocalStorage,
+    fetchDataFromLocalStorage,
 } from './helpers/storageHelper';
 
-const CaptionsView = ({
+const CaptionsView = forwardRef(({
     videoData,
+    captions,
+    currentUser,
     position,
+    hasRecordedChunks,
+    clipIndexRange,
+    onClipIndexRangeChange,
+    srtCaptionsData,
     onCurrentCaptionChange,
     onUpdateCaptions,
-    restoreDefaultExercise,
-    afterRestoreDefaultExercise,
-    onChangeClipSelection,
-    hasRecordedChunks,
-    loadedCaptionsData = null,
-    currentUserData,
-}) => {
-    const [captions, setCaptions] = useState([]);
+}, ref) => {
     const [currentCaption, setCurrentCaption] = useState(null);
-    const [captionsRange, setCaptionsRange] = useState({ startIndex: undefined, endIndex: undefined });
-    const [currentUser, setCurrentUser] = useState(currentUserData);
 
-    const captions_data_expiration = null;
-    const setCaptionsWrapper = useCallback((newCaptions) => {
-        setCaptions(newCaptions);
-        onUpdateCaptions(newCaptions);
-        setClipRangeWrapper(newCaptions, 0, newCaptions.length - 1);
-    }, [onUpdateCaptions]);
-
-    const setClipRangeWrapper = (theCaptions, start, end) => {
-        let startTime = start == 0 ? 0 : theCaptions[start].start;
-        let endTime = parseFloat(theCaptions[end].start) + parseFloat(theCaptions[end].duration);
-        setCaptionsRange({ startIndex: start, endIndex: end });
-        if (onChangeClipSelection) {
-            let clipSelection = { start: startTime, end: endTime };
-            onChangeClipSelection(clipSelection);
+    const retrieveClipIndexRange = async (videoId, captions) => {
+        let result = await fetchDataFromLocalStorage(
+            storageDataAttributes.captions_range_data_prefix,
+            videoId
+        );
+        if (!result) {
+            result = { startIndex: 0, endIndex: captions.length - 1 };
         }
+        await onClipIndexRangeChangeWrapper(captions, result.startIndex, result.endIndex);
+        return result;
     }
 
-    const determineCaptionChecked = useCallback((caption) => {
+    const setCaptionsWrapper = async (newCaptions) => {
+        await saveDataToLocalStorage(
+            storageDataAttributes.captions_data_prefix,
+            videoData.videoId,
+            newCaptions);
+        onUpdateCaptions(newCaptions);
+    };
+
+    const onClipIndexRangeChangeWrapper = async (theCaptions, start, end) => {
+        if (!theCaptions || theCaptions.length === 0) {
+            return;
+        }
+        if (start === undefined || start === null) {
+            start = 0;
+        }
+        if (end === undefined || end === null) {
+            end = theCaptions.length - 1;
+        }
+        const tempClipIndexRange = { startIndex: start, endIndex: end };
+        await saveDataToLocalStorage(
+            storageDataAttributes.captions_range_data_prefix,
+            videoData.videoId,
+            tempClipIndexRange
+        );
+        onClipIndexRangeChange(tempClipIndexRange);
+    }
+
+    const decideCaptionToCheck = (caption) => {
         let result = caption && caption.text?.startsWith(' ');
         if (videoData && videoData.intervals?.length > 0) {
             let interval = null;
@@ -62,71 +82,88 @@ const CaptionsView = ({
             result = interval !== null && interval.checked;
         }
         return result;
-    }, [videoData]);
+    };
 
-    useEffect(() => {
-        setCurrentUser(currentUserData);
-    }, [currentUserData]);
+    const assignCaptions = async (newCaptions) => {
+        let result = null;
+        if (newCaptions?.length > 0) {
+            result =
+                newCaptions
+                    .map(caption => ({ ...caption, checked: decideCaptionToCheck(caption) }));
+            await setCaptionsWrapper(result);
+        }
+        return result;
+    };
 
-    useEffect(() => {
-        const fetchCaptions = async () => {
-            const playlistData = playlistRegistry.find(playlist => playlist.listId === videoData.playlistId);
-            let url = getCaptionsUrl(videoData.videoId, videoData.learningLanguage, currentUser?.username);
-            const captionData =
-                loadedCaptionsData
-                ||
-                await fetchData(
-                    storageDataAttributes.captions_data_prefix,
-                    videoData.videoId,
-                    url,
-                    captions_data_expiration,
-                    restoreDefaultExercise);
-            if (restoreDefaultExercise) {
-                afterRestoreDefaultExercise();
+    const retrieveCaptions = async (videoId, captions, toRestoreDefaultExercise = false) => {
+        let newCaptions = captions;
+        if (toRestoreDefaultExercise || !captions || captions.length === 0) {
+            let url = getCaptionsUrl(videoId, videoData.learningLanguage, currentUser?.username);
+            newCaptions = await fetchData(
+                storageDataAttributes.captions_data_prefix,
+                videoData.videoId,
+                url,
+                null,
+                toRestoreDefaultExercise);
+            if (toRestoreDefaultExercise) {
+                videoData.intervals = getIntervals(newCaptions);
             }
-            if (captionData) {
-                if (loadedCaptionsData) {
-                    saveDataToLocalStorage(
-                        storageDataAttributes.captions_data_prefix,
-                        videoData.videoId,
-                        captionData
-                    );
+        }
+        const result = await assignCaptions(newCaptions);
+        return result;
+    };
 
-                }
-                if (captionData?.length > 0) {
-                    const captionDataWithChecked =
-                        captionData
-                            .map(caption => ({ ...caption, checked: determineCaptionChecked(caption) }));
-                    setCaptionsWrapper(captionDataWithChecked);
-                }
-            }
-        };
-        fetchCaptions();
-    }, [videoData.videoId, restoreDefaultExercise, loadedCaptionsData]);
+    const resetCheckedCaptions = (captions, captionStart) => {
+        let result = [...captions];
+        let caption = result.find(c => c.start === captionStart);
+        caption.checked = !caption.checked;
+        if (caption.checked) {
+            caption.text = ' ' + caption.text;
+        } else {
+            caption.text = caption.text.trim();
+        }
+        return result;
+    };
 
-    const captionChange = (caption) => {
-        const updatedCaptions = captions.map(c => {
-            if (c.start === caption.target.id) {
-                const newChecked = !c.checked;
-                if (newChecked) {
-                    c.text = ' ' + c.text;
-                } else {
-                    c.text = c.text.trim();
-                }
-                return { ...c, checked: newChecked };
-            }
-            return c;
-        });
-        setCaptionsWrapper(updatedCaptions);
-        saveDataToLocalStorage(storageDataAttributes.captions_data_prefix, videoData.videoId, updatedCaptions, captions_data_expiration);
+    const captionChange = async (caption) => {
+        const updatedCaptions = resetCheckedCaptions(captions, caption.target.id);
+        await setCaptionsWrapper(updatedCaptions);
     }
 
-    //let fPosition = parseFloat(position);
+    // new vdeo opened
+    useEffect(() => {
+        retrieveCaptions(videoData.videoId, captions)
+            .then(captions => {
+                if (!clipIndexRange || clipIndexRange.startIndex === undefined) {
+                    retrieveClipIndexRange(videoData.videoId, captions);
+                }
+            });
+    }, [videoData.videoId]);
+
+    // if cations are loaded from srt file
+    useEffect(() => {
+        assignCaptions(srtCaptionsData)
+            .then(captions => {
+                onClipIndexRangeChangeWrapper(captions);
+            });
+    }, [srtCaptionsData]);
+
+    useImperativeHandle(ref, () =>
+    ({
+        handleRestoreDefaultExercise() {
+            retrieveCaptions(videoData.videoId, null, true)
+                .then(captions => {
+                    onClipIndexRangeChangeWrapper(captions);
+                });
+        }
+    })
+    );
+
     useEffect(() => {
         const findCurrentCaption = (captions, position) => {
             let fPosition = parseFloat(position);
             let captionAtPosition = null;
-            for (let i = 0; i < captions.length; i++) {
+            for (let i = 0; i < captions?.length; i++) {
                 let caption = captions[i];
                 let start = parseFloat(caption.start);
                 let duration = parseFloat(caption.duration);
@@ -139,8 +176,10 @@ const CaptionsView = ({
                 console.log(`LingFlix: No caption found at position ${position}`);
                 setCurrentCaption(null)
                 onCurrentCaptionChange(null);
-            } else if (currentCaption?.start < 0.1 || currentCaption !== captionAtPosition) {
-                console.log(`LingFlix: Caption found at position ${position} is ${captionAtPosition.text}`);
+            } else if (currentCaption?.start < 0.1 || currentCaption !== captionAtPosition) { //???
+                const now = new Date();
+                const currentTime = `${now.getMinutes()}:${now.getSeconds()}.${now.getMilliseconds()}`;
+                console.log(`LingFlix: [${currentTime}] Caption found at position ${position} is ${captionAtPosition.text} start:${captionAtPosition.start}`);
                 setCurrentCaption(captionAtPosition)
                 onCurrentCaptionChange(captionAtPosition);
             }
@@ -160,8 +199,8 @@ const CaptionsView = ({
             alert('You are not allowed to change Selection, when you have recorded exercise.\nPlease clear recording first.(Click "Clear Record" button)');
         } else {
             const position = parseInt(event.target.id);
-            let start = captionsRange.startIndex;
-            let end = captionsRange.endIndex;
+            let start = clipIndexRange.startIndex;
+            let end = clipIndexRange.endIndex;
             if (position >= start
                 && position <= end) {
                 start = position;
@@ -171,7 +210,7 @@ const CaptionsView = ({
             } else {
                 end = position;
             }
-            setClipRangeWrapper(captions, start, end);
+            onClipIndexRangeChangeWrapper(captions, start, end);
         }
     };
 
@@ -193,7 +232,12 @@ const CaptionsView = ({
                             <tr key={caption.start} >
                                 <td id={index}
                                     onClick={handleSelectCaptionClick}
-                                    style={{ backgroundColor: (captionsRange.startIndex <= index && index <= captionsRange.endIndex) ? 'blue' : 'lightgray' }}
+                                    style={{
+                                        backgroundColor:
+                                            (!clipIndexRange || (clipIndexRange.startIndex <= index && index <= clipIndexRange.endIndex)) ?
+                                                'blue' :
+                                                'lightgray'
+                                    }}
                                 >
 
                                 </td>
@@ -202,7 +246,7 @@ const CaptionsView = ({
                                         className="form-check-input"
                                         type="checkbox"
                                         checked={caption.checked}
-                                        onChange={(caption) => captionChange(caption)}
+                                        onChange={async (caption) => await captionChange(caption)}
                                     />
                                 </td>
                                 <td className={isPlaying ? 'table-warning' : ''}>
@@ -219,6 +263,6 @@ const CaptionsView = ({
         </>
     );
 
-};
+});
 
 export default CaptionsView;

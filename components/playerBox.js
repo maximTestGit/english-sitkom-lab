@@ -1,20 +1,26 @@
-import { React, useState, useRef, useEffect } from 'react';
+import { React, useState, forwardRef, useEffect, useImperativeHandle } from 'react';
 import ExerciseStatus from './data/exerciseStatus';
 import { getYoutubeUrl, isRunningOnBigScreen } from './data/configurator';
 import WebcamBox from './webcamBox';
 import WebcamBorderKeeper from './webcamBorderKeeper';
 import MediaUrlPlayer from './mediaUrlPlayer';
 
-const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
-    muted, loop, currentPlaybackRate, currentVolume,
-    handleOnProgress, handlePlayingEnd, handleStopRecording,
-    clearRecordedChunks, afterClearRecordedChunks,
-    imbededCaptionBluring = false,
-    allowCamera = true,
-    clipSelection = { start: undefined, end: undefined },
-    //onResetStatus=()=>{},
-}) => {
-
+const PlayerBox = forwardRef(({
+    playerRef,
+    recPlayerRef,
+    exerciseStatus,
+    videoData,
+    clipRange,
+    isMited,
+    isLoop,
+    isImbededCaptionsBlured,
+    isCameraAllowed,
+    currentPlaybackRate,
+    currentVolume,
+    onStopRecording,
+    onProgress,
+    onPlayingEnd,
+}, ref) => {
     const [recordedChunks, setRecordedChunks] = useState([]);
     const [recordedChunksUrl, setRecordedChunksUrl] = useState(null);
 
@@ -26,20 +32,19 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
             const videoUrl = window.URL.createObjectURL(blob);
             setRecordedChunksUrl(videoUrl);
         }
-        handleStopRecording(chunks);
+        onStopRecording(chunks);
     };
 
-    const doClearRecording = () => {
-        if (clearRecordedChunks && recordedChunks?.length > 0) {
-            setRecordedChunks([]);
-            setRecordedChunksUrl(null);
-            afterClearRecordedChunks();
+    useImperativeHandle(ref, () =>
+    ({
+        clearRecording() {
+            if (recordedChunks?.length > 0) {
+                setRecordedChunks([]);
+                setRecordedChunksUrl(null);
+            }
         }
-    };
-
-    if (clearRecordedChunks) {
-        doClearRecording();
-    }
+    })
+    );
 
     useEffect(() => {
         if (videoData.videoRecordedChunks?.length > 0) {
@@ -49,14 +54,8 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
 
     const handlePlayingEndWrapper = () => {
         console.log('LingFlix: PlayerBox: Playing ended');
-        handlePlayingEnd();
+        onPlayingEnd();
     };
-    
-    // const handleResetStatus = (status) => {
-    //     if (status !== exerciseStatus) {
-    //         onResetStatus(status);
-    //     }
-    // };
 
     return (
         <div style={{ position: 'relative' }}>
@@ -64,38 +63,40 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                 className="pe-none"
             >
                 {recordedChunksUrl && exerciseStatus !== ExerciseStatus.ORIGIN ?
-                    <MediaUrlPlayer playerRef={playerRef}
+                    <MediaUrlPlayer
+                        playerRef={playerRef}
                         url={recordedChunksUrl}
                         playing={exerciseStatus === ExerciseStatus.PLAYING
                             || exerciseStatus === ExerciseStatus.ORIGIN
                             || exerciseStatus === ExerciseStatus.RECORDING}
                         exerciseStatus={exerciseStatus}
-                        //onProgress={(state) => handleOnProgress(state)}
-                        onEnded={() => handlePlayingEnd()}
-                        clipSelection={clipSelection}
+                        onProgress={() => {}}
+                        onEnded={() => onPlayingEnd()}
+                        clipRange={clipRange}
                         hasRecording={true}
                     />
                     :
-                    <MediaUrlPlayer playerRef={playerRef}
+                    <MediaUrlPlayer
+                        playerRef={playerRef}
                         url={getYoutubeUrl(videoData.videoId)}
                         playing={exerciseStatus === ExerciseStatus.PLAYING
                             || exerciseStatus === ExerciseStatus.ORIGIN
                             || exerciseStatus === ExerciseStatus.RECORDING}
                         exerciseStatus={exerciseStatus}
-                        muted={muted}
+                        isMited={isMited}
                         playbackRate={currentPlaybackRate}
-                        onProgress={(state) => handleOnProgress(state)}
+                        onProgress={(state) => onProgress(state)}
                         onEnded={() => handlePlayingEndWrapper()}
                         volume={currentVolume}
-                        imbededCaptionBluring={imbededCaptionBluring}
-                        clipSelection={clipSelection}
+                        isImbededCaptionsBlured={isImbededCaptionsBlured}
+                        clipRange={clipRange}
                         hasRecording={false}
                     //onResetStatus={handleResetStatus}
                     />
                 }
             </div>
 
-            {isRunningOnBigScreen && allowCamera
+            {isRunningOnBigScreen && isCameraAllowed
                 &&
                 (recordedChunksUrl && exerciseStatus !== ExerciseStatus.ORIGIN ?
                     <div id="FaceAreaRecorded" style={{
@@ -113,12 +114,13 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                             playing={exerciseStatus === ExerciseStatus.PLAYING
                                 || exerciseStatus === ExerciseStatus.ORIGIN
                                 || exerciseStatus === ExerciseStatus.RECORDING}
-                            muted={muted}
+                            isMited={isMited}
                             volume={currentVolume}
                             playbackRate={currentPlaybackRate}
                             width={220}
                             height={170}
-                            onProgress={(state) => handleOnProgress(state)}
+                            onProgress={(state) => onProgress(state)}
+                            onEnded={() => { }}
                             hasRecording={true}
                         />
                     </div>
@@ -134,7 +136,7 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                     }}>
                         <WebcamBorderKeeper zIndex={9999} />
                         <WebcamBox
-                            loop={loop}
+                            isLoop={isLoop}
                             cameraWidth={150}
                             exerciseStatus={exerciseStatus}
                             onStopRecording={handleStopRecordingWraper}
@@ -144,7 +146,7 @@ const PlayerBox = ({ playerRef, recPlayerRef, videoData, exerciseStatus,
                 )}
         </div>
     );
-};
+});
 
 export default PlayerBox;
 

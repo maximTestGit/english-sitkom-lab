@@ -1,23 +1,35 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import CaptionsView from './captionsView';
-import CaptionBox from './captionBox.js';
-import PlaybackSettings from './playbackSettings.js';
-import PlayerBox from './playerBox.js';
-import ExerciseStatus from './data/exerciseStatus.js';
-import { jumpToStart, handleSaveExercise, handleShareExercise } from './helpers/exerciseHelper.js';
+import CaptionBox from './captionBox';
+import PlaybackSettings from './playbackSettings';
+import PlayerBox from './playerBox';
+import ExerciseStatus from './data/exerciseStatus';
+import { jumpToStart, doSaveExerciseToFile, doShareHomework } from './helpers/exerciseHelper';
 import Modal from 'react-bootstrap/Modal';
-import ControlsArea from './controlsArea.js';
-import { isRunningOnBigScreen, learningLanguage } from './data/configurator.js';
+import ControlsArea from './controlsArea';
+import { isRunningOnBigScreen, learningLanguage } from './data/configurator';
 import {
     storageDataAttributes,
     fetchDataFromLocalStorage,
     saveDataToLocalStorage,
 } from './helpers/storageHelper';
-import { saveCaptionObjectsToFile } from './helpers/srtHelper.js';
+import { saveCaptionObjectsToFile } from './helpers/srtHelper';
 import AdminArea from './adminArea.js';
-import { captionsSaveToStorage } from './helpers/fetchData.js';
+import { captionsSaveToStorage } from './helpers/fetchData';
+import { buildClipRange } from './helpers/exerciseHelper';
 
-const ExerciseView = ({ videoData, onExit, currentUserData }) => {
+const ExerciseView = ({
+    currentUser,
+    videoData,
+    captions,
+    clipIndexRange, //???
+    onExit,
+    onClipIndexRangeChange,
+    onUpdateCaptions,
+}) => {
+
+    // #region defaults
+
     const default_playback_rate = 1.0; // 1x speed
     const default_your_line_playback_rate = 1.0; // 1x speed
 
@@ -25,58 +37,117 @@ const ExerciseView = ({ videoData, onExit, currentUserData }) => {
     const default_your_line_volume = 0.0; // mute
     const default_recording_your_line_volume = 0.0; // mute
 
-    // #region States
-    const [muted, setMuted] = useState(false);
+    // #region defaults
+
+    // #region State
+    const [settings, setSettings] = useState({
+        isLoop: false,
+        toShowCaptions: true,
+        whisperVoume: default_your_line_volume,
+        yourLineSpeed: videoData.yourLineRate ? videoData.yourLineRate : default_your_line_playback_rate, // rate of your line during exercise/recording
+        playerLineSpeed: videoData.playbackRate ? videoData.playbackRate : default_playback_rate, // rate of player line during exercise/recording
+        isImbededCaptionsBlured: false,
+        isCameraAllowed: false,
+    });
+
     const [position, setPosition] = useState(0);
     const [currentCaption, setCurrentCaption] = useState(null);
-    const [loop, setLoop] = useState(false);
-    const [showCaptions, setShowCaptions] = useState(true);
     const [exerciseStatus, setExerciseStatus] = useState(ExerciseStatus.STOPPED);
-    const [captions, setCaptions] = useState([]);
     const [recordedChunks, setRecordedChunks] = useState([]);
-    const [clearRecordedChunks, setClearRecordedChunks] = useState(false);
-    const [loadedCaptionsData, setLoadedCaptionsData] = useState(null);
-
-    const [sourcePlaybackRate, setSourcePlaybackRate] = useState(default_playback_rate); // rate of youtube lines during origing/exercise/recording
-    const [playerLinePlaybackRate, setPlayerLinePlaybackRate] = useState(sourcePlaybackRate); // rate of player line during exercise/recording
-    const [youLinePlaybackRate, setYouLinePlaybackRate] = useState(videoData.yourLineRate ? videoData.yourLineRate : default_your_line_playback_rate); // rate of your line during exercise/recording
-    const [currentPlaybackRate, setCurrentPlaybackRate] = useState(sourcePlaybackRate); // current, can be sourcePlaybackRate or youLinePlaybackRate
-    const [imbededCaptionBluringValue, setImbededCaptionBluringValue] = useState(false);
-    const [allowCameraValue, setAllowCameraValue] = useState(false);
-
-    const [sourceVolume, setSourceVolume] = useState(default_volume); // volume of youtube lines during origing/exercise/recording
-    const [yourLineSourceVolume, setYourLineSourceVolume] = useState(default_your_line_volume); // volume of your line during origing/exercise/recording
-    const [currentVolume, setCurrentVolume] = useState(sourceVolume); // current, can be sourceVolume or yourLineSourceVolume
+    const [srtCaptionsData, setSrtCaptionsData] = useState(null);
+    const [currentPlaybackRate, setCurrentPlaybackRate] = useState(default_playback_rate); // current, can be default_playback_rate or youLinePlaybackRate
+    const [currentVolume, setCurrentVolume] = useState(default_volume); // current, can be default_volume or whisperVoume
 
     // save parameters before recording
-    const [loopPreRec, setLoopPreRec] = useState(loop);
-    const [yourLineSourceVolumePreRec, setYourLineSourceVolumePreRec] = useState(yourLineSourceVolume);
+    const [loopPreRec, setLoopPreRec] = useState(settings.isLoop);
+    const [whisperVoumePreRec, setWhisperVoumePreRec] = useState(settings.whisperVoume);
 
-    const [showEmailForm, setShowEmailForm] = useState(false); // State variable to control modal visibility
+    // #region ShowEmailFormModalOpen
+    const [isShowEmailFormModalOpen, setIsShowEmailFormModalOpen] = useState(false); // State variable to control modal visibility
     const [emailAddress, setEmailAddress] = useState(null); // State variable to store email address
     const [studentName, setStudentName] = useState('Unknown'); // State variable to store student name
-    const [isClipMode, setIsClipMode] = useState(false);
+
     const emailInputRef = useRef(null);
     const nameInputRef = useRef(null);
     const unlistedInputRef = useRef(false);
 
+    // #endregion ShowEmailFormModalOpen
+
     const playerRef = useRef(null);
+    const playerBoxRef = useRef(null);
     const recPlayerRef = useRef(null);
+    const captionViewRef = useRef(null);
 
-    const [restoreDefaultExercise, setRestoreDefaultExercise] = useState(false);
-    const [clipSelection, setClipSelection] = useState({ start: undefined, end: undefined });
-
-    const [currentUser, setCurrentUser] = useState(currentUserData);
-
-
-    // #endregion States
+    // #endregion State
 
     // #region Exercise flow
-    const setCurrentVolumeWrapper = (volume) => {
-        setCurrentVolume(volume);
-        setMuted(volume === 0);
+
+    //  #region set settings key functions
+    const updateSettingKey = (key, value) => {
+        setSettings(prevSettings => ({
+            ...prevSettings,
+            [key]: value,
+        }));
+    };
+    const setIsLoop = (value) => {
+        updateSettingKey('isLoop', value);
+    };
+    const setToShowCaptions = (value) => {
+        updateSettingKey('toShowCaptions', value);
+    };
+    const setWhisperVoume = (value) => {
+        updateSettingKey('whisperVoume', value);
+    };
+    const setYourLineSpeed = (value) => {
+        updateSettingKey('yourLineSpeed', value);
+    };
+    const setPlayerLineSpeed = (value) => {
+        updateSettingKey('playerLineSpeed', value);
+    };
+    const setIsImbededCaptionsBlured = (value) => {
+        updateSettingKey('isImbededCaptionsBlured', value);
+    };
+    const setIsCameraAllowed = (value) => {
+        updateSettingKey('isCameraAllowed', value);
     };
 
+    // #endregion set settings key functions
+
+    const updateSetting = useCallback((key, value) => {
+        switch (key) {
+            case 'isLoop':
+                handleLoopChange(value);
+                break;
+            case 'toShowCaptions':
+                handleShowCaptionsChange(value);
+                break;
+            case 'whisperVoume':
+                handleWhisperVoumeChange(value);
+                break;
+            case 'yourLineSpeed':
+                handleYourLineSpeedChange(value);
+                break;
+            case 'playerLineSpeed':
+                handlePlayerLineSpeedChange(value);
+                break;
+            case 'isImbededCaptionsBlured':
+                handleImbededCaptionBluringChange(value);
+                break;
+            case 'isCameraAllowed':
+                handleAllowCameraChange(value);
+                break;
+            default:
+                break;
+        }
+    }, []);
+
+    const setCurrentVolumeWrapper = (volume) => {
+        setCurrentVolume(volume);
+    };
+    const setCurrentPlaybackRateWrapper = (playbackRate, caption) => {
+        console.log(`LingFlix: setCurrentPlaybackRate: from ${currentPlaybackRate} to ${playbackRate} caption:${caption?.text} checked:${caption?.checked}`);
+        setCurrentPlaybackRate(playbackRate);
+    };
     const setPlayingCaption = (caption) => {
         if (caption) {
             setCurrentCaption(caption);
@@ -84,8 +155,8 @@ const ExerciseView = ({ videoData, onExit, currentUserData }) => {
             setCurrentVolumeByCaption(caption);
         } else {
             setCurrentCaption(null);
-            setCurrentPlaybackRate(sourcePlaybackRate);
-            setCurrentVolumeWrapper(sourceVolume);
+            setCurrentPlaybackRateWrapper(default_playback_rate);
+            setCurrentVolumeWrapper(default_volume);
         }
     };
 
@@ -93,20 +164,23 @@ const ExerciseView = ({ videoData, onExit, currentUserData }) => {
         let newValue = (exerciseStatus === ExerciseStatus.RECORDING
             ||
             (exerciseStatus === ExerciseStatus.PLAYING && recordedChunks?.length > 0)
-        ) ? sourcePlaybackRate : playerLinePlaybackRate;
+        ) ? default_playback_rate : settings.playerLineSpeed;
         if (exerciseStatus !== ExerciseStatus.ORIGIN && caption?.checked) {
-            newValue = youLinePlaybackRate;
+            newValue = settings.yourLineSpeed;
         }
         if (newValue !== currentPlaybackRate) {
-            console.log(`LingFlix: SetPlaybackRate: ${newValue} caption:${caption?.text} checked:${caption?.checked}`);
-            setCurrentPlaybackRate(newValue);
+            setCurrentPlaybackRateWrapper(newValue);
         }
     };
 
     const setCurrentVolumeByCaption = (caption) => {
-        let newVolume = sourceVolume;
-        if (exerciseStatus !== ExerciseStatus.ORIGIN && caption?.checked) {
-            newVolume = yourLineSourceVolume;
+        let newVolume = currentVolume;
+        if (exerciseStatus === ExerciseStatus.PLAYING
+            && recordedChunks?.length > 0
+            && caption?.checked) {
+            newVolume = 0;
+        } else if (exerciseStatus !== ExerciseStatus.ORIGIN && caption?.checked) {
+            newVolume = settings.whisperVoume;
         }
         if (newVolume !== currentVolume) {
             console.log(`LingFlix: SetVolume: ${newVolume} caption:${caption?.text} checked:${caption?.checked}`);
@@ -115,47 +189,56 @@ const ExerciseView = ({ videoData, onExit, currentUserData }) => {
     };
 
     const handleUpdateCaptions = (captions) => {
-        setCaptions(captions);
+        onUpdateCaptions(captions);
     };
 
     // #endregion Exercise flow
 
     // #region Exercise settings
-    const setYoulinePlaybackRateWrapper = (rate) => {
-        setYouLinePlaybackRate(rate);
-    };
 
-    const setPlayerLinePlaybackRateWrapper = (rate) => {
-        setPlayerLinePlaybackRate(rate);
+    const setPlayerLineSpeedWrapper = (rate) => {
+        setPlayerLineSpeed(rate);
     };
 
     const handleLoopChange = (checked) => {
-        console.log(`LingFlix: Loop ${loop} changed to ${checked} current playerRef.current;${playerRef.current.loop}`);
-        setLoop(checked);
+        console.log(`LingFlix: Loop ${settings.isLoop} changed to ${checked} current playerRef.current;${playerRef.current.loop}`);
+        setIsLoop(checked);
     };
 
     const handleShowCaptionsChange = (checked) => {
-        setShowCaptions(checked);
+        setToShowCaptions(checked);
     };
 
-    const handleYourLinePlaybackRateChange = (rate) => {
-        setYoulinePlaybackRateWrapper(parseFloat(rate));
+    const handleYourLineSpeedChange = (rate) => {
+        setYourLineSpeed(parseFloat(rate));
+        saveDataToLocalStorage(
+            storageDataAttributes.session_data_prefix,
+            storageDataAttributes.session_data_keys.your_line_playback_rate,
+            rate);
     };
 
-    const handlePlayerLinePlaybackRateChange = (rate) => {
-        setPlayerLinePlaybackRateWrapper(parseFloat(rate));
+    const handlePlayerLineSpeedChange = (rate) => {
+        setPlayerLineSpeedWrapper(parseFloat(rate));
+        saveDataToLocalStorage(
+            storageDataAttributes.session_data_prefix,
+            storageDataAttributes.session_data_keys.player_line_playback_rate,
+            rate);
     };
 
-    const handleYourLineSourceVolumeChange = (volume) => {
-        setYourLineSourceVolume(parseFloat(volume));
+    const handleWhisperVoumeChange = (volume) => {
+        setWhisperVoume(parseFloat(volume));
+        saveDataToLocalStorage(
+            storageDataAttributes.session_data_prefix,
+            storageDataAttributes.session_data_keys.whisper_playback_volume,
+            volume);
     };
 
     const handleImbededCaptionBluringChange = (checked) => {
-        setImbededCaptionBluringValue(checked);
+        setIsImbededCaptionsBlured(checked);
     };
 
     const handleAllowCameraChange = (checked) => {
-        setAllowCameraValue(checked);
+        setIsCameraAllowed(checked);
         saveDataToLocalStorage(
             storageDataAttributes.session_data_prefix,
             storageDataAttributes.session_data_keys.allow_camera_key,
@@ -167,13 +250,14 @@ const ExerciseView = ({ videoData, onExit, currentUserData }) => {
     const handleOnProgress = (state) => {
         if (state.playedSeconds === 0 || position === 0 || position !== state.playedSeconds) {
             setPosition(state.playedSeconds);
+            console.log(`LingFlix: OnProgress: ${state.playedSeconds}`);
         }
     };
     const handlePlayingEnd = () => {
         if (exerciseStatus === ExerciseStatus.RECORDING) {
-            stopPlay();
-        } else if (!loop) {
-            stopPlay();
+            handleStopPlay();
+        } else if (!settings.isLoop) {
+            handleStopPlay();
         } else {
             jumpToStart(playerRef);
             setPosition(0);
@@ -186,7 +270,7 @@ const ExerciseView = ({ videoData, onExit, currentUserData }) => {
         setExerciseStatus(status);
         console.log(`LingFlix: ExerciseStatus(${caller}): ${status}`);
     }
-    const startPlay = (status, caller) => {
+    const handleStartPlay = (status, caller) => {
         console.log(`LingFlix: startPlay from ${caller}: status=${status}`);
         jumpToStart(playerRef);
         setPosition(0);
@@ -194,12 +278,9 @@ const ExerciseView = ({ videoData, onExit, currentUserData }) => {
         setCurrentVolumeWrapper(default_volume);
         setExerciseStatusWrapper(status, 'startPlay');
     };
-    const stopPlay = () => {
-        setCurrentVolumeWrapper(sourceVolume);
+    const handleStopPlay = () => {
+        setCurrentVolumeWrapper(default_volume);
         setExerciseStatusWrapper(ExerciseStatus.STOPPED, 'stopPlay');
-    };
-    const handleResetStatus = (status) => {
-        setExerciseStatusWrapper(status, 'resetStatus');
     };
     // #endregion Play/Stop
 
@@ -209,86 +290,100 @@ const ExerciseView = ({ videoData, onExit, currentUserData }) => {
             if (recordedChunks?.length > 0) {
                 alert('You have already recorded something. Please clear recording first.\n(Click "Clear Homework Record" button)');
             } else {
-                setLoopPreRec(loop);
-                setLoop(false);
+                setLoopPreRec(settings.isLoop);
+                setIsLoop(false);
 
-                setYourLineSourceVolumePreRec(yourLineSourceVolume);
-                setYourLineSourceVolume(default_recording_your_line_volume);
+                setWhisperVoumePreRec(settings.whisperVoume);
+                setWhisperVoume(default_recording_your_line_volume);
                 if (parseFloat(captions[0].start) < 0.2) {
                     setPlayingCaption(captions[0]);
                 } else {
                     setPlayingCaption(null);
                 }
 
-                startPlay(ExerciseStatus.RECORDING, 'handleStartRecording');;
+                handleStartPlay(ExerciseStatus.RECORDING, 'handleStartRecording');;
                 //setExerciseStatusWrapper(ExerciseStatus.RECORDING, 'handleStartRecording');
             }
         }
     };
-    const saveRecording = (chunks) => {
+    const handleSaveRecording = (chunks) => {
         console.log(`LingFlix: SaveRecording: ${chunks?.length}`);
-        //if (exerciseStatus === ExerciseStatus.RECORDING) {
-        setLoop(loopPreRec);
-        setYourLineSourceVolume(yourLineSourceVolumePreRec);
-        stopPlay();
-        setExerciseStatusWrapper(ExerciseStatus.STOPPED, 'saveRecording');
+        setIsLoop(loopPreRec);
+        setWhisperVoume(whisperVoumePreRec);
+        handleStopPlay();
+        setExerciseStatusWrapper(ExerciseStatus.STOPPED, 'handleSaveRecording');
         setRecordedChunks(chunks);
         console.log(`LingFlix: After SaveRecording: ${chunks?.length}->${recordedChunks?.length}`);
-        //}
-        setClearRecordedChunks(false);
     };
     const handleClearRecording = () => {
-        setClearRecordedChunks(true);
-    }
-    const afterClearRecordedChunks = () => {
+        playerBoxRef.current?.clearRecording();
         setRecordedChunks([]);
         videoData.videoRecordedChunks = [];
-        setClearRecordedChunks(false);
     }
     const handleRestoreDefaultExercise = () => {
-        setRestoreDefaultExercise(true);
-    }
-    const afterRestoreDefaultExercise = () => {
-        setRestoreDefaultExercise(false);
+        captionViewRef.current?.handleRestoreDefaultExercise(); // Calling resetCaptions function in CaptionsView
     }
     // #endregion Recording
 
     // start playing on the first open
     useEffect(() => {
-        if (videoData.yourLineRate && videoData.yourLineRate !== youLinePlaybackRate) {
-            setYoulinePlaybackRateWrapper(videoData.yourLineRate);
+        if (videoData.yourLineRate && videoData.yourLineRate !== settings.yourLineSpeed) {
+            setYourLineSpeed(videoData.yourLineRate);
         }
         if (videoData.videoRecordedChunks?.length > 0) {
-            saveRecording(videoData.videoRecordedChunks);
-            setYourLineSourceVolume(default_recording_your_line_volume);
+            handleSaveRecording(videoData.videoRecordedChunks); //???
+            setWhisperVoume(default_recording_your_line_volume);
         } else {
-            startPlay(ExerciseStatus.ORIGIN, 'useEffect');
+            handleStartPlay(ExerciseStatus.ORIGIN, 'useEffect');
         }
         let allowCameraValue = fetchDataFromLocalStorage(
             storageDataAttributes.session_data_prefix,
             storageDataAttributes.session_data_keys.allow_camera_key);
         if (allowCameraValue === null || allowCameraValue === undefined) {
             allowCameraValue = false;
-            handleAllowCameraChange(allowCameraValue);
+            handleAllowCameraChange(allowCameraValue); //???
         } else {
-            setAllowCameraValue(allowCameraValue);
+            setIsCameraAllowed(allowCameraValue);
+        }
+        let yourLineRate = fetchDataFromLocalStorage(
+            storageDataAttributes.session_data_prefix,
+            storageDataAttributes.session_data_keys.your_line_playback_rate);
+        if (yourLineRate === null || yourLineRate === undefined) {
+            yourLineRate = default_your_line_playback_rate;
+            handleYourLineSpeedChange(yourLineRate); //???
+        } else {
+            setYourLineSpeed(parseFloat(yourLineRate));
+        }
+        let playerLineRate = fetchDataFromLocalStorage(
+            storageDataAttributes.session_data_prefix,
+            storageDataAttributes.session_data_keys.player_line_playback_rate);
+        if (playerLineRate === null || playerLineRate === undefined) {
+            playerLineRate = default_playback_rate;
+            handlePlayerLineSpeedChange(playerLineRate); //???
+        } else {
+            setPlayerLineSpeed(parseFloat(playerLineRate));
+        }
+        let whisperVolume = fetchDataFromLocalStorage(
+            storageDataAttributes.session_data_prefix,
+            storageDataAttributes.session_data_keys.whisper_playback_volume);
+        if (whisperVolume === null || whisperVolume === undefined) {
+            whisperVolume = default_volume;
+            handleWhisperVoumeChange(whisperVolume); //???
+        } else {
+            setWhisperVoume(parseFloat(whisperVolume));
         }
     }, []);
 
-    useEffect(() => {
-        setCurrentUser(currentUserData);
-    }, [currentUserData]);
-
     // #region Email form
-    const handleCloseEmailForm = () => setShowEmailForm(false);
-    const handleShowEmailForm = () => setShowEmailForm(true);
+    const handleCloseEmailForm = () => setIsShowEmailFormModalOpen(false);
+    const handleShowEmailForm = () => setIsShowEmailFormModalOpen(true);
     const handleShareHomework = () => {
         if (emailInputRef.current) {
             const emailToSend = emailInputRef.current.value;
             const name = nameInputRef.current.value;
             const isUnlistedVideo = unlistedInputRef.current.checked;
-            setShowEmailForm(false);
-            handleShareExercise(videoData, captions, recordedChunks, currentPlaybackRate, youLinePlaybackRate, name, emailToSend, isUnlistedVideo);
+            setIsShowEmailFormModalOpen(false);
+            doShareHomework(videoData, captions, recordedChunks, clipRange, settings.playerLineSpeed, settings.yourLineSpeed, name, emailToSend, isUnlistedVideo);
             setEmailAddress(emailToSend);
             setStudentName(name);
         }
@@ -311,22 +406,22 @@ const ExerciseView = ({ videoData, onExit, currentUserData }) => {
     const handleShareExerciseWrapper = () => handleShowEmailForm(); // TODO: use handleShowEmailForm
     // #endregion Email form
 
-    const handleChangeClipSelection = (clipRange) => {
-        setClipSelection(clipRange);
-        setIsClipMode(determineClipMode(clipRange));
+    const handleClipRangeChange = (newClipIndexRange) => {
+        onClipIndexRangeChange(newClipIndexRange);
     }
 
-    const determineClipMode = (clipRange) => {
-        let result = captions?.length > 0 && clipRange?.start !== undefined;
-        if (result) {
-            let lastCaptionEnd = parseFloat(captions[captions.length - 1].start) + parseFloat(captions[captions.length - 1].duration);
-            result = clipRange.start > 0 || clipRange.end < lastCaptionEnd;
-        }
+    const determineClipMode = (captions, clipIndexRange) => {
+        let result =
+            captions?.length > 0
+            &&
+            ((clipIndexRange.startIndex ?? 0) > 0
+                ||
+                ((clipIndexRange.endIndex ?? (captions.length - 1)) < captions.length - 1));
         return result;
     }
 
     const handleSrtOpen = (captions) => {
-        setLoadedCaptionsData(captions);
+        setSrtCaptionsData(captions);  //???
     }
 
     const handleUploadCaptions = async () => {
@@ -352,6 +447,10 @@ const ExerciseView = ({ videoData, onExit, currentUserData }) => {
         }
     }
 
+    const handleSaveExerciseWrapper = () => {
+        doSaveExerciseToFile(videoData, captions, recordedChunks, clipIndexRange, settings.playerLineSpeed, settings.yourLineSpeed)
+    }
+
     return (
         <>
             {currentUser?.role == 'Admin' && isRunningOnBigScreen &&
@@ -363,80 +462,78 @@ const ExerciseView = ({ videoData, onExit, currentUserData }) => {
             }
             <div id="PlaybackSettingsArea" className="row mb-3 col-12 col-md-12 col-lg-9">
                 <PlaybackSettings
-                    initLoop={loop}
-                    initShowCaptions={showCaptions}
-                    initYourLineSourceVolume={yourLineSourceVolume}
-                    initPlayerLinePlaybackRate={sourcePlaybackRate}
-                    initYourLinePlaybackRate={youLinePlaybackRate}
-                    initImbededCaptionBluring={imbededCaptionBluringValue}
-                    initAllowCamera={allowCameraValue}
+                    settings={settings}
+                    updateSetting={updateSetting}
+
                     onLoopChange={handleLoopChange}
                     onShowCaptionsChange={handleShowCaptionsChange}
-                    onPlayerLinePlaybackRateChange={handlePlayerLinePlaybackRateChange}
-                    onYourLinePlaybackRateChange={handleYourLinePlaybackRateChange}
-                    onYourLineSourceVolumeChange={handleYourLineSourceVolumeChange}
+                    onPlayerLineSpeedChange={handlePlayerLineSpeedChange}
+                    onYourLineSpeedChange={handleYourLineSpeedChange}
+                    onWhisperVoumeChange={handleWhisperVoumeChange}
                     onImbededCaptionBluringChange={handleImbededCaptionBluringChange}
-                    onAllowCameraChange={handleAllowCameraChange}
-                />
+                    onAllowCameraChange={handleAllowCameraChange} />
             </div>
 
             <ControlsArea
                 exerciseStatus={exerciseStatus}
-                isClipMode={isClipMode}
-                onExit={onExit}
-                startPlay={startPlay}
-                stopPlay={stopPlay}
-                allowCamera={allowCameraValue}
+                isClipMode={determineClipMode(captions, clipIndexRange)}
                 recordedChunks={recordedChunks}
-                handleStartRecording={handleStartRecording}
-                saveRecording={saveRecording}
-                videoData={videoData}
-                captions={captions}
-                sourcePlaybackRate={sourcePlaybackRate}
-                youLinePlaybackRate={youLinePlaybackRate}
-                handleShareExerciseWrapper={handleShareExerciseWrapper}
-                handleSaveExercise={handleSaveExercise}
-                handleClearRecording={handleClearRecording}
-                handleRestoreDefaultExercise={handleRestoreDefaultExercise}
+                isCameraAllowed={settings.isCameraAllowed}
+
+                onStartPlay={handleStartPlay}
+                onStopPlay={handleStopPlay}
+                onExit={onExit}
+                onSaveRecording={handleSaveRecording}
+                onStartRecording={handleStartRecording}
+                onShareExercise={handleShareExerciseWrapper}
+                onSaveExercise={handleSaveExerciseWrapper}
+                onClearRecording={handleClearRecording}
+                onRestoreDefaultExercise={handleRestoreDefaultExercise}
             />
 
-            <div className="row col-12 col-md-6">
-                <PlayerBox
-                    playerRef={playerRef}
-                    recPlayerRef={recPlayerRef}
-                    exerciseStatus={exerciseStatus}
-                    muted={muted}
-                    videoData={videoData}
-                    loop={loop}
-                    imbededCaptionBluring={imbededCaptionBluringValue}
-                    allowCamera={allowCameraValue}
-                    currentPlaybackRate={currentPlaybackRate}
-                    currentVolume={currentVolume}
-                    handleOnProgress={handleOnProgress}
-                    handlePlayingEnd={handlePlayingEnd}
-                    handleStopRecording={saveRecording}
-                    clearRecordedChunks={clearRecordedChunks}
-                    afterClearRecordedChunks={afterClearRecordedChunks}
-                    clipSelection={clipSelection}
-                //onResetStatus={handleResetStatus}
-                />
-                {showCaptions && <CaptionBox caption={currentCaption} />}
+            <div id="PlayerBoxArea" className="row col-12 col-md-6">
+                {captions &&
+                    <PlayerBox ref={playerBoxRef}
+                        playerRef={playerRef}
+                        id="PlayerBoxComponent"
+                        recPlayerRef={recPlayerRef}
+
+                        exerciseStatus={exerciseStatus}
+                        videoData={videoData}
+                        clipRange={buildClipRange(captions, clipIndexRange)}
+
+                        isMuted={currentVolume === 0}
+                        isLoop={settings.isLoop}
+                        isImbededCaptionsBlured={settings.isImbededCaptionsBlured}
+                        isCameraAllowed={settings.isCameraAllowed}
+                        currentPlaybackRate={currentPlaybackRate}
+                        currentVolume={currentVolume}
+
+                        onStopRecording={handleSaveRecording}
+                        onProgress={handleOnProgress}
+                        onPlayingEnd={handlePlayingEnd}
+                    />
+                }
+                {settings.toShowCaptions && <CaptionBox caption={currentCaption} />}
 
 
-                <CaptionsView
+                <CaptionsView ref={captionViewRef}
                     videoData={videoData}
+                    captions={captions}
+                    currentUser={currentUser}
                     position={position}
+                    hasRecordedChunks={recordedChunks?.length > 0}
+                    clipIndexRange={clipIndexRange}
+
+                    srtCaptionsData={srtCaptionsData}
+
+                    onClipIndexRangeChange={handleClipRangeChange}
                     onCurrentCaptionChange={setPlayingCaption}
                     onUpdateCaptions={handleUpdateCaptions}
-                    restoreDefaultExercise={restoreDefaultExercise}
-                    afterRestoreDefaultExercise={afterRestoreDefaultExercise}
-                    onChangeClipSelection={handleChangeClipSelection}
-                    hasRecordedChunks={recordedChunks?.length > 0}
-                    loadedCaptionsData={loadedCaptionsData}
-                    currentUserData={currentUser}
                 />
             </div>
-            <Modal show={showEmailForm} >
+
+            <Modal show={isShowEmailFormModalOpen} >
                 <Modal.Body>
                     <form>
                         <div className="form-group">

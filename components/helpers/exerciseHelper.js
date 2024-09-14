@@ -13,23 +13,21 @@ export function jumpToStart(playerRef) {
     }
 };
 
-export function handleSaveExercise(video, captions, recordedChunks, playbackRate, youLinePlaybackRate) {
-    buildExerciseData(video, captions, recordedChunks, playbackRate, youLinePlaybackRate)
-        .then(videoData => 
-            {
-                saveJsonToFile(videoData);
-            }
+export function doSaveExerciseToFile(videoData, captions, recordedChunks, clipIndexRange, playbackRate, youLinePlaybackRate) {
+    buildExerciseData(videoData, captions, recordedChunks, clipIndexRange, playbackRate, youLinePlaybackRate)
+        .then(exerciseData => {
+            saveDataAsJsonToFile(exerciseData);
+        }
         );
 }
-export function handleShareExercise(video, captions, recordedChunks, playbackRate, youLinePlaybackRate, studentName, emailAddress, isUnlistedVideo) {
-    buildExerciseData(video, captions, recordedChunks, playbackRate, youLinePlaybackRate, studentName, emailAddress, isUnlistedVideo)
-        .then(videoData => 
-            {
-                publishJsonToCloud(videoData);
-            }
+export function doShareHomework(video, captions, recordedChunks, clipRange, playbackRate, youLinePlaybackRate, studentName, emailAddress, isUnlistedVideo) {
+    buildExerciseData(video, captions, recordedChunks, clipRange, playbackRate, youLinePlaybackRate, studentName, emailAddress, isUnlistedVideo)
+        .then(videoData => {
+            publishJsonToCloud(videoData);
+        }
         );
 }
-export function buildExerciseData(video, captions, recordedChunks, playbackRate, youLinePlaybackRate, studentName=null, emailAddress=null, isUnlistedVideo=false) {
+export function buildExerciseData(video, captions, recordedChunks, clipIndexRange, playbackRate, youLinePlaybackRate, studentName = null, emailAddress = null, isUnlistedVideo = false) {
     const playlistData = playlistRegistry.find(playlist => playlist.listId === video.playlistId);
     const language = playlistData.language;
     const videoData = {
@@ -56,6 +54,7 @@ export function buildExerciseData(video, captions, recordedChunks, playbackRate,
         yourLineRate: youLinePlaybackRate,
         startSectionTime: undefined,
         endSectionTime: undefined,
+        clipIndexRange: clipIndexRange
     };
 
     let promises = [];
@@ -81,14 +80,14 @@ export function getIntervals(captions) {
     if (captions.length > 0) {
         result.push(
             {
-            // @ts-ignore
-            start: parseFloat(captions[0].start).toFixed(3),
-            // @ts-ignore
-            end: (parseFloat(captions[0].start) + parseFloat(captions[0].duration)).toFixed(3),
-            // @ts-ignore
-            checked: captions[0].checked,
-            count: 1,
-            index: index++
+                // @ts-ignore
+                start: parseFloat(captions[0].start).toFixed(3),
+                // @ts-ignore
+                end: (parseFloat(captions[0].start) + parseFloat(captions[0].duration)).toFixed(3),
+                // @ts-ignore
+                checked: captions[0].checked,
+                count: 1,
+                index: index++
             }
         );
         for (let i = 1; i < captions.length; i++) {
@@ -115,12 +114,12 @@ export function getIntervals(captions) {
     return result;
 }
 
-export function saveJsonToFile(videoData) {
-    const jsonData = JSON.stringify(videoData, null, 2); // The second parameter (null) is for replacer function or array, and the third parameter (2) is for indentation level (spaces).
+export function saveDataAsJsonToFile(data) {
+    const jsonData = JSON.stringify(data, null, 2); // The second parameter (null) is for replacer function or array, and the third parameter (2) is for indentation level (spaces).
     const jsonBlob = new Blob([jsonData], { type: 'application/json' });
     const jsonUrl = URL.createObjectURL(jsonBlob);
 
-    let safeTitle = videoData.title.replace(/[<>:"/\\|?*]+/g, '') + (videoData.videoRecordedChunks.length>0? ' homework' : ' exercise');
+    let safeTitle = data.title.replace(/[<>:"/\\|?*]+/g, '') + (data.videoRecordedChunks.length > 0 ? ' homework' : ' exercise');
     const downloadLink = document.createElement('a');
     downloadLink.href = jsonUrl;
     downloadLink.download = `${safeTitle}.json`;
@@ -137,8 +136,8 @@ export async function publishJsonToCloud(videoData) {
     const randomSuffixLen5 = Math.floor(Math.random() * 100000);
     try {
         await publishExercise(
-            exercise_storage_folder, 
-            `${safeTitle}-${videoData.studentName}-${randomSuffixLen5}.json`, 
+            exercise_storage_folder,
+            `${safeTitle}-${videoData.studentName}-${randomSuffixLen5}.json`,
             jsonData);
     } catch (error) {
         console.error(`Error publishing to cloud: ${error}`);
@@ -153,26 +152,26 @@ export async function publishExercise(folderName, fileName, data) {
             data: `${data}`
         };
         const bodyJson = JSON.stringify(requestBody, null, 2);
-        const response = 
+        const response =
             await fetch(
-                saveExerciseUrl(), 
+                saveExerciseUrl(),
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'text/plain', 'Accept': '*/*' },
                     body: bodyJson,
                 });
-  
-      if (!response.ok) {
-        throw new Error(`Error saving file: ${response.statusText}`);
-      }
-  
-      console.log('LingFlix: File saved successfully!');
-      //alert('Exercise published successfully!');
+
+        if (!response.ok) {
+            throw new Error(`Error saving file: ${response.statusText}`);
+        }
+
+        console.log('LingFlix: File saved successfully!');
+        //alert('Exercise published successfully!');
     } catch (error) {
-      console.error('Error saving file:', error);
-      alert('Error publishing exercise. Please try again later.');
+        console.error('Error saving file:', error);
+        alert('Error publishing exercise. Please try again later.');
     }
-  }
+}
 
 export function buildExerciseRecordedChunks(chunks) {
     const result = chunks.map(dataUrl => {
@@ -205,6 +204,23 @@ export function parseDataUrl(dataUrl) {
         codecs: codecString,
         data: data
     };
+};
+
+export function buildClipRange(captions, clipIndexRange) {
+    let result = { start: undefined, end: undefined };
+    if (captions && captions.length > 0) {
+        if (clipIndexRange?.startIndex !== undefined) {
+            if (clipIndexRange.startIndex==0) {
+                result.start = 0;
+            } else {
+                result.start = parseFloat(captions[clipIndexRange.startIndex].start);
+            }
+        }
+        if (clipIndexRange?.endIndex !== undefined) {
+            result.end = parseFloat(captions[clipIndexRange.endIndex].start) + parseFloat(captions[clipIndexRange.endIndex].duration);
+        }
+    }
+    return result;
 }
 
 

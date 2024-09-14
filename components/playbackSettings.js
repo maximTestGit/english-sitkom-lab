@@ -1,58 +1,69 @@
-import React, { use } from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Switch from './helpers/switch';
-import { isRunningOnBigScreen } from './data/configurator.js';
+import { isRunningOnBigScreen } from './data/configurator';
 
-const PlaybackSettings = ({ initLoop, initShowCaptions,
-    initYourLineSourceVolume, initPlayerLinePlaybackRate, initYourLinePlaybackRate, initImbededCaptionBluring = false,
-    initAllowCamera,
-    onLoopChange, onShowCaptionsChange, onPlayerLinePlaybackRateChange, onYourLinePlaybackRateChange, onYourLineSourceVolumeChange,
-    onImbededCaptionBluringChange, onAllowCameraChange }) => {
-    const [youLinePlaybackRate, setYouLinePlaybackRate] = useState(initYourLinePlaybackRate);
-    const [playerLinePlaybackRate, setPlayerLinePlaybackRate] = useState(initPlayerLinePlaybackRate);
-    const [yourLineSourceVolume, setYourLineSourceVolume] = useState(initYourLineSourceVolume);
-    const handleYourLinePlaybackRateChange = (event) => {
+const PlaybackSettings = ({
+    settings,
+    updateSetting,
+    onLoopChange, onShowCaptionsChange, onPlayerLineSpeedChange, onYourLineSpeedChange, onWhisperVoumeChange,
+    onImbededCaptionBluringChange, onAllowCameraChange
+}) => {
+    let isLoop = settings.isLoop;
+    let toShowCaptions = settings.toShowCaptions;
+    let whisperVoume = settings.whisperVoume;
+    let playerLineSpeed = settings.playerLineSpeed;
+    let yourLineSpeed = settings.yourLineSpeed;
+    let isImbededCaptionsBlured = settings.isImbededCaptionsBlured;
+    let isCameraAllowed = settings.isCameraAllowed;
+
+    const setYouLinePlaybackRate = (value) => {
+        updateSetting('yourLineSpeed', value);
+    };
+    const setPlayerLineSpeed = (value) => {
+        updateSetting('playerLineSpeed', value);
+    };
+    const setWhisperVoume = (value) => {
+        updateSetting('whisperVoume', value);
+    };
+
+    const handleYourLineSpeedChange = (event) => {
         const newPlaybackRate = parseFloat(event.target.value);
         setYouLinePlaybackRate(event.target.value);
-        onYourLinePlaybackRateChange(event.target.value);
+        onYourLineSpeedChange(event.target.value);
     }
-    const handlePlayerLinePlaybackRateChange = (event) => {
+    const handlePlayerLineSpeedChange = (event) => {
         const newPlaybackRate = parseFloat(event.target.value);
-        setPlayerLinePlaybackRate(event.target.value);
-        onPlayerLinePlaybackRateChange(event.target.value);
+        setPlayerLineSpeed(event.target.value);
+        onPlayerLineSpeedChange(event.target.value);
     }
     const handleSourceVolumeChange = (event) => {
         //const newSourceVolume = parseFloat(event.target.value);
-        setYourLineSourceVolume(event.target.value);
-        onYourLineSourceVolumeChange(event.target.value);
+        setWhisperVoume(event.target.value);
+        onWhisperVoumeChange(event.target.value);
     }
-    // useEffect(() => {
-    //     setYouLinePlaybackRate(initYourLinePlaybackRate);
-    //     setYourLineSourceVolume(initYourLineSourceVolume);
-    // }, []);
     return (
         <>
             <div className="row mb-2">
                 <div className="col-2">
-                    <Switch id="loopPlaySwitch" label="Loop" onChange={onLoopChange} initValue={initLoop} />
+                    <Switch id="loopPlaySwitch" label="Loop" onChange={onLoopChange} initValue={isLoop} />
                 </div>
                 <div className="col-3">
-                    <Switch id="imbededCaptionBluringSwitch" label="Blure Imbeded Captions" onChange={onImbededCaptionBluringChange} initValue={initImbededCaptionBluring} />
+                    <Switch id="imbededCaptionBluringSwitch" label="Blure Imbeded Captions" onChange={onImbededCaptionBluringChange} initValue={isImbededCaptionsBlured} />
                 </div>
-                {isRunningOnBigScreen && 
+                {isRunningOnBigScreen &&
                     <div className="col-2">
-                        <Switch id="allowCameraSwitch" label="Camera" onChange={onAllowCameraChange} initValue={initAllowCamera} />
+                        <Switch id="allowCameraSwitch" label="Camera" onChange={onAllowCameraChange} initValue={isCameraAllowed} />
                     </div>
                 }
                 <div className="col-3">
-                    <Switch id="showCaptionsSwitch" label="Exercise Captions" onChange={onShowCaptionsChange} initValue={initShowCaptions} />
+                    <Switch id="showCaptionsSwitch" label="Exercise Captions" onChange={onShowCaptionsChange} initValue={toShowCaptions} />
                 </div>
             </div>
             <div className="row mb-2">
                 <div className="col-4 col-lg-3">
                     <select className="form-select form-select-sm"
-                        onChange={handleYourLinePlaybackRateChange}
-                        value={youLinePlaybackRate}>
+                        onChange={handleYourLineSpeedChange}
+                        value={yourLineSpeed}>
                         <option value={0.5}>0.5 of Normal Speed when you talk</option>
                         <option value={0.6}>0.6 of Normal Speed when you talk</option>
                         <option value={0.7}>0.7 of Normal Speed when you talk</option>
@@ -64,7 +75,7 @@ const PlaybackSettings = ({ initLoop, initShowCaptions,
                 <div className="col-4 col-lg-3">
                     <select className="form-select form-select-sm"
                         onChange={handleSourceVolumeChange}
-                        value={yourLineSourceVolume}>
+                        value={whisperVoume}>
                         <option value={0.0} selected>Mute Player when you talk</option>
                         <option value={2.0} >Slight Whisper Player when you talk</option>
                         <option value={5.0} >Whisper Player when you talk</option>
@@ -73,8 +84,8 @@ const PlaybackSettings = ({ initLoop, initShowCaptions,
                 </div>
                 <div className="col-4 col-lg-3">
                     <select className="form-select form-select-sm"
-                        onChange={handlePlayerLinePlaybackRateChange}
-                        value={playerLinePlaybackRate}>
+                        onChange={handlePlayerLineSpeedChange}
+                        value={playerLineSpeed}>
                         <option value={0.5}>0.5 of Normal Speed Player</option>
                         <option value={0.6}>0.6 of Normal Speed Player</option>
                         <option value={0.7}>0.7 of Normal Speed Player</option>

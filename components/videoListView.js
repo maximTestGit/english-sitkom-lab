@@ -9,32 +9,40 @@ import {
     storageDataAttributes,
 } from './helpers/storageHelper.js';
 
-const VideoListView = ({ playlistId, onSelectVideo, onSelectPlaylistId, currentUserData, onVideoLinkOpen }) => {
-    const default_selected_playList_id = playlistRegistry[0].listId;
+const VideoListView = ({ 
+    playlistId, 
+    currentUser, 
+    onSelectVideo, 
+    onSelectPlaylistId, 
+    onCustomVideoOpen, 
+    onExerciseOpen 
+}) => {
+    /*
+    videos is a list of the following objects:
+        description:""
+        thumbnail: "https://i.ytimg.com/vi/TDhK5IQq73E/default.jpg"
+        title: "כדי לקצר את הסבל שלך"
+        videoId: "TDhK5IQq73E"
+    */
     const [videos, setVideos] = useState([]);
-    const [selectedPlayListId, setSelectedPlayListId] = useState(default_selected_playList_id);
-    const [currentUser, setCurrentUser] = useState(currentUserData);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [videoUrl, setVideoUrl] = useState('');
-    const [videoTitle, setVideoTitle] = useState('');
 
-    const setSelectedPlayListIdWrapper = (newSelectedPlayListId) => {
-        setSelectedPlayListId(newSelectedPlayListId);
-        onSelectPlaylistId(newSelectedPlayListId);
+    // Custom Video Open Modal dialog State
+    const [isCustomVideoModalOpen, setIsCustomVdeoModalOpen] = useState(false);
+    const [customVideoUrl, setCustomVideoUrl] = useState('');
+    const [customVideoTitle, Custom] = useState('');
+
+    const changePlaylistIdWrapper = (newPlaylistId) => {
+        onSelectPlaylistId(newPlaylistId);
     };
 
-    useEffect(() => {
-        setCurrentUser(currentUserData);
-    }, [currentUserData]);
+    const handleSelectVideo = (video) => {
+        onSelectVideo(video, playlistId);
+    };
 
     const fetchVideos = async (playlistId) => {
         let url = getPlaylistContentUrl(playlistId);
-        const videos = await fetchData(storageDataAttributes.videoList_data_prefix, `videoList%${playlistId}`, url, 60 * 60); // Cache for 1 hour
-        setVideos(videos);
-    };
-
-    const selectVideoWrapper = (video) => {
-        onSelectVideo(video, selectedPlayListId);
+        const videosData = await fetchData(storageDataAttributes.videoList_data_prefix, `videoList%${playlistId}`, url, 60 * 60); // Cache for 1 hour
+        setVideos(videosData);
     };
 
     const openExercise = (file) => {
@@ -42,8 +50,8 @@ const VideoListView = ({ playlistId, onSelectVideo, onSelectPlaylistId, currentU
         reader.onload = function (event) {
             const contents = event.target.result;
             try {
-                const exerciseJson = JSON.parse(contents);
-                onSelectVideo(exerciseJson, exerciseJson.playlistId);
+                const exercise = JSON.parse(contents);
+                onExerciseOpen(exercise);
             } catch (e) {
                 console.error('Could not parse JSON: ', e);
             }
@@ -52,27 +60,22 @@ const VideoListView = ({ playlistId, onSelectVideo, onSelectPlaylistId, currentU
     };
 
     const handleOpenVideoLinkButtonClick = () => {
-        setIsModalOpen(true);
+        setIsCustomVdeoModalOpen(true);
     };
 
     const handleModalClose = () => {
-        setIsModalOpen(false);
-        setVideoUrl('');
+        setIsCustomVdeoModalOpen(false);
+        setCustomVideoUrl('');
     };
 
     const handleOpenVideo = () => {
-        onVideoLinkOpen(videoUrl, videoTitle);
+        onCustomVideoOpen(customVideoUrl, customVideoTitle);
         handleModalClose();
     };
 
-    if (playlistId && playlistId != selectedPlayListId) {
-        setSelectedPlayListId(playlistId);
+     useEffect(() => {
         fetchVideos(playlistId);
-    }
-
-    useEffect(() => {
-        fetchVideos(selectedPlayListId);
-    }, [selectedPlayListId]);
+    }, [playlistId]);
 
     return (
         <>
@@ -82,8 +85,8 @@ const VideoListView = ({ playlistId, onSelectVideo, onSelectPlaylistId, currentU
                 </div>
                 <div id="selectPlaylistDropdown" className="col-9 col-md-6 col-lg-4">
                     <select className="form-select form-select-lg"
-                        value={selectedPlayListId}
-                        onChange={(e) => setSelectedPlayListIdWrapper(e.target.value)}>
+                        value={playlistId}
+                        onChange={(e) => changePlaylistIdWrapper(e.target.value)}>
                         {playlistRegistry.map((playlist) => (
                             <option key={playlist.listId} value={playlist.listId}>{playlist.listName}</option>
                         ))}
@@ -119,12 +122,12 @@ const VideoListView = ({ playlistId, onSelectVideo, onSelectPlaylistId, currentU
                 </thead>
                 <tbody>
                     {videos.map((v) => (
-                        <VideoRow key={v.videoId} video={v} onSelectVideo={selectVideoWrapper} />
+                        <VideoRow key={v.videoId} video={v} onSelectVideo={handleSelectVideo} />
                     ))}
                 </tbody>
             </table>
 
-            {isModalOpen && (
+            {isCustomVideoModalOpen && (
                 <div className="modal" style={{ display: 'block' }}>
                     <div className="modal-dialog">
                         <div className="modal-content">
@@ -137,15 +140,15 @@ const VideoListView = ({ playlistId, onSelectVideo, onSelectPlaylistId, currentU
                                     type="text"
                                     className="form-control mb-2"
                                     placeholder="Enter video title"
-                                    value={videoTitle}
-                                    onChange={(e) => setVideoTitle(e.target.value)}
+                                    value={customVideoTitle}
+                                    onChange={(e) => Custom(e.target.value)}
                                 />
                                 <input
                                     type="text"
                                     className="form-control"
                                     placeholder="Enter video URL"
-                                    value={videoUrl}
-                                    onChange={(e) => setVideoUrl(e.target.value)}
+                                    value={customVideoUrl}
+                                    onChange={(e) => setCustomVideoUrl(e.target.value)}
                                 />
                             </div>
                             <div className="modal-footer">

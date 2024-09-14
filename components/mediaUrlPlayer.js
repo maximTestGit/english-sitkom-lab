@@ -4,38 +4,24 @@ import BluringPanel from './bluringPanel';
 import ExerciseStatus from './data/exerciseStatus';
 
 const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
-    playbackRate, volume = 100, progressInterval = 100, onProgress = () => { }, onEnded = () => { },
+    playbackRate, volume = 100, progressInterval = 100, onProgress, onEnded,
     playerRef, zIndex = 9000, playing,
-    imbededCaptionBluring = false,
-    clipSelection = { start: undefined, end: undefined },
-    hasRecording = false,
-    //onResetStatus=()=>{},
-    top = 0 }) => {
+    isImbededCaptionsBlured = false,
+    clipRange,
+    hasRecording = false
+}) => {
 
-    //const [imbededCaptionBluringValue, setImbededCaptionBluringValue] = useState(imbededCaptionBluring);
-
-    // const handlePlay = () => {
-    //     if (exerciseStatus === ExerciseStatus.STOPPED) {
-    //         onResetStatus(ExerciseStatus.ORIGIN);
-    //     }
-    // };
-
-    // const handlePause = () => {
-    //     if (exerciseStatus !== ExerciseStatus.STOPPED) {
-    //         onResetStatus(ExerciseStatus.STOPPED);
-    //     }
-    // };
     const [exercisePlayingCounter, setExercisePlayingCounter] = useState(0);
 
-    const resetPlayerPosition = (playerRef, clipSelection) => {
+    const resetPlayerPosition = (playerRef, clipRange) => {
         if (playerRef.current) {
-            let start = clipSelection.start ? clipSelection.start : 0;
+            let start = clipRange?.start ? clipRange.start : 0;
             playerRef.current.seekTo(start);
         }
     }
 
     useEffect(() => {
-        resetPlayerPosition(playerRef, clipSelection);
+        resetPlayerPosition(playerRef, clipRange);
         setExercisePlayingCounter(0);
     }, []);
 
@@ -48,9 +34,9 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
 
     const onProgressWrapper = (state) => {
         if (!hasRecording) {
-            if (state.playedSeconds < clipSelection.start) {
-                resetPlayerPosition(playerRef, clipSelection);
-            } else if (state.playedSeconds > clipSelection.end) {
+            if (state.playedSeconds < clipRange.start) {
+                resetPlayerPosition(playerRef, clipRange);
+            } else if (state.playedSeconds > clipRange.end) {
                 if (exerciseStatus === ExerciseStatus.PLAYING) {
                     setExercisePlayingCounter(exercisePlayingCounter + 1);
                 }
@@ -65,7 +51,7 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
     const onStartedWrapper = () => {
         console.log('LingFlix: MediaUrlPlayer: onStartedWrapper:', exerciseStatus);
     }
-    
+
     return (
         <div>
             <ReactPlayer ref={playerRef}
@@ -103,11 +89,11 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
                     height={'12%'}
                     backgroundColor={'rgba(0, 0, 0, 0.1)'}
                     backdropFilter={'blur(5px)'}
-                    zIndex={9999}
+                    zIndex={6}
                     hint={exercisePlayingCounter}
                 />
             }
-            {imbededCaptionBluring &&
+            {isImbededCaptionsBlured &&
                 <BluringPanel id="captionsBluringPanel"
                     //bottom={'1%'}
                     startLeft={'15%'}

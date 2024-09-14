@@ -1,19 +1,32 @@
 const global_data_prefix = 'global';
 const captions_data_prefix = 'captions';
+const captions_range_data_prefix = 'captionsRange';
 const videoList_data_prefix = 'videoList';
 const session_data_prefix = 'session';
 const playlist_key = 'playlist';
 const video_key = 'video';
 const allow_camera_key = 'allowCamera';
+const your_line_playback_rate = 'yourLineSpeed';
+const player_line_playback_rate = 'playerLineSpeed';
+const whisper_playback_volume = 'whisperPlaybackVolume';
 
-export const session_data_keys = { playlist_key, video_key, allow_camera_key };
-export const storageDataAttributes = 
-    { 
-        global_data_prefix, 
-        captions_data_prefix, 
-        videoList_data_prefix, 
-        session_data_prefix,
-        session_data_keys };
+export const session_data_keys = {
+    playlist_key,
+    video_key,
+    allow_camera_key,
+    your_line_playback_rate,
+    player_line_playback_rate,
+    whisper_playback_volume
+};
+export const storageDataAttributes =
+{
+    global_data_prefix,
+    captions_data_prefix,
+    captions_range_data_prefix,
+    videoList_data_prefix,
+    session_data_prefix,
+    session_data_keys
+};
 
 // #region local storage add/remove
 function addDataToLocalStorage(prefix, key, data, expirationSec) {
@@ -95,7 +108,7 @@ async function unregisterDataAtLocalStorageByKey(dataKey) {
 
 // expirationSec === null - infinit storage
 // expirationSec === 0 - no cache
-export async function saveDataToLocalStorage(prefix, key, data, expirationSec=null) {
+export async function saveDataToLocalStorage(prefix, key, data, expirationSec = null) {
     if (expirationSec !== 0) { // 0 means no cache
         const keys = Object.keys(localStorage)
             .filter((k) => k.startsWith(prefix))
@@ -110,14 +123,22 @@ export async function saveDataToLocalStorage(prefix, key, data, expirationSec=nu
     }
 }
 
-export function fetchDataFromLocalStorage(prefix, key, expirationSec) {
+export function fetchDataFromLocalStorage(prefix, key, expirationSec = null) {
+    let result = null;
     const dataKey = buildDataKey(prefix, key);
-    let result = JSON.parse(localStorage.getItem(dataKey));
-    if (result && expirationSec === 0) { // no cach, but if found - remove
-        removeDataFromLocalStorage(prefix, key);
-        result = null;
+    const data = localStorage.getItem(dataKey);
+    if (data && data !== 'undefined') {
+        result = JSON.parse(data);
+        if (result && expirationSec === 0) { // no cach, but if found - remove
+            removeDataFromLocalStorage(prefix, key);
+            result = null;
+            console.log(`LingFlix: Removed data with key ${dataKey} from local storage.`);
+        } else {
+            console.log(`LingFlix: Fetched data with key ${dataKey} from local storage.`);
+        }
+    } else {
+        console.log(`LingFlix: Data with key ${dataKey} not found in local storage.`);
     }
-    console.log(`LingFlix: Fetched data with key ${dataKey} from local storage.`);
     return result;
 }
 

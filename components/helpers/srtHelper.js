@@ -3,10 +3,10 @@ export function loadCaptionObjectsFromFile(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = function (e) {
-      var captionObjects = [];
       const srtContent = e.target.result;
-      captionObjects = srtToObjects(srtContent);
-      resolve(captionObjects)
+      const captionObjects = srtToObjects(srtContent);
+      const result = captionObjects.filter(caption => caption?.start && caption?.duration);
+      resolve(result)
     };
     reader.onerror = reject;
     reader.readAsText(file);
