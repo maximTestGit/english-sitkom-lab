@@ -368,7 +368,7 @@ const ExerciseView = ({
             handleSaveRecording(videoData.videoRecordedChunks); //???
             setWhisperVolume(default_recording_your_line_volume);
         } else {
-            handleStartPlay(ExerciseStatus.ORIGIN, 'useEffect');
+            handleStartPlay(ExerciseStatus.STOPPED, 'useEffect');
         }
 
         let isCameraAllowed = fetchDataFromLocalStorage(
