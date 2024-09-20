@@ -70,7 +70,7 @@ const PlayerBox = forwardRef(({
                             || exerciseStatus === ExerciseStatus.ORIGIN
                             || exerciseStatus === ExerciseStatus.RECORDING}
                         exerciseStatus={exerciseStatus}
-                        onProgress={() => { }}
+                        onProgress={() => {}}
                         onEnded={() => onPlayingEnd()}
                         clipRange={clipRange}
                         hasRecording={true}
@@ -150,4 +150,3 @@ const PlayerBox = forwardRef(({
 
 PlayerBox.displayName = 'PlayerBox';
 export default PlayerBox;
-

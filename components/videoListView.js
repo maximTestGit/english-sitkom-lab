@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from "react";
-import VideoRow from "./videoRow.js";
-import { fetchData } from './helpers/fetchData.js';
-import { getPlaylistContentUrl } from './data/configurator.js';
-import { playlistRegistry } from './data/playlistRegistry.js';
+import VideoRow from "./videoRow";
+import { fetchRetrievePlayistContent } from './helpers/fetchData';
+import { playlistRegistry } from './data/playlistRegistry';
 import Dropzone from 'react-dropzone';
-import { isRunningOnBigScreen } from './data/configurator.js';
-import {
-    storageDataAttributes,
-} from './helpers/storageHelper.js';
+import { isRunningOnBigScreen, inDebugEnv } from './data/configurator';
 
-const VideoListView = ({ 
-    playlistId, 
-    currentUser, 
-    onSelectVideo, 
-    onSelectPlaylistId, 
-    onCustomVideoOpen, 
-    onExerciseOpen 
+const VideoListView = ({
+    playlistId,
+    currentUser,
+    onSelectVideo,
+    onSelectPlaylistId,
+    onCustomVideoOpen,
+    onExerciseOpen
 }) => {
     /*
     videos is a list of the following objects:
@@ -40,8 +36,7 @@ const VideoListView = ({
     };
 
     const fetchVideos = async (playlistId) => {
-        let url = getPlaylistContentUrl(playlistId);
-        const videosData = await fetchData(storageDataAttributes.videoList_data_prefix, `videoList%${playlistId}`, url, 60 * 60); // Cache for 1 hour
+        const videosData = await fetchRetrievePlayistContent(playlistId); 
         setVideos(videosData);
     };
 
@@ -73,7 +68,7 @@ const VideoListView = ({
         handleModalClose();
     };
 
-     useEffect(() => {
+    useEffect(() => {
         fetchVideos(playlistId);
     }, [playlistId]);
 
@@ -107,7 +102,9 @@ const VideoListView = ({
                         </Dropzone>
                     </div>
                 }
-                {isRunningOnBigScreen && currentUser?.role === 'Admin' &&
+                {
+                    isRunningOnBigScreen && (currentUser?.role === 'Admin' || inDebugEnv) 
+                    &&
                     <div id="openVideoLinkButton" className="col-2 text-center">
                         <button type="button" className="btn btn-warning btn-lg" onClick={handleOpenVideoLinkButtonClick}>Open video</button>
                     </div>
@@ -121,7 +118,7 @@ const VideoListView = ({
                     </tr>
                 </thead>
                 <tbody>
-                    {videos.map((v) => (
+                    {videos?.map((v) => (
                         <VideoRow key={v.videoId} video={v} onSelectVideo={handleSelectVideo} />
                     ))}
                 </tbody>
@@ -136,7 +133,7 @@ const VideoListView = ({
                                 <button type="button" className="btn-close" onClick={handleModalClose}></button>
                             </div>
                             <div className="modal-body">
-                            <input
+                                <input
                                     type="text"
                                     className="form-control mb-2"
                                     placeholder="Enter video title"

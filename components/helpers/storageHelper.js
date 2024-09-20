@@ -8,6 +8,7 @@ const video_key = 'video';
 const allow_camera_key = 'allowCamera';
 const your_line_playback_rate = 'yourLineSpeed';
 const player_line_playback_rate = 'playerLineSpeed';
+const player_line_playback_volume = 'playerLineVolume';
 const whisper_playback_volume = 'whisperPlaybackVolume';
 
 export const session_data_keys = {
@@ -16,6 +17,7 @@ export const session_data_keys = {
     allow_camera_key,
     your_line_playback_rate,
     player_line_playback_rate,
+    player_line_playback_volume,
     whisper_playback_volume
 };
 export const storageDataAttributes =

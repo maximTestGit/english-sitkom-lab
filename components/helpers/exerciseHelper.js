@@ -1,4 +1,4 @@
-import { getYoutubeUrl, saveExerciseUrl } from "../data/configurator";
+import { getYoutubeUrl, saveExerciseUrl, learningLanguage } from "../data/configurator";
 import { playlistRegistry } from './../data/playlistRegistry';
 
 //import publishExercise from './publishExercise.js';
@@ -29,7 +29,7 @@ export function doShareHomework(video, captions, recordedChunks, clipRange, play
 }
 export function buildExerciseData(video, captions, recordedChunks, clipIndexRange, playbackRate, youLinePlaybackRate, studentName = null, emailAddress = null, isUnlistedVideo = false) {
     const playlistData = playlistRegistry.find(playlist => playlist.listId === video.playlistId);
-    const language = playlistData.language;
+    const language = playlistData.language ?? learningLanguage;
     const videoData = {
         videoId: video.videoId,
         title: video.title,
@@ -39,7 +39,7 @@ export function buildExerciseData(video, captions, recordedChunks, clipIndexRang
         studentName: studentName,
         emailAddress: emailAddress,
         playlistId: video.playlistId,
-        playlistName: playlistRegistry.find(playlist => playlist.listId === video.playlistId)?.listName,
+        playlistName: playlistData?.listName,
         isUnlistedVideo: isUnlistedVideo,
         uncheckedCaptions: [],
         captions: undefined,
@@ -210,7 +210,7 @@ export function buildClipRange(captions, clipIndexRange) {
     let result = { start: undefined, end: undefined };
     if (captions && captions.length > 0) {
         if (clipIndexRange?.startIndex !== undefined) {
-            if (clipIndexRange.startIndex==0) {
+            if (clipIndexRange.startIndex == 0) {
                 result.start = 0;
             } else {
                 result.start = parseFloat(captions[clipIndexRange.startIndex].start);

@@ -33,22 +33,25 @@ const ExerciseView = ({
     const default_playback_rate = 1.0; // 1x speed
     const default_your_line_playback_rate = 1.0; // 1x speed
 
-    const default_volume = 50.0; // 50% of the volume
+    const default_volume = 100.0; // 50% of the volume
     const default_your_line_volume = 0.0; // mute
     const default_recording_your_line_volume = 0.0; // mute
 
     // #region defaults
 
     // #region State
-    const [settings, setSettings] = useState({
+    const initialSettings = {
         isLoop: false,
         toShowCaptions: true,
-        whisperVoume: default_your_line_volume,
+        whisperVolume: default_your_line_volume,
         yourLineSpeed: videoData.yourLineRate ? videoData.yourLineRate : default_your_line_playback_rate, // rate of your line during exercise/recording
         playerLineSpeed: videoData.playbackRate ? videoData.playbackRate : default_playback_rate, // rate of player line during exercise/recording
+        playerLineVolume: default_volume,
         isImbededCaptionsBlured: false,
         isCameraAllowed: false,
-    });
+    };
+
+    const [settings, setSettings] = useState(initialSettings);
 
     const [position, setPosition] = useState(0);
     const [currentCaption, setCurrentCaption] = useState(null);
@@ -56,11 +59,11 @@ const ExerciseView = ({
     const [recordedChunks, setRecordedChunks] = useState([]);
     const [srtCaptionsData, setSrtCaptionsData] = useState(null);
     const [currentPlaybackRate, setCurrentPlaybackRate] = useState(default_playback_rate); // current, can be default_playback_rate or youLinePlaybackRate
-    const [currentVolume, setCurrentVolume] = useState(default_volume); // current, can be default_volume or whisperVoume
+    const [currentVolume, setCurrentVolume] = useState(default_volume); // current, can be default_volume or whisperVolume
 
     // save parameters before recording
     const [loopPreRec, setLoopPreRec] = useState(settings.isLoop);
-    const [whisperVoumePreRec, setWhisperVoumePreRec] = useState(settings.whisperVoume);
+    const [whisperVolumePreRec, setWhisperVolumePreRec] = useState(settings.whisperVolume);
 
     // #region ShowEmailFormModalOpen
     const [isShowEmailFormModalOpen, setIsShowEmailFormModalOpen] = useState(false); // State variable to control modal visibility
@@ -84,6 +87,7 @@ const ExerciseView = ({
 
     //  #region set settings key functions
     const updateSettingKey = (key, value) => {
+        //console.log(`LingFlix: updateSettingKey', at position set ${key}=${settings[key]} - ${value}`);
         setSettings(prevSettings => ({
             ...prevSettings,
             [key]: value,
@@ -95,14 +99,17 @@ const ExerciseView = ({
     const setToShowCaptions = (value) => {
         updateSettingKey('toShowCaptions', value);
     };
-    const setWhisperVoume = (value) => {
-        updateSettingKey('whisperVoume', value);
+    const setWhisperVolume = (value) => {
+        updateSettingKey('whisperVolume', value);
     };
     const setYourLineSpeed = (value) => {
         updateSettingKey('yourLineSpeed', value);
     };
     const setPlayerLineSpeed = (value) => {
         updateSettingKey('playerLineSpeed', value);
+    };
+    const setPlayerLineVolume = (value) => {
+        updateSettingKey('playerLineVolume', value);
     };
     const setIsImbededCaptionsBlured = (value) => {
         updateSettingKey('isImbededCaptionsBlured', value);
@@ -121,14 +128,17 @@ const ExerciseView = ({
             case 'toShowCaptions':
                 handleShowCaptionsChange(value);
                 break;
-            case 'whisperVoume':
-                handleWhisperVoumeChange(value);
+            case 'whisperVolume':
+                handleWhisperVolumeChange(value);
                 break;
             case 'yourLineSpeed':
                 handleYourLineSpeedChange(value);
                 break;
             case 'playerLineSpeed':
                 handlePlayerLineSpeedChange(value);
+                break;
+            case 'playerLineVolume':
+                handlePlayerLineVolumeChange(value);
                 break;
             case 'isImbededCaptionsBlured':
                 handleImbededCaptionBluringChange(value);
@@ -174,16 +184,28 @@ const ExerciseView = ({
     };
 
     const setCurrentVolumeByCaption = (caption) => {
-        let newVolume = currentVolume;
-        if (exerciseStatus === ExerciseStatus.PLAYING
-            && recordedChunks?.length > 0
-            && caption?.checked) {
-            newVolume = 0;
-        } else if (exerciseStatus !== ExerciseStatus.ORIGIN && caption?.checked) {
-            newVolume = settings.whisperVoume;
+        let newVolume;
+        if (exerciseStatus === ExerciseStatus.ORIGIN) {
+            newVolume = settings.playerLineVolume;
+            console.log(`LingFlix: 1 at position. status: ${exerciseStatus} SetVolume: ${newVolume} caption:${caption?.text} checked:${caption?.checked} record: ${recordedChunks?.length}`);
+        } else if (exerciseStatus === ExerciseStatus.PLAYING) {
+            if (caption?.checked) {
+                newVolume = recordedChunks?.length > 0 ? 0 : settings.whisperVolume;
+                console.log(`LingFlix: 2.1 at position status: ${exerciseStatus} SetVolume: ${newVolume} caption:${caption?.text} checked:${caption?.checked} record: ${recordedChunks?.length}`);
+            } else {
+                newVolume = settings.playerLineVolume;
+                console.log(`LingFlix: 2.2 at position status: ${exerciseStatus} SetVolume: ${newVolume} caption:${caption?.text} checked:${caption?.checked} record: ${recordedChunks?.length}`);
+            }
+        } else if (exerciseStatus === ExerciseStatus.RECORDING) {
+            newVolume = caption?.checked ? settings.whisperVolume : settings.playerLineVolume;
+            console.log(`LingFlix: 3 at position status: ${exerciseStatus} SetVolume: ${newVolume} caption:${caption?.text} checked:${caption?.checked} record: ${recordedChunks?.length}`);
+        } else {
+            newVolume = settings.playerLineVolume;
+            console.log(`LingFlix: 4 at position status: ${exerciseStatus} SetVolume: ${newVolume} caption:${caption?.text} checked:${caption?.checked} record: ${recordedChunks?.length}`);
         }
+
         if (newVolume !== currentVolume) {
-            console.log(`LingFlix: SetVolume: ${newVolume} caption:${caption?.text} checked:${caption?.checked}`);
+            console.log(`LingFlix: at position SetVolume: ${newVolume}!=${currentVolume} caption:${caption?.text} checked:${caption?.checked}`);
             setCurrentVolumeWrapper(newVolume);
         }
     };
@@ -198,6 +220,10 @@ const ExerciseView = ({
 
     const setPlayerLineSpeedWrapper = (rate) => {
         setPlayerLineSpeed(rate);
+    };
+
+    const setPlayerLineVolumeWrapper = (value) => {
+        setPlayerLineVolume(value);
     };
 
     const handleLoopChange = (checked) => {
@@ -225,8 +251,16 @@ const ExerciseView = ({
             rate);
     };
 
-    const handleWhisperVoumeChange = (volume) => {
-        setWhisperVoume(parseFloat(volume));
+    const handlePlayerLineVolumeChange = (value) => {
+        setPlayerLineVolumeWrapper(parseFloat(value));
+        saveDataToLocalStorage(
+            storageDataAttributes.session_data_prefix,
+            storageDataAttributes.session_data_keys.player_line_playback_volume,
+            value);
+    };
+
+    const handleWhisperVolumeChange = (volume) => {
+        setWhisperVolume(parseFloat(volume));
         saveDataToLocalStorage(
             storageDataAttributes.session_data_prefix,
             storageDataAttributes.session_data_keys.whisper_playback_volume,
@@ -293,8 +327,8 @@ const ExerciseView = ({
                 setLoopPreRec(settings.isLoop);
                 setIsLoop(false);
 
-                setWhisperVoumePreRec(settings.whisperVoume);
-                setWhisperVoume(default_recording_your_line_volume);
+                setWhisperVolumePreRec(settings.whisperVolume);
+                setWhisperVolume(default_recording_your_line_volume);
                 if (parseFloat(captions[0].start) < 0.2) {
                     setPlayingCaption(captions[0]);
                 } else {
@@ -309,7 +343,7 @@ const ExerciseView = ({
     const handleSaveRecording = (chunks) => {
         console.log(`LingFlix: SaveRecording: ${chunks?.length}`);
         setIsLoop(loopPreRec);
-        setWhisperVoume(whisperVoumePreRec);
+        setWhisperVolume(whisperVolumePreRec);
         handleStopPlay();
         setExerciseStatusWrapper(ExerciseStatus.STOPPED, 'handleSaveRecording');
         setRecordedChunks(chunks);
@@ -332,45 +366,59 @@ const ExerciseView = ({
         }
         if (videoData.videoRecordedChunks?.length > 0) {
             handleSaveRecording(videoData.videoRecordedChunks); //???
-            setWhisperVoume(default_recording_your_line_volume);
+            setWhisperVolume(default_recording_your_line_volume);
         } else {
             handleStartPlay(ExerciseStatus.ORIGIN, 'useEffect');
         }
-        let allowCameraValue = fetchDataFromLocalStorage(
+
+        let isCameraAllowed = fetchDataFromLocalStorage(
             storageDataAttributes.session_data_prefix,
             storageDataAttributes.session_data_keys.allow_camera_key);
-        if (allowCameraValue === null || allowCameraValue === undefined) {
-            allowCameraValue = false;
-            handleAllowCameraChange(allowCameraValue); //???
+        if (isCameraAllowed === null || isCameraAllowed === undefined) {
+            isCameraAllowed = initialSettings.isCameraAllowed;
+            handleAllowCameraChange(isCameraAllowed); //???
         } else {
-            setIsCameraAllowed(allowCameraValue);
+            setIsCameraAllowed(isCameraAllowed);
         }
+
         let yourLineRate = fetchDataFromLocalStorage(
             storageDataAttributes.session_data_prefix,
             storageDataAttributes.session_data_keys.your_line_playback_rate);
         if (yourLineRate === null || yourLineRate === undefined) {
-            yourLineRate = default_your_line_playback_rate;
+            yourLineRate = initialSettings.yourLineSpeed;
             handleYourLineSpeedChange(yourLineRate); //???
         } else {
             setYourLineSpeed(parseFloat(yourLineRate));
         }
+
         let playerLineRate = fetchDataFromLocalStorage(
             storageDataAttributes.session_data_prefix,
             storageDataAttributes.session_data_keys.player_line_playback_rate);
         if (playerLineRate === null || playerLineRate === undefined) {
-            playerLineRate = default_playback_rate;
+            playerLineRate = initialSettings.playerLineSpeed;
             handlePlayerLineSpeedChange(playerLineRate); //???
         } else {
             setPlayerLineSpeed(parseFloat(playerLineRate));
         }
+
+        let playerLineVolume = fetchDataFromLocalStorage(
+            storageDataAttributes.session_data_prefix,
+            storageDataAttributes.session_data_keys.player_line_playback_volume);
+        if (playerLineVolume === null || playerLineVolume === undefined) {
+            playerLineVolume = initialSettings.playerLineVolume;
+            handlePlayerLineVolumeChange(playerLineVolume); //???
+        } else {
+            setPlayerLineVolume(parseFloat(playerLineVolume));
+        }
+
         let whisperVolume = fetchDataFromLocalStorage(
             storageDataAttributes.session_data_prefix,
             storageDataAttributes.session_data_keys.whisper_playback_volume);
         if (whisperVolume === null || whisperVolume === undefined) {
-            whisperVolume = default_volume;
-            handleWhisperVoumeChange(whisperVolume); //???
+            whisperVolume = initialSettings.whisperVolume;
+            handleWhisperVolumeChange(whisperVolume); //???
         } else {
-            setWhisperVoume(parseFloat(whisperVolume));
+            setWhisperVolume(parseFloat(whisperVolume));
         }
     }, []);
 
@@ -468,8 +516,9 @@ const ExerciseView = ({
                     onLoopChange={handleLoopChange}
                     onShowCaptionsChange={handleShowCaptionsChange}
                     onPlayerLineSpeedChange={handlePlayerLineSpeedChange}
+                    onPlayerLineVolumeChange={handlePlayerLineVolumeChange}
                     onYourLineSpeedChange={handleYourLineSpeedChange}
-                    onWhisperVoumeChange={handleWhisperVoumeChange}
+                    onWhisperVolumeChange={handleWhisperVolumeChange}
                     onImbededCaptionBluringChange={handleImbededCaptionBluringChange}
                     onAllowCameraChange={handleAllowCameraChange} />
             </div>

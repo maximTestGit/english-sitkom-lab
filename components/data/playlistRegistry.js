@@ -62,4 +62,10 @@ export const playlistRegistry = [
         language: 'Hebrew',
         languageCulture: 'he-IL',
     },
+    // {
+    //     listId: null,
+    //     listName: 'Temp Hebrew',
+    //     language: 'Hebrew',
+    //     languageCulture: 'he-IL',
+    // },
 ].filter(item => !learningLanguage || item.languageCulture === learningLanguage);

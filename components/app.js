@@ -98,7 +98,9 @@ const App = () => {
     videoData = { ...videoData, ...exerciseData };
     setVideoData(videoData);
     setClipIndexRange(videoData.clipIndexRange);
-    handleSlectPlaylistId(videoData.playlistId);
+    if (videoData.playlistId) {
+      handleSlectPlaylistId(videoData.playlistId);
+    }
   };
 
   const handleCustomVideoOpen = (videoUrl, title) => {

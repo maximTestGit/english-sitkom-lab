@@ -1,5 +1,7 @@
 import { isMobile } from 'react-device-detect';
 
+export const inDebugEnv = process.env.NODE_ENV === 'development';
+
 export function getYoutubeUrl(videoId) {
     return `https://www.youtube.com/embed/${videoId}`;
 }
@@ -18,12 +20,22 @@ export function getCaptionsUrl(videoId, language, user) {
     return url;
 }
 
+export function getCaptionsUrlPost() {
+    let url = `https://me-west1-youtube-project-404109.cloudfunctions.net/function-captions-fetch-json-1`;
+    return url;
+}
+
 export function captionsSaveToStorageUrl() {
     return 'https://us-central1-youtube-project-404109.cloudfunctions.net/function-captions-save-storage';
 }
 
 export function getPlaylistContentUrl(playlistId) {
     let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-get-playlst-content?playlistId=${playlistId}`;
+    return url;
+}
+
+export function getPlaylistContentUrlPost() {
+    let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-get-playlst-content`;
     return url;
 }
 
@@ -35,8 +47,9 @@ export const learningLanguage = process.env.NEXT_PUBLIC_LEARNING_LANGUAGE // ver
     ||
     process.env.REACT_APP_LEARNING_LANGUAGE
     ||
-    'he-IL'; 
-    //'en-US'; // netlify env.var.
+    (inDebugEnv && 'he-IL')
+    ||
+    'en-US'; // netlify env.var.
 
 export function getLearningLanguageName(language) {
     switch (language) {
@@ -50,6 +63,8 @@ export function getLearningLanguageName(language) {
             return 'English';
     }
 }
+
+
 //console.log(`LingFlix: configurator: learningLanguage: ${learningLanguage}`);
 
 

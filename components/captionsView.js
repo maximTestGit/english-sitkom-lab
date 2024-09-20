@@ -1,7 +1,6 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
-import { fetchData } from './helpers/fetchData';
+import { fetchRetrieveCaptions } from './helpers/fetchData';
 import { decodeHtml } from './helpers/presentationUtils';
-import { getCaptionsUrl } from './data/configurator';
 import { getIntervals } from './helpers/exerciseHelper';
 import {
     storageDataAttributes,
@@ -28,8 +27,8 @@ const CaptionsView = forwardRef(({
             storageDataAttributes.captions_range_data_prefix,
             videoId
         );
-        if (!result) {
-            result = { startIndex: 0, endIndex: captions.length - 1 };
+        if (!result && captions) {
+             result = { startIndex: 0, endIndex: captions.length - 1 };
         }
         await onClipIndexRangeChangeWrapper(captions, result.startIndex, result.endIndex);
         return result;
@@ -98,12 +97,10 @@ const CaptionsView = forwardRef(({
     const retrieveCaptions = async (videoId, captions, toRestoreDefaultExercise = false) => {
         let newCaptions = captions;
         if (toRestoreDefaultExercise || !captions || captions.length === 0) {
-            let url = getCaptionsUrl(videoId, videoData.learningLanguage, currentUser?.username);
-            newCaptions = await fetchData(
-                storageDataAttributes.captions_data_prefix,
+            newCaptions = await fetchRetrieveCaptions(
                 videoData.videoId,
-                url,
-                null,
+                videoData.learningLanguage,
+                currentUser?.username,
                 toRestoreDefaultExercise);
             if (toRestoreDefaultExercise) {
                 videoData.intervals = getIntervals(newCaptions);
@@ -173,13 +170,17 @@ const CaptionsView = forwardRef(({
                 }
             }
             if (!captionAtPosition) {
-                console.log(`LingFlix: No caption found at position ${position}`);
+                //console.log(`LingFlix: No caption found at position ${position}`);
                 setCurrentCaption(null)
                 onCurrentCaptionChange(null);
             } else if (currentCaption?.start < 0.1 || currentCaption !== captionAtPosition) { //???
                 const now = new Date();
+                let text = captionAtPosition.text;
+                let start = parseFloat(captionAtPosition.start);
+                let end = start+parseFloat(captionAtPosition.duration);
+                const checked = captionAtPosition.checked;
                 const currentTime = `${now.getMinutes()}:${now.getSeconds()}.${now.getMilliseconds()}`;
-                console.log(`LingFlix: [${currentTime}] Caption found at position ${position} is ${captionAtPosition.text} start:${captionAtPosition.start}`);
+                console.log(`LingFlix: [${currentTime}] Caption found at position ${position} is ${text} start:${start}-${end} checked:${checked}`);
                 setCurrentCaption(captionAtPosition)
                 onCurrentCaptionChange(captionAtPosition);
             }

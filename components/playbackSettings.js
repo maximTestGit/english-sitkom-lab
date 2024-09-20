@@ -5,13 +5,14 @@ import { isRunningOnBigScreen } from './data/configurator';
 const PlaybackSettings = ({
     settings,
     updateSetting,
-    onLoopChange, onShowCaptionsChange, onPlayerLineSpeedChange, onYourLineSpeedChange, onWhisperVoumeChange,
+    onLoopChange, onShowCaptionsChange, onPlayerLineSpeedChange, onPlayerLineVolumeChange, onYourLineSpeedChange, onWhisperVolumeChange,
     onImbededCaptionBluringChange, onAllowCameraChange
 }) => {
     let isLoop = settings.isLoop;
     let toShowCaptions = settings.toShowCaptions;
-    let whisperVoume = settings.whisperVoume;
+    let whisperVolume = settings.whisperVolume;
     let playerLineSpeed = settings.playerLineSpeed;
+    let playerLineVolume = settings.playerLineVolume;
     let yourLineSpeed = settings.yourLineSpeed;
     let isImbededCaptionsBlured = settings.isImbededCaptionsBlured;
     let isCameraAllowed = settings.isCameraAllowed;
@@ -22,8 +23,11 @@ const PlaybackSettings = ({
     const setPlayerLineSpeed = (value) => {
         updateSetting('playerLineSpeed', value);
     };
-    const setWhisperVoume = (value) => {
-        updateSetting('whisperVoume', value);
+    const setPlayerLineVolume = (value) => {
+        updateSetting('playerLineVolume', value);
+    };
+    const setWhisperVolume = (value) => {
+        updateSetting('whisperVolume', value);
     };
 
     const handleYourLineSpeedChange = (event) => {
@@ -36,10 +40,15 @@ const PlaybackSettings = ({
         setPlayerLineSpeed(event.target.value);
         onPlayerLineSpeedChange(event.target.value);
     }
+    const handlePlayerLineVolumeChange = (event) => {
+        const newPlaybackVolume = parseFloat(event.target.value);
+        setPlayerLineVolume(event.target.value);
+        onPlayerLineVolumeChange(event.target.value);
+    }
     const handleSourceVolumeChange = (event) => {
         //const newSourceVolume = parseFloat(event.target.value);
-        setWhisperVoume(event.target.value);
-        onWhisperVoumeChange(event.target.value);
+        setWhisperVolume(event.target.value);
+        onWhisperVolumeChange(event.target.value);
     }
     return (
         <>
@@ -75,7 +84,7 @@ const PlaybackSettings = ({
                 <div className="col-4 col-lg-3">
                     <select className="form-select form-select-sm"
                         onChange={handleSourceVolumeChange}
-                        value={whisperVoume}>
+                        value={whisperVolume}>
                         <option value={0.0} selected>Mute Player when you talk</option>
                         <option value={2.0} >Slight Whisper Player when you talk</option>
                         <option value={5.0} >Whisper Player when you talk</option>
