@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, use } from 'react';
 import CaptionsView from './captionsView';
 import CaptionBox from './captionBox';
 import PlaybackSettings from './playbackSettings';
 import PlayerBox from './playerBox';
 import ExerciseStatus from './data/exerciseStatus';
-import { jumpToStart, doSaveExerciseToFile, doShareHomework } from './helpers/exerciseHelper';
+import { jumpToStart, jumpToPos, doSaveExerciseToFile, doShareHomework } from './helpers/exerciseHelper';
 import Modal from 'react-bootstrap/Modal';
 import ControlsArea from './controlsArea';
 import { isRunningOnBigScreen, learningLanguage } from './data/configurator';
@@ -17,6 +17,7 @@ import { saveCaptionObjectsToFile } from './helpers/srtHelper';
 import AdminArea from './adminArea.js';
 import { captionsSaveToStorage } from './helpers/fetchData';
 import { buildClipRange } from './helpers/exerciseHelper';
+import { CaptionsNavigationControls, CaptionAction } from './captionsNavigationControls';
 
 const ExerciseView = ({
     currentUser,
@@ -160,11 +161,11 @@ const ExerciseView = ({
     };
     const setPlayingCaption = (caption) => {
         if (caption) {
-            setCurrentCaption(caption);
+            setCurrentCaptionWrapper(caption);
             setCurrentPlaybackRateByCaption(caption);
             setCurrentVolumeByCaption(caption);
         } else {
-            setCurrentCaption(null);
+            setCurrentCaptionWrapper(null);
             setCurrentPlaybackRateWrapper(default_playback_rate);
             setCurrentVolumeWrapper(default_volume);
         }
@@ -422,6 +423,21 @@ const ExerciseView = ({
         }
     }, []);
 
+    useEffect(() => {
+        if (captions?.length > 0 && !currentCaption) {
+            jumpToStart(playerRef);
+            setPosition(0);
+            jumpToStart(recPlayerRef);
+            setCurrentVolumeWrapper(default_volume);
+            setExerciseStatusWrapper(ExerciseStatus.STOPPED, 'useEffect');
+            setCurrentCaptionWrapper(captions[0]);
+        }
+    }, [captions]);
+
+    useEffect(() => {
+        console.log(`LingFlix: useEffect: ${exerciseStatus} currentCation: ${currentCaption?.text}`);
+    }, [currentCaption]);
+
     // #region Email form
     const handleCloseEmailForm = () => setIsShowEmailFormModalOpen(false);
     const handleShowEmailForm = () => setIsShowEmailFormModalOpen(true);
@@ -499,6 +515,78 @@ const ExerciseView = ({
         doSaveExerciseToFile(videoData, captions, recordedChunks, clipIndexRange, settings.playerLineSpeed, settings.yourLineSpeed)
     }
 
+    const handleCaptionAction = (action) => {
+        switch (action) {
+            case CaptionAction.GO_FIRST:
+                goFirstCaption();
+                break;
+            case CaptionAction.GO_PREV:
+                goPrevCaption();
+                break;
+            case CaptionAction.GO_NEXT:
+                goNextCaption();
+                break;
+            case CaptionAction.GO_LAST:
+                goLastCaption();
+                break;
+            case CaptionAction.PLAY_CURRENT:
+                playCurrentCaption();
+                break;
+            default:
+                break;
+        }
+    }
+
+    const setCurrentCaptionWrapper = (caption) => {
+        if (caption) {
+            setPosition(caption.start);
+            //jumpToPos(playerRef, caption.start);
+            setCurrentCaption(caption);
+        }
+    }
+    const goFirstCaption = () => {
+        if (captions.length > 0) {
+            setCurrentCaptionWrapper(captions[0]);
+        }
+    }
+    const goPrevCaption = () => {
+        if (captions.length > 0) {
+            if (currentCaption) {
+                let currentCaptionIndex = captions.findIndex(caption => caption.start === currentCaption.start);
+                if (currentCaptionIndex >= 1) {
+                    setCurrentCaptionWrapper(captions[currentCaptionIndex - 1]);
+                } else {
+                    goFirstCaption();
+                }
+            } else {
+                goFirstCaption();
+            }
+        }
+    }
+    const goNextCaption = () => {
+        if (captions.length > 0) {
+            if (currentCaption) {
+                const currentCaptionIndex = captions.findIndex(caption => caption.start === currentCaption.start);
+                if (currentCaptionIndex >= 0 && currentCaptionIndex < captions.length - 2) {
+                    setCurrentCaptionWrapper(captions[currentCaptionIndex + 1]);
+                } else {
+                    goLastCaption();
+                }
+            } else {
+                goFirstCaption();
+            }
+        }
+    }
+    const goLastCaption = () => {
+        if (captions.length > 0) {
+            setCurrentCaptionWrapper(captions[captions.length - 1]);
+        }
+    }
+    const playCurrentCaption = () => {
+        // if (captions.length > 0) {
+        //     setPlayingCaption(captions[captions.findIndex(caption => caption.start === currentCaption.start)]);
+        // }
+    }
     return (
         <>
             {currentUser?.role == 'Admin' && isRunningOnBigScreen &&
@@ -562,6 +650,10 @@ const ExerciseView = ({
                         onProgress={handleOnProgress}
                         onPlayingEnd={handlePlayingEnd}
                     />
+                }
+                {
+                    exerciseStatus === ExerciseStatus.STOPPED &&
+                    <CaptionsNavigationControls onCaptionAction={handleCaptionAction} />
                 }
                 {settings.toShowCaptions && <CaptionBox caption={currentCaption} />}
 

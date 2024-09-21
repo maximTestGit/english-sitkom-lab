@@ -5,13 +5,17 @@ import { playlistRegistry } from './../data/playlistRegistry';
 const exercise_storage_folder = 'Exercises';
 
 export function jumpToStart(playerRef) {
-    try {
-        playerRef?.current?.seekTo(0, 'fraction');
-        console.log(`LingFlix: jumpToStart(${playerRef.current})`);
-    } catch (error) {
-        console.log(`LingFlix: Error in jumpToStart(${playerRef.current}): ${error}`);
-    }
+    jumpToPos(playerRef, 0);
 };
+
+export function jumpToPos(playerRef, pos) {
+    try {
+        playerRef?.current?.seekTo(pos, 'fraction');
+        console.log(`LingFlix: jumpToPos(${playerRef?.current}, ${pos})`);
+    } catch (error) {
+        console.log(`LingFlix: Error in jumpToStart(${playerRef?.current}, ${pos}): ${error}`);
+    }
+}
 
 export function doSaveExerciseToFile(videoData, captions, recordedChunks, clipIndexRange, playbackRate, youLinePlaybackRate) {
     buildExerciseData(videoData, captions, recordedChunks, clipIndexRange, playbackRate, youLinePlaybackRate)
