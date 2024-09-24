@@ -3,6 +3,7 @@ const ExerciseStatus = {
     PLAYING: 'playing',
     ORIGIN: 'origin',
     RECORDING: 'recording',
+    CAPTION: 'captionPlaying',
 };
 
 export default ExerciseStatus;

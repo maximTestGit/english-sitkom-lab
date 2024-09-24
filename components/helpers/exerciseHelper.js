@@ -224,6 +224,7 @@ export function buildClipRange(captions, clipIndexRange) {
             result.end = parseFloat(captions[clipIndexRange.endIndex].start) + parseFloat(captions[clipIndexRange.endIndex].duration);
         }
     }
+    console.log('buildClipRange', result);
     return result;
 }
 

@@ -137,9 +137,9 @@ const App = () => {
       console.error('Login failed:', error);
       handleLogout();
     }
-    if (response?.ok) {
-      setCurrentUser(response.data);
-      setToken(response.data.token);
+    if (response) {
+      setCurrentUser(response);
+      setToken(response.token);
       result = true;
     }
     else {

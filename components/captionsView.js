@@ -9,9 +9,11 @@ import {
 } from './helpers/storageHelper';
 
 const CaptionsView = forwardRef(({
+    isSingleCaption = false,
     videoData,
     captions,
     currentUser,
+    showCaption=null,
     position,
     hasRecordedChunks,
     clipIndexRange,
@@ -19,6 +21,7 @@ const CaptionsView = forwardRef(({
     srtCaptionsData,
     onCurrentCaptionChange,
     onUpdateCaptions,
+    onAnalyzeCaption = null
 }, ref) => {
     const [currentCaption, setCurrentCaption] = useState(null);
 
@@ -28,7 +31,7 @@ const CaptionsView = forwardRef(({
             videoId
         );
         if (!result && captions) {
-             result = { startIndex: 0, endIndex: captions.length - 1 };
+            result = { startIndex: 0, endIndex: captions.length - 1 };
         }
         await onClipIndexRangeChangeWrapper(captions, result.startIndex, result.endIndex);
         return result;
@@ -137,6 +140,20 @@ const CaptionsView = forwardRef(({
             });
     }, [videoData.videoId]);
 
+    useEffect(() => {
+        if (showCaption) {
+            scrollToCaption(showCaption);
+        }
+    }, [showCaption]);
+
+    const scrollToCaption = (caption) => {
+        if (caption) {
+            const captionElement = document.getElementById(caption.start);
+            if (captionElement) {
+                captionElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }
     // if cations are loaded from srt file
     useEffect(() => {
         assignCaptions(srtCaptionsData)
@@ -177,7 +194,7 @@ const CaptionsView = forwardRef(({
                 const now = new Date();
                 let text = captionAtPosition.text;
                 let start = parseFloat(captionAtPosition.start);
-                let end = start+parseFloat(captionAtPosition.duration);
+                let end = start + parseFloat(captionAtPosition.duration);
                 const checked = captionAtPosition.checked;
                 const currentTime = `${now.getMinutes()}:${now.getSeconds()}.${now.getMilliseconds()}`;
                 console.log(`LingFlix: [${currentTime}] Caption found at position ${position} is ${text} start:${start}-${end} checked:${checked}`);
@@ -188,7 +205,9 @@ const CaptionsView = forwardRef(({
         }
 
         const handlePositionChange = () => {
-            findCurrentCaption(captions, position);
+            if (!isSingleCaption) {
+                findCurrentCaption(captions, position);
+            }
             //console.log(`LingFlix: CaptionsView handlePositionChange position: ${position}, cap: ${cap?.text}, currentCaption: ${currentCaption?.text}`);    
         }
 
@@ -215,6 +234,13 @@ const CaptionsView = forwardRef(({
         }
     };
 
+    const onAnalyzeCaptionWrapper = (caption) => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Optional: adds a smooth scrolling effect
+        });
+        onAnalyzeCaption(caption);
+    };
     return (
         <>
             <table className="table table-striped">
@@ -250,11 +276,18 @@ const CaptionsView = forwardRef(({
                                         onChange={async (caption) => await captionChange(caption)}
                                     />
                                 </td>
-                                <td className={isPlaying ? 'table-warning' : ''}>
-                                    {parseFloat(caption.start).toFixed(3)}
+                                <td id={'td_' + caption.start} className={isPlaying ? 'table-warning' : ''}>
+                                    <button
+                                        onClick={() => onAnalyzeCaptionWrapper(caption)}
+                                        className="btn btn-secondary btn-sm"
+                                        style={{ width: '100%', backgroundColor: 'lightgray', color: 'black' }}
+                                        title="Jump to this caption"
+                                    >
+                                        {parseFloat(caption.start).toFixed(3)}
+                                    </button>
                                 </td>
                                 <td className={isPlaying ? 'table-warning' : ''}>
-                                    {decodeHtml(caption.text)}\
+                                    {decodeHtml(caption.text)}
                                 </td>
                             </tr>
                         );

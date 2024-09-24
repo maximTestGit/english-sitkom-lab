@@ -102,7 +102,7 @@ export async function loginUser(username, password) {
     password: password
   };
   const response = await fetchDataFromSource(url, data); 
-  return { 'ok': response.ok, 'data': response };
+  return response;
 }
 
 export async function captionsSaveToStorage(videoId, language, user, captions) {

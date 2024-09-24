@@ -57,42 +57,52 @@ const PlayerBox = forwardRef(({
         onPlayingEnd();
     };
 
+    function isYoutubePlaying(exerciseStatus) {
+        const result = exerciseStatus === ExerciseStatus.PLAYING
+            || exerciseStatus === ExerciseStatus.ORIGIN
+            || exerciseStatus === ExerciseStatus.RECORDING
+            || exerciseStatus === ExerciseStatus.CAPTION;
+
+        console.log(`LingFlix: PlayerBox: isYoutubePlaying: ${result} (${exerciseStatus})`);
+        return result;
+    }
+
     return (
         <div style={{ position: 'relative' }}>
             <div id="ExercisePlayerArea"
                 className="pe-none"
             >
-                {recordedChunksUrl && exerciseStatus !== ExerciseStatus.ORIGIN ?
-                    <MediaUrlPlayer
-                        playerRef={playerRef}
-                        url={recordedChunksUrl}
-                        playing={exerciseStatus === ExerciseStatus.PLAYING
-                            || exerciseStatus === ExerciseStatus.ORIGIN
-                            || exerciseStatus === ExerciseStatus.RECORDING}
-                        exerciseStatus={exerciseStatus}
-                        onProgress={() => {}}
-                        onEnded={() => onPlayingEnd()}
-                        clipRange={clipRange}
-                        hasRecording={true}
-                    />
-                    :
-                    <MediaUrlPlayer
-                        playerRef={playerRef}
-                        url={getYoutubeUrl(videoData.videoId)}
-                        playing={exerciseStatus === ExerciseStatus.PLAYING
-                            || exerciseStatus === ExerciseStatus.ORIGIN
-                            || exerciseStatus === ExerciseStatus.RECORDING}
-                        exerciseStatus={exerciseStatus}
-                        isMited={isMited}
-                        playbackRate={currentPlaybackRate}
-                        onProgress={(state) => onProgress(state)}
-                        onEnded={() => handlePlayingEndWrapper()}
-                        volume={currentVolume}
-                        isImbededCaptionsBlured={isImbededCaptionsBlured}
-                        clipRange={clipRange}
-                        hasRecording={false}
-                    //onResetStatus={handleResetStatus}
-                    />
+                {
+                    (recordedChunksUrl
+                        && exerciseStatus !== ExerciseStatus.ORIGIN
+                        && exerciseStatus !== ExerciseStatus.CAPTION)
+                        ?
+                        <MediaUrlPlayer
+                            playerRef={playerRef}
+                            url={recordedChunksUrl}
+                            playing={exerciseStatus === ExerciseStatus.PLAYING}
+                            exerciseStatus={exerciseStatus}
+                            onProgress={() => { }}
+                            onEnded={() => onPlayingEnd()}
+                            clipRange={clipRange}
+                            hasRecording={true}
+                        />
+                        :
+                        <MediaUrlPlayer
+                            playerRef={playerRef}
+                            url={getYoutubeUrl(videoData.videoId)}
+                            playing={isYoutubePlaying(exerciseStatus)}
+                            exerciseStatus={exerciseStatus}
+                            isMited={isMited}
+                            playbackRate={currentPlaybackRate}
+                            onProgress={(state) => onProgress(state)}
+                            onEnded={() => handlePlayingEndWrapper()}
+                            volume={currentVolume}
+                            isImbededCaptionsBlured={isImbededCaptionsBlured}
+                            clipRange={clipRange}
+                            hasRecording={false}
+                        //onResetStatus={handleResetStatus}
+                        />
                 }
             </div>
 

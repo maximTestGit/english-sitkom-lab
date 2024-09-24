@@ -4,7 +4,7 @@ import BluringPanel from './bluringPanel';
 import ExerciseStatus from './data/exerciseStatus';
 
 const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
-    playbackRate, volume = 100, progressInterval = 100, onProgress, onEnded,
+    playbackRate, volume = 100, progressInterval = 10, onProgress, onEnded,
     playerRef, zIndex = 9000, playing,
     isImbededCaptionsBlured = false,
     clipRange,
@@ -30,6 +30,7 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
             && exerciseStatus !== ExerciseStatus.PLAYING) {
             setExercisePlayingCounter(0);
         }
+        console.log(`LingFlix: MediaUrlPlayer: useEffect: playing: ${playing} exerciseStatus: ${exerciseStatus}`);  
     }, [playing]);
 
     const onProgressWrapper = (state) => {
