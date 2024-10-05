@@ -1,8 +1,8 @@
-import { 
-  loginUrl, 
-  captionsSaveToStorageUrl, 
-  getCaptionsUrlPost, 
-  getPlaylistContentUrlPost 
+import {
+  loginUrl,
+  captionsSaveToStorageUrl,
+  getCaptionsUrlPost,
+  getPlaylistContentUrlPost
 } from './../data/configurator';
 import {
   storageDataAttributes,
@@ -11,14 +11,14 @@ import {
   removeDataFromLocalStorage
 } from './storageHelper';
 
-export async function fetchData(prefix, key, url, expirationSec, refetchFromSource = false) {
+export async function fetchData(user, prefix, key, url, expirationSec, refetchFromSource = false) {
   if (refetchFromSource) {
     removeDataFromLocalStorage(prefix, key);
   }
   let result = fetchDataFromLocalStorage(prefix, key, expirationSec);
 
   if (!result) { // not found or no cache
-    result = await fetchDataFromSource(url);
+    result = await fetchDataFromSource(user, url);
     if (result) {
       saveDataToLocalStorage(prefix, key, result, expirationSec);
     }
@@ -26,22 +26,24 @@ export async function fetchData(prefix, key, url, expirationSec, refetchFromSour
   return result;
 }
 
-export async function fetchRetrieveCaptions(videoId, language, user, refetchFromSource = false) {
+export async function fetchRetrieveCaptions(user, videoId, language, playlistId, userName, refetchFromSource = false) {
   const prefix = storageDataAttributes.captions_data_prefix;
+
   if (refetchFromSource) {
     removeDataFromLocalStorage(prefix, videoId);
   }
   let result = fetchDataFromLocalStorage(prefix, videoId, null);
 
-  if (!result) { // not found or no cache
+  if (!result || result.length === 0) { // not found or no cache
     const url = getCaptionsUrlPost();
     //videoId=${videoId}&language=${language}&user=${user}
     const data = {
       videoId: videoId,
       language: language,
-      user: user
+      user: userName,
+      playlistId: playlistId,
     };
-    result = await fetchDataFromSource(url, data);
+    result = await fetchDataFromSource(user, url, data);
     if (result) {
       saveDataToLocalStorage(prefix, videoId, result, null);
     }
@@ -49,9 +51,9 @@ export async function fetchRetrieveCaptions(videoId, language, user, refetchFrom
   return result;
 }
 
-export async function fetchRetrievePlayistContent(playlistId, refetchFromSource = false) {
+export async function fetchRetrievePlayistContent(user, playlistId, refetchFromSource = false) {
   const prefix = storageDataAttributes.videoList_data_prefix;
-  const expirationSec = 60*60;
+  const expirationSec = 60 * 60;
   if (refetchFromSource) {
     removeDataFromLocalStorage(prefix, playlistId);
   }
@@ -62,7 +64,7 @@ export async function fetchRetrievePlayistContent(playlistId, refetchFromSource 
     const data = {
       playlistId: playlistId
     };
-    result = await fetchDataFromSource(url, data);
+    result = await fetchDataFromSource(user, url, data);
     if (result) {
       saveDataToLocalStorage(prefix, playlistId, result, expirationSec);
     }
@@ -70,30 +72,32 @@ export async function fetchRetrievePlayistContent(playlistId, refetchFromSource 
   return result;
 }
 
-async function fetchDataFromSource(url, data) {
-  if (data) {
-    return fetchDataFromSourcePost(url, data);
-  } else {
-    return fetchDataFromSourceGet(url);
-  }
+async function fetchDataFromSource(user, url, data) {
+  return await fetchDataFromSourcePost(user, url, data);
 }
 async function fetchDataFromSourceGet(url) {
   const response = await fetch(url);
   const result = response.ok ? await response.json() : null;
   return result;
 }
-async function fetchDataFromSourcePost(url, data) {
+async function fetchDataFromSourcePost(user, url, data) {
+  let result = null;
+  const headers = {
+    'Content-Type': 'application/json'
+  };
+  const token = await user?.getIdToken();
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
   const response = await fetch(url, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     body: JSON.stringify(data)
   });
-  const result = response.ok ? await response.json() : null;
+
+  result = response.ok ? await response.json() : null;
   return result;
 }
-
 
 export async function loginUser(username, password) {
   const url = loginUrl();
@@ -101,7 +105,7 @@ export async function loginUser(username, password) {
     username: username,
     password: password
   };
-  const response = await fetchDataFromSource(url, data); 
+  const response = await fetchDataFromSource(null, url, data);
   return response;
 }
 

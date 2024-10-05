@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useImperativeHandle, forwardRef } from "react";
 import VideoRow from "./videoRow";
 import { fetchRetrievePlayistContent } from './helpers/fetchData';
 import { playlistRegistry } from './data/playlistRegistry';
-import Dropzone from 'react-dropzone';
-import { isRunningOnBigScreen, inDebugEnv } from './data/configurator';
 
-const VideoListView = ({
+const VideoListView = forwardRef(({
+    user,
     playlistId,
-    currentUser,
     onSelectVideo,
     onSelectPlaylistId,
-    onCustomVideoOpen,
-    onExerciseOpen
-}) => {
+}, ref) => {
     /*
     videos is a list of the following objects:
         description:""
@@ -22,11 +18,6 @@ const VideoListView = ({
     */
     const [videos, setVideos] = useState([]);
 
-    // Custom Video Open Modal dialog State
-    const [isCustomVideoModalOpen, setIsCustomVdeoModalOpen] = useState(false);
-    const [customVideoUrl, setCustomVideoUrl] = useState('');
-    const [customVideoTitle, Custom] = useState('');
-
     const changePlaylistIdWrapper = (newPlaylistId) => {
         onSelectPlaylistId(newPlaylistId);
     };
@@ -35,43 +26,28 @@ const VideoListView = ({
         onSelectVideo(video, playlistId);
     };
 
-    const fetchVideos = async (playlistId) => {
-        const videosData = await fetchRetrievePlayistContent(playlistId); 
+    const fetchVideos = async (playlistId, force = false) => {
+        const videosData = await fetchRetrievePlayistContent(user, playlistId, force);
         setVideos(videosData);
     };
 
-    const openExercise = (file) => {
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            const contents = event.target.result;
-            try {
-                const exercise = JSON.parse(contents);
-                onExerciseOpen(exercise);
-            } catch (e) {
-                console.error('Could not parse JSON: ', e);
-            }
-        };
-        reader.readAsText(file);
-    };
-
-    const handleOpenVideoLinkButtonClick = () => {
-        setIsCustomVdeoModalOpen(true);
-    };
-
-    const handleModalClose = () => {
-        setIsCustomVdeoModalOpen(false);
-        setCustomVideoUrl('');
-    };
-
-    const handleOpenVideo = () => {
-        onCustomVideoOpen(customVideoUrl, customVideoTitle);
-        handleModalClose();
-    };
+    useImperativeHandle(ref, () => ({
+        fetchVideos
+    }));
 
     useEffect(() => {
-        fetchVideos(playlistId);
+        const fetchInitialVideos = async () => {
+            await fetchVideos(playlistId, false);
+        };
+        fetchInitialVideos();
     }, [playlistId]);
 
+    useEffect(() => {
+        const fetchUserVideos = async () => {
+            await fetchVideos(playlistId, true);
+        };
+        fetchUserVideos();
+    }, [user, user?.username]);
     return (
         <>
             <div id="selectPlaylistArea" className="row p-1 rounded-3 mb-2 text-white" style={{ backgroundColor: '#ee3e38' }}>
@@ -87,28 +63,6 @@ const VideoListView = ({
                         ))}
                     </select>
                 </div>
-
-                {isRunningOnBigScreen &&
-                    <div id="openExerciseFileButton" className="col-2 text-center">
-                        <Dropzone onDrop={acceptedFiles => openExercise(acceptedFiles[0])}>
-                            {({ getRootProps, getInputProps }) => (
-                                <section>
-                                    <div {...getRootProps()}>
-                                        <input {...getInputProps()} />
-                                        <button type="button" className="btn btn-warning btn-lg">Open or Drop File</button>
-                                    </div>
-                                </section>
-                            )}
-                        </Dropzone>
-                    </div>
-                }
-                {
-                    isRunningOnBigScreen && (currentUser?.role === 'Admin' || inDebugEnv) 
-                    &&
-                    <div id="openVideoLinkButton" className="col-2 text-center">
-                        <button type="button" className="btn btn-warning btn-lg" onClick={handleOpenVideoLinkButtonClick}>Open video</button>
-                    </div>
-                }
             </div>
             <table id="videoListTable" className="table table-hover table-striped">
                 <thead>
@@ -118,46 +72,17 @@ const VideoListView = ({
                     </tr>
                 </thead>
                 <tbody>
-                    {videos?.map((v) => (
-                        <VideoRow key={v.videoId} video={v} onSelectVideo={handleSelectVideo} />
-                    ))}
+                    {
+                        videos?.map((v) => (
+                            <VideoRow key={v.videoId} video={v} onSelectVideo={handleSelectVideo} />
+                        ))
+                    }
                 </tbody>
             </table>
 
-            {isCustomVideoModalOpen && (
-                <div className="modal" style={{ display: 'block' }}>
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title">Open Video</h5>
-                                <button type="button" className="btn-close" onClick={handleModalClose}></button>
-                            </div>
-                            <div className="modal-body">
-                                <input
-                                    type="text"
-                                    className="form-control mb-2"
-                                    placeholder="Enter video title"
-                                    value={customVideoTitle}
-                                    onChange={(e) => Custom(e.target.value)}
-                                />
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Enter video URL"
-                                    value={customVideoUrl}
-                                    onChange={(e) => setCustomVideoUrl(e.target.value)}
-                                />
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" onClick={handleModalClose}>Close</button>
-                                <button type="button" className="btn btn-primary" onClick={handleOpenVideo}>Open</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
         </>
     );
-};
+});
 
+VideoListView.displayName = 'VideoListView';
 export default VideoListView;

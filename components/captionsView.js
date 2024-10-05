@@ -9,11 +9,11 @@ import {
 } from './helpers/storageHelper';
 
 const CaptionsView = forwardRef(({
+    user,
     isSingleCaption = false,
     videoData,
     captions,
-    currentUser,
-    showCaption=null,
+    showCaption = null,
     position,
     hasRecordedChunks,
     clipIndexRange,
@@ -26,14 +26,17 @@ const CaptionsView = forwardRef(({
     const [currentCaption, setCurrentCaption] = useState(null);
 
     const retrieveClipIndexRange = async (videoId, captions) => {
-        let result = await fetchDataFromLocalStorage(
-            storageDataAttributes.captions_range_data_prefix,
-            videoId
-        );
-        if (!result && captions) {
-            result = { startIndex: 0, endIndex: captions.length - 1 };
+        let result = { startIndex: null, endIndex: null };
+        if (captions) {
+            result = await fetchDataFromLocalStorage(
+                storageDataAttributes.captions_range_data_prefix,
+                videoId
+            );
+            if (!result && captions) {
+                result = { startIndex: 0, endIndex: captions.length - 1 };
+            }
+            await onClipIndexRangeChangeWrapper(captions, result.startIndex, result.endIndex);
         }
-        await onClipIndexRangeChangeWrapper(captions, result.startIndex, result.endIndex);
         return result;
     }
 
@@ -87,13 +90,13 @@ const CaptionsView = forwardRef(({
     };
 
     const assignCaptions = async (newCaptions) => {
-        let result = null;
+        let result = [];
         if (newCaptions?.length > 0) {
             result =
                 newCaptions
                     .map(caption => ({ ...caption, checked: decideCaptionToCheck(caption) }));
-            await setCaptionsWrapper(result);
         }
+        await setCaptionsWrapper(result);
         return result;
     };
 
@@ -101,9 +104,11 @@ const CaptionsView = forwardRef(({
         let newCaptions = captions;
         if (toRestoreDefaultExercise || !captions || captions.length === 0) {
             newCaptions = await fetchRetrieveCaptions(
+                user,
                 videoData.videoId,
                 videoData.learningLanguage,
-                currentUser?.username,
+                videoData.playlistId,
+                user?.username,
                 toRestoreDefaultExercise);
             if (toRestoreDefaultExercise) {
                 videoData.intervals = getIntervals(newCaptions);
@@ -134,11 +139,11 @@ const CaptionsView = forwardRef(({
     useEffect(() => {
         retrieveCaptions(videoData.videoId, captions)
             .then(captions => {
-                if (!clipIndexRange || clipIndexRange.startIndex === undefined) {
+                if (captions && (!clipIndexRange || clipIndexRange.startIndex === undefined)) {
                     retrieveClipIndexRange(videoData.videoId, captions);
                 }
             });
-    }, [videoData.videoId]);
+    }, [videoData.videoId, user]);
 
     useEffect(() => {
         if (showCaption) {

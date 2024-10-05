@@ -1,19 +1,20 @@
 import React from 'react';
 
-const ConditionalButton = ({ 
+
+const ConditionalButton = ({
     condition = true,
     isDisabled = false,
-    className, 
+    className,
     antiClassName = null,
-    onClick, 
+    onClick,
     antiOnClick = null,
     hint = null,
     children = null,
     antiChildren = null,
-    dataToggle = null, 
+    dataToggle = null,
     dataTarget = null,
     fontSize = '1.0em'
-    }) => { 
+}) => {
     let buttonClassName = (condition || !antiClassName) ? className : antiClassName;
     const buttonChildren = (condition || !antiChildren) ? children : antiChildren;
     const buttonOnClick = (condition || !antiOnClick) ? onClick : antiOnClick;
@@ -31,7 +32,7 @@ const ConditionalButton = ({
             {...(dataTarget && { 'data-target': dataTarget })}
             data-bs-toggle="tooltip" data-bs-placement="top" title={hint ? hint : children}
             onClick={buttonClickWrapper}
-            >  
+        >
             {buttonChildren}
         </button>
     );

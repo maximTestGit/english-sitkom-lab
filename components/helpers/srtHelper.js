@@ -12,7 +12,91 @@ export function loadCaptionObjectsFromFile(file) {
     reader.readAsText(file);
   });
 }
+export const eventsToSubtitleObjectsFromFile = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
 
+    reader.onload = () => {
+      try {
+        const data = JSON.parse(reader.result);
+        const subtitleObjects = eventsToSubtitleObjects(data);
+        const normSubtitleObjects = normalizeSubtitleObjects(subtitleObjects);
+        resolve(normSubtitleObjects);
+      } catch (error) {
+        reject(error);
+      }
+    };
+
+    reader.onerror = () => {
+      reject(new Error('Error reading file'));
+    };
+
+    reader.readAsText(file);
+  });
+}
+
+const normalizeSubtitleObjects = (subtitleObjects) => {
+  for (let i = 0; i < subtitleObjects.length - 1; i++) {
+    const current = subtitleObjects[i];
+    const next = subtitleObjects[i + 1];
+
+    const currentEnd = parseFloat(current.start) + parseFloat(current.duration);
+    const nextStart = parseFloat(next.start);
+
+    if (currentEnd > nextStart) {
+      current.duration = (nextStart - parseFloat(current.start)).toFixed(3);
+    }
+  }
+  return subtitleObjects;
+}
+
+export const eventsToSubtitleObjects = (data) => {
+  const subtitleObjects = [];
+
+  data.events.forEach(event => {
+    const startTime = event.tStartMs;
+    const endTime = startTime + event.dDurationMs;
+
+    // Convert milliseconds to SRT time format (HH:MM:SS,mmm)
+    const startSrtTime = convertMillisecToSecMillises(startTime);
+    const endSrtTime = convertMillisecToSecMillises(endTime);
+
+    // Combine text segments with proper handling of newlines
+    if (event.segs?.length > 1) {
+      const text = event.segs.map(seg => seg.utf8).join('');
+
+      const subtitleObject = {
+        start: startSrtTime,
+        duration: convertMsToSrtDuration(endTime - startTime),
+        text: text
+      };
+
+      subtitleObjects.push(subtitleObject);
+    }
+  });
+
+  return subtitleObjects;
+}
+
+function convertMillisecToSecMillises(milliseconds) {
+  return milliseconds / 1000;
+}
+
+function convertMsToSrtTime(milliseconds) {
+  const hours = Math.floor(milliseconds / 3600000).toString().padStart(2, '0');
+  const minutes = Math.floor((milliseconds % 3600000) / 60000).toString().padStart(2, '0');
+  const seconds = Math.floor((milliseconds % 60000) / 1000).toString().padStart(2, '0');
+  const millisecondsStr = (milliseconds % 1000).toString().padStart(3, '0');
+
+  return `${hours}:${minutes}:${seconds},${millisecondsStr}`;
+}
+
+function convertMsToSrtDuration(durationMs) {
+  const seconds = Math.floor(durationMs / 1000).toString().padStart(2, '0');
+  const millisecondsStr = (durationMs % 1000).toString().padStart(3, '0');
+
+  return `${seconds},${millisecondsStr}`;
+}
 function srtToObjects(srtContent) {
   const captions = srtContent.split(/\n\s*\n/);
 

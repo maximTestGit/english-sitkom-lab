@@ -1,3 +1,4 @@
+// #region local storage keys
 const global_data_prefix = 'global';
 const captions_data_prefix = 'captions';
 const captions_range_data_prefix = 'captionsRange';
@@ -30,6 +31,8 @@ export const storageDataAttributes =
     session_data_keys
 };
 
+// #endregion local storage keys
+
 // #region local storage add/remove
 function addDataToLocalStorage(prefix, key, data, expirationSec) {
     const dataKey = buildDataKey(prefix, key);
@@ -38,12 +41,6 @@ function addDataToLocalStorage(prefix, key, data, expirationSec) {
     if (prefix !== global_data_prefix) {
         registerDataAtLocalStorage(prefix, key, expirationSec);
     }
-}
-
-export function removeDataFromLocalStorage(prefix, key) {
-    const dataKey = buildDataKey(prefix, key);
-    removeDataFromLocalStorageByKey(dataKey);
-    unregisterDataAtLocalStorage(prefix, key);
 }
 
 function removeDataFromLocalStorageByKey(dataKey) {
@@ -57,10 +54,6 @@ function removeDataFromLocalStorageByKey(dataKey) {
 // #region dataKey
 function buildDataKey(prefix, key) {
     return `${prefix}#${key}`;
-}
-
-function splitDataKey(str) {
-    return str.split('#');
 }
 
 // #endregion dataKey
@@ -168,3 +161,10 @@ export async function cleanUpLocalStorage(deleteAll = false) {
         });
     }
 }
+
+export function removeDataFromLocalStorage(prefix, key) {
+    const dataKey = buildDataKey(prefix, key);
+    removeDataFromLocalStorageByKey(dataKey);
+    unregisterDataAtLocalStorage(prefix, key);
+}
+

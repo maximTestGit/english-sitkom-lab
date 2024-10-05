@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Banner from "./banner";
 import VideoListView from "./videoListView.js";
 import ExerciseView from "./exerciseView";
-import TopMenu from './topMenu';
 import { loginUser } from './helpers/fetchData.js';
 import { buildExerciseRecordedChunks } from './helpers/exerciseHelper.js';
 import { playlistRegistry } from './data/playlistRegistry';
@@ -13,14 +12,23 @@ import {
   cleanUpLocalStorage,
 } from './helpers/storageHelper';
 import { learningLanguage, getLearningLanguageName } from './data/configurator';
+import TopDropdownMenu from "./topDropdownMenu";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, completeUserData } from "./gc/firebase";
 
 const App = () => {
   const [videoData, setVideoData] = useState(null);
   const [clipIndexRange, setClipIndexRange] = useState({ startIndex: undefined, endIndex: undefined });
   const [captions, setCaptions] = useState([]);
   const [playlistId, setPlaylistId] = useState(playlistRegistry[0].listId);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null);
+
+  const handleSetUser = (newUser) => {
+    setUser(newUser);
+  }
+
+  const exerciseViewRef = useRef(null);
+  const videolistViewRef = useRef(null);
 
   useEffect(() => {
     async function initApp() {
@@ -33,6 +41,20 @@ const App = () => {
       if (playlistId) {
         setPlaylistId(playlistId);
       }
+      onAuthStateChanged(auth, (theUser) => {
+        if (theUser) {
+          completeUserData(theUser)
+            .then(() => {
+              handleSetUser(theUser);
+            })
+            .catch((error) => {
+              console.error("Error completing user data:", error);
+            });
+        } else {
+          handleSetUser(null);
+        }
+      });
+
     }
     initApp();
   }, []);
@@ -49,7 +71,7 @@ const App = () => {
     setClipIndexRange(newClipIndexRange);
   }
 
-  const handleSlectPlaylistId = (playlistId) => {
+  const handleSelectPlaylistId = (playlistId) => {
     setPlaylistId(playlistId);
     saveDataToLocalStorage(
       storageDataAttributes.session_data_prefix,
@@ -80,7 +102,7 @@ const App = () => {
   const handleSelectedVideo = (video, playlistId) => {
     const videoData = buildVideoData(video, playlistId);
     setVideoData(videoData);
-    handleSlectPlaylistId(videoData.playlistId);
+    handleSelectPlaylistId(videoData.playlistId);
   };
 
   const handleExerciseOpen = (exercise) => {
@@ -99,7 +121,7 @@ const App = () => {
     setVideoData(videoData);
     setClipIndexRange(videoData.clipIndexRange);
     if (videoData.playlistId) {
-      handleSlectPlaylistId(videoData.playlistId);
+      handleSelectPlaylistId(videoData.playlistId);
     }
   };
 
@@ -122,11 +144,6 @@ const App = () => {
   //#endregion exercise handlers
 
   // #region login handlers
-  const handleLogout = () => {
-    setCurrentUser(null);
-    setToken(null);
-  }
-
   const handleLogin = async (username, password) => {
     let result = false;
     let response = null;
@@ -138,8 +155,6 @@ const App = () => {
       handleLogout();
     }
     if (response) {
-      setCurrentUser(response);
-      setToken(response.token);
       result = true;
     }
     else {
@@ -150,19 +165,40 @@ const App = () => {
 
   //#endregion login handlers
 
+  //#region .srt handlers
+  const handleSrtUpload = () => {
+    exerciseViewRef.current?.handleSrtUpload();
+  }
+  const handleSrtOpen = (captions) => {
+    exerciseViewRef.current?.handleSrtOpen(captions);
+  }
+  const handleSrtSave = () => {
+    exerciseViewRef.current?.handleSrtSave();
+  }
+  //#region .srt handlers
+  const handleReloadPlaylist = async () => {
+    //await cleanUpLocalStorage(true);
+    await videolistViewRef.current?.fetchVideos(playlistId, true);
+  }
+
   return (
     <div>
-      <TopMenu
+      <TopDropdownMenu
+        user={user}
+        videoData={videoData}
+        onCustomVideoOpen={handleCustomVideoOpen}
+        onExerciseOpen={handleExerciseOpen}
         onGoHome={handleExerciseExit}
-        onLogin={handleLogin}
-        onLogout={handleLogout}
-        currentUserData={currentUser}
+        onSrtOpen={handleSrtOpen}
+        onSrtUpload={handleSrtUpload}
+        onSrtSave={handleSrtSave}
+        onReloadPlaylist={handleReloadPlaylist}
       />
       {videoData ? (
-        <ExerciseView
+        <ExerciseView ref={exerciseViewRef}
+          user={user}
           videoData={videoData}
           captions={captions}
-          currentUser={currentUser}
           clipIndexRange={clipIndexRange}
           onExit={handleExerciseExit}
           onClipIndexRangeChange={handleClipIndexRangeChange}
@@ -171,13 +207,11 @@ const App = () => {
       ) : (
         <>
           <Banner />
-          <VideoListView
+          <VideoListView ref={videolistViewRef}
+            user={user}
             playlistId={playlistId}
-            currentUser={currentUser}
             onSelectVideo={handleSelectedVideo}
-            onExerciseOpen={handleExerciseOpen}
-            onSelectPlaylistId={handleSlectPlaylistId}
-            onCustomVideoOpen={handleCustomVideoOpen}
+            onSelectPlaylistId={handleSelectPlaylistId}
           />
         </>
       )}

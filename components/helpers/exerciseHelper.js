@@ -10,8 +10,9 @@ export function jumpToStart(playerRef) {
 
 export function jumpToPos(playerRef, pos) {
     try {
-        playerRef?.current?.seekTo(pos, 'fraction');
-        console.log(`LingFlix: jumpToPos(${playerRef?.current}, ${pos})`);
+        const position = typeof pos === 'number' ? pos : parseFloat(pos);
+        playerRef?.current?.seekTo(position, 'seconds');
+        console.log(`LingFlix: jumpToPos(${playerRef?.current}, position: ${position}), player.pos: ${playerRef?.current.getCurrentTime()}`);
     } catch (error) {
         console.log(`LingFlix: Error in jumpToStart(${playerRef?.current}, ${pos}): ${error}`);
     }
@@ -33,7 +34,7 @@ export function doShareHomework(video, captions, recordedChunks, clipRange, play
 }
 export function buildExerciseData(video, captions, recordedChunks, clipIndexRange, playbackRate, youLinePlaybackRate, studentName = null, emailAddress = null, isUnlistedVideo = false) {
     const playlistData = playlistRegistry.find(playlist => playlist.listId === video.playlistId);
-    const language = playlistData.language ?? learningLanguage;
+    const language = playlistData?.language ?? learningLanguage;
     const videoData = {
         videoId: video.videoId,
         title: video.title,
@@ -81,7 +82,7 @@ export function buildExerciseData(video, captions, recordedChunks, clipIndexRang
 export function getIntervals(captions) {
     const result = [];
     var index = 0;
-    if (captions.length > 0) {
+    if (captions?.length > 0) {
         result.push(
             {
                 // @ts-ignore

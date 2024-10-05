@@ -1,33 +1,31 @@
-import React, { useState, useRef, useEffect, useCallback, use } from 'react';
+import React, { useState, useRef, useEffect, useCallback, forwardRef, useImperativeHandle } from 'react';
 import CaptionsView from './captionsView';
 import CaptionBox from './captionBox';
 import PlaybackSettings from './playbackSettings';
 import PlayerBox from './playerBox';
 import ExerciseStatus from './data/exerciseStatus';
-import { jumpToStart, jumpToPos, doSaveExerciseToFile, doShareHomework } from './helpers/exerciseHelper';
+import { jumpToStart, doSaveExerciseToFile, doShareHomework } from './helpers/exerciseHelper';
 import Modal from 'react-bootstrap/Modal';
 import ControlsArea from './controlsArea';
-import { isRunningOnBigScreen, learningLanguage } from './data/configurator';
 import {
     storageDataAttributes,
     fetchDataFromLocalStorage,
     saveDataToLocalStorage,
 } from './helpers/storageHelper';
 import { saveCaptionObjectsToFile } from './helpers/srtHelper';
-import AdminArea from './adminArea.js';
 import { captionsSaveToStorage } from './helpers/fetchData';
 import { buildClipRange } from './helpers/exerciseHelper';
 import { CaptionsNavigationControls, CaptionAction } from './captionsNavigationControls';
 
-const ExerciseView = ({
-    currentUser,
+const ExerciseView = forwardRef(({
+    user,
     videoData,
     captions,
     clipIndexRange, //???
     onExit,
     onClipIndexRangeChange,
     onUpdateCaptions,
-}) => {
+}, ref) => {
 
     // #region defaults
 
@@ -439,12 +437,12 @@ const ExerciseView = ({
 
     useEffect(() => {
         if (captions?.length > 0 && !currentCaption) {
-            jumpToStart(playerRef);
-            setPosition(0);
-            jumpToStart(recPlayerRef);
-            setCurrentVolumeWrapper(default_volume);
-            setExerciseStatusWrapper(ExerciseStatus.STOPPED, 'useEffect');
             setCurrentCaptionWrapper(captions[0]);
+            //jumpToStart(playerRef);
+            setPosition(0);
+            //jumpToStart(recPlayerRef);
+            setCurrentVolumeWrapper(default_volume);
+            setExerciseStatusWrapper(ExerciseStatus.STOPPED, 'useEffect[captions]');
         }
     }, [captions]);
 
@@ -457,7 +455,16 @@ const ExerciseView = ({
             const name = nameInputRef.current.value;
             const isUnlistedVideo = unlistedInputRef.current.checked;
             setIsShowEmailFormModalOpen(false);
-            doShareHomework(videoData, captions, recordedChunks, clipRange, settings.playerLineSpeed, settings.yourLineSpeed, name, emailToSend, isUnlistedVideo);
+            doShareHomework(videoData, captions, recordedChunks, 
+                buildClipRange(
+                    captions,
+                    exerciseStatus === ExerciseStatus.CAPTION ?
+                        {
+                            startIndex: captions.findIndex(caption => caption.start === currentCaption.start),
+                            endIndex: captions.findIndex(caption => caption.start === currentCaption.start)
+                        } :
+                        clipIndexRange), 
+                settings.playerLineSpeed, settings.yourLineSpeed, name, emailToSend, isUnlistedVideo);
             setEmailAddress(emailToSend);
             setStudentName(name);
         }
@@ -494,19 +501,19 @@ const ExerciseView = ({
         return result;
     }
 
-    const handleSrtOpen = (captions) => {
-        setSrtCaptionsData(captions);  //???
+    const handleSrtOpen = (newCaptions) => {
+        setSrtCaptionsData(newCaptions);
     }
-
-    const handleUploadCaptions = async () => {
-        const result = await captionsSaveToStorage(videoData.videoId, videoData.learningLanguage, currentUser.username, captions);
-        if (result) {
-            alert(`Captions for "${videoData.title}" uploaded successfully!`);
-        } else {
-            alert(`Error uploading Captions for "${videoData.title}"!`);
-        }
+    const handleSrtUpload = () => {
+        captionsSaveToStorage(videoData.videoId, videoData.learningLanguage, user?.username, captions)
+            .then(result => {
+                if (result) {
+                    alert(`Captions for "${videoData.title}" uploaded successfully!`);
+                } else {
+                    alert(`Error uploading Captions for "${videoData.title}"!`);
+                }
+            });
     }
-
     const handleSrtSave = () => {
         let fileName = null;
         try {
@@ -520,6 +527,14 @@ const ExerciseView = ({
             alert('Error saving file.');
         }
     }
+
+useImperativeHandle(ref, () =>
+    ({
+        handleSrtOpen,
+        handleSrtUpload,
+        handleSrtSave,
+    })
+    );
 
     const handleSaveExerciseWrapper = () => {
         doSaveExerciseToFile(videoData, captions, recordedChunks, clipIndexRange, settings.playerLineSpeed, settings.yourLineSpeed)
@@ -668,13 +683,6 @@ const ExerciseView = ({
 
     return (
         <>
-            {currentUser?.role == 'Admin' && isRunningOnBigScreen &&
-                <AdminArea
-                    onSrtOpen={handleSrtOpen}
-                    onSrtSave={handleSrtSave}
-                    onUploadCaptions={handleUploadCaptions}
-                />
-            }
             <div id="PlaybackSettingsArea" className="row mb-3 col-12 col-md-12 col-lg-9">
                 <PlaybackSettings
                     settings={settings}
@@ -746,14 +754,14 @@ const ExerciseView = ({
 
 
                 <CaptionsView ref={captionViewRef}
+                    user={user}
                     isSingleCaption={analyzedCaptionBuf}
                     videoData={videoData}
                     captions={captions}
-                    currentUser={currentUser}
                     position={position}
                     hasRecordedChunks={recordedChunks?.length > 0}
                     clipIndexRange={clipIndexRange}
-                    showCaption = {captionToSearch}
+                    showCaption={captionToSearch}
 
                     srtCaptionsData={srtCaptionsData}
 
@@ -792,6 +800,7 @@ const ExerciseView = ({
             </Modal>
         </>
     );
-};
+});
 
+ExerciseView.displayName = 'ExerciseView';
 export default ExerciseView;

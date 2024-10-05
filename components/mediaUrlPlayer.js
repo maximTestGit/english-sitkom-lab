@@ -2,6 +2,7 @@ import { React, useState, useRef, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import BluringPanel from './bluringPanel';
 import ExerciseStatus from './data/exerciseStatus';
+import { jumpToPos } from './helpers/exerciseHelper';
 
 const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
     playbackRate, volume = 100, progressInterval = 10, onProgress, onEnded,
@@ -16,7 +17,8 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
     const resetPlayerPosition = (playerRef, clipRange) => {
         if (playerRef.current) {
             let start = clipRange?.start ? clipRange.start : 0;
-            playerRef.current.seekTo(start);
+            jumpToPos(playerRef, start);
+            console.log(`LingFlix: MediaUrlPlayer: resetPlayerPosition: start: ${start}, clipRange: ${clipRange}, player.pos: ${playerRef.current.playedSeconds}`);
         }
     }
 
