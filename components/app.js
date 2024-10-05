@@ -83,7 +83,22 @@ const App = () => {
 
   //#region exercise handlers
   const extractVideoIdFromUrl = (videoUrl) => {
-    const videoId = videoUrl.split("v=")[1];
+    let videoId = null;
+    const url = new URL(videoUrl);
+    if (url.hostname === "youtu.be") {
+      videoId = url.pathname.slice(1);
+    } else if (url.searchParams.has("v")) {
+      videoId = url.searchParams.get("v");
+    } else if (url.pathname.includes("embed/")) {
+      videoId = url.pathname.split("/embed/")[1];
+    } else if (url.pathname.includes("shorts/")) {
+      videoId = url.pathname.split("/shorts/")[1];
+    } else if (url.pathname.includes("watch")) {
+      videoId = url.searchParams.get("v");
+    } else {
+      const paths = url.pathname.split("/");
+      videoId = paths[paths.length - 1];
+    }
     return videoId;
   }
 

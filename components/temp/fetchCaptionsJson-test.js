@@ -54,11 +54,14 @@ exports.fetchCaptionsJson = async (req, res) => {
                 playlistId = req.query.playlistId;
             }
 
-            if (!isUserAuthenticated && videoId !== getExampleVideoId()) {
-                videoId = process.env.REGISTER_VIDEO_ID;
-                language = 'English';
+            if (playlistId) {
+                const exampleVideoId = await getExampleVideoId(playlistId);
+                console.log(`fetchCaptions: input videoId: ${videoId} exampleVideoId:${exampleVideoId}`);
+                if (!isUserAuthenticated && videoId !== exampleVideoId) {
+                    videoId = process.env.REGISTER_VIDEO_ID;
+                    language = 'English';
+                }
             }
-
             // setting defaults for testing ----------
             console.log(`fetchCaptions: input videoId: ${videoId} language:${language} user:${user}`);
             if (!videoId) {
@@ -83,14 +86,18 @@ exports.fetchCaptionsJson = async (req, res) => {
             if (!captions) {
                 // if captions not found try to find captions uploaded by the video owner
                 const videoInfo = await fetchPlayerInfo(videoId);
-                captions = await getCaptionsFromYoutube(videoId, videoInfo, language);
-            }
-            console.log(`fetchCaptions: request videoId: ${videoId} language:${language} user:${user}: captions: ${captions}`);
-            if (!captions) {
-                // if not found, try to find auto-generated captions
-                const autoCaptions = `${language} (auto-generated)`;
-                captions = await getCaptionsFromYoutube(videoId, videoInfo, autoCaptions);
-                console.log(`fetchCaptions: request videoId: ${videoId} language:${autoCaptions} user:${user}: captions: ${captions}`);
+                if (videoInfo) {
+                    captions = await getCaptionsFromYoutube(videoId, videoInfo, language, true);
+                    console.log(`fetchCaptions: request videoId: ${videoId} language:${language} strict: true, user:${user}: captions: ${captions}`);
+                    if (!captions) {
+                        // if not found, try to find auto-generated captions
+                        //const autoCaptions = `${language} (auto-generated)`;
+                        captions = await getCaptionsFromYoutube(videoId, videoInfo, language, false);
+                        console.log(`fetchCaptions: request videoId: ${videoId} language:${language} strict: false, user:${user}: captions: ${captions}`);
+                    }
+                } else {
+                    console.log(`fetchCaptions: no videoInfor for request videoId: ${videoId} language:${language} user:${user}: captions: ${captions}`);
+                }
             }
 
             if (captions) {
@@ -173,22 +180,29 @@ async function fetchPlayerInfo(videoId) {
     return result;
 }
 
-function getFetchCaptionsUrl(videoInfo, language) {
-    var captionsUrl = getCaptionsTrack(videoInfo, `${language}`);
+function getFetchCaptionsUrl(videoInfo, language, strict) {
+    var captionsUrl = getCaptionsTrack(videoInfo, language, strict);
     console.log(`fetchCaptionsUrl: url="${captionsUrl}"`);
     return captionsUrl;
 }
 
-function getCaptionsTrack(videoInfo, trackName) {
-    console.log(`getCaptionsTrack: ${trackName}`);
+function getCaptionsTrack(videoInfo, trackName, strict) {
+    console.log(`getCaptionsTrack: ${trackName} strict: ${strict}`);
 
     let captionTracks = videoInfo?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
     if (captionTracks) {
         for (let track of captionTracks) {
             console.log(`getCaptionsTrack: current track: ${track}`);
             console.log(`getCaptionsTrack: ${track.name.simpleText} vs ${trackName}: ${track.baseUrl}`);
-            if (track.name.simpleText === trackName) {
-                return track.baseUrl;
+            if (strict) {
+                if (track.name.simpleText === trackName) {
+                    return track.baseUrl;
+                }
+            }
+            else {
+                if (track.name.simpleText.includes(trackName)) {
+                    return track.baseUrl;
+                }
             }
         }
     }
@@ -222,7 +236,7 @@ async function fetchCaptionsFromUrl(fetchCaptionsUrl) {
     }
 }
 
-async function getCaptionsFromYoutube(videoId, videoInfo, language) {
+async function getCaptionsFromYoutube(videoId, videoInfo, language, strict = false) {
     console.log(`fetchCaptions: getCaptionsFromYoutube videoId: ${videoId} language:${language}`);
 
     let result = null;
@@ -230,7 +244,7 @@ async function getCaptionsFromYoutube(videoId, videoInfo, language) {
     console.log(`fetchCaptions::playabilityStatus: ${playabilityStatus}`);
 
     if (playabilityStatus == 'OK') {
-        var fetchCaptionsUrl = getFetchCaptionsUrl(videoInfo, language);
+        var fetchCaptionsUrl = getFetchCaptionsUrl(videoInfo, language, strict);
         if (fetchCaptionsUrl) {
             var jsonObject = await fetchCaptionsFromUrl(fetchCaptionsUrl);
             if (jsonObject) {
@@ -276,7 +290,7 @@ async function getExampleVideoId(playlistId) {
     let doc = await docRef.get();
 
     if (doc.exists) {
-        result = JSON.parse(doc.data().Video);
+        result = doc.data().Video;
     }
     return result;
 }
