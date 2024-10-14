@@ -1,5 +1,4 @@
-import { getYoutubeUrl, saveExerciseUrl, learningLanguage } from "../data/configurator";
-import { playlistRegistry } from './../data/playlistRegistry';
+import { getYoutubeUrl, saveExerciseUrl } from "../data/configurator";
 
 //import publishExercise from './publishExercise.js';
 const exercise_storage_folder = 'Exercises';
@@ -18,22 +17,21 @@ export function jumpToPos(playerRef, pos) {
     }
 }
 
-export function doSaveExerciseToFile(videoData, captions, recordedChunks, clipIndexRange, playbackRate, youLinePlaybackRate) {
-    buildExerciseData(videoData, captions, recordedChunks, clipIndexRange, playbackRate, youLinePlaybackRate)
+export function doSaveExerciseToFile(learningLanguage, videoData, playlistData, captions, recordedChunks, clipIndexRange, playbackRate, youLinePlaybackRate) {
+    buildExerciseData(learningLanguage, videoData, playlistData, captions, recordedChunks, clipIndexRange, playbackRate, youLinePlaybackRate)
         .then(exerciseData => {
             saveDataAsJsonToFile(exerciseData);
         }
         );
 }
-export function doShareHomework(video, captions, recordedChunks, clipRange, playbackRate, youLinePlaybackRate, studentName, emailAddress, isUnlistedVideo) {
-    buildExerciseData(video, captions, recordedChunks, clipRange, playbackRate, youLinePlaybackRate, studentName, emailAddress, isUnlistedVideo)
+export function doShareHomework(learningLanguage, video, playlistData, captions, recordedChunks, clipRange, playbackRate, youLinePlaybackRate, studentName, emailAddress, isUnlistedVideo) {
+    buildExerciseData(learningLanguage, video, playlistData, captions, recordedChunks, clipRange, playbackRate, youLinePlaybackRate, studentName, emailAddress, isUnlistedVideo)
         .then(videoData => {
             publishJsonToCloud(videoData);
         }
         );
 }
-export function buildExerciseData(video, captions, recordedChunks, clipIndexRange, playbackRate, youLinePlaybackRate, studentName = null, emailAddress = null, isUnlistedVideo = false) {
-    const playlistData = playlistRegistry.find(playlist => playlist.listId === video.playlistId);
+export function buildExerciseData(learningLanguage, video, playlistData, captions, recordedChunks, clipIndexRange, playbackRate, youLinePlaybackRate, studentName = null, emailAddress = null, isUnlistedVideo = false) {
     const language = playlistData?.language ?? learningLanguage;
     const videoData = {
         videoId: video.videoId,
@@ -228,5 +226,3 @@ export function buildClipRange(captions, clipIndexRange) {
     console.log('buildClipRange', result);
     return result;
 }
-
-

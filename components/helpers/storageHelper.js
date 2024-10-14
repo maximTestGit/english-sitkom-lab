@@ -11,6 +11,7 @@ const your_line_playback_rate = 'yourLineSpeed';
 const player_line_playback_rate = 'playerLineSpeed';
 const player_line_playback_volume = 'playerLineVolume';
 const whisper_playback_volume = 'whisperPlaybackVolume';
+const learning_language = 'learningLanguage';
 
 export const session_data_keys = {
     playlist_key,
@@ -19,7 +20,8 @@ export const session_data_keys = {
     your_line_playback_rate,
     player_line_playback_rate,
     player_line_playback_volume,
-    whisper_playback_volume
+    whisper_playback_volume,
+    learning_language
 };
 export const storageDataAttributes =
 {
@@ -27,6 +29,7 @@ export const storageDataAttributes =
     captions_data_prefix,
     captions_range_data_prefix,
     videoList_data_prefix,
+    playlist_registry_data_prefix: 'playlistRegistry',
     session_data_prefix,
     session_data_keys
 };
@@ -166,5 +169,21 @@ export function removeDataFromLocalStorage(prefix, key) {
     const dataKey = buildDataKey(prefix, key);
     removeDataFromLocalStorageByKey(dataKey);
     unregisterDataAtLocalStorage(prefix, key);
+}
+
+export function saveLearningLanguageToLocalStorage(language) {
+    saveDataToLocalStorage(
+        storageDataAttributes.session_data_prefix,
+        storageDataAttributes.session_data_keys.learning_language,
+        language);
+}
+
+export function fetchLearningLanguageFromLocalStorage() {
+    const result =
+        fetchDataFromLocalStorage(
+            storageDataAttributes.session_data_prefix,
+            storageDataAttributes.session_data_keys.learning_language,
+            null);
+    return result;
 }
 

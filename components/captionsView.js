@@ -7,6 +7,7 @@ import {
     saveDataToLocalStorage,
     fetchDataFromLocalStorage,
 } from './helpers/storageHelper';
+import { t, Trans } from '@lingui/macro';
 
 const CaptionsView = forwardRef(({
     user,
@@ -251,10 +252,10 @@ const CaptionsView = forwardRef(({
             <table className="table table-striped">
                 <thead>
                     <tr>
-                        <th>Select</th>
-                        <th>Your Line</th>
-                        <th>Start (sec)</th>
-                        <th>Text</th>
+                        <th><Trans>Select</Trans></th>
+                        <th><Trans>Your Line</Trans></th>
+                        <th><Trans>Start (sec)</Trans></th>
+                        <th><Trans>Text</Trans></th>
                     </tr>
                 </thead>
                 <tbody>

@@ -1,27 +1,51 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, use } from "react";
 import Banner from "./banner";
 import VideoListView from "./videoListView.js";
 import ExerciseView from "./exerciseView";
-import { loginUser } from './helpers/fetchData.js';
+import { loginUser, fetchRetrievePlayistRegistry, savePlayistToRegistry } from './helpers/fetchData.js';
 import { buildExerciseRecordedChunks } from './helpers/exerciseHelper.js';
-import { playlistRegistry } from './data/playlistRegistry';
 import {
   storageDataAttributes,
   fetchDataFromLocalStorage,
   saveDataToLocalStorage,
   cleanUpLocalStorage,
+  saveLearningLanguageToLocalStorage,
 } from './helpers/storageHelper';
-import { learningLanguage, getLearningLanguageName } from './data/configurator';
+import { initLearningLanguage, getLearningLanguageName } from './data/configurator';
 import TopDropdownMenu from "./topDropdownMenu";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, completeUserData } from "./gc/firebase";
+//-----------
+import { I18nProvider } from '@lingui/react';
+import { i18n } from '@lingui/core';
+import { messages as enMessages } from '../src/locales/en/messages';
+import { messages as ruMessages } from '../src/locales/ru/messages';
+import { messages as afMessages } from '../src/locales/af/messages';
+import { messages as heMessages } from '../src/locales/he/messages';
+import { messages as ukMessages } from '../src/locales/uk/messages';
+
+i18n.load({
+  en: enMessages,
+  ru: ruMessages,
+  af: afMessages,
+  he: heMessages,
+  uk: ukMessages,
+});
 
 const App = () => {
   const [videoData, setVideoData] = useState(null);
   const [clipIndexRange, setClipIndexRange] = useState({ startIndex: undefined, endIndex: undefined });
   const [captions, setCaptions] = useState([]);
-  const [playlistId, setPlaylistId] = useState(playlistRegistry[0].listId);
+  const [playlistRegistry, setPlaylistRegistry] = useState([]);
+  const [playlistId, setPlaylistId] = useState(null);
   const [user, setUser] = useState(null);
+  const [learningLanguage, setLearningLanguage] = useState(null);
+  const [uiLanguage, setUiLanguage] = useState('en');
+  const [newPlaylistId, setNewPlaylistId] = useState(null);
+
+  useEffect(() => {
+    i18n.activate(uiLanguage);
+  }, [uiLanguage]);
 
   const handleSetUser = (newUser) => {
     setUser(newUser);
@@ -30,9 +54,54 @@ const App = () => {
   const exerciseViewRef = useRef(null);
   const videolistViewRef = useRef(null);
 
+  const fetchPlaylists = async (user, learningLanguage, refetchFromSource = false) => {
+    const result = await fetchRetrievePlayistRegistry(user, getLearningLanguageName(learningLanguage), refetchFromSource);
+    return result;
+  };
+  const extractUiLanguage = (user) => {
+    let result = 'en';
+    if (user) {
+      result = user.language ? user.language.split('-')[0] : 'en';
+    }
+    return result;
+  }
+  useEffect(() => {
+    const newUiLanguage = extractUiLanguage(user);
+    if (newUiLanguage !== uiLanguage) {
+      setUiLanguage(newUiLanguage);
+    }
+    fetchPlaylists(user, learningLanguage)
+      .then((plRegistry) => {
+        if (plRegistry) {
+          setPlaylistRegistry(plRegistry);
+        }
+      })
+  }, [user, learningLanguage]);
+
+  useEffect(() => {
+    if (playlistId) {
+      handleReloadPlaylist();
+    }
+  }, [playlistId]);
+
+  useEffect(() => {
+    if (playlistRegistry?.length > 0) {
+      setPlaylistId(newPlaylistId ?? playlistRegistry[0].listId);
+      if (newPlaylistId) {
+        setNewPlaylistId(null);
+      }
+    }
+  }, [playlistRegistry]);
+
   useEffect(() => {
     async function initApp() {
       await cleanUpLocalStorage();
+      const theLearningLanguage = await initLearningLanguage();
+      setLearningLanguage(theLearningLanguage);
+      const plRegistry = await fetchPlaylists(user, theLearningLanguage);
+      if (plRegistry) {
+        setPlaylistRegistry(plRegistry);
+      }
       setInterval(cleanUpLocalStorage, 30000);
       let playlistId = await fetchDataFromLocalStorage(
         storageDataAttributes.session_data_prefix,
@@ -40,6 +109,8 @@ const App = () => {
         null);
       if (playlistId) {
         setPlaylistId(playlistId);
+      } else if (plRegistry?.length > 0) {
+        setPlaylistId(plRegistry[0].listId);
       }
       onAuthStateChanged(auth, (theUser) => {
         if (theUser) {
@@ -195,42 +266,78 @@ const App = () => {
     //await cleanUpLocalStorage(true);
     await videolistViewRef.current?.fetchVideos(playlistId, true);
   }
+  const handleSavePlaylist = async (playlistId, playlistName) => {
+    const playlistData = {
+      id: playlistId,
+      name: playlistName,
+      language: getLearningLanguageName(learningLanguage),
+    };
+    await savePlayistToRegistry(user, playlistData)
+      .then(result => {
+        if (result) {
+          fetchPlaylists(user, learningLanguage, true)
+            .then((plRegistry) => {
+              if (plRegistry) {
+                setPlaylistRegistry(plRegistry);
+                setNewPlaylistId(playlistId);
+              }
+              alert(`Playlist "${playlistName}" saved successfully!`);
+            });
 
+        } else {
+          alert(`Error saving playlist "${playlistName}"!`);
+        }
+      });
+  }
+  const handleLearningLanguageChange = (newLearningLanguage) => {
+    console.log(`LingFlix: handleLearningLanguageChange old: ${learningLanguage}, new: ${newLearningLanguage}`);
+    setLearningLanguage(newLearningLanguage);
+    saveLearningLanguageToLocalStorage(newLearningLanguage);
+    //setPlaylistId(null);
+  }
   return (
-    <div>
-      <TopDropdownMenu
-        user={user}
-        videoData={videoData}
-        onCustomVideoOpen={handleCustomVideoOpen}
-        onExerciseOpen={handleExerciseOpen}
-        onGoHome={handleExerciseExit}
-        onSrtOpen={handleSrtOpen}
-        onSrtUpload={handleSrtUpload}
-        onSrtSave={handleSrtSave}
-        onReloadPlaylist={handleReloadPlaylist}
-      />
-      {videoData ? (
-        <ExerciseView ref={exerciseViewRef}
+    <I18nProvider i18n={i18n}>
+      <div>
+        <TopDropdownMenu
           user={user}
           videoData={videoData}
-          captions={captions}
-          clipIndexRange={clipIndexRange}
-          onExit={handleExerciseExit}
-          onClipIndexRangeChange={handleClipIndexRangeChange}
-          onUpdateCaptions={handleUpdateCaptions}
+          onCustomVideoOpen={handleCustomVideoOpen}
+          onExerciseOpen={handleExerciseOpen}
+          onGoHome={handleExerciseExit}
+          onSrtOpen={handleSrtOpen}
+          onSrtUpload={handleSrtUpload}
+          onSrtSave={handleSrtSave}
+          onReloadPlaylist={handleReloadPlaylist}
+          onSavePlaylist={handleSavePlaylist}
+          onLearningLanguageChange={handleLearningLanguageChange}
         />
-      ) : (
-        <>
-          <Banner />
-          <VideoListView ref={videolistViewRef}
+        {videoData ? (
+          <ExerciseView ref={exerciseViewRef}
             user={user}
-            playlistId={playlistId}
-            onSelectVideo={handleSelectedVideo}
-            onSelectPlaylistId={handleSelectPlaylistId}
+            learningLanguage={learningLanguage}
+            videoData={videoData}
+            playlistData={playlistRegistry.find(playlist => playlist.listId === videoData.playlistId)}
+            captions={captions}
+            clipIndexRange={clipIndexRange}
+            onExit={handleExerciseExit}
+            onClipIndexRangeChange={handleClipIndexRangeChange}
+            onUpdateCaptions={handleUpdateCaptions}
           />
-        </>
-      )}
-    </div>
+        ) : (
+          <>
+            <Banner />
+            <VideoListView ref={videolistViewRef}
+              user={user}
+              playlistId={playlistId}
+              playlistRegistry={playlistRegistry}
+              onSelectVideo={handleSelectedVideo}
+              onSelectPlaylistId={handleSelectPlaylistId}
+              learningLanguageName={getLearningLanguageName(learningLanguage)}
+            />
+          </>
+        )}
+      </div>
+    </I18nProvider>
   );
 };
 

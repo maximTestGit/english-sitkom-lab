@@ -1,0 +1,188 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2024-10-14 11:55+0300\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: uk\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: components/playbackSettings.js:114
+msgid "{speed} of Normal Speed Player"
+msgstr "{speed} від нормальної швидкості плеєра"
+
+#: components/playbackSettings.js:90
+msgid "{speed} of Normal Speed when you talk"
+msgstr "{speed} від нормальної швидкості, коли ви говорите"
+
+#: components/topDropdownMenu.js:315
+msgid "About"
+msgstr "Про нас"
+
+#: components/topDropdownMenu.js:269
+#: components/topDropdownMenu.js:275
+msgid "Account"
+msgstr "Обліковий запис"
+
+#: components/topDropdownMenu.js:291
+msgid "Add custom Playlist"
+msgstr "Додати власний плейлист"
+
+#: components/playbackSettings.js:73
+msgid "Blure Youtube Captions"
+msgstr "Розмити YouTube субтитри"
+
+#: components/playbackSettings.js:77
+msgid "Camera"
+msgstr "Камера"
+
+#: components/topDropdownMenu.js:294
+msgid "Clear Memory"
+msgstr "Очистити пам'ять"
+
+#: components/topDropdownMenu.js:318
+msgid "Contact Me"
+msgstr "Зв'язатися зі мною"
+
+#: components/videoListView.js:87
+msgid "Exercise"
+msgstr "Вправа"
+
+#: components/playbackSettings.js:70
+msgid "Exercise Captions"
+msgstr "Субтитри для вправ"
+
+#: components/topDropdownMenu.js:280
+msgid "File"
+msgstr "Файл"
+
+#: components/topDropdownMenu.js:261
+msgid "Hello"
+msgstr "Привіт"
+
+#: components/topDropdownMenu.js:304
+#: components/topDropdownMenu.js:310
+msgid "Home"
+msgstr "Головна"
+
+#: components/topDropdownMenu.js:317
+msgid "How To Register(Free)?"
+msgstr "Як зареєструватися (безкоштовно)?"
+
+#: components/topDropdownMenu.js:316
+msgid "How To?"
+msgstr "Як?"
+
+#: components/topDropdownMenu.js:270
+msgid "Login"
+msgstr "Увійти"
+
+#: components/topDropdownMenu.js:276
+msgid "Logout"
+msgstr "Вийти"
+
+#: components/playbackSettings.js:67
+msgid "Loop"
+msgstr "Цикл"
+
+#: components/playbackSettings.js:59
+msgid "Loud Prompt when you talk"
+msgstr "Гучна підказка, коли ви говорите"
+
+#: components/playbackSettings.js:56
+msgid "Mute Player when you talk"
+msgstr "Приглушити звук плеєра, коли ви говорите"
+
+#: components/topDropdownMenu.js:303
+#: components/topDropdownMenu.js:309
+msgid "Navigate"
+msgstr "Навігувати"
+
+#: components/playbackSettings.js:113
+msgid "Normal Speed Player"
+msgstr "Нормальна швидкість плеєра"
+
+#: components/playbackSettings.js:89
+msgid "Normal Speed when you talk"
+msgstr "Нормальна швидкість, коли ви говорите"
+
+#: components/topDropdownMenu.js:284
+msgid "Open .json"
+msgstr "Відкрити .json"
+
+#: components/topDropdownMenu.js:282
+msgid "Open .srt"
+msgstr "Відкрити .srt"
+
+#: components/topDropdownMenu.js:290
+msgid "Open custom video"
+msgstr "Відкрити власне відео"
+
+#: components/topDropdownMenu.js:292
+msgid "Open Exercise File"
+msgstr "Відкрити файл вправи"
+
+#: components/topDropdownMenu.js:289
+#: components/topDropdownMenu.js:299
+msgid "Open Settings"
+msgstr "Відкрити налаштування"
+
+#: components/topDropdownMenu.js:312
+msgid "Open video on Youtube"
+msgstr "Відкрити відео на YouTube"
+
+#: components/playbackSettings.js:58
+msgid "Prompt when you talk"
+msgstr "Підказка, коли ви говорите"
+
+#: components/topDropdownMenu.js:271
+msgid "Register"
+msgstr "Зареєструватися"
+
+#: components/topDropdownMenu.js:293
+msgid "Reload Playlist"
+msgstr "Перезавантажити плейлист"
+
+#: components/topDropdownMenu.js:281
+msgid "Save .srt"
+msgstr "Зберегти .srt"
+
+#: components/captionsView.js:255
+msgid "Select"
+msgstr "Вибрати"
+
+#: components/playbackSettings.js:57
+msgid "Slight Prompt when you talk"
+msgstr "Тиха підказка, коли ви говорите"
+
+#: components/captionsView.js:257
+msgid "Start (sec)"
+msgstr "Початок (сек)"
+
+#: components/captionsView.js:258
+msgid "Text"
+msgstr "Текст"
+
+#: components/topDropdownMenu.js:288
+#: components/topDropdownMenu.js:298
+msgid "Tools"
+msgstr "Інструменти"
+
+#: components/topDropdownMenu.js:283
+msgid "Upload .srt"
+msgstr "Завантажити .srt"
+
+#: components/captionsView.js:256
+msgid "Your Line"
+msgstr "Ваш рядок"
+
+#: components/topDropdownMenu.js:305
+#: components/topDropdownMenu.js:311
+msgid "Youtube"
+msgstr "YouTube"

@@ -2,7 +2,9 @@ import {
   loginUrl,
   captionsSaveToStorageUrl,
   getCaptionsUrlPost,
-  getPlaylistContentUrlPost
+  getPlaylistContentUrlPost,
+  getPlaylistRegistryUrlPost,
+  getPlayistToRegistryUrl
 } from './../data/configurator';
 import {
   storageDataAttributes,
@@ -72,13 +74,29 @@ export async function fetchRetrievePlayistContent(user, playlistId, refetchFromS
   return result;
 }
 
+export async function fetchRetrievePlayistRegistry(user, language, refetchFromSource = false) {
+  const prefix = storageDataAttributes.playlist_registry_data_prefix;
+  const expirationSec = 60 * 60;
+  if (refetchFromSource) {
+    removeDataFromLocalStorage(prefix, language);
+  }
+  let result = fetchDataFromLocalStorage(prefix, language, expirationSec);
+
+  if (!result) { // not found or no cache
+    const url = getPlaylistRegistryUrlPost();
+    const data = {
+      language: language
+    };
+    result = await fetchDataFromSource(user, url, data);
+    if (result) {
+      saveDataToLocalStorage(prefix, language, result, expirationSec);
+    }
+  }
+  return result;
+}
+
 async function fetchDataFromSource(user, url, data) {
   return await fetchDataFromSourcePost(user, url, data);
-}
-async function fetchDataFromSourceGet(url) {
-  const response = await fetch(url);
-  const result = response.ok ? await response.json() : null;
-  return result;
 }
 async function fetchDataFromSourcePost(user, url, data) {
   let result = null;
@@ -127,6 +145,24 @@ export async function captionsSaveToStorage(videoId, language, user, captions) {
       },
       body: JSON.stringify(data)
     });
+
+  return response.ok;
+}
+
+export const savePlayistToRegistry = async (user, data) => {
+  const url = getPlayistToRegistryUrl();
+  const token = await user?.getIdToken();
+  const headers = {
+    'Content-Type': 'application/json'
+  };
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(data)
+  });
 
   return response.ok;
 }

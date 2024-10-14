@@ -19,7 +19,9 @@ import { CaptionsNavigationControls, CaptionAction } from './captionsNavigationC
 
 const ExerciseView = forwardRef(({
     user,
+    learningLanguage,
     videoData,
+    playlistData,
     captions,
     clipIndexRange, //???
     onExit,
@@ -455,7 +457,7 @@ const ExerciseView = forwardRef(({
             const name = nameInputRef.current.value;
             const isUnlistedVideo = unlistedInputRef.current.checked;
             setIsShowEmailFormModalOpen(false);
-            doShareHomework(videoData, captions, recordedChunks, 
+            doShareHomework(learningLanguage, videoData, playlistData, captions, recordedChunks,
                 buildClipRange(
                     captions,
                     exerciseStatus === ExerciseStatus.CAPTION ?
@@ -463,7 +465,7 @@ const ExerciseView = forwardRef(({
                             startIndex: captions.findIndex(caption => caption.start === currentCaption.start),
                             endIndex: captions.findIndex(caption => caption.start === currentCaption.start)
                         } :
-                        clipIndexRange), 
+                        clipIndexRange),
                 settings.playerLineSpeed, settings.yourLineSpeed, name, emailToSend, isUnlistedVideo);
             setEmailAddress(emailToSend);
             setStudentName(name);
@@ -528,7 +530,7 @@ const ExerciseView = forwardRef(({
         }
     }
 
-useImperativeHandle(ref, () =>
+    useImperativeHandle(ref, () =>
     ({
         handleSrtOpen,
         handleSrtUpload,
@@ -537,7 +539,7 @@ useImperativeHandle(ref, () =>
     );
 
     const handleSaveExerciseWrapper = () => {
-        doSaveExerciseToFile(videoData, captions, recordedChunks, clipIndexRange, settings.playerLineSpeed, settings.yourLineSpeed)
+        doSaveExerciseToFile(learningLanguage, videoData, playlistData, captions, recordedChunks, clipIndexRange, settings.playerLineSpeed, settings.yourLineSpeed)
     }
 
     const handleCaptionAction = (action) => {
@@ -683,7 +685,7 @@ useImperativeHandle(ref, () =>
 
     return (
         <>
-            <div id="PlaybackSettingsArea" className="row mb-3 col-12 col-md-12 col-lg-9">
+            <div id="PlaybackSettingsArea" className="row mb-3 col-12 col-md-12 col-lg-7">
                 <PlaybackSettings
                     settings={settings}
                     updateSetting={updateSetting}

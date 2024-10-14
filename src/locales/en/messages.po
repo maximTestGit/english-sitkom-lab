@@ -1,0 +1,188 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2024-10-13 18:58+0300\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: components/playbackSettings.js:114
+msgid "{speed} of Normal Speed Player"
+msgstr "{speed} of Normal Speed Player"
+
+#: components/playbackSettings.js:90
+msgid "{speed} of Normal Speed when you talk"
+msgstr "{speed} of Normal Speed when you talk"
+
+#: components/topDropdownMenu.js:315
+msgid "About"
+msgstr "About"
+
+#: components/topDropdownMenu.js:269
+#: components/topDropdownMenu.js:275
+msgid "Account"
+msgstr "Account"
+
+#: components/topDropdownMenu.js:291
+msgid "Add custom Playlist"
+msgstr "Add custom Playlist"
+
+#: components/playbackSettings.js:73
+msgid "Blure Youtube Captions"
+msgstr "Blure Youtube Captions"
+
+#: components/playbackSettings.js:77
+msgid "Camera"
+msgstr "Camera"
+
+#: components/topDropdownMenu.js:294
+msgid "Clear Memory"
+msgstr "Clear Memory"
+
+#: components/topDropdownMenu.js:318
+msgid "Contact Me"
+msgstr "Contact Me"
+
+#: components/videoListView.js:87
+msgid "Exercise"
+msgstr "Exercise"
+
+#: components/playbackSettings.js:70
+msgid "Exercise Captions"
+msgstr "Exercise Captions"
+
+#: components/topDropdownMenu.js:280
+msgid "File"
+msgstr "File"
+
+#: components/topDropdownMenu.js:261
+msgid "Hello"
+msgstr "Hello"
+
+#: components/topDropdownMenu.js:304
+#: components/topDropdownMenu.js:310
+msgid "Home"
+msgstr "Home"
+
+#: components/topDropdownMenu.js:317
+msgid "How To Register(Free)?"
+msgstr "How To Register(Free)?"
+
+#: components/topDropdownMenu.js:316
+msgid "How To?"
+msgstr "How To?"
+
+#: components/topDropdownMenu.js:270
+msgid "Login"
+msgstr "Login"
+
+#: components/topDropdownMenu.js:276
+msgid "Logout"
+msgstr "Logout"
+
+#: components/playbackSettings.js:67
+msgid "Loop"
+msgstr "Loop"
+
+#: components/playbackSettings.js:59
+msgid "Loud Prompt when you talk"
+msgstr "Loud Prompt when you talk"
+
+#: components/playbackSettings.js:56
+msgid "Mute Player when you talk"
+msgstr "Mute Player when you talk"
+
+#: components/topDropdownMenu.js:303
+#: components/topDropdownMenu.js:309
+msgid "Navigate"
+msgstr "Navigate"
+
+#: components/playbackSettings.js:113
+msgid "Normal Speed Player"
+msgstr "Normal Speed Player"
+
+#: components/playbackSettings.js:89
+msgid "Normal Speed when you talk"
+msgstr "Normal Speed when you talk"
+
+#: components/topDropdownMenu.js:284
+msgid "Open .json"
+msgstr "Open .json"
+
+#: components/topDropdownMenu.js:282
+msgid "Open .srt"
+msgstr "Open .srt"
+
+#: components/topDropdownMenu.js:290
+msgid "Open custom video"
+msgstr "Open custom video"
+
+#: components/topDropdownMenu.js:292
+msgid "Open Exercise File"
+msgstr "Open Exercise File"
+
+#: components/topDropdownMenu.js:289
+#: components/topDropdownMenu.js:299
+msgid "Open Settings"
+msgstr "Open Settings"
+
+#: components/topDropdownMenu.js:312
+msgid "Open video on Youtube"
+msgstr "Open video on Youtube"
+
+#: components/playbackSettings.js:58
+msgid "Prompt when you talk"
+msgstr "Prompt when you talk"
+
+#: components/topDropdownMenu.js:271
+msgid "Register"
+msgstr "Register"
+
+#: components/topDropdownMenu.js:293
+msgid "Reload Playlist"
+msgstr "Reload Playlist"
+
+#: components/topDropdownMenu.js:281
+msgid "Save .srt"
+msgstr "Save .srt"
+
+#: components/captionsView.js:255
+msgid "Select"
+msgstr "Select"
+
+#: components/playbackSettings.js:57
+msgid "Slight Prompt when you talk"
+msgstr "Slight Prompt when you talk"
+
+#: components/captionsView.js:257
+msgid "Start (sec)"
+msgstr "Start (sec)"
+
+#: components/captionsView.js:258
+msgid "Text"
+msgstr "Text"
+
+#: components/topDropdownMenu.js:288
+#: components/topDropdownMenu.js:298
+msgid "Tools"
+msgstr "Tools"
+
+#: components/topDropdownMenu.js:283
+msgid "Upload .srt"
+msgstr "Upload .srt"
+
+#: components/captionsView.js:256
+msgid "Your Line"
+msgstr "Your Line"
+
+#: components/topDropdownMenu.js:305
+#: components/topDropdownMenu.js:311
+msgid "Youtube"
+msgstr "Youtube"

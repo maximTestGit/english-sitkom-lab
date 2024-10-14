@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Switch from './helpers/switch';
 import { isRunningOnBigScreen } from './data/configurator';
+import { t, Trans } from '@lingui/macro';
 
 const PlaybackSettings = ({
     settings,
@@ -50,57 +51,69 @@ const PlaybackSettings = ({
         setWhisperVolume(event.target.value);
         onWhisperVolumeChange(event.target.value);
     }
+    const youTalkSpeedOptions = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
+    const volumeOptions = [
+        { value: 0.0, text: t`Mute Player when you talk` },
+        { value: 2.0, text: t`Slight Prompt when you talk` },
+        { value: 5.0, text: t`Prompt when you talk` },
+        { value: 10.0, text: t`Loud Prompt when you talk` },
+    ];
+    const speedOptions = [0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
+
     return (
         <>
             <div className="row mb-2">
-                <div className="col-2">
-                    <Switch id="loopPlaySwitch" label="Loop" onChange={onLoopChange} initValue={isLoop} />
+                <div className="col-3 col-md-2 col-lg-2">
+                    <Switch id="loopPlaySwitch" label={<Trans>Loop</Trans>} onChange={onLoopChange} initValue={isLoop} />
                 </div>
-                <div className="col-3">
-                    <Switch id="imbededCaptionBluringSwitch" label="Blure Imbeded Captions" onChange={onImbededCaptionBluringChange} initValue={isImbededCaptionsBlured} />
+                <div className="col-5 col-md-3 col-lg-4">
+                    <Switch id="showCaptionsSwitch" label={<Trans>Exercise Captions</Trans>} onChange={onShowCaptionsChange} initValue={toShowCaptions} />
+                </div>
+                <div className="col-4 col-md-3 col-lg-4">
+                    <Switch id="imbededCaptionBluringSwitch" label={<Trans>Blure Youtube Captions</Trans>} onChange={onImbededCaptionBluringChange} initValue={isImbededCaptionsBlured} />
                 </div>
                 {isRunningOnBigScreen &&
-                    <div className="col-2">
-                        <Switch id="allowCameraSwitch" label="Camera" onChange={onAllowCameraChange} initValue={isCameraAllowed} />
+                    <div className="col-6 col-md-2 col-lg-1">
+                        <Switch id="allowCameraSwitch" label={<Trans>Camera</Trans>} onChange={onAllowCameraChange} initValue={isCameraAllowed} />
                     </div>
                 }
-                <div className="col-3">
-                    <Switch id="showCaptionsSwitch" label="Exercise Captions" onChange={onShowCaptionsChange} initValue={toShowCaptions} />
-                </div>
             </div>
             <div className="row mb-2">
-                <div className="col-4 col-lg-3">
-                    <select className="form-select form-select-sm"
+                <div className="col-4 col-lg-4">
+                    <select id="speedWhenYouTalkSelect" className="form-select form-select-sm"
                         onChange={handleYourLineSpeedChange}
                         value={yourLineSpeed}>
-                        <option value={0.5}>0.5 of Normal Speed when you talk</option>
-                        <option value={0.6}>0.6 of Normal Speed when you talk</option>
-                        <option value={0.7}>0.7 of Normal Speed when you talk</option>
-                        <option value={0.8}>0.8 of Normal Speed when you talk</option>
-                        <option value={0.9}>0.9 of Normal Speed when you talk</option>
-                        <option value={1.0} selected>Normal Speed when you talk</option>
+                        {youTalkSpeedOptions.map(speed => (
+                            <option key={speed} value={speed}>
+                                {speed === 1.0
+                                    ? t`Normal Speed when you talk`
+                                    : t`${speed} of Normal Speed when you talk`}
+                            </option>
+                        ))}
                     </select>
                 </div>
-                <div className="col-4 col-lg-3">
+                <div className="col-4 col-lg-4">
                     <select className="form-select form-select-sm"
                         onChange={handleSourceVolumeChange}
                         value={whisperVolume}>
-                        <option value={0.0} selected>Mute Player when you talk</option>
-                        <option value={2.0} >Slight Whisper Player when you talk</option>
-                        <option value={5.0} >Whisper Player when you talk</option>
-                        <option value={10.0}>Loud Whisper Player when you talk</option>
+                        {volumeOptions.map(({ value, text }) => (
+                            <option key={value} value={value}>
+                                {text}
+                            </option>
+                        ))}
                     </select>
                 </div>
                 <div className="col-4 col-lg-3">
                     <select className="form-select form-select-sm"
                         onChange={handlePlayerLineSpeedChange}
                         value={playerLineSpeed}>
-                        <option value={0.5}>0.5 of Normal Speed Player</option>
-                        <option value={0.6}>0.6 of Normal Speed Player</option>
-                        <option value={0.7}>0.7 of Normal Speed Player</option>
-                        <option value={0.8}>0.8 of Normal Speed Player</option>
-                        <option value={0.9}>0.9 of Normal Speed Player</option>
-                        <option value={1.0} selected>Normal Speed Player</option>
+                        {speedOptions.map(speed => (
+                            <option key={speed} value={speed}>
+                                {speed === 1.0
+                                    ? t`Normal Speed Player`
+                                    : t`${speed} of Normal Speed Player`}
+                            </option>
+                        ))}
                     </select>
                 </div>
             </div>

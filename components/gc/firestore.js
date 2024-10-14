@@ -3,11 +3,12 @@ import { app } from "./firebase";
 
 //const db = getFirestore(app);
 
-export const addUserToFirestore = async (uid, username) => {
+export const addUserToFirestore = async (uid, username, language) => {
     await setDoc(doc(getFirestore(app), "users", uid), {
         username: username,
+        language: language,
     });
-    console.log("User added to Firestore:", uid);
+    console.log("LingFlix:  added to Firestore:", uid);
     return uid;
 };
 
@@ -17,7 +18,7 @@ export const getUserData = async (uid) => {
     }
     const userDoc = await getDoc(doc(getFirestore(app), "users", uid));
     if (userDoc.exists()) {
-        return { username: userDoc.data().username };
+        return { username: userDoc.data().username, language: userDoc.data().language??'en-US' };
     }
     return null;
 };

@@ -1,4 +1,5 @@
 import { isMobile } from 'react-device-detect';
+import { fetchLearningLanguageFromLocalStorage } from '../helpers/storageHelper';
 
 export const inDebugEnv = process.env.NODE_ENV === 'development';
 export const isRunningOnBigScreen = !isMobile;
@@ -34,6 +35,13 @@ export function captionsSaveToStorageUrl() {
     }
     return url;
 }
+export function getPlayistToRegistryUrl() {
+    let url = 'https://me-west1-youtube-project-404109.cloudfunctions.net/function-save-playlist-registry-2-0';
+    if (inDebugEnv) {
+        url = 'https://me-west1-youtube-project-404109.cloudfunctions.net/function-save-playlist-registry-test';
+    }
+    return url;
+}
 
 export function getPlaylistContentUrlPost() {
     let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-get-playlst-content-2-0`;
@@ -43,29 +51,59 @@ export function getPlaylistContentUrlPost() {
     return url;
 }
 
-export const learningLanguage = process.env.NEXT_PUBLIC_LEARNING_LANGUAGE // vercel env.var.
-    ||
-    process.env.LEARNING_LANGUAGE
-    ||
-    process.env.REACT_APP_LEARNING_LANGUAGE
-    ||
-    (inDebugEnv && 'he-IL')
-    ||
-    'en-US'; // netlify env.var.
-
-export function getLearningLanguageName(language) {
-    switch (language) {
-        case 'en-US':
-            return 'English';
-        case 'ru-RU':
-            return 'Russian';
-        case 'he-IL':
-            return 'Hebrew';
-        default:
-            return 'English';
+export function getPlaylistRegistryUrlPost() {
+    let url = `https://me-west1-youtube-project-404109.cloudfunctions.net/function-get-playlist-registry-2-0`;
+    if (inDebugEnv) {
+        url = `https://me-west1-youtube-project-404109.cloudfunctions.net/function-get-playlist-registry-test`;
     }
+    return url;
 }
 
+export const languages = [
+    { code: 'af-ZA', name: 'Afrikaans', nativeName: 'Afrikaans' },
+    { code: 'ar-SA', name: 'Arabic', nativeName: 'العربية' },
+    { code: 'bn-BD', name: 'Bengali', nativeName: 'বাংলা' },
+    { code: 'hr-HR', name: 'Croatian', nativeName: 'Hrvatski' },
+    { code: 'zh-CN', name: 'Chinese', nativeName: '中文' },
+    { code: 'en-US', name: 'English', nativeName: 'English' },
+    { code: 'fr-FR', name: 'French', nativeName: 'Français' },
+    { code: 'de-DE', name: 'German', nativeName: 'Deutsch' },
+    { code: 'he-IL', name: 'Hebrew', nativeName: 'עברית' },
+    { code: 'hi-IN', name: 'Hindi', nativeName: 'हिन्दी' },
+    { code: 'ja-JP', name: 'Japanese', nativeName: '日本語' },
+    { code: 'pa-IN', name: 'Punjabi', nativeName: 'ਪੰਜਾਬੀ' },
+    { code: 'pt-BR', name: 'Portuguese', nativeName: 'Português' },
+    { code: 'ru-RU', name: 'Russian', nativeName: 'Русский' },
+    { code: 'es-ES', name: 'Spanish', nativeName: 'Español' },
+    { code: 'tr-TR', name: 'Turkish', nativeName: 'Türkçe' },
+    { code: 'uk-UA', name: 'Ukrainian', nativeName: 'Українська' }
+];
 
+function getLanguageName(language) {
+    const lang = languages.find(l => l.code === language);
+    return lang ? lang.name : 'English';
+}
+
+export function getLearningLanguageName(language) {
+    return getLanguageName(language);
+}
+
+export function getLanguageCode(language) {
+    return getLanguageName(language);
+}
+
+export function initLearningLanguage() {
+    let result = fetchLearningLanguageFromLocalStorage();
+    result = result || process.env.NEXT_PUBLIC_LEARNING_LANGUAGE // vercel env.var.
+        ||
+        process.env.LEARNING_LANGUAGE
+        ||
+        process.env.REACT_APP_LEARNING_LANGUAGE // netlify env.var.
+        ||
+        // (inDebugEnv && 'he-IL')
+        // ||
+        'en-US';
+    return result;
+}
 
 

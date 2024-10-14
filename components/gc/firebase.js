@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import { getUserData, addUserToFirestore } from "./firestore";
 import { cleanUpLocalStorage } from "../helpers/storageHelper";
+import { languages, getLanguageName } from "../data/configurator";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -48,15 +49,18 @@ export const signInUser = async (email, password) => {
     }
 };
 
-export const signUpUser = async (userName, email, password) => {
+export const signUpUser = async (userName, email, password, language) => {
     try {
         cleanUpLocalStorage(true);
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
-        await addUserToFirestore(user.uid, userName);
-        const userData = await getUserData(user.uid);
+        await addUserToFirestore(user.uid, userName, language);
+        /*const userData = await getUserData(user.uid);
         user.username = userData.username;
-        console.log("User signed up:", user);
+        user.language = userData.language;
+        */
+        completeUserData(user);
+        console.log("User signed up:", user );
         return user;
     } catch (error) {
         if (error.code === 'auth/email-already-in-use') {
@@ -91,5 +95,8 @@ export async function completeUserData(user) {
     if (!user.username) {
         const userData = await getUserData(user.uid);
         user.username = userData.username;
+        user.language = userData.language;
     }
+    console.log("LingFlix: User data completed:", user);  
+    return user;
 }
