@@ -1,10 +1,13 @@
+import { t } from '@lingui/macro';
 import {
   loginUrl,
   captionsSaveToStorageUrl,
   getCaptionsUrlPost,
   getPlaylistContentUrlPost,
   getPlaylistRegistryUrlPost,
-  getPlayistToRegistryUrl
+  getPlayistToRegistryUrl,
+  getTranslationUrlPost,
+  getTranslationUrlGet,
 } from './../data/configurator';
 import {
   storageDataAttributes,
@@ -95,6 +98,18 @@ export async function fetchRetrievePlayistRegistry(user, language, refetchFromSo
   return result;
 }
 
+export async function getTranslation(user, text, sourceLanguage, targetLanguage) {
+  const textParam = encodeURIComponent(text);
+  const url = getTranslationUrlPost(textParam, sourceLanguage, targetLanguage);
+  const data = {
+    text: text,
+    fromlanguage: sourceLanguage,
+    tolanguage: targetLanguage
+  };
+  const result = await fetchDataFromSourcePost(user, url, data);
+  return result?.translation;
+}
+
 async function fetchDataFromSource(user, url, data) {
   return await fetchDataFromSourcePost(user, url, data);
 }
@@ -111,6 +126,24 @@ async function fetchDataFromSourcePost(user, url, data) {
     method: 'POST',
     headers: headers,
     body: JSON.stringify(data)
+  });
+
+  result = response.ok ? await response.json() : null;
+  return result;
+}
+
+async function fetchDataFromSourceGet(user, url, data) {
+  let result = null;
+  const headers = {
+    'Content-Type': 'application/json'
+  };
+  const token = await user?.getIdToken();
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: headers
   });
 
   result = response.ok ? await response.json() : null;

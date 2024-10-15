@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useImperativeHandle, forwardRef } from "react";
 import VideoRow from "./videoRow";
 import { fetchRetrievePlayistContent } from './helpers/fetchData';
-import { getLearningLanguageName } from "./data/configurator";
 import { t, Trans } from '@lingui/macro';
 
 const VideoListView = forwardRef(({

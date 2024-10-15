@@ -20,6 +20,7 @@ import { CaptionsNavigationControls, CaptionAction } from './captionsNavigationC
 const ExerciseView = forwardRef(({
     user,
     learningLanguage,
+    uiLanguage,
     videoData,
     playlistData,
     captions,
@@ -752,7 +753,15 @@ const ExerciseView = forwardRef(({
                     onCaptionAction={handleCaptionAction}
                     isActive={exerciseStatus === ExerciseStatus.STOPPED}
                 />
-                {settings.toShowCaptions && <CaptionBox caption={currentCaption} />}
+                {
+                    settings.toShowCaptions &&
+                    <CaptionBox
+                        user={user}
+                        caption={currentCaption}
+                        learningLanguage={learningLanguage}
+                        uiLanguage={uiLanguage}
+                    />
+                }
 
 
                 <CaptionsView ref={captionViewRef}

@@ -11,7 +11,11 @@ import {
   cleanUpLocalStorage,
   saveLearningLanguageToLocalStorage,
 } from './helpers/storageHelper';
-import { initLearningLanguage, getLearningLanguageName } from './data/configurator';
+import {
+  initLearningLanguage,
+  getLearningLanguageName,
+  extractCulture,
+} from './data/configurator';
 import TopDropdownMenu from "./topDropdownMenu";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, completeUserData } from "./gc/firebase";
@@ -61,7 +65,7 @@ const App = () => {
   const extractUiLanguage = (user) => {
     let result = 'en';
     if (user) {
-      result = user.language ? user.language.split('-')[0] : 'en';
+      result = extractCulture(user.language);
     }
     return result;
   }
@@ -315,6 +319,7 @@ const App = () => {
           <ExerciseView ref={exerciseViewRef}
             user={user}
             learningLanguage={learningLanguage}
+            uiLanguage={uiLanguage}
             videoData={videoData}
             playlistData={playlistRegistry.find(playlist => playlist.listId === videoData.playlistId)}
             captions={captions}
@@ -342,4 +347,5 @@ const App = () => {
 };
 
 export default App;
+
 

@@ -59,6 +59,29 @@ export function getPlaylistRegistryUrlPost() {
     return url;
 }
 
+export function getTranslationUrlPost() {
+    let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-translate-2-0`;
+    if (inDebugEnv) {
+        url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-translate-test`;
+    }
+    return url;
+}
+export function getTranslationUrlGet(text, fromLanguage, toLanguage) {
+    let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-translate-2-0?text=${text}&from=${fromLanguage}&to=${toLanguage}`;
+    if (inDebugEnv) {
+        url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-translate-test?text=${text}&from=${fromLanguage}&to=${toLanguage}`;
+    }
+    return url;
+}
+
+export function getAssistanceRequestUriPost() {
+    let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-assistance-request-2-0`;
+    if (inDebugEnv) {
+        url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-assistance-request-test`;
+    }
+    return url;
+}
+
 export const languages = [
     { code: 'af-ZA', name: 'Afrikaans', nativeName: 'Afrikaans' },
     { code: 'ar-SA', name: 'Arabic', nativeName: 'العربية' },
@@ -79,7 +102,7 @@ export const languages = [
     { code: 'uk-UA', name: 'Ukrainian', nativeName: 'Українська' }
 ];
 
-function getLanguageName(language) {
+export function getLanguageName(language) {
     const lang = languages.find(l => l.code === language);
     return lang ? lang.name : 'English';
 }
@@ -88,8 +111,9 @@ export function getLearningLanguageName(language) {
     return getLanguageName(language);
 }
 
-export function getLanguageCode(language) {
-    return getLanguageName(language);
+export function extractCulture(language) {
+    const result = language?.split('-')[0] ?? 'en';
+    return result;
 }
 
 export function initLearningLanguage() {
