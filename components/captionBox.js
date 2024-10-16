@@ -5,7 +5,7 @@ import { AiOutlineSound } from "react-icons/ai";
 import { RiInformation2Line } from "react-icons/ri";
 import { getTranslation } from './helpers/fetchData';
 import { extractCulture, getLearningLanguageName, getLanguageName } from './data/configurator';
-import { getAssistanceRequest } from './helpers/assistanceHelper';
+import { getAssistanceRequest, getAssistantPrompt } from './helpers/assistanceHelper';
 
 const CaptionBox = (
     {
@@ -70,26 +70,9 @@ const CaptionBox = (
         } else {
             const textLanguage = extractCulture(learningLanguage);
             const explainInLanguage = extractCulture(user?.language ?? 'en-US');
-            //let prompt = `translate, analyze and explain the following ${textLanguage} text in ${explainInLanguage} for ${explainInLanguage} speaking students learning ${textLanguage} language.`+
-            //` explain grammar, tences, and vocabulary. note possible usage.`;
-            let prompt =
-                `Analyze the following text for a student learning ${textLanguage}, ` +
-                `whose native language is ${explainInLanguage}. ` +
-                `Provide translation, a breakdown of vocabulary, grammar structures, and usage. ` +
-                //`that would be helpful for the student to understand. ` +
-                `Additionally, highlight key phrases or idioms.` +
-                // that might be difficult for the student, ` +
-                //`and suggest related expressions or synonyms. ` +
-                //`Finally, point out any areas that might be particularly challenging ` +
-                //`based on the differences between ${textLanguage} and ${explainInLanguage}.` +
-                `If the text contains a single word and it is a noun, provide all its forms in ${textLanguage}.` +
-                `If the text contains a single word and it is a verb, provide its conjugation table in ${textLanguage}.` +
-                `your response should be in ${explainInLanguage}.`;
-            if (explainInLanguage !== 'English') {
-                prompt = await getTranslation(user, prompt, textLanguage, explainInLanguage);
-            }
+            let prompt = await getAssistantPrompt(user, textLanguage, explainInLanguage);
             const answer = await getAssistanceRequest(user, prompt, textToAnalyze, textLanguage, explainInLanguage);
-            setFormTitle(` Text Analysis`);
+            setFormTitle(`Text Analysis`);
             setFormRows(20);
             setFormCols(80);
             setAnalysisResult(`${answer}`);
