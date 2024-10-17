@@ -15,6 +15,7 @@ import {
   initLearningLanguage,
   getLearningLanguageName,
   extractCulture,
+  loginoutEvents
 } from './data/configurator';
 import TopDropdownMenu from "./topDropdownMenu";
 import { onAuthStateChanged } from "firebase/auth";
@@ -27,6 +28,8 @@ import { messages as ruMessages } from '../src/locales/ru/messages';
 import { messages as afMessages } from '../src/locales/af/messages';
 import { messages as heMessages } from '../src/locales/he/messages';
 import { messages as ukMessages } from '../src/locales/uk/messages';
+import ReactMarkdown from 'react-markdown';
+import { Trans, t } from '@lingui/macro';
 
 i18n.load({
   en: enMessages,
@@ -47,13 +50,63 @@ const App = () => {
   const [uiLanguage, setUiLanguage] = useState('en');
   const [newPlaylistId, setNewPlaylistId] = useState(null);
 
+  const [isMessageModalVisible, setIsMessageModalVisible] = useState(false);
+  const [formTitle, setFormTitle] = useState('');
+  const [formRows, setFormRows] = useState(10);
+  const [formCols, setFormCols] = useState(30);
+  const [modalMessage, setModalMessage] = useState('');
+  const [toShowMarkdown, setToShowMarkdown] = useState(false);
+
   useEffect(() => {
-    i18n.activate(uiLanguage);
+    if (uiLanguage && uiLanguage !== i18n.locale) {
+      i18n.activate(uiLanguage);
+    }
   }, [uiLanguage]);
+
+  const showModal = (title, message, isMarkdown = false, formRows = 5, formCols = 30) => {
+    setFormTitle(title);
+    setModalMessage(message);
+    setFormRows(formRows);
+    setFormCols(formCols);
+    setToShowMarkdown(isMarkdown);
+    setIsMessageModalVisible(true);
+  };
+  const closeModal = () => {
+    i18n.activate(uiLanguage);
+    setIsMessageModalVisible(false);
+  };
 
   const handleSetUser = (newUser) => {
     setUser(newUser);
   }
+
+  const handleLoginLogout = (event, name, language) => {
+    switch (event) {
+      case loginoutEvents.REGISTER_SUCCESS:
+      case loginoutEvents.LOGIN_SUCCESS:
+        i18n.activate(extractCulture(language));
+        showModal(t`Success`, t`Hello ${name}`, false, 5, 30);
+        break;
+      case loginoutEvents.LOGOUT_SUCCESS:
+        i18n.activate(extractCulture(language));
+        showModal(t`Success`, t`Bye-bye ${name}`, false, 5, 30);
+        break;
+      case loginoutEvents.LOGIN_ERROR:
+        i18n.activate(extractCulture(language));
+        showModal(t`Error`, t`Login ${name} failed`, false, 5, 30);
+        break;
+      case loginoutEvents.LOGOUT_ERROR:
+        i18n.activate(extractCulture(language));
+        showModal(t`Error`, t`Logout ${name} failed`, false, 5, 30);
+        break;
+      case loginoutEvents.REGISTER_ERROR:
+        i18n.activate(extractCulture(language));
+        showModal(t`Error`, t`Register ${name} failed, try later`, false, 5, 30);
+        break;
+      default:
+        break;
+    }
+  };
 
   const exerciseViewRef = useRef(null);
   const videolistViewRef = useRef(null);
@@ -314,6 +367,7 @@ const App = () => {
           onReloadPlaylist={handleReloadPlaylist}
           onSavePlaylist={handleSavePlaylist}
           onLearningLanguageChange={handleLearningLanguageChange}
+          onLoginLogout={handleLoginLogout}
         />
         {videoData ? (
           <ExerciseView ref={exerciseViewRef}
@@ -342,6 +396,30 @@ const App = () => {
           </>
         )}
       </div>
+      {isMessageModalVisible && (
+        <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">{formTitle || 'Message'}</h5>
+                <button type="button" className="btn-close" onClick={closeModal}></button>
+              </div>
+              <div className="modal-body">
+                {toShowMarkdown ? (
+                  <div id="assistanceAnswerViewer" className="form-control" style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
+                    <ReactMarkdown>{modalMessage}</ReactMarkdown>
+                  </div>
+                ) : (
+                  <p>{modalMessage}</p>
+                )}
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-primary" onClick={closeModal}>OK</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </I18nProvider>
   );
 };

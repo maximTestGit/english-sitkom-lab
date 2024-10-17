@@ -98,6 +98,15 @@ export function getTextAssistanceUrlPost() {
     return url;
 }
 
+export const loginoutEvents = {
+    REGISTER_SUCCESS: 'register-success',
+    REGISTER_ERROR: 'register-error',
+    LOGIN_SUCCESS: 'login-success',
+    LOGIN_ERROR: 'login-error',
+    LOGOUT_SUCCESS: 'logout-success',
+    LOGOUT_ERROR: 'logout-error',
+};
+
 export const languages = [
     { code: 'af-ZA', name: 'Afrikaans', nativeName: 'Afrikaans' },
     { code: 'ar-SA', name: 'Arabic', nativeName: 'العربية' },

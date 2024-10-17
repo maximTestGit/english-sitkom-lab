@@ -7,6 +7,7 @@ import { getTranslation } from './helpers/fetchData';
 import { extractCulture, getLearningLanguageName, getLanguageName } from './data/configurator';
 import { assistanceRequestFromCloud } from './helpers/assistanceHelper';
 import ReactMarkdown from 'react-markdown';
+import { Trans, t } from '@lingui/macro';
 
 const CaptionBox = (
     {
@@ -17,10 +18,11 @@ const CaptionBox = (
     }) => {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [analysisResult, setAnalysisResult] = useState('');
     const [formTitle, setFormTitle] = useState('');
     const [formRows, setFormRows] = useState(10);
     const [formCols, setFormCols] = useState(30);
+    const [modalMessage, setModalMessage] = useState('');
+    const [toShowMarkdown, setToShowMarkdown] = useState(false);
 
     const getTextToProcess = () => {
         let textToProcess = null;
@@ -36,26 +38,30 @@ const CaptionBox = (
         return textToProcess;
     };
 
+    const showModal = (title, message, isMarkdown = false, formRows = 5, formCols = 30) => {
+        setFormTitle(title);
+        setModalMessage(message);
+        setFormRows(formRows);
+        setFormCols(formCols);
+        setToShowMarkdown(isMarkdown);
+        setIsModalVisible(true);
+    };
+
     const onCaptionTranslate = async () => {
         const textToTranslate = getTextToProcess();
         if (!textToTranslate || textToTranslate.length === 0) {
-            alert('No text to translate');
+            showModal(t`Warning!`, t`No text to translate`);
         } else {
             const fromLanguage = extractCulture(learningLanguage);
             const translatedText = await getTranslation(user, textToTranslate, fromLanguage, uiLanguage);
-            //alert(`"${textToTranslate}"(${fromLanguage}) : "${translatedText}"(${uiLanguage})`);
-            setFormTitle(`Translation`);
-            setFormRows(5);
-            setFormCols(30);
-            setAnalysisResult(`${translatedText}`);
-            setIsModalVisible(true);
+            showModal(t`Translation`, translatedText);
         }
     };
 
     const onCaptionRead = () => {
         const textToReadAloud = getTextToProcess();
         if (!textToReadAloud || textToReadAloud.length === 0) {
-            alert('No text to read');
+            showModal(t`Warning!`, t`No text to read`);
         } else {
             const readLanguage = learningLanguage;
             const utterance = new SpeechSynthesisUtterance(textToReadAloud);
@@ -67,18 +73,14 @@ const CaptionBox = (
     const onCaptionAnalyze = async () => {
         const textToAnalyze = getTextToProcess();
         if (!textToAnalyze || textToAnalyze.length === 0) {
-            alert('No text to analyze');
+            showModal(t`Warning!`, t`No text to analyze`);
         } else {
             const textLanguage = getLanguageName(learningLanguage);
             const explainInLanguage = getLanguageName(user?.language);
             const answer = await assistanceRequestFromCloud(user, textToAnalyze, textLanguage, explainInLanguage);
-            setFormTitle(`Text Analysis`);
-            setFormRows(20);
-            setFormCols(80);
-            setAnalysisResult(`${answer}`);
-            setIsModalVisible(true);
+            showModal(t`Text Analysis`, answer, true, 20, 80);
         };
-    }
+    };
 
     const closeModal = () => {
         setIsModalVisible(false);
@@ -114,13 +116,17 @@ const CaptionBox = (
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">{formTitle}</h5>
+                                <h5 className="modal-title">{formTitle || 'Message'}</h5>
                                 <button type="button" className="btn-close" onClick={closeModal}></button>
                             </div>
                             <div className="modal-body">
-                                <div id="assistanceAnswerViewer" className="form-control" style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
-                                    <ReactMarkdown>{analysisResult}</ReactMarkdown>
-                                </div>
+                                {toShowMarkdown ? (
+                                    <div id="assistanceAnswerViewer" className="form-control" style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
+                                        <ReactMarkdown>{modalMessage}</ReactMarkdown>
+                                    </div>
+                                ) : (
+                                    <p>{modalMessage}</p>
+                                )}
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-primary" onClick={closeModal}>OK</button>

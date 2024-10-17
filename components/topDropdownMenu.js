@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, NavDropdown, Button, Modal, Form } from 'react-bootstrap';
-import { isRunningOnBigScreen, inDebugEnv, languages } from './data/configurator';
+import { 
+    isRunningOnBigScreen, 
+    inDebugEnv, 
+    languages ,
+    loginoutEvents,
+} 
+from './data/configurator';
 import { loadCaptionObjectsFromFile, eventsToSubtitleObjectsFromFile } from './helpers/srtHelper';
 import { signInUser, signOutUser, signUpUser } from './gc/firebase';
 import { cleanUpLocalStorage } from "./helpers/storageHelper";
@@ -18,13 +24,14 @@ const TopDropdownMenu = ({
     onReloadPlaylist,
     onSavePlaylist,
     onLearningLanguageChange,
+    onLoginLogout
 }) => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [verifyPassword, setVerifyPassword] = useState('');
     const [email, setEmail] = useState("");
     const [selectedLanguage, setSelectedLanguage] = useState('en-US');
-    const [showModal, setShowModal] = useState(false);
+    const [showLoginModal, setShowLoginModal] = useState(false);
     const [showRegisterModal, setShowRegisterModal] = useState(false);
     const [isCustomVideoModalOpen, setIsCustomVdeoModalOpen] = useState(false);
     const [customVideoUrl, setCustomVideoUrl] = useState('');
@@ -72,17 +79,17 @@ const TopDropdownMenu = ({
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
         let theUser = await signInUser(email, password);
-        setShowModal(false);
+        setShowLoginModal(false);
         if (theUser) {
-            alert(`Hello ${theUser.username}!`);
+            onLoginLogout(loginoutEvents.LOGIN_SUCCESS, theUser.username, theUser.language);
         } else {
-            alert('Login failed!');
+            onLoginLogout(loginoutEvents.LOGIN_SUCCESS, 'Guest');
         }
     };
 
     const handleLogin = () => {
         if (!user) {
-            setShowModal(true);
+            setShowLoginModal(true);
             onGoHome();
         }
     };
@@ -110,9 +117,9 @@ const TopDropdownMenu = ({
         let theUser = await signUpUser(userName, email, password, selectedLanguage);
         setShowRegisterModal(false);
         if (theUser) {
-            alert(`Hello ${theUser.username}!`);
+            onLoginLogout(loginoutEvents.REGISTER_SUCCESS, theUser.username, selectedLanguage);
         } else {
-            alert('Registration failed!');
+            onLoginLogout(loginoutEvents.REGISTER_ERROR, userName, selectedLanguage);
         }
     };
 
@@ -320,7 +327,7 @@ const TopDropdownMenu = ({
                     </Nav>
                 </Navbar.Collapse>
             </Navbar >
-            <Modal show={showModal} onHide={() => setShowModal(false)}>
+            <Modal show={showLoginModal} onHide={() => setShowLoginModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Login</Modal.Title>
                 </Modal.Header>
