@@ -38,6 +38,7 @@ i18n.load({
   he: heMessages,
   uk: ukMessages,
 });
+i18n.activate('en');
 
 const App = () => {
   const [videoData, setVideoData] = useState(null);
@@ -57,10 +58,13 @@ const App = () => {
   const [modalMessage, setModalMessage] = useState('');
   const [toShowMarkdown, setToShowMarkdown] = useState(false);
 
-  useEffect(() => {
-    if (uiLanguage && uiLanguage !== i18n.locale) {
-      i18n.activate(uiLanguage);
+  const activateUiLanguage = (language) => {
+    if (language && language !== i18n.locale) {
+      i18n.activate(language);
     }
+  };
+  useEffect(() => {
+    activateUiLanguage(uiLanguage);
   }, [uiLanguage]);
 
   const showModal = (title, message, isMarkdown = false, formRows = 5, formCols = 30) => {
@@ -72,7 +76,7 @@ const App = () => {
     setIsMessageModalVisible(true);
   };
   const closeModal = () => {
-    i18n.activate(uiLanguage);
+    activateUiLanguage(uiLanguage);
     setIsMessageModalVisible(false);
   };
 
@@ -84,23 +88,23 @@ const App = () => {
     switch (event) {
       case loginoutEvents.REGISTER_SUCCESS:
       case loginoutEvents.LOGIN_SUCCESS:
-        i18n.activate(extractCulture(language));
+        activateUiLanguage(extractCulture(language));
         showModal(t`Success`, t`Hello ${name}`, false, 5, 30);
         break;
       case loginoutEvents.LOGOUT_SUCCESS:
-        i18n.activate(extractCulture(language));
+        activateUiLanguage(extractCulture(language));
         showModal(t`Success`, t`Bye-bye ${name}`, false, 5, 30);
         break;
       case loginoutEvents.LOGIN_ERROR:
-        i18n.activate(extractCulture(language));
+        activateUiLanguage(extractCulture(language));
         showModal(t`Error`, t`Login ${name} failed`, false, 5, 30);
         break;
       case loginoutEvents.LOGOUT_ERROR:
-        i18n.activate(extractCulture(language));
+        activateUiLanguage(extractCulture(language));
         showModal(t`Error`, t`Logout ${name} failed`, false, 5, 30);
         break;
       case loginoutEvents.REGISTER_ERROR:
-        i18n.activate(extractCulture(language));
+        activateUiLanguage(extractCulture(language));
         showModal(t`Error`, t`Register ${name} failed, try later`, false, 5, 30);
         break;
       default:
