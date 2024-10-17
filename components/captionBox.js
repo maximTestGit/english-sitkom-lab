@@ -5,7 +5,8 @@ import { AiOutlineSound } from "react-icons/ai";
 import { RiInformation2Line } from "react-icons/ri";
 import { getTranslation } from './helpers/fetchData';
 import { extractCulture, getLearningLanguageName, getLanguageName } from './data/configurator';
-import { getAssistanceRequest, getAssistantPrompt } from './helpers/assistanceHelper';
+import { assistanceRequestFromCloud } from './helpers/assistanceHelper';
+import ReactMarkdown from 'react-markdown';
 
 const CaptionBox = (
     {
@@ -68,10 +69,9 @@ const CaptionBox = (
         if (!textToAnalyze || textToAnalyze.length === 0) {
             alert('No text to analyze');
         } else {
-            const textLanguage = extractCulture(learningLanguage);
-            const explainInLanguage = extractCulture(user?.language ?? 'en-US');
-            let prompt = await getAssistantPrompt(user, textLanguage, explainInLanguage);
-            const answer = await getAssistanceRequest(user, prompt, textToAnalyze, textLanguage, explainInLanguage);
+            const textLanguage = getLanguageName(learningLanguage);
+            const explainInLanguage = getLanguageName(user?.language);
+            const answer = await assistanceRequestFromCloud(user, textToAnalyze, textLanguage, explainInLanguage);
             setFormTitle(`Text Analysis`);
             setFormRows(20);
             setFormCols(80);
@@ -118,9 +118,9 @@ const CaptionBox = (
                                 <button type="button" className="btn-close" onClick={closeModal}></button>
                             </div>
                             <div className="modal-body">
-                                <textarea id="message" name="message" readOnly className="form-control" rows={formRows} cols={formCols} style={{ width: '100%', height: '100%' }}>
-                                    {analysisResult}
-                                </textarea>
+                                <div id="assistanceAnswerViewer" className="form-control" style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
+                                    <ReactMarkdown>{analysisResult}</ReactMarkdown>
+                                </div>
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-primary" onClick={closeModal}>OK</button>

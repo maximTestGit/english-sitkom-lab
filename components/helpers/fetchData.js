@@ -7,7 +7,8 @@ import {
   getPlaylistRegistryUrlPost,
   getPlayistToRegistryUrl,
   getTranslationUrlPost,
-  getTranslationUrlGet,
+  getTextAssistanceUrlPost,
+  getWordAssistanceUrlPost,
 } from './../data/configurator';
 import {
   storageDataAttributes,
@@ -113,6 +114,7 @@ export async function getTranslation(user, text, sourceLanguage, targetLanguage)
 async function fetchDataFromSource(user, url, data) {
   return await fetchDataFromSourcePost(user, url, data);
 }
+
 async function fetchDataFromSourcePost(user, url, data) {
   let result = null;
   const headers = {
@@ -199,6 +201,33 @@ export const savePlayistToRegistry = async (user, data) => {
 
   return response.ok;
 }
+
+export async function getWordAssistance(user, word, wordLanguage, answerLanguage) {
+  const url = getWordAssistanceUrlPost();
+  const data = {
+    word: word,
+    wordlanguage: wordLanguage,
+    answerlanguage: answerLanguage
+  };
+  const response = await fetchDataFromSourcePost(user, url, data);
+  const answer = response.answer;
+  console.log('info', `getWordAssistance: data: ${answer}`);
+  return answer;
+}
+
+export async function getTextAssistance(user, text, textLanguage, answerLanguage) {
+  const url = getTextAssistanceUrlPost();
+  const data = {
+    text: text,
+    textlanguage: textLanguage,
+    answerlanguage: answerLanguage
+  };
+  const response = await fetchDataFromSourcePost(user, url, data);
+  const answer = response.answer;
+  console.log('info', `getTextAssistance: data: ${answer}`);
+  return answer;
+}
+
 
 function generateGUID() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

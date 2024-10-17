@@ -82,6 +82,22 @@ export function getAssistanceRequestUriPost() {
     return url;
 }
 
+export function getWordAssistanceUrlPost() {
+    let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-word-assistance-2-0`;
+    if (inDebugEnv) {
+        url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-word-assistance-test`;
+    }
+    return url;
+}
+
+export function getTextAssistanceUrlPost() {
+    let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-text-assistance-2-0`;
+    if (inDebugEnv) {
+        url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-text-assistance-test`;
+    }
+    return url;
+}
+
 export const languages = [
     { code: 'af-ZA', name: 'Afrikaans', nativeName: 'Afrikaans' },
     { code: 'ar-SA', name: 'Arabic', nativeName: 'العربية' },
