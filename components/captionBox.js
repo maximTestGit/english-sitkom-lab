@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { decodeHtml } from './helpers/presentationUtils.js';
 import { PiTranslate } from "react-icons/pi";
 import { AiOutlineSound } from "react-icons/ai";
 import { RiInformation2Line } from "react-icons/ri";
 import { getTranslation } from './helpers/fetchData';
 import { extractCulture, getLearningLanguageName, getLanguageName } from './data/configurator';
-import { assistanceRequestFromCloud } from './helpers/assistanceHelper';
+import {
+    assistanceRequestFromCloud,
+    assistanceExerciseRequestFromCloud,
+} from './helpers/assistanceHelper';
 import ReactMarkdown from 'react-markdown';
 import { Trans, t } from '@lingui/macro';
+import { GoTasklist } from "react-icons/go";
 
 const CaptionBox = (
     {
@@ -22,7 +26,9 @@ const CaptionBox = (
     const [formRows, setFormRows] = useState(10);
     const [formCols, setFormCols] = useState(30);
     const [modalMessage, setModalMessage] = useState('');
+    const [modalUrl, setModalUrl] = useState('');
     const [toShowMarkdown, setToShowMarkdown] = useState(false);
+    const iframeRef = useRef(null);
 
     const getTextToProcess = () => {
         let textToProcess = null;
@@ -46,6 +52,14 @@ const CaptionBox = (
         setToShowMarkdown(isMarkdown);
         setIsModalVisible(true);
     };
+    const showModalUrl = (title, url, formRows = 5, formCols = 30) => {
+        setFormTitle(title);
+        setModalUrl(url);
+        setFormRows(formRows);
+        setFormCols(formCols);
+        setToShowMarkdown(false);
+        setIsModalVisible(true);
+    };
 
     const onCaptionTranslate = async () => {
         const textToTranslate = getTextToProcess();
@@ -63,10 +77,17 @@ const CaptionBox = (
         if (!textToReadAloud || textToReadAloud.length === 0) {
             showModal(t`Warning!`, t`No text to read`);
         } else {
-            const readLanguage = learningLanguage;
-            const utterance = new SpeechSynthesisUtterance(textToReadAloud);
-            utterance.lang = readLanguage;
-            window.speechSynthesis.speak(utterance);
+            if ('speechSynthesis' in window) {
+                const readLanguage = learningLanguage;
+                console.log(`Reading aloud START: ${textToReadAloud} in ${readLanguage}`);
+                const utterance = new SpeechSynthesisUtterance(textToReadAloud);
+                utterance.lang = readLanguage;
+                utterance.volume = 1; // Set volume (0.0 to 1.0)
+                window.speechSynthesis.speak(utterance);
+                console.log(`Reading aloud FINISH: ${textToReadAloud} in ${readLanguage}`);
+            } else {
+                showModal(t`Warning!`, t`Speech synthesis is not supported in this browser.`);
+            }
         }
     };
 
@@ -82,8 +103,28 @@ const CaptionBox = (
         };
     };
 
+    const onCaptionExercise = async () => {
+        const textToExercise = getTextToProcess();
+        if (!textToExercise || textToExercise.length === 0) {
+            showModal(t`Warning!`, t`No text to work out`);
+        } else {
+            const textLanguage = getLanguageName(learningLanguage);
+            const explainInLanguage = getLanguageName(user?.language);
+            let answer = await assistanceExerciseRequestFromCloud(user, textToExercise, textLanguage, explainInLanguage);
+            answer = answer.replace('```html', '');
+            answer = answer.replace('```', '');
+            // Save content to exercise.html file
+            const blob = new Blob([answer], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+
+            showModalUrl(t`Exercise`, url, 20, 80);
+        };
+    };
+
     const closeModal = () => {
         setIsModalVisible(false);
+        setModalUrl('');
+        setModalMessage('');
     };
 
     return (
@@ -107,28 +148,35 @@ const CaptionBox = (
                                 disabled={!caption || !user}>
                                 <RiInformation2Line style={{ width: '100%', height: '100%' }} />
                             </button>
+                            <button className="mb-1" onClick={() => onCaptionExercise()} title="Exercise for current caption"
+                                disabled={!caption || !user}>
+                                <GoTasklist style={{ width: '100%', height: '100%' }} />
+                            </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
             {isModalVisible && (
                 <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                    <div className="modal-dialog">
+                    <div className="modal-dialog modal-fullscreen">
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title">{formTitle || 'Message'}</h5>
                                 <button type="button" className="btn-close" onClick={closeModal}></button>
                             </div>
                             <div className="modal-body">
-                                {toShowMarkdown ? (
+                                {modalUrl && (
+                                    <iframe src={modalUrl} style={{ width: '100%', height: '100%', border: 'none' }}></iframe>
+                                )}
+                                {(!modalUrl && toShowMarkdown) ? (
                                     <div id="assistanceAnswerViewer" className="form-control" style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
                                         <ReactMarkdown>{modalMessage}</ReactMarkdown>
                                     </div>
                                 ) : (
-                                    <p>{modalMessage}</p>
-                                )}
+                                    <p>{modalMessage}</p>)
+                                }
                             </div>
-                            <div className="modal-footer">
+                            <div className="modal-footer justify-content-center">
                                 <button type="button" className="btn btn-primary" onClick={closeModal}>OK</button>
                             </div>
                         </div>

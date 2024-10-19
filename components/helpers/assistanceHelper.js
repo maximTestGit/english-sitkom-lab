@@ -1,6 +1,7 @@
 import {
   getWordAssistance,
-  getTextAssistance
+  getTextAssistance,
+  getExerciseAssistance
 }
   from './fetchData';
 
@@ -18,6 +19,21 @@ export async function assistanceRequestFromCloud(user, content, contentLanguage,
       result = await getTextAssistance(user, content, contentLanguage, answerLanguage);
     }
     console.log('info', `assistanceRequestFromCloud: result: ${result}`);
+    return result;
+  } finally {
+    document.body.style.cursor = 'default';
+  }
+}
+
+export async function assistanceExerciseRequestFromCloud(user, content, contentLanguage, answerLanguage) {
+  if (typeof contentLanguage !== 'string' || typeof answerLanguage !== 'string' || typeof content !== 'string') {
+    throw new Error('assistanceExerciseRequestFromCloud: The Languages and theContent must be strings');
+  }
+  let result = '';
+  try {
+    document.body.style.cursor = 'wait';
+      result = await getExerciseAssistance(user, content, contentLanguage, answerLanguage);
+    console.log('info', `assistanceExerciseRequestFromCloud: result: ${result}`);
     return result;
   } finally {
     document.body.style.cursor = 'default';

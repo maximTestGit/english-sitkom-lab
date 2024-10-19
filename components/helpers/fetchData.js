@@ -9,6 +9,7 @@ import {
   getTranslationUrlPost,
   getTextAssistanceUrlPost,
   getWordAssistanceUrlPost,
+  getExerciseAssistanceUrlPost,
 } from './../data/configurator';
 import {
   storageDataAttributes,
@@ -225,6 +226,19 @@ export async function getTextAssistance(user, text, textLanguage, answerLanguage
   const response = await fetchDataFromSourcePost(user, url, data);
   const answer = response.answer;
   console.log('info', `getTextAssistance: data: ${answer}`);
+  return answer;
+}
+
+export async function getExerciseAssistance(user, text, textLanguage, answerLanguage) {
+  const url = getExerciseAssistanceUrlPost();
+  const data = {
+    text: text,
+    textlanguage: textLanguage,
+    answerlanguage: answerLanguage
+  };
+  const response = await fetchDataFromSourcePost(user, url, data);
+  const answer = response.answer;
+  console.log('info', `getExerciseAssistance: data: ${answer}`);
   return answer;
 }
 

@@ -98,6 +98,15 @@ export function getTextAssistanceUrlPost() {
     return url;
 }
 
+export function getExerciseAssistanceUrlPost() {
+    let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-exercise-assistance-2-0`;
+    if (inDebugEnv) {
+        url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-exercise-assistance-test`;
+    }
+    return url;
+}
+
+
 export const loginoutEvents = {
     REGISTER_SUCCESS: 'register-success',
     REGISTER_ERROR: 'register-error',
