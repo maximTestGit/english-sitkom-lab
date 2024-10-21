@@ -6,8 +6,9 @@ import { RiInformation2Line } from "react-icons/ri";
 import { getTranslation } from './helpers/fetchData';
 import { extractCulture, getLearningLanguageName, getLanguageName } from './data/configurator';
 import {
-    assistanceRequestFromCloud,
-    assistanceExerciseRequestFromCloud,
+    assistanceTextAnalyzeRequest,
+    assistanceExerciseRequest,
+    assistanceReadRequest,
 } from './helpers/assistanceHelper';
 import ReactMarkdown from 'react-markdown';
 import { Trans, t } from '@lingui/macro';
@@ -72,25 +73,38 @@ const CaptionBox = (
         }
     };
 
-    const onCaptionRead = () => {
+    const onCaptionRead = async () => {
         const textToReadAloud = getTextToProcess();
         if (!textToReadAloud || textToReadAloud.length === 0) {
             showModal(t`Warning!`, t`No text to read`);
         } else {
-            if ('speechSynthesis' in window) {
-                const readLanguage = learningLanguage;
-                console.log(`Reading aloud START: ${textToReadAloud} in ${readLanguage}`);
-                const utterance = new SpeechSynthesisUtterance(textToReadAloud);
-                utterance.lang = readLanguage;
-                utterance.volume = 1; // Set volume (0.0 to 1.0)
-                window.speechSynthesis.speak(utterance);
-                console.log(`Reading aloud FINISH: ${textToReadAloud} in ${readLanguage}`);
-            } else {
-                showModal(t`Warning!`, t`Speech synthesis is not supported in this browser.`);
-            }
+            const textLanguage = getLanguageName(learningLanguage);
+            const explainInLanguage = getLanguageName(user?.language);
+            let answer = await assistanceReadRequest(user, textToReadAloud, textLanguage, explainInLanguage);
+            answer = answer.replace('```html', '');
+            answer = answer.replace('```', '');
+
+            const blob = new Blob([answer], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+
+            showModalUrl(t`Pronouncation`, url, 20, 80);
+
+            pronounceText(learningLanguage, textToReadAloud);
         }
     };
 
+    function pronounceText(readLanguage, textToReadAloud) {
+        if ('speechSynthesis' in window) {
+            console.log(`Reading aloud START: ${textToReadAloud} in ${readLanguage}`);
+            const utterance = new SpeechSynthesisUtterance(textToReadAloud);
+            utterance.lang = readLanguage;
+            utterance.volume = 1; // Set volume (0.0 to 1.0)
+            window.speechSynthesis.speak(utterance);
+            console.log(`Reading aloud FINISH: ${textToReadAloud} in ${readLanguage}`);
+        } else {
+            alert(`Speech synthesis is not supported in this browser.`);
+        }
+    }
     const onCaptionAnalyze = async () => {
         const textToAnalyze = getTextToProcess();
         if (!textToAnalyze || textToAnalyze.length === 0) {
@@ -98,7 +112,7 @@ const CaptionBox = (
         } else {
             const textLanguage = getLanguageName(learningLanguage);
             const explainInLanguage = getLanguageName(user?.language);
-            const answer = await assistanceRequestFromCloud(user, textToAnalyze, textLanguage, explainInLanguage);
+            const answer = await assistanceTextAnalyzeRequest(user, textToAnalyze, textLanguage, explainInLanguage);
             showModal(t`Text Analysis`, answer, true, 20, 80);
         };
     };
@@ -110,7 +124,7 @@ const CaptionBox = (
         } else {
             const textLanguage = getLanguageName(learningLanguage);
             const explainInLanguage = getLanguageName(user?.language);
-            let answer = await assistanceExerciseRequestFromCloud(user, textToExercise, textLanguage, explainInLanguage);
+            let answer = await assistanceExerciseRequest(user, textToExercise, textLanguage, explainInLanguage);
             answer = answer.replace('```html', '');
             answer = answer.replace('```', '');
             // Save content to exercise.html file
@@ -188,3 +202,4 @@ const CaptionBox = (
 };
 
 export default CaptionBox;
+

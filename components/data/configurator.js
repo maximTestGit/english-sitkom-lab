@@ -102,6 +102,14 @@ export function getExerciseAssistanceUrlPost() {
     let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-exercise-assistance-2-0`;
     if (inDebugEnv) {
         url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-exercise-assistance-test`;
+        //url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-exercise-assistance-claude-test`;
+    }
+    return url;
+}
+export function getReadAssistanceUrlPost() {
+    let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-read-assistance-2-0`;
+    if (inDebugEnv) {
+        url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-read-assistance-test`;
     }
     return url;
 }

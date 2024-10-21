@@ -10,6 +10,7 @@ import {
   getTextAssistanceUrlPost,
   getWordAssistanceUrlPost,
   getExerciseAssistanceUrlPost,
+  getReadAssistanceUrlPost,
 } from './../data/configurator';
 import {
   storageDataAttributes,
@@ -226,6 +227,18 @@ export async function getTextAssistance(user, text, textLanguage, answerLanguage
   const response = await fetchDataFromSourcePost(user, url, data);
   const answer = response.answer;
   console.log('info', `getTextAssistance: data: ${answer}`);
+  return answer;
+}
+export async function getReadAssistance(user, text, textLanguage, answerLanguage) {
+  const url = getReadAssistanceUrlPost();
+  const data = {
+    text: text,
+    textlanguage: textLanguage,
+    answerlanguage: answerLanguage
+  };
+  const response = await fetchDataFromSourcePost(user, url, data);
+  const answer = response.answer;
+  console.log('info', `getReadAssistance: data: ${answer}`);
   return answer;
 }
 
