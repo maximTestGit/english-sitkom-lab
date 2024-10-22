@@ -79,14 +79,11 @@ async function getWordAssstanceAnswer(theWord, wordLanguage, answerLanguage) {
         `- All forms of the word in ${wordLanguage}. ` +
         `- Several examples of the word usage in ${wordLanguage}. ` +
         `- link to Youglish.com to be opened in the other window in format "https://youglish.com/pronounce/${theWord}/${wordLanguage}". ` +
-        //`The answer should be in ${answerLanguage} as markup formatted text.`;
-        `Your answer must contain an HTML page only! ` +
-        //`without any presentations, comments or explanations.` +
-        //`it must be located in the center of the screen and
-        //` it must have a border. ` +
+        `your answer must be in  ${answerLanguage}. ` +
+        `It must be formatted as an HTML page! ` +
         `in case a line of text contans both left-to-right and right-to-left languages, ` +
         `the line must be splitted into two lines. ` +
-        `your answer must start with <!DOCTYPE html> tag and finish with </html> tag.`;
+        `your response must start with <!DOCTYPE html> tag and finish with </html> tag.`;
 
     const apiKey = process.env.OPENAI_API_KEY;
     const url = 'https://api.openai.com/v1/chat/completions';
@@ -99,13 +96,13 @@ async function getWordAssstanceAnswer(theWord, wordLanguage, answerLanguage) {
     };
 
     const data = {
-        model: 'gpt-4o-mini',
+        model: 'gpt-4o',
         messages: [
             { role: 'system', content: prompt },
             { role: 'user', content: theContent }
         ],
         max_tokens: 1000,
-        temperature: 0.3
+        temperature: 0.5
     };
 
     const options = {

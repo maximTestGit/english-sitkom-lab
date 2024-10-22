@@ -92,13 +92,13 @@ async function getReadAssistanceAnswer(theText, textLanguage, answerLanguage, pr
     };
 
     const data = {
-        model: 'gpt-4o-mini',
+        model: 'gpt-4o',
         messages: [
             { role: 'system', content: prompt },
             { role: 'user', content: theContent }
         ],
         max_tokens: 1000,
-        temperature: 0.3
+        temperature: 0.5
     };
 
     const options = {

@@ -45,7 +45,7 @@ exports.assistanceRequest = async (req, res) => {
     };
 
     const data = {
-        model: 'gpt-3.5-turbo',
+        model: 'gpt-4o',
         messages: [
             { role: 'system', content: prompt },
             { role: 'user', content: theContent }
