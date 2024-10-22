@@ -58,7 +58,7 @@ exports.getWordAssstance = async (req, res) => {
             }
 
             console.log(`getWordAssstance: ${theWord}(${wordLanguage}) in ${answerLanguage}`);
-            var answer = await getWordAssstanceAnswer(theWord, wordLanguage, context);
+            var answer = await getWordAssstanceAnswer(theWord, wordLanguage, answerLanguage);
             console.log(`getWordAssstance: ${theWord}(${wordLanguage}) in ${answerLanguage}: ${answer}`);
             res.status(200).send({ answer: answer });
         } catch (error) {
@@ -67,7 +67,7 @@ exports.getWordAssstance = async (req, res) => {
         }
     })
 }
-async function getWordAssstanceAnswer(theWord, wordLanguage, answerLanguage, context) {
+async function getWordAssstanceAnswer(theWord, wordLanguage, answerLanguage) {
     let result = '';
     const prompt =
         `You are a smart and experienced ${wordLanguage} teacher for ${answerLanguage} speaking students. ` +
@@ -78,11 +78,20 @@ async function getWordAssstanceAnswer(theWord, wordLanguage, answerLanguage, con
         `- If it's a verb, then the infinitive form. ` +
         `- All forms of the word in ${wordLanguage}. ` +
         `- Several examples of the word usage in ${wordLanguage}. ` +
-        `The answer should be in ${answerLanguage} as markup formatted text.`;
+        `- link to Youglish.com to be opened in the other window in format "https://youglish.com/pronounce/${theWord}/${wordLanguage}". ` +
+        //`The answer should be in ${answerLanguage} as markup formatted text.`;
+        `Your answer must contain an HTML page only! ` +
+        //`without any presentations, comments or explanations.` +
+        //`it must be located in the center of the screen and
+        //` it must have a border. ` +
+        `in case a line of text contans both left-to-right and right-to-left languages, ` +
+        `the line must be splitted into two lines. ` +
+        `your answer must start with <!DOCTYPE html> tag and finish with </html> tag.`;
 
     const apiKey = process.env.OPENAI_API_KEY;
     const url = 'https://api.openai.com/v1/chat/completions';
     const theContent = theWord;
+    console.log(`getWordAssstance::getWordAssstanceAnswer prompt: ${prompt}`);
 
     const headers = {
         'Content-Type': 'application/json',

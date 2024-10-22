@@ -65,14 +65,21 @@ exports.getTextAssistance = async (req, res) => {
         }
     })
 }
-async function getTextAssistanceAnswer(theText, textLanguage, answerLanguage, promptLanguage = 'English') {
+async function getTextAssistanceAnswer(theText, textLanguage, answerLanguage) {
     let result = '';
     const prompt =
         `Analyze the following text for a student learning ${textLanguage}, ` +
         `whose native language is ${answerLanguage}. ` +
-        `Provide translation, a breakdown of vocabulary, grammar structures, and usage. ` +
+        `Provide translation to ${answerLanguage}, a breakdown of vocabulary, grammar structures, and usage. ` +
         `Additionally, highlight key phrases or idioms.` +
-        `Your response should be in ${answerLanguage}.`;
+        `Your response should be in ${answerLanguage}.` +
+        `Your answer must contain an HTML page only! ` +
+        //`without any presentations, comments or explanations.` +
+        //`it must be located in the center of the screen and 
+        `it must have a border. ` +
+        `in case a line of text contans both left-to-right and right-to-left languages, ` +
+        `the line must be splitted into two lines. ` +
+        `your answer must start with <!DOCTYPE html> tag and finish with </html> tag.`;
 
     const apiKey = process.env.OPENAI_API_KEY;
     const url = 'https://api.openai.com/v1/chat/completions';
@@ -83,6 +90,7 @@ async function getTextAssistanceAnswer(theText, textLanguage, answerLanguage, pr
         'Authorization': `Bearer ${apiKey}`
     };
 
+    console.log(`getTextAssistance::getTextAssistanceAnswer prompt: ${prompt}`);
     const data = {
         model: 'gpt-4o-mini',
         messages: [

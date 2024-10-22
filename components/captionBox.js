@@ -28,8 +28,21 @@ const CaptionBox = (
     const [formCols, setFormCols] = useState(30);
     const [modalMessage, setModalMessage] = useState('');
     const [modalUrl, setModalUrl] = useState('');
-    const [toShowMarkdown, setToShowMarkdown] = useState(false);
-    const iframeRef = useRef(null);
+    //const [toShowMarkdown, setToShowMarkdown] = useState(false);
+    //const iframeRef = useRef(null);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+    const handleButtonClick = async (action) => {
+        try {
+            document.body.style.cursor = 'wait';
+            setIsButtonDisabled(true);
+            await action();
+            setIsButtonDisabled(false);
+        } finally {
+            document.body.style.cursor = 'default';
+        }
+    };
+
 
     const getTextToProcess = () => {
         let textToProcess = null;
@@ -45,12 +58,12 @@ const CaptionBox = (
         return textToProcess;
     };
 
-    const showModal = (title, message, isMarkdown = false, formRows = 5, formCols = 30) => {
+    const showModal = (title, message, formRows = 5, formCols = 30) => {
         setFormTitle(title);
         setModalMessage(message);
         setFormRows(formRows);
         setFormCols(formCols);
-        setToShowMarkdown(isMarkdown);
+        //setToShowMarkdown(isMarkdown);
         setIsModalVisible(true);
     };
     const showModalUrl = (title, url, formRows = 5, formCols = 30) => {
@@ -58,7 +71,7 @@ const CaptionBox = (
         setModalUrl(url);
         setFormRows(formRows);
         setFormCols(formCols);
-        setToShowMarkdown(false);
+        //setToShowMarkdown(false);
         setIsModalVisible(true);
     };
 
@@ -112,8 +125,14 @@ const CaptionBox = (
         } else {
             const textLanguage = getLanguageName(learningLanguage);
             const explainInLanguage = getLanguageName(user?.language);
-            const answer = await assistanceTextAnalyzeRequest(user, textToAnalyze, textLanguage, explainInLanguage);
-            showModal(t`Text Analysis`, answer, true, 20, 80);
+            let answer = await assistanceTextAnalyzeRequest(user, textToAnalyze, textLanguage, explainInLanguage);
+            answer = answer.replace('```html', '');
+            answer = answer.replace('```', '');
+            // Save content to exercise.html file
+            const blob = new Blob([answer], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+
+            showModalUrl(t`Analizys`, url, 20, 80);
         };
     };
 
@@ -149,21 +168,21 @@ const CaptionBox = (
                         <td className="fw-bold fs-6">
                             {caption && decodeHtml(caption?.text)}
                         </td>
-                        <td style={{ width: '50px', height: '50px', border: 'none', backgroundColor: 'white' }}>
-                            <button className="mb-1" onClick={() => onCaptionTranslate()} title="Translate current caption"
-                                disabled={!caption || !user}>
+                        <td id="tdCaptionActions" style={{ width: '50px', height: '50px', border: 'none', backgroundColor: 'white' }}>
+                            <button className="mb-1" onClick={() => handleButtonClick(onCaptionTranslate)} title="Translate current caption"
+                                disabled={!caption || !user || isButtonDisabled}>
                                 <PiTranslate style={{ width: '100%', height: '100%' }} />
                             </button>
-                            <button className="mb-1" onClick={() => onCaptionRead()} title="Read current caption"
-                                disabled={!caption || !user}>
+                            <button className="mb-1" onClick={() => handleButtonClick(onCaptionRead)} title="Read current caption"
+                                disabled={!caption || !user || isButtonDisabled}>
                                 <AiOutlineSound style={{ width: '100%', height: '100%' }} />
                             </button>
-                            <button className="mb-1" onClick={() => onCaptionAnalyze()} title="Analyze current caption"
-                                disabled={!caption || !user}>
+                            <button className="mb-1" onClick={() => handleButtonClick(onCaptionAnalyze)} title="Analyze current caption"
+                                disabled={!caption || !user || isButtonDisabled}>
                                 <RiInformation2Line style={{ width: '100%', height: '100%' }} />
                             </button>
-                            <button className="mb-1" onClick={() => onCaptionExercise()} title="Exercise for current caption"
-                                disabled={!caption || !user}>
+                            <button className="mb-1" onClick={() => handleButtonClick(onCaptionExercise)} title="Exercise for current caption"
+                                disabled={!caption || !user || isButtonDisabled}>
                                 <GoTasklist style={{ width: '100%', height: '100%' }} />
                             </button>
                         </td>
@@ -179,13 +198,8 @@ const CaptionBox = (
                                 <button type="button" className="btn-close" onClick={closeModal}></button>
                             </div>
                             <div className="modal-body">
-                                {modalUrl && (
+                                {modalUrl ? (
                                     <iframe src={modalUrl} style={{ width: '100%', height: '100%', border: 'none' }}></iframe>
-                                )}
-                                {(!modalUrl && toShowMarkdown) ? (
-                                    <div id="assistanceAnswerViewer" className="form-control" style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
-                                        <ReactMarkdown>{modalMessage}</ReactMarkdown>
-                                    </div>
                                 ) : (
                                     <p>{modalMessage}</p>)
                                 }

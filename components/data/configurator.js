@@ -1,8 +1,18 @@
 import { isMobile } from 'react-device-detect';
 import { fetchLearningLanguageFromLocalStorage } from '../helpers/storageHelper';
 
-export const inDebugEnv = process.env.NODE_ENV === 'development';
+export const inDebugEnv = isIndevEnvironment();
+console.log(`running in DebugEnv=${inDebugEnv}`);
 export const isRunningOnBigScreen = !isMobile;
+
+function isIndevEnvironment() {
+    try {
+        require.resolve('./.dev')
+        return true
+    } catch (error) {
+        return false
+    }
+}
 
 export function getYoutubeUrl(videoId) {
     return `https://www.youtube.com/embed/${videoId}`;
