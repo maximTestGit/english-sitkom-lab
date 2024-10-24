@@ -109,7 +109,7 @@ const CaptionBox = (
             const blob = new Blob([answer], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
 
-            showModalUrl(t`Pronouncation`, url, 20, 80);
+            showModalUrl(t`Pronunciation`, url, 20, 80);
 
             pronounceText(learningLanguage, textToReadAloud);
         }
@@ -141,14 +141,14 @@ const CaptionBox = (
             const blob = new Blob([answer], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
 
-            showModalUrl(t`Analizys`, url, 20, 80);
+            showModalUrl(t`Analysis`, url, 20, 80);
         };
     };
 
     const onCaptionExercise = async () => {
         const textToExercise = getTextToProcess();
         if (!textToExercise || textToExercise.length === 0) {
-            showModal(t`Warning!`, t`No text to work out`);
+            showModal(t`Warning!`, t`Select text to process`);
         } else {
             const textLanguage = getLanguageName(learningLanguage);
             const explainInLanguage = getLanguageName(user?.language);
@@ -175,7 +175,7 @@ const CaptionBox = (
             setIsButtonDisabled(true);
             let textToProcess = getTextToProcess(true);
             if (!textToProcess) {
-                showModal(t`Warning!`, t`No text selected`);
+                showModal(t`Warning!`, t`Select text to process`);
             } else {
                 await action(textToProcess);
             }
@@ -187,7 +187,7 @@ const CaptionBox = (
     const onAddSelectionToDict = async (textToProcess) => {
         const frontLanguage = extractCulture(learningLanguage);
         await saveTextToFlashcards(user, textToProcess, frontLanguage, uiLanguage, videoData.videoId, parseFloat(caption.start));
-        showModal(t`Success`, t`"${textToProcess}" is added to your flashcard collection`);
+        showModal(t`Success`, t`Entry "${textToProcess}" is added to your flashcard collection`);
     }
 
     return (

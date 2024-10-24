@@ -390,7 +390,7 @@ const TopDropdownMenu = ({
                         {user && (
                             < NavDropdown title={<Trans>Flashcards</Trans>} id="tools-dropdown">
                                 <NavDropdown.Item onClick={handleFlashcardsCollectionView}><Trans>View Colection</Trans></NavDropdown.Item>
-                                <NavDropdown.Item onClick={handleFlashcardsCollectionSession}><Trans>Start Session</Trans></NavDropdown.Item>
+                                <NavDropdown.Item onClick={handleFlashcardsCollectionSession}><Trans>Start Test</Trans></NavDropdown.Item>
                             </NavDropdown>
                         )}
                         {!videoData && (
