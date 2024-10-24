@@ -362,6 +362,7 @@ const App = () => {
         <TopDropdownMenu
           user={user}
           videoData={videoData}
+          learningLanguage={learningLanguage}
           onCustomVideoOpen={handleCustomVideoOpen}
           onExerciseOpen={handleExerciseOpen}
           onGoHome={handleExerciseExit}

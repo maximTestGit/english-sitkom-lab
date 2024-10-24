@@ -5,8 +5,7 @@ import {
     inDebugEnv,
     languages,
     loginoutEvents,
-    extractCulture,
-    learningLanguage
+    extractCulture
 }
     from './data/configurator';
 import { loadCaptionObjectsFromFile, eventsToSubtitleObjectsFromFile } from './helpers/srtHelper';
@@ -19,6 +18,7 @@ import FlashcardExam from './flashcardExam';
 const TopDropdownMenu = ({
     user,
     videoData,
+    learningLanguage,
     onCustomVideoOpen,
     onExerciseOpen,
     onGoHome,
