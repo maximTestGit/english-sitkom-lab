@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getCultureLanguageName } from './data/configurator';
 
 const FlashcardExam = ({ cards, onAnswer }) => {
     const [shuffledCards, setShuffledCards] = useState([]);
@@ -46,7 +47,7 @@ const FlashcardExam = ({ cards, onAnswer }) => {
 
     const openYouglish = () => {
         const text = currentCard.front;
-        window.open(`https://youglish.com/pronounce/${encodeURIComponent(text)}/${currentCard.language}`, '_blank');
+        window.open(`https://youglish.com/pronounce/${encodeURIComponent(text)}/${getCultureLanguageName(currentCard.language)}`, '_blank');
     };
 
     const questionText = currentCard.inverted ? currentCard.back : currentCard.front;

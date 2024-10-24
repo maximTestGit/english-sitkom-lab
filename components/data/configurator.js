@@ -184,6 +184,12 @@ export function extractCulture(language) {
     return result;
 }
 
+export function getCultureLanguageName(culture) {
+    const lang = languages.find(l => l.code.startsWith(culture));
+    return lang ? lang.name : 'English';
+}
+
+
 export function initLearningLanguage() {
     let result = fetchLearningLanguageFromLocalStorage();
     result = result || process.env.NEXT_PUBLIC_LEARNING_LANGUAGE // vercel env.var.
