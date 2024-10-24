@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, NavDropdown, Button, Modal, Form } from 'react-bootstrap';
-import { 
-    isRunningOnBigScreen, 
-    inDebugEnv, 
-    languages ,
+import {
+    isRunningOnBigScreen,
+    inDebugEnv,
+    languages,
     loginoutEvents,
-} 
-from './data/configurator';
+    extractCulture,
+    learningLanguage
+}
+    from './data/configurator';
 import { loadCaptionObjectsFromFile, eventsToSubtitleObjectsFromFile } from './helpers/srtHelper';
 import { signInUser, signOutUser, signUpUser } from './gc/firebase';
 import { cleanUpLocalStorage } from "./helpers/storageHelper";
 import { t, Trans } from '@lingui/macro';
+import { getFlashcardsCollection } from './helpers/fetchData';
+import FlashcardExam from './flashcardExam';
 
 const TopDropdownMenu = ({
     user,
@@ -41,6 +45,10 @@ const TopDropdownMenu = ({
     const [showPlaylistModal, setShowPlaylistModal] = useState(false);
     const [showSettingsModal, setShowSettingsModal] = useState(false);
     const [newLearningLanguage, setNewLearningLanguage] = useState('');
+    const [showFlashcardsModal, setShowFlashcardsModal] = useState(false);
+    const [flashcards, setFlashcards] = useState([]);
+    const [showFlashcardExamViewModal, setShowFlashcardExamViewModal] = useState(false);
+    const [examCards, setExamCards] = useState([]);
 
     const handleCleanupMem = () => {
         cleanUpLocalStorage(true);
@@ -261,6 +269,79 @@ const TopDropdownMenu = ({
         setShowSettingsModal(false);
     };
 
+    function normalizeFlashcardsCollection(flashcardsCollection) {
+        return flashcardsCollection.map(flashcard => {
+            return {
+                ...flashcard,
+                nextReview: flashcard.nextReview ?
+                    (new Date(flashcard.nextReview._seconds * 1000 +
+                        flashcard.nextReview._nanoseconds / 1000000))
+                        .toDateString() :
+                    null,
+                created: flashcard.created ?
+                    (new Date(flashcard.created._seconds * 1000 +
+                        flashcard.created._nanoseconds / 1000000))
+                        .toDateString() :
+                    null,
+                nextReview: flashcard.lastReviewed ?
+                    (new Date(flashcard.lastReviewed._seconds * 1000 +
+                        flashcard.lastReviewed._nanoseconds / 1000000))
+                        .toDateString() :
+                    null,
+            };
+        });
+    }
+
+
+    const handleFlashcardsCollectionView = async () => {
+        document.body.style.cursor = 'wait';
+        try {
+            const flashcardsCollection = await getFlashcardsCollection(user, extractCulture(learningLanguage));
+            const newFlashcards = normalizeFlashcardsCollection(flashcardsCollection);
+            setFlashcards(newFlashcards);
+            console.log('Flashcards Collection:', flashcardsCollection);
+            setShowFlashcardsModal(true)
+        } finally {
+            document.body.style.cursor = 'default';
+        }
+    }
+    const handleFlashcardsCollectionViewClose = () => {
+        setFlashcards([]);
+        setShowFlashcardsModal(false);
+    };
+
+    const handleFlashcardsCollectionSession = async () => {
+        document.body.style.cursor = 'wait';
+        try {
+            const flashcardsCollection = await getFlashcardsCollection(user, extractCulture(learningLanguage), 10);
+            const newFlashcards = normalizeFlashcardsCollection(flashcardsCollection);
+            setFlashcards(newFlashcards);
+            console.log('Flashcards Collection:', flashcardsCollection);
+            const cards = flashcardsCollection.map(flashcard => {
+                return {
+                    cardId: flashcard.cardId,
+                    front: flashcard.front,
+                    back: flashcard.back,
+                    language: flashcard.frontLanguage,
+                    videoId: flashcard.videoId,
+                    seconds: flashcard.seconds
+                };
+            });
+            setExamCards(cards);
+            setShowFlashcardExamViewModal(true);
+        } finally {
+            document.body.style.cursor = 'default';
+        }
+    };
+    const handleAnswer = (cardId, inverted, isCorrect) => {
+        console.log(`Card ${cardId} answered ${isCorrect ? 'correctly' : 'incorrectly'}`);
+    };
+
+    const handleFlashcardExamViewClose = () => {
+        setExamCards([]);
+        setShowFlashcardExamViewModal(false);
+    };
+
     return (
         <>
             <Navbar bg="light" expand="sm">
@@ -304,6 +385,12 @@ const TopDropdownMenu = ({
                         {!user && !videoData && (
                             < NavDropdown title={<Trans>Tools</Trans>} id="tools-dropdown">
                                 <NavDropdown.Item onClick={handleOpenSettings}><Trans>Open Settings</Trans></NavDropdown.Item>
+                            </NavDropdown>
+                        )}
+                        {user && (
+                            < NavDropdown title={<Trans>Flashcards</Trans>} id="tools-dropdown">
+                                <NavDropdown.Item onClick={handleFlashcardsCollectionView}><Trans>View Colection</Trans></NavDropdown.Item>
+                                <NavDropdown.Item onClick={handleFlashcardsCollectionSession}><Trans>Start Session</Trans></NavDropdown.Item>
                             </NavDropdown>
                         )}
                         {!videoData && (
@@ -458,8 +545,54 @@ const TopDropdownMenu = ({
                     </div>
                 </div>
             )}
+            <Modal show={showFlashcardsModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Flashcards Collection</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {flashcards.map((flashcard, index) => (
+                        <div key={index}>
+                            <p><strong>Front:</strong> {flashcard.front}</p>
+                            <p><strong>Back:</strong> {flashcard.back}</p>
+                            <p><strong>Front Language:</strong> {flashcard.frontLanguage}</p>
+                            <p><strong>Back Language:</strong> {flashcard.backLanguage}</p>
+                            <p><strong>Box:</strong> {flashcard.box}</p>
+                            <p><strong>Collection:</strong> {flashcard.collection}</p>
+                            <p><strong>Next Review:</strong> {flashcard.nextReview}</p>
+                            <p><strong>Created:</strong> {flashcard.created}</p>
+                            <p><strong>Last Reviewed:</strong> {flashcard.lastReviewed}</p>
+                            {/* <p><strong>User ID:</strong> {flashcard.userId}</p> */}
+                            <p><strong>Video ID:</strong> {flashcard.videoId}</p>
+                            <p><strong>Seconds:</strong> {flashcard.seconds}</p>
+                            <hr />
+                        </div>
+                    ))}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleFlashcardsCollectionViewClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={showFlashcardExamViewModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Flashcards Exam</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <FlashcardExam
+                        cards={examCards}
+                        onAnswer={handleAnswer}
+                    />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleFlashcardExamViewClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
 };
 
 export default TopDropdownMenu;
+

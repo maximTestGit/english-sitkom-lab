@@ -11,6 +11,8 @@ import {
   getWordAssistanceUrlPost,
   getExerciseAssistanceUrlPost,
   getReadAssistanceUrlPost,
+  getSaveFlashcardUrlPost,
+  getFlashcardsCollectionUrlPost
 } from './../data/configurator';
 import {
   storageDataAttributes,
@@ -113,6 +115,22 @@ export async function getTranslation(user, text, sourceLanguage, targetLanguage)
   return result?.translation;
 }
 
+export async function saveTextToFlashcards(user, text, frontLanguage, backLanguage, videoId, seconds) {
+  const decodedFront = decodeURIComponent(text);
+  const back = await getTranslation(user, decodedFront, frontLanguage, backLanguage);
+  console.log('info', `saveTextToFlashcards: back: ${back}`);
+  const url = getSaveFlashcardUrlPost();
+  const data = {
+    frontLanguage,
+    backLanguage,
+    front: text,
+    back,
+    videoId,
+    seconds
+  };
+  await fetchDataFromSourcePost(user, url, data);
+}
+
 async function fetchDataFromSource(user, url, data) {
   return await fetchDataFromSourcePost(user, url, data);
 }
@@ -136,7 +154,7 @@ async function fetchDataFromSourcePost(user, url, data) {
   return result;
 }
 
-async function fetchDataFromSourceGet(user, url, data) {
+async function fetchDataFromSourceGet(user, url) {
   let result = null;
   const headers = {
     'Content-Type': 'application/json'
@@ -255,6 +273,18 @@ export async function getExerciseAssistance(user, text, textLanguage, answerLang
   return answer;
 }
 
+export async function getFlashcardsCollection(user, language, top=undefined, collectionName = 'default') {
+  const url = getFlashcardsCollectionUrlPost();
+  const data = {
+    language,
+    collectionName,
+    top,
+  };
+  const response = await fetchDataFromSourcePost(user, url, data);
+  const result = response.collection;
+  console.log('info', `getFlashcardsCollection: result: ${result}`);
+  return result;
+}
 
 function generateGUID() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

@@ -125,6 +125,21 @@ export function getReadAssistanceUrlPost() {
     return url;
 }
 
+export function getSaveFlashcardUrlPost() {
+    let url = `https://me-west1-youtube-project-404109.cloudfunctions.net/function-create-flashcard-2-0`;
+    if (inDebugEnv) {
+        url = `https://me-west1-youtube-project-404109.cloudfunctions.net/function-create-flashcard-test`;
+    }
+    return url;
+}
+
+export function getFlashcardsCollectionUrlPost() {
+    let url = `https://me-west1-youtube-project-404109.cloudfunctions.net/function-get-flashcards-2-0`;
+    if (inDebugEnv) {
+        url = `https://me-west1-youtube-project-404109.cloudfunctions.net/function-get-flashcards-test`;
+    }
+    return url;
+}
 
 export const loginoutEvents = {
     REGISTER_SUCCESS: 'register-success',

@@ -760,6 +760,7 @@ const ExerciseView = forwardRef(({
                         caption={currentCaption}
                         learningLanguage={learningLanguage}
                         uiLanguage={uiLanguage}
+                        videoData={videoData}
                     />
                 }
 

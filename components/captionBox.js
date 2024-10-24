@@ -3,16 +3,24 @@ import { decodeHtml } from './helpers/presentationUtils.js';
 import { PiTranslate } from "react-icons/pi";
 import { AiOutlineSound } from "react-icons/ai";
 import { RiInformation2Line } from "react-icons/ri";
-import { getTranslation } from './helpers/fetchData';
-import { extractCulture, getLearningLanguageName, getLanguageName } from './data/configurator';
+import {
+    getTranslation,
+    saveTextToFlashcards,
+} from './helpers/fetchData';
+import {
+    extractCulture,
+    getLearningLanguageName,
+    getLanguageName
+} from './data/configurator';
 import {
     assistanceTextAnalyzeRequest,
     assistanceExerciseRequest,
-    assistanceReadRequest,
+    assistanceReadRequest
 } from './helpers/assistanceHelper';
-import ReactMarkdown from 'react-markdown';
+//import ReactMarkdown from 'react-markdown';
 import { Trans, t } from '@lingui/macro';
 import { GoTasklist } from "react-icons/go";
+import { PiCardsThree } from "react-icons/pi";
 
 const CaptionBox = (
     {
@@ -20,6 +28,7 @@ const CaptionBox = (
         caption,
         learningLanguage,
         uiLanguage,
+        videoData
     }) => {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -32,7 +41,7 @@ const CaptionBox = (
     //const iframeRef = useRef(null);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-    const handleButtonClick = async (action) => {
+    const handleCaptionButtonClick = async (action) => {
         try {
             document.body.style.cursor = 'wait';
             setIsButtonDisabled(true);
@@ -44,11 +53,11 @@ const CaptionBox = (
     };
 
 
-    const getTextToProcess = () => {
+    const getTextToProcess = (selectionOnly = false) => {
         let textToProcess = null;
         if (caption) {
             textToProcess = window.getSelection()?.toString();
-            if (!textToProcess || textToProcess.length === 0) {
+            if (!selectionOnly && (!textToProcess || textToProcess.length === 0)) {
                 textToProcess = caption.text;
             }
         }
@@ -160,28 +169,55 @@ const CaptionBox = (
         setModalMessage('');
     };
 
+    const handleSelectedButtonClick = async (action) => {
+        try {
+            document.body.style.cursor = 'wait';
+            setIsButtonDisabled(true);
+            let textToProcess = getTextToProcess(true);
+            if (!textToProcess) {
+                showModal(t`Warning!`, t`No text selected`);
+            } else {
+                await action(textToProcess);
+            }
+            setIsButtonDisabled(false);
+        } finally {
+            document.body.style.cursor = 'default';
+        }
+    }
+    const onAddSelectionToDict = async (textToProcess) => {
+        const frontLanguage = extractCulture(learningLanguage);
+        await saveTextToFlashcards(user, textToProcess, frontLanguage, uiLanguage, videoData.videoId, parseFloat(caption.start));
+        showModal(t`Success`, t`"${textToProcess}" is added to your flashcard collection`);
+    }
+
     return (
         <>
             <table className={`table table-bordered text-center mt-1 ${caption?.checked ? "table-warning" : ""}`} style={{ height: '80px' }}>
                 <tbody>
                     <tr>
+                        <td id="tdCaptionAddintionalActions" style={{ width: '50px', height: '50px', border: 'none', backgroundColor: 'white' }}>
+                            <button className="mb-1" onClick={() => handleSelectedButtonClick(onAddSelectionToDict)} title="Add selected text to flashcard colection"
+                                disabled={!caption || !user || isButtonDisabled}>
+                                <PiCardsThree style={{ width: '100%', height: '100%' }} />
+                            </button>
+                        </td>
                         <td className="fw-bold fs-6">
                             {caption && decodeHtml(caption?.text)}
                         </td>
                         <td id="tdCaptionActions" style={{ width: '50px', height: '50px', border: 'none', backgroundColor: 'white' }}>
-                            <button className="mb-1" onClick={() => handleButtonClick(onCaptionTranslate)} title="Translate current caption"
+                            <button className="mb-1" onClick={() => handleCaptionButtonClick(onCaptionTranslate)} title="Translate current caption"
                                 disabled={!caption || !user || isButtonDisabled}>
                                 <PiTranslate style={{ width: '100%', height: '100%' }} />
                             </button>
-                            <button className="mb-1" onClick={() => handleButtonClick(onCaptionRead)} title="Read current caption"
+                            <button className="mb-1" onClick={() => handleCaptionButtonClick(onCaptionRead)} title="Read current caption"
                                 disabled={!caption || !user || isButtonDisabled}>
                                 <AiOutlineSound style={{ width: '100%', height: '100%' }} />
                             </button>
-                            <button className="mb-1" onClick={() => handleButtonClick(onCaptionAnalyze)} title="Analyze current caption"
+                            <button className="mb-1" onClick={() => handleCaptionButtonClick(onCaptionAnalyze)} title="Analyze current caption"
                                 disabled={!caption || !user || isButtonDisabled}>
                                 <RiInformation2Line style={{ width: '100%', height: '100%' }} />
                             </button>
-                            <button className="mb-1" onClick={() => handleButtonClick(onCaptionExercise)} title="Exercise for current caption"
+                            <button className="mb-1" onClick={() => handleCaptionButtonClick(onCaptionExercise)} title="Exercise for current caption"
                                 disabled={!caption || !user || isButtonDisabled}>
                                 <GoTasklist style={{ width: '100%', height: '100%' }} />
                             </button>
