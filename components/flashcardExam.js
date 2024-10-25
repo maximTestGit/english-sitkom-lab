@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getCultureLanguageName } from './data/configurator';
 
-const FlashcardExam = ({ cards, onAnswer }) => {
+const FlashcardExam = ({ cards, onIKnowIt }) => {
     const [shuffledCards, setShuffledCards] = useState([]);
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
     const [isFlipped, setIsFlipped] = useState(false);
@@ -36,7 +36,11 @@ const FlashcardExam = ({ cards, onAnswer }) => {
         const result = cardList.filter(card => {
             const isInvertedCorrect = isAlreadyCorrect({ cardId: card.cardId, inverted: true });
             const isNotInvertedCorrect = isAlreadyCorrect({ cardId: card.cardId, inverted: false });
-            return !isInvertedCorrect || !isNotInvertedCorrect;
+            const iKnowIt = isInvertedCorrect && isNotInvertedCorrect;
+            if (iKnowIt) {
+                onIKnowIt(currentCard.cardId, true);
+            }
+            return !iKnowIt;
         });
         return result;
     }
@@ -72,7 +76,6 @@ const FlashcardExam = ({ cards, onAnswer }) => {
                 setCorrectAnswers([...correctAnswers, { cardId: currentCard.cardId, inverted: currentCard.inverted }]);
             }
         }
-        onAnswer(currentCard.cardId, currentCard.inverted, isCorrect);
         const nextCardIndex = getNextCardIndex();
         setCurrentCardIndex(nextCardIndex);
         setIsFlipped(false);

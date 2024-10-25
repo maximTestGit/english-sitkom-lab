@@ -49,6 +49,7 @@ const TopDropdownMenu = ({
     const [flashcards, setFlashcards] = useState([]);
     const [showFlashcardExamViewModal, setShowFlashcardExamViewModal] = useState(false);
     const [examCards, setExamCards] = useState([]);
+    const [examAnswers, setExamAnswers] = useState([]);
 
     const handleCleanupMem = () => {
         cleanUpLocalStorage(true);
@@ -333,11 +334,26 @@ const TopDropdownMenu = ({
             document.body.style.cursor = 'default';
         }
     };
-    const handleAnswer = (cardId, inverted, isCorrect) => {
+    const handleIKnowIt = (cardId, isCorrect) => {
+        setExamAnswers([...examAnswers, { cardId, iKnowIt }]);
         console.log(`Card ${cardId} answered ${isCorrect ? 'correctly' : 'incorrectly'}`);
     };
 
+    function addWordIStillDontKnow(examAnswers, examCards) {
+        const cards = examCards.map(card => {
+            const answer = examAnswers.find(answer => answer.cardId === card.cardId);
+            if (!answer) {
+                return {
+                    cardId: card.cardId,
+                    iKnowIt: false
+                };
+            }
+            return card;
+        });
+        setExamCards(cards);
+    }
     const handleFlashcardExamViewClose = () => {
+        addWordIStillDontKnow(examAnswers, examCards);
         setExamCards([]);
         setShowFlashcardExamViewModal(false);
     };
@@ -581,7 +597,7 @@ const TopDropdownMenu = ({
                 <Modal.Body>
                     <FlashcardExam
                         cards={examCards}
-                        onAnswer={handleAnswer}
+                        onIKnowIt={handleIKnowIt}
                     />
                 </Modal.Body>
                 <Modal.Footer>
