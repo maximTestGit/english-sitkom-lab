@@ -5,39 +5,78 @@ const FlashcardExam = ({ cards, onAnswer }) => {
     const [shuffledCards, setShuffledCards] = useState([]);
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
     const [isFlipped, setIsFlipped] = useState(false);
+    const [correctAnswers, setCorrectAnswers] = useState([]);
+    const [isReady, setIsReady] = useState(false);
 
-    // Shuffle cards on component mount
+
+    function isAlreadyCorrect(card) {
+        return correctAnswers.some(answer => answer.cardId === card.cardId && answer.inverted === card.inverted);
+    }
+    function resetCardsInverted(cardList) {
+        const result = [...cardList]
+            .map(card => ({
+                ...card,
+                inverted: Math.random() < 0.5
+            }))
+        return result;
+    }
+    function shuffleCards(cards) {
+        return [...cards]
+            .sort(() => Math.random() - 0.5);
+    }
+
+    function resetCards(cardList) {
+        const cardsForExam = removeCorrectCards(cardList);
+        const shuffled = shuffleCards(cardsForExam);
+        const shuffledAndInverted = resetCardsInverted(shuffled);
+        setShuffledCards(shuffledAndInverted);
+        setIsReady(true);
+    }
+    function removeCorrectCards(cardList) {
+        const result = cardList.filter(card => {
+            const isInvertedCorrect = isAlreadyCorrect({ cardId: card.cardId, inverted: true });
+            const isNotInvertedCorrect = isAlreadyCorrect({ cardId: card.cardId, inverted: false });
+            return !isInvertedCorrect || !isNotInvertedCorrect;
+        });
+        return result;
+    }
     useEffect(() => {
         if (cards?.length > 0) {
-            const shuffled = [...cards]
-                .map(card => ({
-                    ...card,
-                    inverted: Math.random() < 0.5
-                }))
-                .sort(() => Math.random() - 0.5);
-            setShuffledCards(shuffled);
+            resetCards(cards);
         }
     }, [cards]);
 
-    if (shuffledCards.length === 0) {
-        return <div className="text-center mt-4">Loading...</div>;
+    useEffect(() => {
+        if (shuffledCards?.length > 0 && currentCardIndex === 0) {
+            resetCards(shuffledCards);
+        }
+    }, [currentCardIndex]);
+
+    if (shuffledCards.length === 0 || !isReady) {
+        return <div className="text-center mt-4">No more cards...</div>;
     }
 
     const currentCard = shuffledCards[currentCardIndex];
 
-    const handleAnswer = (isCorrect) => {
-        onAnswer(currentCard.cardId, currentCard.inverted, isCorrect);
-
-        // Move to next card or finish
+    function getNextCardIndex() {
+        let result = 0;
         if (currentCardIndex < shuffledCards.length - 1) {
-            setCurrentCardIndex(prev => prev + 1);
-            setIsFlipped(false);
-        } else {
-            // Exam completed
-            setCurrentCardIndex(0);
-            setIsFlipped(false);
-            // You might want to add some completion logic here
+            result = currentCardIndex + 1;
         }
+        return result;
+    }
+    const handleAnswer = (isCorrect) => {
+        if (isCorrect) {
+            const alreadyCorrect = isAlreadyCorrect(currentCard);
+            if (!alreadyCorrect) {
+                setCorrectAnswers([...correctAnswers, { cardId: currentCard.cardId, inverted: currentCard.inverted }]);
+            }
+        }
+        onAnswer(currentCard.cardId, currentCard.inverted, isCorrect);
+        const nextCardIndex = getNextCardIndex();
+        setCurrentCardIndex(nextCardIndex);
+        setIsFlipped(false);
+        setIsReady(currentCardIndex < shuffledCards.length - 1);
     };
 
     const openYouTube = () => {
@@ -125,3 +164,5 @@ const FlashcardExam = ({ cards, onAnswer }) => {
 };
 
 export default FlashcardExam;
+
+
