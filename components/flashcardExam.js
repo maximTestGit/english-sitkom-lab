@@ -38,7 +38,7 @@ const FlashcardExam = ({ cards, onIKnowIt }) => {
             const isNotInvertedCorrect = isAlreadyCorrect({ cardId: card.cardId, inverted: false });
             const iKnowIt = isInvertedCorrect && isNotInvertedCorrect;
             if (iKnowIt) {
-                onIKnowIt(currentCard.cardId, true);
+                onIKnowIt(card.cardId, true);
             }
             return !iKnowIt;
         });

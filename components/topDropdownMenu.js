@@ -335,7 +335,7 @@ const TopDropdownMenu = ({
         }
     };
     const handleIKnowIt = (cardId, isCorrect) => {
-        setExamAnswers([...examAnswers, { cardId, iKnowIt }]);
+        setExamAnswers([...examAnswers, { cardId, iKnowIt: isCorrect }]);
         console.log(`Card ${cardId} answered ${isCorrect ? 'correctly' : 'incorrectly'}`);
     };
 
@@ -347,10 +347,14 @@ const TopDropdownMenu = ({
                     cardId: card.cardId,
                     iKnowIt: false
                 };
+            } else {
+                return {
+                    cardId: card.cardId,
+                    iKnowIt: answer.iKnowIt
+                };
             }
-            return card;
         });
-        setExamCards(cards);
+        setExamAnswers(cards);
     }
     const handleFlashcardExamViewClose = () => {
         addWordIStillDontKnow(examAnswers, examCards);
