@@ -18,7 +18,7 @@ const FlashcardExam = ({ cards, onIKnowIt }) => {
                 ...card,
                 inverted: Math.random() < 0.5
             }))
-        result = [...cardList]
+        result = [...result]
             .map(card => ({
                 ...card,
                 inverted: isAlreadyCorrect(card) ? !card.inverted : card.inverted

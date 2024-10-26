@@ -12,7 +12,8 @@ import {
   getExerciseAssistanceUrlPost,
   getReadAssistanceUrlPost,
   getSaveFlashcardUrlPost,
-  getFlashcardsCollectionUrlPost
+  getFlashcardsCollectionUrlPost,
+  getFlashcardUpdateResultUrlPost,
 } from './../data/configurator';
 import {
   storageDataAttributes,
@@ -283,6 +284,18 @@ export async function getFlashcardsCollection(user, language, top = undefined, c
   const response = await fetchDataFromSourcePost(user, url, data);
   const result = response ? response.collection : [];
   console.log('info', `getFlashcardsCollection: result: ${result}`);
+  return result;
+}
+
+export async function updateFlashcardResult(user, flashcardId, correct) {
+  const url = getFlashcardUpdateResultUrlPost();
+  const data = {
+    flashcardId,
+    correct,
+  };
+  const response = await fetchDataFromSourcePost(user, url, data);
+  const result = response ? response.collection : [];
+  console.log('info', `updateFlashcardResult: result: ${result}`);
   return result;
 }
 

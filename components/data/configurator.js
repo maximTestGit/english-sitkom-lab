@@ -141,6 +141,14 @@ export function getFlashcardsCollectionUrlPost() {
     return url;
 }
 
+export function getFlashcardUpdateResultUrlPost() {
+    let url = `https://me-west1-youtube-project-404109.cloudfunctions.net/function-update-flashcard-result-2-0`;
+    if (inDebugEnv) {
+        url = `https://me-west1-youtube-project-404109.cloudfunctions.net/function-update-flashcard-result-test`;
+    }
+    return url;
+}
+
 export const loginoutEvents = {
     REGISTER_SUCCESS: 'register-success',
     REGISTER_ERROR: 'register-error',

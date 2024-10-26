@@ -12,7 +12,10 @@ import { loadCaptionObjectsFromFile, eventsToSubtitleObjectsFromFile } from './h
 import { signInUser, signOutUser, signUpUser } from './gc/firebase';
 import { cleanUpLocalStorage } from "./helpers/storageHelper";
 import { t, Trans } from '@lingui/macro';
-import { getFlashcardsCollection } from './helpers/fetchData';
+import {
+    getFlashcardsCollection,
+    updateFlashcardResult,
+} from './helpers/fetchData';
 import FlashcardExam from './flashcardExam';
 
 const TopDropdownMenu = ({
@@ -274,19 +277,19 @@ const TopDropdownMenu = ({
         return flashcardsCollection.map(flashcard => {
             return {
                 ...flashcard,
-                nextReview: flashcard.nextReview ?
-                    (new Date(flashcard.nextReview._seconds * 1000 +
-                        flashcard.nextReview._nanoseconds / 1000000))
-                        .toDateString() :
-                    null,
                 created: flashcard.created ?
                     (new Date(flashcard.created._seconds * 1000 +
                         flashcard.created._nanoseconds / 1000000))
                         .toDateString() :
                     null,
-                nextReview: flashcard.lastReviewed ?
+                lastReviewed: flashcard.lastReviewed ?
                     (new Date(flashcard.lastReviewed._seconds * 1000 +
                         flashcard.lastReviewed._nanoseconds / 1000000))
+                        .toDateString() :
+                    null,
+                nextReview: flashcard.nextReview ?
+                    (new Date(flashcard.nextReview._seconds * 1000 +
+                        flashcard.nextReview._nanoseconds / 1000000))
                         .toDateString() :
                     null,
             };
@@ -329,14 +332,15 @@ const TopDropdownMenu = ({
                 };
             });
             setExamCards(cards);
+            setExamAnswers(cards.map(card => ({ cardId: card.cardId, iKnowIt: false })));
             setShowFlashcardExamViewModal(true);
         } finally {
             document.body.style.cursor = 'default';
         }
     };
     const handleIKnowIt = (cardId, isCorrect) => {
-        setExamAnswers([...examAnswers, { cardId, iKnowIt: isCorrect }]);
-        console.log(`Card ${cardId} answered ${isCorrect ? 'correctly' : 'incorrectly'}`);
+        let card = examAnswers.find(answer => answer.cardId === cardId);
+        card.iKnowIt = isCorrect;
     };
 
     function addWordIStillDontKnow(examAnswers, examCards) {
@@ -358,6 +362,9 @@ const TopDropdownMenu = ({
     }
     const handleFlashcardExamViewClose = () => {
         addWordIStillDontKnow(examAnswers, examCards);
+        examAnswers.forEach(card => {
+            updateFlashcardResult(user, card.cardId, card.iKnowIt);
+        });
         setExamCards([]);
         setShowFlashcardExamViewModal(false);
     };
@@ -577,7 +584,7 @@ const TopDropdownMenu = ({
                             <p><strong>Text:</strong> {flashcard.front} ({flashcard.frontLanguage})</p>
                             <p><strong>Translation:</strong> {flashcard.back}</p>
                             <p><strong>Last Reviewed:</strong> {flashcard.lastReviewed}</p>
-                            <p><strong>Next Review:</strong> {flashcard.nextReview}</p>
+                            <p><strong>Planning Review:</strong> {flashcard.nextReview}</p>
                             <p><strong>Box:</strong> {flashcard.box}</p>
                             {/* <p><strong>Front Language:</strong> {flashcard.frontLanguage}</p>
                             <p><strong>Back Language:</strong> {flashcard.backLanguage}</p>
