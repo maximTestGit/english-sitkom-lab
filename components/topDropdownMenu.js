@@ -565,25 +565,26 @@ const TopDropdownMenu = ({
                     </div>
                 </div>
             )}
-            <Modal show={showFlashcardsModal}>
+            <Modal show={showFlashcardsModal} onHide={() => setShowFlashcardsModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Flashcards Collection</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {flashcards.map((flashcard, index) => (
+                    {flashcards?.length === 0 && <p>No flashcards found</p>}
+                    {flashcards?.length > 0 && flashcards.map((flashcard, index) => (
                         <div key={index}>
-                            <p><strong>Front:</strong> {flashcard.front}</p>
-                            <p><strong>Back:</strong> {flashcard.back}</p>
-                            <p><strong>Front Language:</strong> {flashcard.frontLanguage}</p>
-                            <p><strong>Back Language:</strong> {flashcard.backLanguage}</p>
-                            <p><strong>Box:</strong> {flashcard.box}</p>
                             <p><strong>Collection:</strong> {flashcard.collection}</p>
-                            <p><strong>Next Review:</strong> {flashcard.nextReview}</p>
-                            <p><strong>Created:</strong> {flashcard.created}</p>
+                            <p><strong>Text:</strong> {flashcard.front} ({flashcard.frontLanguage})</p>
+                            <p><strong>Translation:</strong> {flashcard.back}</p>
                             <p><strong>Last Reviewed:</strong> {flashcard.lastReviewed}</p>
-                            {/* <p><strong>User ID:</strong> {flashcard.userId}</p> */}
+                            <p><strong>Next Review:</strong> {flashcard.nextReview}</p>
+                            <p><strong>Box:</strong> {flashcard.box}</p>
+                            {/* <p><strong>Front Language:</strong> {flashcard.frontLanguage}</p>
+                            <p><strong>Back Language:</strong> {flashcard.backLanguage}</p>
+                            <p><strong>Created:</strong> {flashcard.created}</p>
+                            <p><strong>User ID:</strong> {flashcard.userId}</p>
                             <p><strong>Video ID:</strong> {flashcard.videoId}</p>
-                            <p><strong>Seconds:</strong> {flashcard.seconds}</p>
+                            <p><strong>Seconds:</strong> {flashcard.seconds}</p> */}
                             <hr />
                         </div>
                     ))}

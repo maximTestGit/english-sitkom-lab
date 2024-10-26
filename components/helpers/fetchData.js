@@ -273,7 +273,7 @@ export async function getExerciseAssistance(user, text, textLanguage, answerLang
   return answer;
 }
 
-export async function getFlashcardsCollection(user, language, top=undefined, collectionName = 'default') {
+export async function getFlashcardsCollection(user, language, top = undefined, collectionName = 'default') {
   const url = getFlashcardsCollectionUrlPost();
   const data = {
     language,
@@ -281,7 +281,7 @@ export async function getFlashcardsCollection(user, language, top=undefined, col
     top,
   };
   const response = await fetchDataFromSourcePost(user, url, data);
-  const result = response.collection;
+  const result = response ? response.collection : [];
   console.log('info', `getFlashcardsCollection: result: ${result}`);
   return result;
 }

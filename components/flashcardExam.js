@@ -13,10 +13,15 @@ const FlashcardExam = ({ cards, onIKnowIt }) => {
         return correctAnswers.some(answer => answer.cardId === card.cardId && answer.inverted === card.inverted);
     }
     function resetCardsInverted(cardList) {
-        const result = [...cardList]
+        let result = [...cardList]
             .map(card => ({
                 ...card,
                 inverted: Math.random() < 0.5
+            }))
+        result = [...cardList]
+            .map(card => ({
+                ...card,
+                inverted: isAlreadyCorrect(card) ? !card.inverted : card.inverted
             }))
         return result;
     }
