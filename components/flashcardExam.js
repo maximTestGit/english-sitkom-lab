@@ -35,7 +35,6 @@ const FlashcardExam = ({ cards, onIKnowIt }) => {
         const shuffled = shuffleCards(cardsForExam);
         const shuffledAndInverted = resetCardsInverted(shuffled);
         setShuffledCards(shuffledAndInverted);
-        setIsReady(true);
     }
     function removeCorrectCards(cardList) {
         const result = cardList.filter(card => {
@@ -49,6 +48,10 @@ const FlashcardExam = ({ cards, onIKnowIt }) => {
         });
         return result;
     }
+    useEffect(() => {
+        setIsReady(shuffledCards?.length > 0);
+    }, [shuffledCards]);
+
     useEffect(() => {
         if (cards?.length > 0) {
             resetCards(cards);
