@@ -20,6 +20,7 @@ import {
 import TopDropdownMenu from "./topDropdownMenu";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, completeUserData } from "./gc/firebase";
+import ReactMarkdown from 'react-markdown';
 //-----------
 import { I18nProvider } from '@lingui/react';
 import { i18n } from '@lingui/core';
@@ -28,15 +29,30 @@ import { messages as ruMessages } from '../src/locales/ru/messages';
 import { messages as afMessages } from '../src/locales/af/messages';
 import { messages as heMessages } from '../src/locales/he/messages';
 import { messages as ukMessages } from '../src/locales/uk/messages';
-import ReactMarkdown from 'react-markdown';
+import { messages as arMessages } from '../src/locales/ar/messages';
+import { messages as deMessages } from '../src/locales/de/messages';
+import { messages as esMessages } from '../src/locales/es/messages';
+import { messages as frMessages } from '../src/locales/fr/messages';
+import { messages as hrMessages } from '../src/locales/hr/messages';
+import { messages as jaMessages } from '../src/locales/ja/messages';
+import { messages as trMessages } from '../src/locales/tr/messages';
+import { messages as zhMessages } from '../src/locales/zh/messages';
 import { Trans, t } from '@lingui/macro';
-
+//-----------
 i18n.load({
-  en: enMessages,
-  ru: ruMessages,
   af: afMessages,
+  ar: arMessages,
+  de: deMessages,
+  en: enMessages,
+  es: esMessages,
+  fr: frMessages,
   he: heMessages,
+  hr: hrMessages,
+  ja: jaMessages,
+  ru: ruMessages,
+  tr: trMessages,
   uk: ukMessages,
+  zh: zhMessages,
 });
 i18n.activate('en');
 

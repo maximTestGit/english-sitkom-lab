@@ -50,8 +50,8 @@ exports.getTranslation = async (req, res) => {
                 toLanguage = requestBody.tolanguage;
                 user = requestBody.user;
             } else {
-                text = 'cat';//req.query.text ?? 'car';
-                fromLanguage = req.query.fromlanguage ?? 'en';
+                text = 'קורה';//req.query.text ?? 'car';
+                fromLanguage = req.query.fromlanguage ?? 'he';
                 toLanguage = req.query.tolanguage ?? 'ru';
                 user = req.query.user;
             }
@@ -66,20 +66,55 @@ exports.getTranslation = async (req, res) => {
         }
     })
 }
-async function getTranslation(text, fromLanguage, toLanguage) {
+async function getTranslation(theText, fromLanguage, toLanguage) {
+    let result = '';
+    const prompt =
+        `translate the text from ${fromLanguage} to ${toLanguage}, ` +
+        `your answer must contain nothing but translated text.`;
+
+    const apiKey = process.env.OPENAI_API_KEY;
+    const url = 'https://api.openai.com/v1/chat/completions';
+    const theContent = theText;
+
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+    };
+
+    console.log(`getTranslation prompt: ${prompt}`);
+    const data = {
+        model: 'gpt-3.5-turbo',
+        messages: [
+            { role: 'system', content: prompt },
+            { role: 'user', content: theContent }
+        ],
+        max_tokens: 1000,
+        temperature: 0.5
+    };
+
+    const options = {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(data)
+    };
+
     try {
-        const translator = new Translate();
+        console.log(`getTranslation: START request for assistanceRequest url: ${url}`);
+        const response = await fetch(url, options);
+        console.log('getTranslation: Response of assistanceRequest:', response);
+        if (!response.ok) {
+            console.error(`getTranslation: Error in assistanceRequest: response status: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const resultData = await response.json();
+        console.log('getTranslation: Result:', resultData);
 
-        const [translation] = await translator.translate(text, {
-            from: fromLanguage,
-            to: toLanguage,
-        });
-
-        console.log(`getTranslation: Text: ${text}`);
-        console.log(`getTranslation: Translation: ${translation}`);
-        return translation;
+        result = resultData.choices[0].message.content;
+        console.log('getTranslation: Response Text:', result);
     } catch (error) {
-        console.error('Error translating:', error);
-        throw error; // Re-throw the error for proper handling in the calling code
+        console.error('getTranslation: Error:', error);
+        throw error;
     }
+
+    return result;
 }

@@ -1,5 +1,5 @@
 module.exports = {
-    locales: ['en', 'ru', 'af', 'he', 'uk'],
+    locales: ['en', 'ru', 'af', 'he', 'uk', 'ar', 'de', 'es', 'fr', 'hr', 'ja', 'tr', 'zh'],
     sourceLocale: 'en',
     catalogs: [
         {
