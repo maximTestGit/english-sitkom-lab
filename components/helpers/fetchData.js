@@ -14,6 +14,8 @@ import {
   getSaveFlashcardUrlPost,
   getFlashcardsCollectionUrlPost,
   getFlashcardUpdateResultUrlPost,
+  getUpdateFlashcardDataUrlPost,
+  getDeleteFlashcardUrlPost,
 } from './../data/configurator';
 import {
   storageDataAttributes,
@@ -298,6 +300,31 @@ export async function updateFlashcardResult(user, flashcardId, correct) {
   console.log('info', `updateFlashcardResult: result: ${result}`);
   return result;
 }
+
+export async function updateFlashcardData(user, flashcard) {
+  const url = getUpdateFlashcardDataUrlPost();
+  const data = {
+    cardId: flashcard.cardId,
+    back: flashcard.back,
+  };
+  const response = await fetchDataFromSourcePost(user, url, data);
+  const result = response ? response.collection : [];
+  console.log('info', `updateFlashcardData: result: ${result}`);
+  return result;
+}
+
+export async function deleteFlashcard(user, flashcard) {
+  const url = getDeleteFlashcardUrlPost();
+  const data = {
+    cardId: flashcard.cardId
+  };
+  const response = await fetchDataFromSourcePost(user, url, data);
+  const result = response ? response.collection : [];
+  console.log('info', `deleteFlashcard: result: ${result}`);
+  return result;
+}
+
+
 
 function generateGUID() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

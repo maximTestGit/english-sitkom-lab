@@ -64,6 +64,7 @@ const ExerciseView = forwardRef(({
     const [srtCaptionsData, setSrtCaptionsData] = useState(null);
     const [currentPlaybackRate, setCurrentPlaybackRate] = useState(default_playback_rate); // current, can be default_playback_rate or youLinePlaybackRate
     const [currentVolume, setCurrentVolume] = useState(default_volume); // current, can be default_volume or whisperVolume
+    const [actionStartedAt, setActionStartedAt] = useState(null);
 
     // save parameters before recording
     const [loopPreRec, setLoopPreRec] = useState(settings.isLoop);
@@ -320,15 +321,30 @@ const ExerciseView = forwardRef(({
         setExerciseStatus(status);
         console.log(`LingFlix: setExerciseStatusWrapper(${caller}): ${status}`);
     }
+    function isActionTooSoon() {
+        const now = new Date();
+        const timeElapsed = now - actionStartedAt;
+        return timeElapsed < 500;
+    }
     const handleStartPlay = (status, caller) => {
-        console.log(`LingFlix: startPlay from ${caller}: status=${status}`);
+        if (isActionTooSoon()) {
+            console.log(`LingFlix: Play:new action ignored, action started less than 0.5 seconds ago`);
+            return;
+        }
+        setActionStartedAt(new Date());
+
         jumpToStart(playerRef);
         setPosition(0);
         jumpToStart(recPlayerRef);
         setCurrentVolumeWrapper(default_volume);
         setExerciseStatusWrapper(status, 'startPlay');
     };
+
     const handleStopPlay = () => {
+        if (isActionTooSoon()) {
+            console.log(`LingFlix: Play:new action ignored, action started less than 0.5 seconds ago`);
+            return;
+        }
         setCurrentVolumeWrapper(default_volume);
         setExerciseStatusWrapper(ExerciseStatus.STOPPED, 'stopPlay');
     };
@@ -336,6 +352,12 @@ const ExerciseView = forwardRef(({
 
     // #region Recording
     const handleStartRecording = () => {
+        if (isActionTooSoon()) {
+            console.log(`LingFlix: Play:new action ignored, action started less than 0.5 seconds ago`);
+            return;
+        }
+        setActionStartedAt(new Date());
+        
         if (exerciseStatus === ExerciseStatus.STOPPED) {
             if (recordedChunks?.length > 0) {
                 alert('You have already recorded something. Please clear recording first.\n(Click "Clear Homework Record" button)');
@@ -357,6 +379,10 @@ const ExerciseView = forwardRef(({
         }
     };
     const handleSaveRecording = (chunks) => {
+        if (isActionTooSoon()) {
+            console.log(`LingFlix: Play:new action ignored, action started less than 0.5 seconds ago`);
+            return;
+        }
         console.log(`LingFlix: SaveRecording: ${chunks?.length}`);
         setIsLoop(loopPreRec);
         setWhisperVolume(whisperVolumePreRec);

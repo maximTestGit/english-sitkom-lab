@@ -197,6 +197,21 @@ export function getCultureLanguageName(culture) {
     return lang ? lang.name : 'English';
 }
 
+export function getUpdateFlashcardDataUrlPost() {
+    let url = `https://me-west1-youtube-project-404109.cloudfunctions.net/function-update-flashcard-data-2-0`;
+    if (inDebugEnv) {
+        url = `https://me-west1-youtube-project-404109.cloudfunctions.net/function-update-flashcard-data-test`;
+    }
+    return url;
+}
+
+export function getDeleteFlashcardUrlPost() {
+    let url = `https://me-west1-youtube-project-404109.cloudfunctions.net/function-delete-flashcard-2-0`;
+    if (inDebugEnv) {
+        url = `https://me-west1-youtube-project-404109.cloudfunctions.net/function-delete-flashcard-test`;
+    }
+    return url;
+}
 
 export function initLearningLanguage() {
     let result = fetchLearningLanguageFromLocalStorage();

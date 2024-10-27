@@ -15,8 +15,11 @@ import { t, Trans } from '@lingui/macro';
 import {
     getFlashcardsCollection,
     updateFlashcardResult,
+    updateFlashcardData,
+    deleteFlashcard
 } from './helpers/fetchData';
 import FlashcardExam from './flashcardExam';
+import FlashcardEditor from './flashcardEditor';
 
 const TopDropdownMenu = ({
     user,
@@ -369,6 +372,15 @@ const TopDropdownMenu = ({
         setShowFlashcardExamViewModal(false);
     };
 
+    function handleSaveFlashcard(card) {
+        console.log('Save Flashcard:', card);
+        updateFlashcardData(user, card);
+    }
+    function handleDeleteFlashcard(card) {
+        console.log('Delete Flashcard:', card);
+        deleteFlashcard(user, card);
+        setFlashcards(flashcards.filter(flashcard => flashcard.cardId !== card.cardId));
+    }
     return (
         <>
             <Navbar bg="light" expand="sm">
@@ -580,13 +592,18 @@ const TopDropdownMenu = ({
                     {flashcards?.length === 0 && <p>No flashcards found</p>}
                     {flashcards?.length > 0 && flashcards.map((flashcard, index) => (
                         <div key={index}>
-                            <p><strong>Collection:</strong> {flashcard.collection}</p>
+                            <FlashcardEditor
+                                card={flashcard}
+                                onSave={handleSaveFlashcard}
+                                onDelete={handleDeleteFlashcard}
+                            />
+                            {/* <p><strong>Collection:</strong> {flashcard.collection}</p>
                             <p><strong>Text:</strong> {flashcard.front} ({flashcard.frontLanguage})</p>
                             <p><strong>Translation:</strong> {flashcard.back}</p>
                             <p><strong>Last Reviewed:</strong> {flashcard.lastReviewed}</p>
                             <p><strong>Planning Review:</strong> {flashcard.nextReview}</p>
                             <p><strong>Box:</strong> {flashcard.box}</p>
-                            {/* <p><strong>Front Language:</strong> {flashcard.frontLanguage}</p>
+                            <p><strong>Front Language:</strong> {flashcard.frontLanguage}</p>
                             <p><strong>Back Language:</strong> {flashcard.backLanguage}</p>
                             <p><strong>Created:</strong> {flashcard.created}</p>
                             <p><strong>User ID:</strong> {flashcard.userId}</p>
