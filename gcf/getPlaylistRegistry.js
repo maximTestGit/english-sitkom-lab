@@ -74,14 +74,21 @@ async function fetchPlaylistRegistry(language) {
     }
 
     snapshot.forEach(doc => {
+        //console.log(doc.id, '=>', doc.data());
         result.push({
             listId: doc.id,
             listName: doc.data().Name,
             language: doc.data().Language,
-            video: doc.data().Video,
+            orderId: doc.data().OrderId ?? null
         });
     });
 
+    // Sort the result by OrderId if it exists
+    result.sort((a, b) => {
+        if (a.orderId === null) return 1;
+        if (b.orderId === null) return -1;
+        return a.orderId - b.orderId;
+    });
     return result;
 }
 

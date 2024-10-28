@@ -143,6 +143,10 @@ const TopDropdownMenu = ({
         window.open('https://www.youtube.com/channel/UCWQGpzzCvnv8y8LyH02E2qw', '_blank');
     };
 
+    const handleAbout = () => {
+        window.open('https://about.tube2fluency.com/', '_blank');
+    };
+
     const handleVideoYoutube = () => {
         window.open(`https://youtu.be/${videoData.videoId}`, '_blank');
     };
@@ -446,6 +450,7 @@ const TopDropdownMenu = ({
                             </NavDropdown>
                         )}
                         <NavDropdown title={<Trans>About</Trans>} id="about-dropdown">
+                            <NavDropdown.Item onClick={handleAbout}><Trans>About the Application</Trans></NavDropdown.Item>
                             <NavDropdown.Item onClick={handleHowTo}><Trans>How To?</Trans></NavDropdown.Item>
                             <NavDropdown.Item onClick={handleHowToSignup}><Trans>How To Register(Free)?</Trans></NavDropdown.Item>
                             <NavDropdown.Item onClick={handleContactMe}><Trans>Contact Me</Trans></NavDropdown.Item>
