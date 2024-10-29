@@ -21,16 +21,20 @@ msgstr "{speed} normalne brzine reprodukcije"
 msgid "{speed} of Normal Speed when you talk"
 msgstr "{speed} normalne brzine kada govorite"
 
-#: components/topDropdownMenu.js:409
+#: components/topDropdownMenu.js:452
 msgid "About"
 msgstr "O nama"
 
-#: components/topDropdownMenu.js:357
-#: components/topDropdownMenu.js:363
+#: components/topDropdownMenu.js:453
+msgid "About the Application"
+msgstr "O aplikaciji"
+
+#: components/topDropdownMenu.js:400
+#: components/topDropdownMenu.js:406
 msgid "Account"
 msgstr "Račun"
 
-#: components/topDropdownMenu.js:379
+#: components/topDropdownMenu.js:422
 msgid "Add custom Playlist"
 msgstr "Dodati prilagođenu playlistu"
 
@@ -42,7 +46,7 @@ msgstr "Analiza"
 msgid "Blure Youtube Captions"
 msgstr "Zamuti YouTube titlove"
 
-#: components/app.js:96
+#: components/app.js:112
 msgid "Bye-bye {name}"
 msgstr "Doviđenja {name}"
 
@@ -50,11 +54,11 @@ msgstr "Doviđenja {name}"
 msgid "Camera"
 msgstr "Kamera"
 
-#: components/topDropdownMenu.js:382
+#: components/topDropdownMenu.js:425
 msgid "Clear Memory"
 msgstr "Očisti memoriju"
 
-#: components/topDropdownMenu.js:412
+#: components/topDropdownMenu.js:456
 msgid "Contact Me"
 msgstr "Kontaktirajte me"
 
@@ -62,9 +66,9 @@ msgstr "Kontaktirajte me"
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "Unos \"{textToProcess}\" je dodan u vašu kolekciju kartica"
 
-#: components/app.js:100
-#: components/app.js:104
-#: components/app.js:108
+#: components/app.js:116
+#: components/app.js:120
+#: components/app.js:124
 msgid "Error"
 msgstr "Greška"
 
@@ -77,48 +81,48 @@ msgstr "Vježba"
 msgid "Exercise Captions"
 msgstr "Titlovi za vježbu"
 
-#: components/topDropdownMenu.js:368
+#: components/topDropdownMenu.js:411
 msgid "File"
 msgstr "Datoteka"
 
-#: components/topDropdownMenu.js:391
+#: components/topDropdownMenu.js:434
 msgid "Flashcards"
 msgstr "Kartice za učenje"
 
-#: components/topDropdownMenu.js:349
+#: components/topDropdownMenu.js:392
 msgid "Hello"
 msgstr "Pozdrav"
 
-#: components/app.js:92
+#: components/app.js:108
 msgid "Hello {name}"
 msgstr "Pozdrav {name}"
 
-#: components/topDropdownMenu.js:398
-#: components/topDropdownMenu.js:404
+#: components/topDropdownMenu.js:441
+#: components/topDropdownMenu.js:447
 msgid "Home"
 msgstr "Početna"
 
-#: components/topDropdownMenu.js:411
+#: components/topDropdownMenu.js:455
 msgid "How To Register(Free)?"
 msgstr "Kako se registrirati (besplatno)?"
 
-#: components/topDropdownMenu.js:410
+#: components/topDropdownMenu.js:454
 msgid "How To?"
 msgstr "Kako?"
 
-#: components/topDropdownMenu.js:358
+#: components/topDropdownMenu.js:401
 msgid "Login"
 msgstr "Prijava"
 
-#: components/app.js:100
+#: components/app.js:116
 msgid "Login {name} failed"
 msgstr "Prijava za {name} nije uspjela"
 
-#: components/topDropdownMenu.js:364
+#: components/topDropdownMenu.js:407
 msgid "Logout"
 msgstr "Odjava"
 
-#: components/app.js:104
+#: components/app.js:120
 msgid "Logout {name} failed"
 msgstr "Odjava za {name} nije uspjela"
 
@@ -134,8 +138,8 @@ msgstr "Glasan zvučni signal kada vi govorite"
 msgid "Mute Player when you talk"
 msgstr "Utišaj player kada vi govorite"
 
-#: components/topDropdownMenu.js:397
-#: components/topDropdownMenu.js:403
+#: components/topDropdownMenu.js:440
+#: components/topDropdownMenu.js:446
 msgid "Navigate"
 msgstr "Navigacija"
 
@@ -159,28 +163,28 @@ msgstr "Reprodukcija normalnom brzinom"
 msgid "Normal Speed when you talk"
 msgstr "Normalna brzina kada  vi govorite"
 
-#: components/topDropdownMenu.js:372
+#: components/topDropdownMenu.js:415
 msgid "Open .json"
 msgstr "Otvori .json"
 
-#: components/topDropdownMenu.js:370
+#: components/topDropdownMenu.js:413
 msgid "Open .srt"
 msgstr "Otvori .srt"
 
-#: components/topDropdownMenu.js:378
+#: components/topDropdownMenu.js:421
 msgid "Open custom video"
 msgstr "Otvori prilagođeni video"
 
-#: components/topDropdownMenu.js:380
+#: components/topDropdownMenu.js:423
 msgid "Open Exercise File"
 msgstr "Otvori datoteku za vježbu"
 
-#: components/topDropdownMenu.js:377
-#: components/topDropdownMenu.js:387
+#: components/topDropdownMenu.js:420
+#: components/topDropdownMenu.js:430
 msgid "Open Settings"
 msgstr "Otvori postavke"
 
-#: components/topDropdownMenu.js:406
+#: components/topDropdownMenu.js:449
 msgid "Open video on Youtube"
 msgstr "Otvori video na YouTubeu"
 
@@ -192,19 +196,19 @@ msgstr "Signal kada vi govorite"
 msgid "Pronunciation"
 msgstr "Izgovor"
 
-#: components/topDropdownMenu.js:359
+#: components/topDropdownMenu.js:402
 msgid "Register"
 msgstr "Registracija"
 
-#: components/app.js:108
+#: components/app.js:124
 msgid "Register {name} failed, try later"
 msgstr "Registracija za {name} nije uspjela, pokušajte kasnije"
 
-#: components/topDropdownMenu.js:381
+#: components/topDropdownMenu.js:424
 msgid "Reload Playlist"
 msgstr "Ponovno učitaj playlistu"
 
-#: components/topDropdownMenu.js:369
+#: components/topDropdownMenu.js:412
 msgid "Save .srt"
 msgstr "Spremi .srt"
 
@@ -225,12 +229,12 @@ msgstr "Tihi signal kada vi govorite"
 msgid "Start (sec)"
 msgstr "Početak (sek)"
 
-#: components/topDropdownMenu.js:393
+#: components/topDropdownMenu.js:436
 msgid "Start Test"
 msgstr "Započni test"
 
-#: components/app.js:92
-#: components/app.js:96
+#: components/app.js:108
+#: components/app.js:112
 #: components/captionBox.js:190
 msgid "Success"
 msgstr "Uspjeh"
@@ -239,8 +243,8 @@ msgstr "Uspjeh"
 msgid "Text"
 msgstr "Tekst"
 
-#: components/topDropdownMenu.js:376
-#: components/topDropdownMenu.js:386
+#: components/topDropdownMenu.js:419
+#: components/topDropdownMenu.js:429
 msgid "Tools"
 msgstr "Alati"
 
@@ -248,11 +252,11 @@ msgstr "Alati"
 msgid "Translation"
 msgstr "Prijevod"
 
-#: components/topDropdownMenu.js:371
+#: components/topDropdownMenu.js:414
 msgid "Upload .srt"
 msgstr "Učitaj .srt"
 
-#: components/topDropdownMenu.js:392
+#: components/topDropdownMenu.js:435
 msgid "View Colection"
 msgstr "Pregledaj kolekciju"
 
@@ -268,7 +272,7 @@ msgstr "Upozorenje!"
 msgid "Your Line"
 msgstr "Vaš redak"
 
-#: components/topDropdownMenu.js:399
-#: components/topDropdownMenu.js:405
+#: components/topDropdownMenu.js:442
+#: components/topDropdownMenu.js:448
 msgid "Youtube"
 msgstr "YouTube"

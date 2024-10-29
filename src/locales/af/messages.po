@@ -21,16 +21,20 @@ msgstr "{speed} van Normale Spoed Speler"
 msgid "{speed} of Normal Speed when you talk"
 msgstr "{speed} van Normale Spoed wanneer jy praat"
 
-#: components/topDropdownMenu.js:409
+#: components/topDropdownMenu.js:452
 msgid "About"
 msgstr "Oor"
 
-#: components/topDropdownMenu.js:357
-#: components/topDropdownMenu.js:363
+#: components/topDropdownMenu.js:453
+msgid "About the Application"
+msgstr "Oor die Toepassing"
+
+#: components/topDropdownMenu.js:400
+#: components/topDropdownMenu.js:406
 msgid "Account"
 msgstr "Rekening"
 
-#: components/topDropdownMenu.js:379
+#: components/topDropdownMenu.js:422
 msgid "Add custom Playlist"
 msgstr "Voeg pasgemaakte Speellys by"
 
@@ -42,7 +46,7 @@ msgstr "Analise"
 msgid "Blure Youtube Captions"
 msgstr "Vervaag Youtube Onderskrifte"
 
-#: components/app.js:96
+#: components/app.js:112
 msgid "Bye-bye {name}"
 msgstr "Totsiens {name}"
 
@@ -50,11 +54,11 @@ msgstr "Totsiens {name}"
 msgid "Camera"
 msgstr "Kamera"
 
-#: components/topDropdownMenu.js:382
+#: components/topDropdownMenu.js:425
 msgid "Clear Memory"
 msgstr "Vee Geheue Skoon"
 
-#: components/topDropdownMenu.js:412
+#: components/topDropdownMenu.js:456
 msgid "Contact Me"
 msgstr "Kontak My"
 
@@ -62,9 +66,9 @@ msgstr "Kontak My"
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "Inskrywing \"{textToProcess}\" is by jou flitskaartversameling gevoeg"
 
-#: components/app.js:100
-#: components/app.js:104
-#: components/app.js:108
+#: components/app.js:116
+#: components/app.js:120
+#: components/app.js:124
 msgid "Error"
 msgstr "Fout"
 
@@ -77,48 +81,48 @@ msgstr "Oefening"
 msgid "Exercise Captions"
 msgstr "Oefening Onderskrifte"
 
-#: components/topDropdownMenu.js:368
+#: components/topDropdownMenu.js:411
 msgid "File"
 msgstr "Lêer"
 
-#: components/topDropdownMenu.js:391
+#: components/topDropdownMenu.js:434
 msgid "Flashcards"
 msgstr "Flitskaarte"
 
-#: components/topDropdownMenu.js:349
+#: components/topDropdownMenu.js:392
 msgid "Hello"
 msgstr "Hallo"
 
-#: components/app.js:92
+#: components/app.js:108
 msgid "Hello {name}"
 msgstr "Hallo {name}"
 
-#: components/topDropdownMenu.js:398
-#: components/topDropdownMenu.js:404
+#: components/topDropdownMenu.js:441
+#: components/topDropdownMenu.js:447
 msgid "Home"
 msgstr "Tuis"
 
-#: components/topDropdownMenu.js:411
+#: components/topDropdownMenu.js:455
 msgid "How To Register(Free)?"
 msgstr "Hoe Om Te Registreer (Gratis)?"
 
-#: components/topDropdownMenu.js:410
+#: components/topDropdownMenu.js:454
 msgid "How To?"
 msgstr "Hoe Om?"
 
-#: components/topDropdownMenu.js:358
+#: components/topDropdownMenu.js:401
 msgid "Login"
 msgstr "Teken In"
 
-#: components/app.js:100
+#: components/app.js:116
 msgid "Login {name} failed"
 msgstr "Teken In {name} het misluk"
 
-#: components/topDropdownMenu.js:364
+#: components/topDropdownMenu.js:407
 msgid "Logout"
 msgstr "Teken Uit"
 
-#: components/app.js:104
+#: components/app.js:120
 msgid "Logout {name} failed"
 msgstr "Teken Uit {name} het misluk"
 
@@ -134,8 +138,8 @@ msgstr "Luid Opskrif wanneer jy praat"
 msgid "Mute Player when you talk"
 msgstr "Demper Speler wanneer jy praat"
 
-#: components/topDropdownMenu.js:397
-#: components/topDropdownMenu.js:403
+#: components/topDropdownMenu.js:440
+#: components/topDropdownMenu.js:446
 msgid "Navigate"
 msgstr "Navigeer"
 
@@ -163,28 +167,28 @@ msgstr "Normale Spoed Speler"
 msgid "Normal Speed when you talk"
 msgstr "Normale Spoed wanneer jy praat"
 
-#: components/topDropdownMenu.js:372
+#: components/topDropdownMenu.js:415
 msgid "Open .json"
 msgstr "Maak .json oop"
 
-#: components/topDropdownMenu.js:370
+#: components/topDropdownMenu.js:413
 msgid "Open .srt"
 msgstr "Maak .srt oop"
 
-#: components/topDropdownMenu.js:378
+#: components/topDropdownMenu.js:421
 msgid "Open custom video"
 msgstr "Maak pasgemaakte video oop"
 
-#: components/topDropdownMenu.js:380
+#: components/topDropdownMenu.js:423
 msgid "Open Exercise File"
 msgstr "Maak Oefening Lêer oop"
 
-#: components/topDropdownMenu.js:377
-#: components/topDropdownMenu.js:387
+#: components/topDropdownMenu.js:420
+#: components/topDropdownMenu.js:430
 msgid "Open Settings"
 msgstr "Maak Instellings oop"
 
-#: components/topDropdownMenu.js:406
+#: components/topDropdownMenu.js:449
 msgid "Open video on Youtube"
 msgstr "Maak video op Youtube oop"
 
@@ -196,19 +200,19 @@ msgstr "Opskrif wanneer jy praat"
 msgid "Pronunciation"
 msgstr "Uitspraak"
 
-#: components/topDropdownMenu.js:359
+#: components/topDropdownMenu.js:402
 msgid "Register"
 msgstr "Registreer"
 
-#: components/app.js:108
+#: components/app.js:124
 msgid "Register {name} failed, try later"
 msgstr "Registreer {name} het misluk, probeer later"
 
-#: components/topDropdownMenu.js:381
+#: components/topDropdownMenu.js:424
 msgid "Reload Playlist"
 msgstr "Herlaai Speellys"
 
-#: components/topDropdownMenu.js:369
+#: components/topDropdownMenu.js:412
 msgid "Save .srt"
 msgstr "Stoor .srt"
 
@@ -229,12 +233,12 @@ msgstr "Klein Opskrif wanneer jy praat"
 msgid "Start (sec)"
 msgstr "Begin (sek)"
 
-#: components/topDropdownMenu.js:393
+#: components/topDropdownMenu.js:436
 msgid "Start Test"
 msgstr "Begin Toets"
 
-#: components/app.js:92
-#: components/app.js:96
+#: components/app.js:108
+#: components/app.js:112
 #: components/captionBox.js:190
 msgid "Success"
 msgstr "Sukses"
@@ -247,8 +251,8 @@ msgstr "Teks"
 #~ msgid "Text Analysis"
 #~ msgstr "Teksanalise"
 
-#: components/topDropdownMenu.js:376
-#: components/topDropdownMenu.js:386
+#: components/topDropdownMenu.js:419
+#: components/topDropdownMenu.js:429
 msgid "Tools"
 msgstr "Gereedskap"
 
@@ -256,11 +260,11 @@ msgstr "Gereedskap"
 msgid "Translation"
 msgstr "Vertaling"
 
-#: components/topDropdownMenu.js:371
+#: components/topDropdownMenu.js:414
 msgid "Upload .srt"
 msgstr "Laai .srt op"
 
-#: components/topDropdownMenu.js:392
+#: components/topDropdownMenu.js:435
 msgid "View Colection"
 msgstr "Bekyk Versameling"
 
@@ -276,7 +280,7 @@ msgstr "Waarskuwing!"
 msgid "Your Line"
 msgstr "Jou Reël"
 
-#: components/topDropdownMenu.js:399
-#: components/topDropdownMenu.js:405
+#: components/topDropdownMenu.js:442
+#: components/topDropdownMenu.js:448
 msgid "Youtube"
 msgstr "Youtube"

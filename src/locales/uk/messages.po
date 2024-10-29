@@ -21,16 +21,20 @@ msgstr "{speed} від нормальної швидкості плеєра"
 msgid "{speed} of Normal Speed when you talk"
 msgstr "{speed} від нормальної швидкості, коли ви говорите"
 
-#: components/topDropdownMenu.js:409
+#: components/topDropdownMenu.js:452
 msgid "About"
 msgstr "Про нас"
 
-#: components/topDropdownMenu.js:357
-#: components/topDropdownMenu.js:363
+#: components/topDropdownMenu.js:453
+msgid "About the Application"
+msgstr "Про додаток"
+
+#: components/topDropdownMenu.js:400
+#: components/topDropdownMenu.js:406
 msgid "Account"
 msgstr "Обліковий запис"
 
-#: components/topDropdownMenu.js:379
+#: components/topDropdownMenu.js:422
 msgid "Add custom Playlist"
 msgstr "Додати власний плейлист"
 
@@ -42,7 +46,7 @@ msgstr "Аналіз"
 msgid "Blure Youtube Captions"
 msgstr "Розмити YouTube субтитри"
 
-#: components/app.js:96
+#: components/app.js:112
 msgid "Bye-bye {name}"
 msgstr "До побачення, {name}"
 
@@ -50,11 +54,11 @@ msgstr "До побачення, {name}"
 msgid "Camera"
 msgstr "Камера"
 
-#: components/topDropdownMenu.js:382
+#: components/topDropdownMenu.js:425
 msgid "Clear Memory"
 msgstr "Очистити пам'ять"
 
-#: components/topDropdownMenu.js:412
+#: components/topDropdownMenu.js:456
 msgid "Contact Me"
 msgstr "Зв'язатися зі мною"
 
@@ -62,9 +66,9 @@ msgstr "Зв'язатися зі мною"
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "Запис \"{textToProcess}\" додано до вашої колекції флеш-карток"
 
-#: components/app.js:100
-#: components/app.js:104
-#: components/app.js:108
+#: components/app.js:116
+#: components/app.js:120
+#: components/app.js:124
 msgid "Error"
 msgstr "Помилка"
 
@@ -77,48 +81,48 @@ msgstr "Вправа"
 msgid "Exercise Captions"
 msgstr "Субтитри для вправ"
 
-#: components/topDropdownMenu.js:368
+#: components/topDropdownMenu.js:411
 msgid "File"
 msgstr "Файл"
 
-#: components/topDropdownMenu.js:391
+#: components/topDropdownMenu.js:434
 msgid "Flashcards"
 msgstr "Флеш-картки"
 
-#: components/topDropdownMenu.js:349
+#: components/topDropdownMenu.js:392
 msgid "Hello"
 msgstr "Привіт"
 
-#: components/app.js:92
+#: components/app.js:108
 msgid "Hello {name}"
 msgstr "Привіт, {name}"
 
-#: components/topDropdownMenu.js:398
-#: components/topDropdownMenu.js:404
+#: components/topDropdownMenu.js:441
+#: components/topDropdownMenu.js:447
 msgid "Home"
 msgstr "Головна"
 
-#: components/topDropdownMenu.js:411
+#: components/topDropdownMenu.js:455
 msgid "How To Register(Free)?"
 msgstr "Як зареєструватися (безкоштовно)?"
 
-#: components/topDropdownMenu.js:410
+#: components/topDropdownMenu.js:454
 msgid "How To?"
 msgstr "Як?"
 
-#: components/topDropdownMenu.js:358
+#: components/topDropdownMenu.js:401
 msgid "Login"
 msgstr "Увійти"
 
-#: components/app.js:100
+#: components/app.js:116
 msgid "Login {name} failed"
 msgstr "Не вдалося увійти {name}"
 
-#: components/topDropdownMenu.js:364
+#: components/topDropdownMenu.js:407
 msgid "Logout"
 msgstr "Вийти"
 
-#: components/app.js:104
+#: components/app.js:120
 msgid "Logout {name} failed"
 msgstr "Не вдалося вийти {name}"
 
@@ -134,8 +138,8 @@ msgstr "Гучна підказка, коли ви говорите"
 msgid "Mute Player when you talk"
 msgstr "Приглушити звук плеєра, коли ви говорите"
 
-#: components/topDropdownMenu.js:397
-#: components/topDropdownMenu.js:403
+#: components/topDropdownMenu.js:440
+#: components/topDropdownMenu.js:446
 msgid "Navigate"
 msgstr "Навігувати"
 
@@ -163,28 +167,28 @@ msgstr "Нормальна швидкість плеєра"
 msgid "Normal Speed when you talk"
 msgstr "Нормальна швидкість, коли ви говорите"
 
-#: components/topDropdownMenu.js:372
+#: components/topDropdownMenu.js:415
 msgid "Open .json"
 msgstr "Відкрити .json"
 
-#: components/topDropdownMenu.js:370
+#: components/topDropdownMenu.js:413
 msgid "Open .srt"
 msgstr "Відкрити .srt"
 
-#: components/topDropdownMenu.js:378
+#: components/topDropdownMenu.js:421
 msgid "Open custom video"
 msgstr "Відкрити власне відео"
 
-#: components/topDropdownMenu.js:380
+#: components/topDropdownMenu.js:423
 msgid "Open Exercise File"
 msgstr "Відкрити файл вправи"
 
-#: components/topDropdownMenu.js:377
-#: components/topDropdownMenu.js:387
+#: components/topDropdownMenu.js:420
+#: components/topDropdownMenu.js:430
 msgid "Open Settings"
 msgstr "Відкрити налаштування"
 
-#: components/topDropdownMenu.js:406
+#: components/topDropdownMenu.js:449
 msgid "Open video on Youtube"
 msgstr "Відкрити відео на YouTube"
 
@@ -196,19 +200,19 @@ msgstr "Підказка, коли ви говорите"
 msgid "Pronunciation"
 msgstr "Вимова"
 
-#: components/topDropdownMenu.js:359
+#: components/topDropdownMenu.js:402
 msgid "Register"
 msgstr "Зареєструватися"
 
-#: components/app.js:108
+#: components/app.js:124
 msgid "Register {name} failed, try later"
 msgstr "Не вдалося зареєструвати {name}, спробуйте пізніше"
 
-#: components/topDropdownMenu.js:381
+#: components/topDropdownMenu.js:424
 msgid "Reload Playlist"
 msgstr "Перезавантажити плейлист"
 
-#: components/topDropdownMenu.js:369
+#: components/topDropdownMenu.js:412
 msgid "Save .srt"
 msgstr "Зберегти .srt"
 
@@ -229,12 +233,12 @@ msgstr "Тиха підказка, коли ви говорите"
 msgid "Start (sec)"
 msgstr "Початок (сек)"
 
-#: components/topDropdownMenu.js:393
+#: components/topDropdownMenu.js:436
 msgid "Start Test"
 msgstr "Почати тест"
 
-#: components/app.js:92
-#: components/app.js:96
+#: components/app.js:108
+#: components/app.js:112
 #: components/captionBox.js:190
 msgid "Success"
 msgstr "Успіх"
@@ -247,8 +251,8 @@ msgstr "Текст"
 #~ msgid "Text Analysis"
 #~ msgstr "Аналіз тексту"
 
-#: components/topDropdownMenu.js:376
-#: components/topDropdownMenu.js:386
+#: components/topDropdownMenu.js:419
+#: components/topDropdownMenu.js:429
 msgid "Tools"
 msgstr "Інструменти"
 
@@ -256,11 +260,11 @@ msgstr "Інструменти"
 msgid "Translation"
 msgstr "Переклад"
 
-#: components/topDropdownMenu.js:371
+#: components/topDropdownMenu.js:414
 msgid "Upload .srt"
 msgstr "Завантажити .srt"
 
-#: components/topDropdownMenu.js:392
+#: components/topDropdownMenu.js:435
 msgid "View Colection"
 msgstr "Переглянути колекцію"
 
@@ -276,7 +280,7 @@ msgstr "Попередження!"
 msgid "Your Line"
 msgstr "Ваш рядок"
 
-#: components/topDropdownMenu.js:399
-#: components/topDropdownMenu.js:405
+#: components/topDropdownMenu.js:442
+#: components/topDropdownMenu.js:448
 msgid "Youtube"
 msgstr "YouTube"

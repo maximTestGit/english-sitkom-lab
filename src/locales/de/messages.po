@@ -5,7 +5,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
-"Language: ru\n"
+"Language: de\n"
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: \n"
@@ -13,281 +13,252 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: components/captionBox.js:190
-#~ msgid "\"Entry {textToProcess}\" is added to your flashcard collection"
-#~ msgstr "\"Элемент {textToProcess} добавлен в вашу коллекцию карточек\""
-
 #: components/playbackSettings.js:114
 msgid "{speed} of Normal Speed Player"
-msgstr "{speed} от Нормальной скорости плейера"
+msgstr "{speed} der normalen Wiedergabegeschwindigkeit"
 
 #: components/playbackSettings.js:90
 msgid "{speed} of Normal Speed when you talk"
-msgstr "{speed} от Нормальной скорости для Вашего текста"
+msgstr "{speed} der normalen Geschwindigkeit wenn Sie sprechen"
 
 #: components/topDropdownMenu.js:452
 msgid "About"
-msgstr "Информация"
+msgstr "Über"
 
 #: components/topDropdownMenu.js:453
 msgid "About the Application"
-msgstr "О приложении"
+msgstr "Über die Anwendung"
 
 #: components/topDropdownMenu.js:400
 #: components/topDropdownMenu.js:406
 msgid "Account"
-msgstr "Пользователь"
+msgstr "Konto"
 
 #: components/topDropdownMenu.js:422
 msgid "Add custom Playlist"
-msgstr "Добавить плейлист"
+msgstr "Benutzerdefinierte Wiedergabeliste hinzufügen"
 
 #: components/captionBox.js:144
 msgid "Analysis"
-msgstr "Анализ"
+msgstr "Analyse"
 
 #: components/playbackSettings.js:73
 msgid "Blure Youtube Captions"
-msgstr "Скрыть Youtube субтитры"
+msgstr "YouTube-Untertitel ausblenden"
 
 #: components/app.js:112
 msgid "Bye-bye {name}"
-msgstr "Досвидания, {name}"
+msgstr "Auf Wiedersehen {name}"
 
 #: components/playbackSettings.js:77
 msgid "Camera"
-msgstr "Камера"
+msgstr "Kamera"
 
 #: components/topDropdownMenu.js:425
 msgid "Clear Memory"
-msgstr "Очистить память"
+msgstr "Speicher leeren"
 
 #: components/topDropdownMenu.js:456
 msgid "Contact Me"
-msgstr "Связаться со мной"
+msgstr "Kontaktieren Sie mich"
 
 #: components/captionBox.js:190
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
-msgstr "Элемент \"{textToProcess}\" добавлен в вашу коллекцию карточек"
+msgstr "Eintrag \"{textToProcess}\" wurde zu Ihrer Karteikarten-Sammlung hinzugefügt"
 
 #: components/app.js:116
 #: components/app.js:120
 #: components/app.js:124
 msgid "Error"
-msgstr "Ошибка"
+msgstr "Fehler"
 
 #: components/captionBox.js:162
 #: components/videoListView.js:86
 msgid "Exercise"
-msgstr "Упражнение"
+msgstr "Übung"
 
 #: components/playbackSettings.js:70
 msgid "Exercise Captions"
-msgstr "Субтитры Упражнения"
+msgstr "Übungsuntertitel"
 
 #: components/topDropdownMenu.js:411
 msgid "File"
-msgstr "Файл"
+msgstr "Datei"
 
 #: components/topDropdownMenu.js:434
 msgid "Flashcards"
-msgstr "Карточки"
+msgstr "Karteikarten"
 
 #: components/topDropdownMenu.js:392
 msgid "Hello"
-msgstr "Привет,"
-
-#: components/topDropdownMenu.js:94
-#: components/topDropdownMenu.js:130
-#~ msgid "Hello {0}!"
-#~ msgstr "Привет, {0}!"
+msgstr "Hallo"
 
 #: components/app.js:108
 msgid "Hello {name}"
-msgstr "Привет, {name}"
+msgstr "Hallo {name}"
 
 #: components/topDropdownMenu.js:441
 #: components/topDropdownMenu.js:447
 msgid "Home"
-msgstr "Главная"
+msgstr "Startseite"
 
 #: components/topDropdownMenu.js:455
 msgid "How To Register(Free)?"
-msgstr "Как зарегистрироваться (бесплатно)?"
+msgstr "Wie registriere ich mich (kostenlos)?"
 
 #: components/topDropdownMenu.js:454
 msgid "How To?"
-msgstr "Как это сделать?"
+msgstr "Wie geht das?"
 
 #: components/topDropdownMenu.js:401
 msgid "Login"
-msgstr "Вход"
+msgstr "Anmelden"
 
 #: components/app.js:116
 msgid "Login {name} failed"
-msgstr "Вход {name} не удался"
-
-#: components/topDropdownMenu.js:96
-#~ msgid "Login failed!"
-#~ msgstr "Ошибка входа!"
+msgstr "Anmeldung für {name} fehlgeschlagen"
 
 #: components/topDropdownMenu.js:407
 msgid "Logout"
-msgstr "Выход"
+msgstr "Abmelden"
 
 #: components/app.js:120
 msgid "Logout {name} failed"
-msgstr "Выход {name} не удался"
+msgstr "Abmeldung für {name} fehlgeschlagen"
 
 #: components/playbackSettings.js:67
 msgid "Loop"
-msgstr "Цикл"
+msgstr "Wiederholen"
 
 #: components/playbackSettings.js:59
 msgid "Loud Prompt when you talk"
-msgstr "Громкая подсказка Вашего текста"
+msgstr "Lauter Hinweis wenn Sie sprechen"
 
 #: components/playbackSettings.js:56
 msgid "Mute Player when you talk"
-msgstr "Выключить звук Вашего текста"
+msgstr "Player stumm schalten wenn Sie sprechen"
 
 #: components/topDropdownMenu.js:440
 #: components/topDropdownMenu.js:446
 msgid "Navigate"
-msgstr "Перейти"
-
-#: components/captionBox.js:178
-#~ msgid "No text selected"
-#~ msgstr "Текст не выбран"
+msgstr "Navigieren"
 
 #: components/captionBox.js:133
 msgid "No text to analyze"
-msgstr "Нет текста для анализа"
+msgstr "Kein Text zum Analysieren"
 
 #: components/captionBox.js:101
 msgid "No text to read"
-msgstr "Нет текста для чтения"
+msgstr "Kein Text zum Lesen"
 
 #: components/captionBox.js:90
 msgid "No text to translate"
-msgstr "Нет текста для перевода"
+msgstr "Kein Text zum Übersetzen"
 
 #: components/playbackSettings.js:113
 msgid "Normal Speed Player"
-msgstr "Нормальная скорость плейера"
+msgstr "Player mit normaler Geschwindigkeit"
 
 #: components/playbackSettings.js:89
 msgid "Normal Speed when you talk"
-msgstr "Нормальная скорость для Вашего текста"
+msgstr "Normale Geschwindigkeit wenn Sie sprechen"
 
 #: components/topDropdownMenu.js:415
 msgid "Open .json"
-msgstr "Открыть .json"
+msgstr ".json öffnen"
 
 #: components/topDropdownMenu.js:413
 msgid "Open .srt"
-msgstr "Открыть .srt"
+msgstr ".srt öffnen"
 
 #: components/topDropdownMenu.js:421
 msgid "Open custom video"
-msgstr "Открыть видео"
+msgstr "Benutzerdefiniertes Video öffnen"
 
 #: components/topDropdownMenu.js:423
 msgid "Open Exercise File"
-msgstr "Открыть файл упражнения"
+msgstr "Übungsdatei öffnen"
 
 #: components/topDropdownMenu.js:420
 #: components/topDropdownMenu.js:430
 msgid "Open Settings"
-msgstr "Открыть настройки"
+msgstr "Einstellungen öffnen"
 
 #: components/topDropdownMenu.js:449
 msgid "Open video on Youtube"
-msgstr "Открыть видео на Youtube"
-
-#: components/topDropdownMenu.js:123
-#~ msgid "Passwords do not match!"
-#~ msgstr "Пароли не совпадают!"
+msgstr "Video auf YouTube öffnen"
 
 #: components/playbackSettings.js:58
 msgid "Prompt when you talk"
-msgstr "Средняя громкость подсказки Вашего текста"
+msgstr "Hinweis wenn Sie sprechen"
 
 #: components/captionBox.js:112
 msgid "Pronunciation"
-msgstr "Произношение"
+msgstr "Aussprache"
 
 #: components/topDropdownMenu.js:402
 msgid "Register"
-msgstr "Регистрация"
+msgstr "Registrieren"
 
 #: components/app.js:124
 msgid "Register {name} failed, try later"
-msgstr "Регистрация {name} не удалась, попробуйте позже"
-
-#: components/topDropdownMenu.js:132
-#~ msgid "Registration failed!"
-#~ msgstr "Ошибка регистрации!"
+msgstr "Registrierung für {name} fehlgeschlagen, versuchen Sie es später"
 
 #: components/topDropdownMenu.js:424
 msgid "Reload Playlist"
-msgstr "Перезагрузить плейлист"
+msgstr "Wiedergabeliste neu laden"
 
 #: components/topDropdownMenu.js:412
 msgid "Save .srt"
-msgstr "Сохранить .srt"
+msgstr ".srt speichern"
 
 #: components/captionsView.js:255
 msgid "Select"
-msgstr "Выделить"
+msgstr "Auswählen"
 
 #: components/captionBox.js:151
 #: components/captionBox.js:178
 msgid "Select text to process"
-msgstr "Выделите текст для обработки"
+msgstr "Text zum Verarbeiten auswählen"
 
 #: components/playbackSettings.js:57
 msgid "Slight Prompt when you talk"
-msgstr "Тихая подсказка Вашего текста"
+msgstr "Leichter Hinweis wenn Sie sprechen"
 
 #: components/captionsView.js:257
 msgid "Start (sec)"
-msgstr "Начало (сек)"
+msgstr "Start (Sek.)"
 
 #: components/topDropdownMenu.js:436
 msgid "Start Test"
-msgstr "Начать тест"
+msgstr "Test starten"
 
 #: components/app.js:108
 #: components/app.js:112
 #: components/captionBox.js:190
 msgid "Success"
-msgstr "Операция завершена успешно"
+msgstr "Erfolg"
 
 #: components/captionsView.js:258
 msgid "Text"
-msgstr "Текст"
-
-#: components/captionBox.js:81
-#~ msgid "Text Analysis"
-#~ msgstr "Анализ текста"
+msgstr "Text"
 
 #: components/topDropdownMenu.js:419
 #: components/topDropdownMenu.js:429
 msgid "Tools"
-msgstr "Инструменты"
+msgstr "Werkzeuge"
 
 #: components/captionBox.js:94
 msgid "Translation"
-msgstr "Перевод"
+msgstr "Übersetzung"
 
 #: components/topDropdownMenu.js:414
 msgid "Upload .srt"
-msgstr "Загрузить .srt"
+msgstr ".srt hochladen"
 
 #: components/topDropdownMenu.js:435
 msgid "View Colection"
-msgstr "Просмотр коллекции"
+msgstr "Sammlung anzeigen"
 
 #: components/captionBox.js:90
 #: components/captionBox.js:101
@@ -295,13 +266,13 @@ msgstr "Просмотр коллекции"
 #: components/captionBox.js:151
 #: components/captionBox.js:178
 msgid "Warning!"
-msgstr "Предупреждение!"
+msgstr "Warnung!"
 
 #: components/captionsView.js:256
 msgid "Your Line"
-msgstr "Ваш текст"
+msgstr "Ihre Zeile"
 
 #: components/topDropdownMenu.js:442
 #: components/topDropdownMenu.js:448
 msgid "Youtube"
-msgstr "Youtube"
+msgstr "YouTube"
