@@ -1,0 +1,274 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2024-10-13 18:58+0300\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: hr\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: components/playbackSettings.js:114
+msgid "{speed} of Normal Speed Player"
+msgstr "{speed} normalne brzine reprodukcije"
+
+#: components/playbackSettings.js:90
+msgid "{speed} of Normal Speed when you talk"
+msgstr "{speed} normalne brzine kada govorite"
+
+#: components/topDropdownMenu.js:409
+msgid "About"
+msgstr "O nama"
+
+#: components/topDropdownMenu.js:357
+#: components/topDropdownMenu.js:363
+msgid "Account"
+msgstr "Račun"
+
+#: components/topDropdownMenu.js:379
+msgid "Add custom Playlist"
+msgstr "Dodati prilagođenu playlistu"
+
+#: components/captionBox.js:144
+msgid "Analysis"
+msgstr "Analiza"
+
+#: components/playbackSettings.js:73
+msgid "Blure Youtube Captions"
+msgstr "Zamuti YouTube titlove"
+
+#: components/app.js:96
+msgid "Bye-bye {name}"
+msgstr "Doviđenja {name}"
+
+#: components/playbackSettings.js:77
+msgid "Camera"
+msgstr "Kamera"
+
+#: components/topDropdownMenu.js:382
+msgid "Clear Memory"
+msgstr "Očisti memoriju"
+
+#: components/topDropdownMenu.js:412
+msgid "Contact Me"
+msgstr "Kontaktirajte me"
+
+#: components/captionBox.js:190
+msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
+msgstr "Unos \"{textToProcess}\" je dodan u vašu kolekciju kartica"
+
+#: components/app.js:100
+#: components/app.js:104
+#: components/app.js:108
+msgid "Error"
+msgstr "Greška"
+
+#: components/captionBox.js:162
+#: components/videoListView.js:86
+msgid "Exercise"
+msgstr "Vježba"
+
+#: components/playbackSettings.js:70
+msgid "Exercise Captions"
+msgstr "Titlovi za vježbu"
+
+#: components/topDropdownMenu.js:368
+msgid "File"
+msgstr "Datoteka"
+
+#: components/topDropdownMenu.js:391
+msgid "Flashcards"
+msgstr "Kartice za učenje"
+
+#: components/topDropdownMenu.js:349
+msgid "Hello"
+msgstr "Pozdrav"
+
+#: components/app.js:92
+msgid "Hello {name}"
+msgstr "Pozdrav {name}"
+
+#: components/topDropdownMenu.js:398
+#: components/topDropdownMenu.js:404
+msgid "Home"
+msgstr "Početna"
+
+#: components/topDropdownMenu.js:411
+msgid "How To Register(Free)?"
+msgstr "Kako se registrirati (besplatno)?"
+
+#: components/topDropdownMenu.js:410
+msgid "How To?"
+msgstr "Kako?"
+
+#: components/topDropdownMenu.js:358
+msgid "Login"
+msgstr "Prijava"
+
+#: components/app.js:100
+msgid "Login {name} failed"
+msgstr "Prijava za {name} nije uspjela"
+
+#: components/topDropdownMenu.js:364
+msgid "Logout"
+msgstr "Odjava"
+
+#: components/app.js:104
+msgid "Logout {name} failed"
+msgstr "Odjava za {name} nije uspjela"
+
+#: components/playbackSettings.js:67
+msgid "Loop"
+msgstr "Ponavljanje"
+
+#: components/playbackSettings.js:59
+msgid "Loud Prompt when you talk"
+msgstr "Glasan zvučni signal kada vi govorite"
+
+#: components/playbackSettings.js:56
+msgid "Mute Player when you talk"
+msgstr "Utišaj player kada vi govorite"
+
+#: components/topDropdownMenu.js:397
+#: components/topDropdownMenu.js:403
+msgid "Navigate"
+msgstr "Navigacija"
+
+#: components/captionBox.js:133
+msgid "No text to analyze"
+msgstr "Nema teksta za analizu"
+
+#: components/captionBox.js:101
+msgid "No text to read"
+msgstr "Nema teksta za čitanje"
+
+#: components/captionBox.js:90
+msgid "No text to translate"
+msgstr "Nema teksta za prevođenje"
+
+#: components/playbackSettings.js:113
+msgid "Normal Speed Player"
+msgstr "Reprodukcija normalnom brzinom"
+
+#: components/playbackSettings.js:89
+msgid "Normal Speed when you talk"
+msgstr "Normalna brzina kada  vi govorite"
+
+#: components/topDropdownMenu.js:372
+msgid "Open .json"
+msgstr "Otvori .json"
+
+#: components/topDropdownMenu.js:370
+msgid "Open .srt"
+msgstr "Otvori .srt"
+
+#: components/topDropdownMenu.js:378
+msgid "Open custom video"
+msgstr "Otvori prilagođeni video"
+
+#: components/topDropdownMenu.js:380
+msgid "Open Exercise File"
+msgstr "Otvori datoteku za vježbu"
+
+#: components/topDropdownMenu.js:377
+#: components/topDropdownMenu.js:387
+msgid "Open Settings"
+msgstr "Otvori postavke"
+
+#: components/topDropdownMenu.js:406
+msgid "Open video on Youtube"
+msgstr "Otvori video na YouTubeu"
+
+#: components/playbackSettings.js:58
+msgid "Prompt when you talk"
+msgstr "Signal kada vi govorite"
+
+#: components/captionBox.js:112
+msgid "Pronunciation"
+msgstr "Izgovor"
+
+#: components/topDropdownMenu.js:359
+msgid "Register"
+msgstr "Registracija"
+
+#: components/app.js:108
+msgid "Register {name} failed, try later"
+msgstr "Registracija za {name} nije uspjela, pokušajte kasnije"
+
+#: components/topDropdownMenu.js:381
+msgid "Reload Playlist"
+msgstr "Ponovno učitaj playlistu"
+
+#: components/topDropdownMenu.js:369
+msgid "Save .srt"
+msgstr "Spremi .srt"
+
+#: components/captionsView.js:255
+msgid "Select"
+msgstr "Odaberi"
+
+#: components/captionBox.js:151
+#: components/captionBox.js:178
+msgid "Select text to process"
+msgstr "Odaberite tekst za obradu"
+
+#: components/playbackSettings.js:57
+msgid "Slight Prompt when you talk"
+msgstr "Tihi signal kada vi govorite"
+
+#: components/captionsView.js:257
+msgid "Start (sec)"
+msgstr "Početak (sek)"
+
+#: components/topDropdownMenu.js:393
+msgid "Start Test"
+msgstr "Započni test"
+
+#: components/app.js:92
+#: components/app.js:96
+#: components/captionBox.js:190
+msgid "Success"
+msgstr "Uspjeh"
+
+#: components/captionsView.js:258
+msgid "Text"
+msgstr "Tekst"
+
+#: components/topDropdownMenu.js:376
+#: components/topDropdownMenu.js:386
+msgid "Tools"
+msgstr "Alati"
+
+#: components/captionBox.js:94
+msgid "Translation"
+msgstr "Prijevod"
+
+#: components/topDropdownMenu.js:371
+msgid "Upload .srt"
+msgstr "Učitaj .srt"
+
+#: components/topDropdownMenu.js:392
+msgid "View Colection"
+msgstr "Pregledaj kolekciju"
+
+#: components/captionBox.js:90
+#: components/captionBox.js:101
+#: components/captionBox.js:133
+#: components/captionBox.js:151
+#: components/captionBox.js:178
+msgid "Warning!"
+msgstr "Upozorenje!"
+
+#: components/captionsView.js:256
+msgid "Your Line"
+msgstr "Vaš redak"
+
+#: components/topDropdownMenu.js:399
+#: components/topDropdownMenu.js:405
+msgid "Youtube"
+msgstr "YouTube"
