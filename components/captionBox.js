@@ -200,6 +200,10 @@ const CaptionBox = (
                                 disabled={!caption || !user || isButtonDisabled}>
                                 <PiCardsThree style={{ width: '100%', height: '100%' }} />
                             </button>
+                            <button className="mb-1" onClick={() => handleCaptionButtonClick(onCaptionExercise)} title="Exercise for current caption"
+                                disabled={!caption || !user || isButtonDisabled}>
+                                <GoTasklist style={{ width: '100%', height: '100%' }} />
+                            </button>
                         </td>
                         <td className="fw-bold fs-6">
                             {caption && decodeHtml(caption?.text)}
@@ -216,10 +220,6 @@ const CaptionBox = (
                             <button className="mb-1" onClick={() => handleCaptionButtonClick(onCaptionAnalyze)} title="Analyze current caption"
                                 disabled={!caption || !user || isButtonDisabled}>
                                 <RiInformation2Line style={{ width: '100%', height: '100%' }} />
-                            </button>
-                            <button className="mb-1" onClick={() => handleCaptionButtonClick(onCaptionExercise)} title="Exercise for current caption"
-                                disabled={!caption || !user || isButtonDisabled}>
-                                <GoTasklist style={{ width: '100%', height: '100%' }} />
                             </button>
                         </td>
                     </tr>
