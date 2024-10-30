@@ -48,6 +48,7 @@ export async function fetchRetrieveCaptions(user, videoId, language, playlistId,
   let result = fetchDataFromLocalStorage(prefix, videoId, null);
 
   if (!result || result.length === 0) { // not found or no cache
+    console.log(`fetchRetrieveCaptions: videoId: ${videoId}, language: ${language}, playlistId: ${playlistId}, userName: ${userName}, refetchFromSource: ${refetchFromSource}`);
     const url = getCaptionsUrlPost();
     //videoId=${videoId}&language=${language}&user=${user}
     const data = {
@@ -57,7 +58,7 @@ export async function fetchRetrieveCaptions(user, videoId, language, playlistId,
       playlistId: playlistId,
     };
     result = await fetchDataFromSource(user, url, data);
-    if (result) {
+    if (result && result.length > 0) {
       saveDataToLocalStorage(prefix, videoId, result, null);
     }
   }

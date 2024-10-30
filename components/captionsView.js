@@ -162,10 +162,12 @@ const CaptionsView = forwardRef(({
     }
     // if cations are loaded from srt file
     useEffect(() => {
-        assignCaptions(srtCaptionsData)
-            .then(captions => {
-                onClipIndexRangeChangeWrapper(captions);
-            });
+        if (srtCaptionsData?.length > 0) {
+            assignCaptions(srtCaptionsData)
+                .then(captions => {
+                    onClipIndexRangeChangeWrapper(captions);
+                });
+        }
     }, [srtCaptionsData]);
 
     useImperativeHandle(ref, () =>
@@ -181,31 +183,33 @@ const CaptionsView = forwardRef(({
 
     useEffect(() => {
         const findCurrentCaption = (captions, position) => {
-            let fPosition = parseFloat(position);
             let captionAtPosition = null;
-            for (let i = 0; i < captions?.length; i++) {
-                let caption = captions[i];
-                let start = parseFloat(caption.start);
-                let duration = parseFloat(caption.duration);
-                if (fPosition >= start && fPosition < start + duration) {
-                    captionAtPosition = caption;
-                    break;
+            if (position) {
+                let fPosition = parseFloat(position);
+                for (let i = 0; i < captions?.length; i++) {
+                    let caption = captions[i];
+                    let start = parseFloat(caption.start);
+                    let duration = parseFloat(caption.duration);
+                    if (fPosition >= start && fPosition < start + duration) {
+                        captionAtPosition = caption;
+                        break;
+                    }
                 }
-            }
-            if (!captionAtPosition) {
-                //console.log(`LingFlix: No caption found at position ${position}`);
-                setCurrentCaption(null)
-                onCurrentCaptionChange(null);
-            } else if (currentCaption?.start < 0.1 || currentCaption !== captionAtPosition) { //???
-                const now = new Date();
-                let text = captionAtPosition.text;
-                let start = parseFloat(captionAtPosition.start);
-                let end = start + parseFloat(captionAtPosition.duration);
-                const checked = captionAtPosition.checked;
-                const currentTime = `${now.getMinutes()}:${now.getSeconds()}.${now.getMilliseconds()}`;
-                console.log(`LingFlix: [${currentTime}] Caption found at position ${position} is ${text} start:${start}-${end} checked:${checked}`);
-                setCurrentCaption(captionAtPosition)
-                onCurrentCaptionChange(captionAtPosition);
+                if (!captionAtPosition) {
+                    console.log(`LingFlix: CaptionsView.findCurrentCaption: No caption found at position ${position}`);
+                    setCurrentCaption(null)
+                    onCurrentCaptionChange(null);
+                } else if (currentCaption?.start < 0.1 || currentCaption !== captionAtPosition) { //???
+                    const now = new Date();
+                    let text = captionAtPosition.text;
+                    let start = parseFloat(captionAtPosition.start);
+                    let end = start + parseFloat(captionAtPosition.duration);
+                    const checked = captionAtPosition.checked;
+                    const currentTime = `${now.getMinutes()}:${now.getSeconds()}.${now.getMilliseconds()}`;
+                    console.log(`LingFlix: [${currentTime}] Caption found at position ${position} is ${text} start:${start}-${end} checked:${checked}`);
+                    setCurrentCaption(captionAtPosition)
+                    onCurrentCaptionChange(captionAtPosition);
+                }
             }
             return captionAtPosition;
         }

@@ -36,7 +36,7 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
     }, [playing]);
 
     const onProgressWrapper = (state) => {
-        if (!hasRecording) {
+        if (!hasRecording && playing) {
             if (state.playedSeconds < clipRange.start) {
                 resetPlayerPosition(playerRef, clipRange);
             } else if (state.playedSeconds > clipRange.end) {

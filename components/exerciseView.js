@@ -4,7 +4,7 @@ import CaptionBox from './captionBox';
 import PlaybackSettings from './playbackSettings';
 import PlayerBox from './playerBox';
 import ExerciseStatus from './data/exerciseStatus';
-import { jumpToStart, doSaveExerciseToFile, doShareHomework } from './helpers/exerciseHelper';
+import { jumpToStart, doSaveExerciseToFile, doShareHomework, jumpToPos } from './helpers/exerciseHelper';
 import Modal from 'react-bootstrap/Modal';
 import ControlsArea from './controlsArea';
 import {
@@ -55,7 +55,7 @@ const ExerciseView = forwardRef(({
 
     const [settings, setSettings] = useState(initialSettings);
 
-    const [position, setPosition] = useState(0);
+    const [position, setPosition] = useState(null);
     const [currentCaption, setCurrentCaption] = useState(null);
     const [analyzedCaption, setAnalyzedCaption] = useState(null);
     const [analyzedCaptionBuf, setAnalyzedCaptionBuf] = useState(null);
@@ -304,12 +304,12 @@ const ExerciseView = forwardRef(({
             handleStopPlay();
         } else if (exerciseStatus === ExerciseStatus.CAPTION) {
             handleStopPlay();
-            jumpToStart(playerRef);
-            setPosition(0);
+            setCurrentCaptionWrapper(analyzedCaption, 'handlePlayingEnd', analyzedCaption.start);
             setAnalyzedCaption(null);
         } else if (!settings.isLoop) {
             handleStopPlay();
         } else {
+            handleStopPlay();
             jumpToStart(playerRef);
             setPosition(0);
         }
@@ -357,7 +357,7 @@ const ExerciseView = forwardRef(({
             return;
         }
         setActionStartedAt(new Date());
-        
+
         if (exerciseStatus === ExerciseStatus.STOPPED) {
             if (recordedChunks?.length > 0) {
                 alert('You have already recorded something. Please clear recording first.\n(Click "Clear Homework Record" button)');
@@ -465,11 +465,8 @@ const ExerciseView = forwardRef(({
     }, []);
 
     useEffect(() => {
-        if (captions?.length > 0 && !currentCaption) {
-            setCurrentCaptionWrapper(captions[0], 'useEffect[captions]');
-            //jumpToStart(playerRef);
-            //setPosition(0);
-            //jumpToStart(recPlayerRef);
+        if (captions?.length > 0) { // && !currentCaption) {
+            setCurrentCaptionWrapper(captions[0], 'useEffect[captions]', captions[0].start);
             setCurrentVolumeWrapper(default_volume);
             setExerciseStatusWrapper(ExerciseStatus.STOPPED, 'useEffect[captions]');
         }
@@ -598,10 +595,12 @@ const ExerciseView = forwardRef(({
             setCaptionToSearch(currentCaption);
         }
     }
-    const setCurrentCaptionWrapper = (caption, caller) => {
+    const setCurrentCaptionWrapper = (caption, caller, pos=null) => {
         if (caption) {
-            setPosition(caption.start);
-            //jumpToPos(playerRef, caption.start);
+            if (pos) {
+                setPosition(caption.start);
+                jumpToPos(playerRef, caption.start);
+            }
             setCurrentCaption(caption);
             console.log(`LingFlix: setCurrentCaptionWrapper[${caller}]: ${caption.text}`);
         } else {
@@ -614,7 +613,7 @@ const ExerciseView = forwardRef(({
         setAnalyzedCaptionBuf(null);
         jumpToStart();
         if (captions.length > 0) {
-            setCurrentCaptionWrapper(captions[0], 'goFirstCaption');
+            setCurrentCaptionWrapper(captions[0], 'goFirstCaption', captions[0].start);
         }
     }
     const goPrevCaption = () => {
@@ -625,7 +624,7 @@ const ExerciseView = forwardRef(({
             if (currentCaption) {
                 let currentCaptionIndex = captions.findIndex(caption => caption.start === currentCaption.start);
                 if (currentCaptionIndex >= 1) {
-                    setCurrentCaptionWrapper(captions[currentCaptionIndex - 1], 'goPrevCaption');
+                    setCurrentCaptionWrapper(captions[currentCaptionIndex - 1], 'goPrevCaption', captions[currentCaptionIndex - 1].start);
                 } else {
                     goFirstCaption();
                 }
@@ -642,7 +641,7 @@ const ExerciseView = forwardRef(({
             if (currentCaption) {
                 const currentCaptionIndex = captions.findIndex(caption => caption.start === currentCaption.start);
                 if (currentCaptionIndex >= 0 && currentCaptionIndex < captions.length - 2) {
-                    setCurrentCaptionWrapper(captions[currentCaptionIndex + 1], 'goNextCaption');
+                    setCurrentCaptionWrapper(captions[currentCaptionIndex + 1], 'goNextCaption', captions[currentCaptionIndex + 1].start);
                 } else {
                     goLastCaption();
                 }
@@ -654,9 +653,8 @@ const ExerciseView = forwardRef(({
     const goLastCaption = () => {
         setAnalyzedCaption(null);
         setAnalyzedCaptionBuf(null);
-        //jumpToStart();
         if (captions.length > 0) {
-            setCurrentCaptionWrapper(captions[captions.length - 1], 'goLastCaption');
+            setCurrentCaptionWrapper(captions[captions.length - 1], 'goLastCaption', captions[captions.length - 1].start);
         }
     }
     const playCurrentCaption = () => {
@@ -695,9 +693,9 @@ const ExerciseView = forwardRef(({
     }, [currentCaption]);
 
     useEffect(() => {
-        if (exerciseStatus === ExerciseStatus.PLAYING
-            || exerciseStatus === ExerciseStatus.RECORDING
-            || exerciseStatus === ExerciseStatus.ORIGIN) {
+        if (exerciseStatus === ExerciseStatus.STOPPED
+            && analyzedCaptionBuf) {
+            setCurrentCaptionWrapper(analyzedCaptionBuf, 'useEffect[exerciseStatus]', `exerciseStatus: ${exerciseStatus}`);
             setAnalyzedCaptionBuf(null);
         }
         console.log(`LingFlix: useEffect[exerciseStatus]: ${exerciseStatus} currentCation: ${currentCaption?.text}`);

@@ -175,6 +175,7 @@ export function removeDataFromLocalStorage(prefix, key) {
     const dataKey = buildDataKey(prefix, key);
     removeDataFromLocalStorageByKey(dataKey);
     unregisterDataAtLocalStorage(prefix, key);
+    console.log(`LingFlix: removeDataFromLocalStorage: Removed data with key ${dataKey} from local storage.`);
 }
 
 export function saveLearningLanguageToLocalStorage(language) {
