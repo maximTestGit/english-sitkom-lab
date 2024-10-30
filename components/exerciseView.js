@@ -167,16 +167,16 @@ const ExerciseView = forwardRef(({
     };
     const setPlayingCaption = (caption) => {
         if (analyzedCaption) {
-            setCurrentCaptionWrapper(analyzedCaption);
+            setCurrentCaptionWrapper(analyzedCaption, "setPlayingCaption.analyzedCaption");
             setAnalyzedCaption(null);
             console.log(`LingFlix: setPlayingCaption: analyzedCaption:${analyzedCaption?.text} checked:${analyzedCaption?.checked}`);
         } else if (caption) {
-            setCurrentCaptionWrapper(caption);
+            setCurrentCaptionWrapper(caption, "setPlayingCaption.caption");
             setCurrentPlaybackRateByCaption(caption);
             setCurrentVolumeByCaption(caption);
             console.log(`LingFlix: setPlayingCaption: caption:${caption?.text} checked:${caption?.checked}`);
         } else {
-            setCurrentCaptionWrapper(null);
+            setCurrentCaptionWrapper(null, "setPlayingCaption.null");
             setCurrentPlaybackRateWrapper(default_playback_rate);
             setCurrentVolumeWrapper(default_volume);
         }
@@ -466,9 +466,9 @@ const ExerciseView = forwardRef(({
 
     useEffect(() => {
         if (captions?.length > 0 && !currentCaption) {
-            setCurrentCaptionWrapper(captions[0]);
+            setCurrentCaptionWrapper(captions[0], 'useEffect[captions]');
             //jumpToStart(playerRef);
-            setPosition(0);
+            //setPosition(0);
             //jumpToStart(recPlayerRef);
             setCurrentVolumeWrapper(default_volume);
             setExerciseStatusWrapper(ExerciseStatus.STOPPED, 'useEffect[captions]');
@@ -598,15 +598,15 @@ const ExerciseView = forwardRef(({
             setCaptionToSearch(currentCaption);
         }
     }
-    const setCurrentCaptionWrapper = (caption) => {
+    const setCurrentCaptionWrapper = (caption, caller) => {
         if (caption) {
             setPosition(caption.start);
             //jumpToPos(playerRef, caption.start);
             setCurrentCaption(caption);
-            console.log(`LingFlix: setCurrentCaptionWrapper: ${caption.text}`);
+            console.log(`LingFlix: setCurrentCaptionWrapper[${caller}]: ${caption.text}`);
         } else {
             setCurrentCaption(null);
-            console.log(`LingFlix: setCurrentCaptionWrapper: null`);
+            console.log(`LingFlix: setCurrentCaptionWrapper[${caller}]: null`);
         }
     }
     const goFirstCaption = () => {
@@ -614,7 +614,7 @@ const ExerciseView = forwardRef(({
         setAnalyzedCaptionBuf(null);
         jumpToStart();
         if (captions.length > 0) {
-            setCurrentCaptionWrapper(captions[0]);
+            setCurrentCaptionWrapper(captions[0], 'goFirstCaption');
         }
     }
     const goPrevCaption = () => {
@@ -625,7 +625,7 @@ const ExerciseView = forwardRef(({
             if (currentCaption) {
                 let currentCaptionIndex = captions.findIndex(caption => caption.start === currentCaption.start);
                 if (currentCaptionIndex >= 1) {
-                    setCurrentCaptionWrapper(captions[currentCaptionIndex - 1]);
+                    setCurrentCaptionWrapper(captions[currentCaptionIndex - 1], 'goPrevCaption');
                 } else {
                     goFirstCaption();
                 }
@@ -642,7 +642,7 @@ const ExerciseView = forwardRef(({
             if (currentCaption) {
                 const currentCaptionIndex = captions.findIndex(caption => caption.start === currentCaption.start);
                 if (currentCaptionIndex >= 0 && currentCaptionIndex < captions.length - 2) {
-                    setCurrentCaptionWrapper(captions[currentCaptionIndex + 1]);
+                    setCurrentCaptionWrapper(captions[currentCaptionIndex + 1], 'goNextCaption');
                 } else {
                     goLastCaption();
                 }
@@ -656,7 +656,7 @@ const ExerciseView = forwardRef(({
         setAnalyzedCaptionBuf(null);
         //jumpToStart();
         if (captions.length > 0) {
-            setCurrentCaptionWrapper(captions[captions.length - 1]);
+            setCurrentCaptionWrapper(captions[captions.length - 1], 'goLastCaption');
         }
     }
     const playCurrentCaption = () => {
