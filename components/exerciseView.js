@@ -309,7 +309,7 @@ const ExerciseView = forwardRef(({
         } else if (!settings.isLoop) {
             handleStopPlay();
         } else {
-            handleStopPlay();
+            //handleStopPlay();
             jumpToStart(playerRef);
             setPosition(0);
         }
@@ -595,7 +595,7 @@ const ExerciseView = forwardRef(({
             setCaptionToSearch(currentCaption);
         }
     }
-    const setCurrentCaptionWrapper = (caption, caller, pos=null) => {
+    const setCurrentCaptionWrapper = (caption, caller, pos = null) => {
         if (caption) {
             if (pos) {
                 setPosition(caption.start);
