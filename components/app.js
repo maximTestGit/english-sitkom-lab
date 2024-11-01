@@ -361,7 +361,7 @@ const App = () => {
                 setNewPlaylistId(playlistId);
               }
               Swal.fire({
-                title: `Playlist '${playlistName}' saved successfully!`,
+                title: `Playlist ${playlistName} saved successfully!`,
                 icon: 'success',
                 confirmButtonText: 'OK'
               });
@@ -369,7 +369,7 @@ const App = () => {
 
         } else {
           Swal.fire({
-            title: `Error saving playlist '${playlistName}'!`,
+            title: `Error saving playlist ${playlistName}!`,
             icon: 'error',
             confirmButtonText: 'OK'
           });
