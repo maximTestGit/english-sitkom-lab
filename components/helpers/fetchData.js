@@ -141,20 +141,25 @@ async function fetchDataFromSource(user, url, data) {
 
 async function fetchDataFromSourcePost(user, url, data) {
   let result = null;
-  const headers = {
-    'Content-Type': 'application/json'
-  };
-  const token = await user?.getIdToken();
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: headers,
-    body: JSON.stringify(data)
-  });
+  try {
+    document.body.style.cursor = 'wait';
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+    const token = await user?.getIdToken();
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(data)
+    });
 
-  result = response.ok ? await response.json() : null;
+    result = response.ok ? await response.json() : null;
+  } finally {
+    document.body.style.cursor = 'default';
+  }
   return result;
 }
 

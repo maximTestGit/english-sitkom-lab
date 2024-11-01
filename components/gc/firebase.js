@@ -1,11 +1,10 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-//import { getAnalytics } from "firebase/analytics";
-import { 
-    createUserWithEmailAndPassword, 
-    signInWithEmailAndPassword, 
-    signOut, 
-    getAuth, 
+import Swal from 'sweetalert2';
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    getAuth,
     sendPasswordResetEmail,
 } from "firebase/auth";
 import { getUserData, addUserToFirestore } from "./firestore";
@@ -31,6 +30,7 @@ export const auth = getAuth(app);
 
 export const signInUser = async (email, password) => {
     try {
+        document.body.style.cursor = 'wait';
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         let user = userCredential.user;
         await completeUserData(user);
@@ -39,42 +39,67 @@ export const signInUser = async (email, password) => {
         return user;
     } catch (error) {
         console.error("Error signing in:", error.msage);
-        const userConfirmed = window.confirm("Error signing in. Would you like to reset your password?");
-        if (userConfirmed) {
+        const { isConfirmed } = await Swal.fire({
+            title: 'Error signing in',
+            text: 'Would you like to reset your password?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel'
+        });
+        if (isConfirmed) {
             await sendPasswordResetEmail(auth, email);
-            alert("Password reset email sent. Please check your email and follow the instructions to reset your password.");
+            Swal.fire({
+                title: 'Password Reset Email Sent',
+                text: 'Please check your email and follow the instructions to reset your password.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
         } else {
             console.log("Password reset email not sent.");
         }
+    } finally {                
+        document.body.style.cursor = 'default';
     }
 };
 
 export const signUpUser = async (userName, email, password, language) => {
     try {
+        document.body.style.cursor = 'wait';
         cleanUpLocalStorage(true);
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         await addUserToFirestore(user.uid, userName, language);
-        /*const userData = await getUserData(user.uid);
-        user.username = userData.username;
-        user.language = userData.language;
-        */
         completeUserData(user);
-        console.log("User signed up:", user );
+        console.log("User signed up:", user);
         return user;
     } catch (error) {
         if (error.code === 'auth/email-already-in-use') {
             console.error("Email already in use.");
-            const userConfirmed = window.confirm("The email is already in use. Would you like to reset your password?");
-            if (userConfirmed) {
+            const { isConfirmed } = await Swal.fire({
+                title: 'Email Already in Use',
+                text: 'Would you like to reset your password?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Cancel'
+            });
+            if (isConfirmed) {
                 await sendPasswordResetEmail(auth, email);
-                alert("Password reset email sent. Please check your email and follow the instructions to reset your password.");
+                Swal.fire({
+                    title: 'Password Reset Email Sent',
+                    text: 'Please check your email and follow the instructions to reset your password.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
             } else {
                 console.log("Password reset email not sent.");
             }
         } else {
             console.error("Error signing up:", error.message);
         }
+    } finally {
+        document.body.style.cursor = 'default';
     }
 };
 
@@ -97,6 +122,6 @@ export async function completeUserData(user) {
         user.username = userData.username;
         user.language = userData.language;
     }
-    console.log("LingFlix: User data completed:", user);  
+    console.log("LingFlix: User data completed:", user);
     return user;
 }

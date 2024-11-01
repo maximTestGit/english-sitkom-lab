@@ -2,7 +2,13 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import Webcam from "react-webcam";
 import ExerciseStatus from './data/exerciseStatus';
 
-const WebcamStreamCapture = ({ width, exerciseStatus, onEndCapturing, clearRecord }) => {
+const WebcamStreamCapture = ({
+  width,
+  exerciseStatus,
+  onEndCapturing,
+  clearRecord,
+  onRecordingStarted,
+}) => {
   const webcamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const videoStreamRef = useRef(null);
@@ -45,7 +51,10 @@ const WebcamStreamCapture = ({ width, exerciseStatus, onEndCapturing, clearRecor
       "dataavailable",
       handleDataAvailable
     );
-
+    mediaRecorderRef.current.addEventListener(
+      'start',
+      onRecordingStarted
+    );
     // Start recording
     mediaRecorderRef.current.start();
     console.log(`LingFlix[${instanceId.current}]: handleStartRecording end, mediaRecorderRef:${mediaRecorderRef?.current?.id}, status:${exerciseStatus}, isRecording:${isRecording}`);
@@ -66,11 +75,11 @@ const WebcamStreamCapture = ({ width, exerciseStatus, onEndCapturing, clearRecor
       if (data.size > 0) {
         setRecordedChunks([data]);
         //if (currentRecording) {
-          console.log(`LingFlix[${instanceId.current}]: handleDataAvailable on Stream, status:`+
-          `mediaRecorderRef:${mediaRecorderRef?.current?.id}, `+
+        console.log(`LingFlix[${instanceId.current}]: handleDataAvailable on Stream, status:` +
+          `mediaRecorderRef:${mediaRecorderRef?.current?.id}, ` +
           `state:${mediaRecorderRef?.current?.state}, ${exerciseStatus}, isRecording:${isRecording}, `);
-          setIsRecording(false);
-          onEndCapturing([data]);
+        setIsRecording(false);
+        onEndCapturing([data]);
         //}
       }
     },
@@ -117,43 +126,9 @@ const WebcamStreamCapture = ({ width, exerciseStatus, onEndCapturing, clearRecor
     return () => {
       stopWebcam('useEffect');
     };
-  },[]);
-
-  // #endregion on exit
-
-  /*
-  const startWebcam = useCallback(async () => {
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      if (webcamRef.current && webcamRef.current.video) {
-        webcamRef.current.video.srcObject = await createMediaStream('startWebCam');
-      }
-    } else {
-      console.log("getUserMedia not supported");
-    }
   }, []);
 
-  const handleDownload = () => {
-    if (recordedChunks.length) {
-      const blob = new Blob(recordedChunks, {
-        type: "video/webm"
-      });
-
-      const url = URL.createObjectURL(blob);
-
-      // Create a hidden link element to initiate download
-      const a = document.createElement("a");
-      document.body.appendChild(a);
-      a.style = "display: none";
-      a.href = url;
-      a.download = "react-webcam-stream-capture.webm"; // Set filename
-      a.click(); // Trigger download
-
-      window.URL.revokeObjectURL(url);
-    } else {
-      alert('No records');
-    }
-  };
-  */
+  // #endregion on exit
 
   return (
     <>

@@ -20,6 +20,8 @@ const PlayerBox = forwardRef(({
     onStopRecording,
     onProgress,
     onPlayingEnd,
+    onRecordingStarted,
+    onPlayingStarted,
 }, ref) => {
     const [recordedChunks, setRecordedChunks] = useState([]);
     const [recordedChunksUrl, setRecordedChunksUrl] = useState(null);
@@ -101,6 +103,7 @@ const PlayerBox = forwardRef(({
                             isImbededCaptionsBlured={isImbededCaptionsBlured}
                             clipRange={clipRange}
                             hasRecording={false}
+                            onPlayingStarted={onPlayingStarted}
                         //onResetStatus={handleResetStatus}
                         />
                 }
@@ -150,6 +153,7 @@ const PlayerBox = forwardRef(({
                             cameraWidth={150}
                             exerciseStatus={exerciseStatus}
                             onStopRecording={handleStopRecordingWraper}
+                            onRecordingStarted={onRecordingStarted}
                             zIndex={9991}
                         />
                     </div>

@@ -4,7 +4,13 @@ import ExerciseStatus from './data/exerciseStatus';
 import styles from './styles/playerBox.module.css';
 
 
-const WebcamBox = ({ cameraWidth, exerciseStatus, onStopRecording, zIndex }) => {
+const WebcamBox = ({
+    cameraWidth,
+    exerciseStatus,
+    onStopRecording,
+    onRecordingStarted,
+    zIndex
+}) => {
     return (
         <>
             <WebcamStreamCapture
@@ -12,6 +18,7 @@ const WebcamBox = ({ cameraWidth, exerciseStatus, onStopRecording, zIndex }) => 
                 exerciseStatus={exerciseStatus}
                 clearRecord={false}
                 onEndCapturing={onStopRecording}
+                onRecordingStarted={onRecordingStarted}
             />
             {exerciseStatus === ExerciseStatus.RECORDING &&
                 <div id="StatusLabelArea" style={{
@@ -24,7 +31,7 @@ const WebcamBox = ({ cameraWidth, exerciseStatus, onStopRecording, zIndex }) => 
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    zIndex: {zIndex}
+                    zIndex: { zIndex }
                 }}>
                     <label className={styles.blinking}>Record...</label>
                 </div>

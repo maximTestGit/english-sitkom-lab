@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 import { Navbar, Nav, NavDropdown, Button, Modal, Form } from 'react-bootstrap';
 import {
     isRunningOnBigScreen,
@@ -125,7 +126,12 @@ const TopDropdownMenu = ({
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
         if (password !== verifyPassword) {
-            alert("Passwords do not match!");
+            Swal.fire({
+                title: 'Error',
+                text: 'Passwords do not match!',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
             return;
         }
         console.log('Register:', userName, email, password);

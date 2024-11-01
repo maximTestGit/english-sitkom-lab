@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import Swal from 'sweetalert2';
 import { decodeHtml } from './helpers/presentationUtils.js';
 import { PiTranslate } from "react-icons/pi";
 import { AiOutlineSound } from "react-icons/ai";
@@ -87,7 +88,12 @@ const CaptionBox = (
     const onCaptionTranslate = async () => {
         const textToTranslate = getTextToProcess();
         if (!textToTranslate || textToTranslate.length === 0) {
-            showModal(t`Warning!`, t`No text to translate`);
+            Swal.fire({
+                title: t`Warning!`,
+                text: t`No text to translate`,
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
         } else {
             const fromLanguage = extractCulture(learningLanguage);
             const translatedText = await getTranslation(user, textToTranslate, fromLanguage, uiLanguage);
@@ -98,7 +104,12 @@ const CaptionBox = (
     const onCaptionRead = async () => {
         const textToReadAloud = getTextToProcess();
         if (!textToReadAloud || textToReadAloud.length === 0) {
-            showModal(t`Warning!`, t`No text to read`);
+            Swal.fire({
+                title: t`Warning!`,
+                text: t`No text to process`,
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
         } else {
             const textLanguage = getLanguageName(learningLanguage);
             const explainInLanguage = getLanguageName(user?.language);
@@ -124,13 +135,23 @@ const CaptionBox = (
             window.speechSynthesis.speak(utterance);
             console.log(`Reading aloud FINISH: ${textToReadAloud} in ${readLanguage}`);
         } else {
-            alert(`Speech synthesis is not supported in this browser.`);
+            Swal.fire({
+                title: 'Error',
+                text: 'Speech synthesis is not supported in this browser.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
         }
     }
     const onCaptionAnalyze = async () => {
         const textToAnalyze = getTextToProcess();
         if (!textToAnalyze || textToAnalyze.length === 0) {
-            showModal(t`Warning!`, t`No text to analyze`);
+            Swal.fire({
+                title: t`Warning!`,
+                text: t`No text to analyze`,
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
         } else {
             const textLanguage = getLanguageName(learningLanguage);
             const explainInLanguage = getLanguageName(user?.language);
@@ -148,7 +169,12 @@ const CaptionBox = (
     const onCaptionExercise = async () => {
         const textToExercise = getTextToProcess();
         if (!textToExercise || textToExercise.length === 0) {
-            showModal(t`Warning!`, t`Select text to process`);
+            Swal.fire({
+                title: t`Warning!`,
+                text: t`Select text to process`,
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
         } else {
             const textLanguage = getLanguageName(learningLanguage);
             const explainInLanguage = getLanguageName(user?.language);
@@ -175,7 +201,12 @@ const CaptionBox = (
             setIsButtonDisabled(true);
             let textToProcess = getTextToProcess(true);
             if (!textToProcess) {
-                showModal(t`Warning!`, t`Select text to process`);
+                Swal.fire({
+                    title: t`Warning!`,
+                    text: t`Select text to process`,
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
             } else {
                 await action(textToProcess);
             }
@@ -187,7 +218,12 @@ const CaptionBox = (
     const onAddSelectionToDict = async (textToProcess) => {
         const frontLanguage = extractCulture(learningLanguage);
         await saveTextToFlashcards(user, textToProcess, frontLanguage, uiLanguage, videoData.videoId, parseFloat(caption.start));
-        showModal(t`Success`, t`Entry "${textToProcess}" is added to your flashcard collection`);
+        Swal.fire({
+            title: t`Success`,
+            text: t`Entry "${textToProcess}" is added to your flashcard collection`,
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
     }
 
     return (

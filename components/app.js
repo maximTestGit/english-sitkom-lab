@@ -20,7 +20,7 @@ import {
 import TopDropdownMenu from "./topDropdownMenu";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, completeUserData } from "./gc/firebase";
-import ReactMarkdown from 'react-markdown';
+import Swal from 'sweetalert2';
 //-----------
 import { I18nProvider } from '@lingui/react';
 import { i18n } from '@lingui/core';
@@ -67,13 +67,6 @@ const App = () => {
   const [uiLanguage, setUiLanguage] = useState('en');
   const [newPlaylistId, setNewPlaylistId] = useState(null);
 
-  const [isMessageModalVisible, setIsMessageModalVisible] = useState(false);
-  const [formTitle, setFormTitle] = useState('');
-  const [formRows, setFormRows] = useState(10);
-  const [formCols, setFormCols] = useState(30);
-  const [modalMessage, setModalMessage] = useState('');
-  const [toShowMarkdown, setToShowMarkdown] = useState(false);
-
   const activateUiLanguage = (language) => {
     if (language && language !== i18n.locale) {
       i18n.activate(language);
@@ -82,19 +75,6 @@ const App = () => {
   useEffect(() => {
     activateUiLanguage(uiLanguage);
   }, [uiLanguage]);
-
-  const showModal = (title, message, isMarkdown = false, formRows = 5, formCols = 30) => {
-    setFormTitle(title);
-    setModalMessage(message);
-    setFormRows(formRows);
-    setFormCols(formCols);
-    setToShowMarkdown(isMarkdown);
-    setIsMessageModalVisible(true);
-  };
-  const closeModal = () => {
-    activateUiLanguage(uiLanguage);
-    setIsMessageModalVisible(false);
-  };
 
   const handleSetUser = (newUser) => {
     setUser(newUser);
@@ -105,25 +85,47 @@ const App = () => {
       case loginoutEvents.REGISTER_SUCCESS:
       case loginoutEvents.LOGIN_SUCCESS:
         activateUiLanguage(extractCulture(language));
-        showModal(t`Success`, t`Hello ${name}`, false, 5, 30);
+        Swal.fire({
+          title: t`Success`,
+          text: t`Hello ${name}`,
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
         break;
       case loginoutEvents.LOGOUT_SUCCESS:
         activateUiLanguage(extractCulture(language));
-        showModal(t`Success`, t`Bye-bye ${name}`, false, 5, 30);
+        Swal.fire({
+          title: t`Success`,
+          text: t`Bye-bye ${name}`,
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
         break;
       case loginoutEvents.LOGIN_ERROR:
-        activateUiLanguage(extractCulture(language));
-        showModal(t`Error`, t`Login ${name} failed`, false, 5, 30);
+        Swal.fire({
+          title: t`Error`,
+          text: t`Login ${name} failed`,
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
         break;
       case loginoutEvents.LOGOUT_ERROR:
-        activateUiLanguage(extractCulture(language));
-        showModal(t`Error`, t`Logout ${name} failed`, false, 5, 30);
+        Swal.fire({
+          title: t`Error`,
+          text: t`Logout ${name} failed`,
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
         break;
       case loginoutEvents.REGISTER_ERROR:
         activateUiLanguage(extractCulture(language));
-        showModal(t`Error`, t`Register ${name} failed, try later`, false, 5, 30);
-        break;
-      default:
+        Swal.fire({
+          title: t`Error`,
+          text: t`Register ${name} failed, try later`,
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+        break; default:
         break;
     }
   };
@@ -358,12 +360,21 @@ const App = () => {
                 setPlaylistRegistry(plRegistry);
                 setNewPlaylistId(playlistId);
               }
-              alert(`Playlist "${playlistName}" saved successfully!`);
+              Swal.fire({
+                title: `Playlist "${playlistName}" saved successfully!`,
+                icon: 'success',
+                confirmButtonText: 'OK'
+              });
             });
 
         } else {
-          alert(`Error saving playlist "${playlistName}"!`);
+          Swal.fire({
+            title: `Error saving playlist "${playlistName}"!`,
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
         }
+
       });
   }
   const handleLearningLanguageChange = (newLearningLanguage) => {
@@ -417,30 +428,6 @@ const App = () => {
           </>
         )}
       </div>
-      {isMessageModalVisible && (
-        <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">{formTitle || 'Message'}</h5>
-                <button type="button" className="btn-close" onClick={closeModal}></button>
-              </div>
-              <div className="modal-body">
-                {toShowMarkdown ? (
-                  <div id="assistanceAnswerViewer" className="form-control" style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
-                    <ReactMarkdown>{modalMessage}</ReactMarkdown>
-                  </div>
-                ) : (
-                  <p>{modalMessage}</p>
-                )}
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-primary" onClick={closeModal}>OK</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </I18nProvider>
   );
 };

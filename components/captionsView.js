@@ -1,4 +1,5 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import Swal from 'sweetalert2';
 import { fetchRetrieveCaptions } from './helpers/fetchData';
 import { decodeHtml } from './helpers/presentationUtils';
 import { getIntervals } from './helpers/exerciseHelper';
@@ -226,7 +227,12 @@ const CaptionsView = forwardRef(({
 
     const handleSelectCaptionClick = (event) => {
         if (hasRecordedChunks) {
-            alert('You are not allowed to change Selection, when you have recorded exercise.\nPlease clear recording first.(Click "Clear Record" button)');
+            Swal.fire({
+                title: 'Warning',
+                text: 'You are not allowed to change Selection, when you have recorded exercise.\nPlease clear recording first.(Click "Clear Record" button)',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
         } else {
             const position = parseInt(event.target.id);
             let start = clipIndexRange.startIndex;

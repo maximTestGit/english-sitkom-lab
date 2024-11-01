@@ -16,6 +16,7 @@ import { saveCaptionObjectsToFile } from './helpers/srtHelper';
 import { captionsSaveToStorage } from './helpers/fetchData';
 import { buildClipRange } from './helpers/exerciseHelper';
 import { CaptionsNavigationControls, CaptionAction } from './captionsNavigationControls';
+import Swal from 'sweetalert2';
 
 const ExerciseView = forwardRef(({
     user,
@@ -74,6 +75,9 @@ const ExerciseView = forwardRef(({
     const [isShowEmailFormModalOpen, setIsShowEmailFormModalOpen] = useState(false); // State variable to control modal visibility
     const [emailAddress, setEmailAddress] = useState(null); // State variable to store email address
     const [studentName, setStudentName] = useState('Unknown'); // State variable to store student name
+
+    const [recordingStartedAt, setRecordingStartedAt] = useState(null);
+    const [playingStartedAt, setPlayingStartedAt] = useState(null);
 
     const emailInputRef = useRef(null);
     const nameInputRef = useRef(null);
@@ -360,7 +364,13 @@ const ExerciseView = forwardRef(({
 
         if (exerciseStatus === ExerciseStatus.STOPPED) {
             if (recordedChunks?.length > 0) {
-                alert('You have already recorded something. Please clear recording first.\n(Click "Clear Homework Record" button)');
+                Swal.fire({
+                    title: 'Warning',
+                    text: 'You have already recorded something. Please clear recording first.\n(Click "Clear Homework Record" button)',
+                    icon: 'warning',
+                    confirmButtonText: 'OK',
+                }
+                );
             } else {
                 setLoopPreRec(settings.isLoop);
                 setIsLoop(false);
@@ -378,11 +388,38 @@ const ExerciseView = forwardRef(({
             }
         }
     };
+    const handleRecordingStarted = (event) => {
+        setRecordingStartedAt(prev => prev === null ? new Date() : prev);
+    };
+    const handlePlayingStarted = () => {
+        setPlayingStartedAt(prev => prev === null ? new Date() : prev);
+    }
+
+    useEffect(() => {
+        if (playingStartedAt !== null && recordingStartedAt !== null) {
+            const deltaMilliseconds = recordingStartedAt.getTime() - playingStartedAt.getTime();
+            if (deltaMilliseconds < 0) {
+                console.log(`LingFlix: MediaLogger: RecordingStartedAt: ${recordingStartedAt.toISOString()}`);
+                console.log(`LingFlix: MediaLogger: PlayingStartedAt: ${playingStartedAt.toISOString()}`);
+                console.log(`LingFlix: MediaLogger: deltaMilliseconds: ${deltaMilliseconds}`);
+                Swal.fire({
+                    title: 'Recording Synchronization Error',
+                    text: 'Please restart recording!',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        }
+    }, [playingStartedAt, recordingStartedAt]);
+
     const handleSaveRecording = (chunks) => {
         if (isActionTooSoon()) {
             console.log(`LingFlix: Play:new action ignored, action started less than 0.5 seconds ago`);
             return;
         }
+        setRecordingStartedAt(null);
+        setPlayingStartedAt(null);
+
         console.log(`LingFlix: SaveRecording: ${chunks?.length}`);
         setIsLoop(loopPreRec);
         setWhisperVolume(whisperVolumePreRec);
@@ -506,7 +543,13 @@ const ExerciseView = forwardRef(({
             nameInputRef.current.value = inputValue;
         } else {
             nameInputRef.current.value = inputValue.replace(/[^a-zA-Z0-9.-]/g, '');
-            alert('Invalid character. Only english letters, numbers, and hyphens are allowed!');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Invalid Input',
+                text: 'Only english letters, numbers, and hyphens are allowed!',
+                confirmButtonText: 'OK',
+
+            });
         }
     };
 
@@ -534,9 +577,19 @@ const ExerciseView = forwardRef(({
         captionsSaveToStorage(videoData.videoId, videoData.learningLanguage, user?.username, captions)
             .then(result => {
                 if (result) {
-                    alert(`Captions for "${videoData.title}" uploaded successfully!`);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: `Captions for "${videoData.title}" uploaded successfully!`,
+                        confirmButtonText: 'OK',
+                    });
                 } else {
-                    alert(`Error uploading Captions for "${videoData.title}"!`);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: `Error uploading Captions for "${videoData.title}"!`,
+                        confirmButtonText: 'OK',
+                    });
                 }
             });
     }
@@ -548,9 +601,19 @@ const ExerciseView = forwardRef(({
 
         }
         if (fileName) {
-            alert(`File "${fileName}" saved successfully!`);
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: `File "${fileName}" saved successfully!`,
+                confirmButtonText: 'OK',
+            });
         } else {
-            alert('Error saving file.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Error saving file.',
+                confirmButtonText: 'OK',
+            });
         }
     }
 
@@ -770,6 +833,8 @@ const ExerciseView = forwardRef(({
                         onStopRecording={handleSaveRecording}
                         onProgress={handleOnProgress}
                         onPlayingEnd={handlePlayingEnd}
+                        onRecordingStarted={handleRecordingStarted}
+                        onPlayingStarted={handlePlayingStarted}
                     />
                 }
                 <CaptionsNavigationControls

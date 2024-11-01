@@ -1,4 +1,5 @@
 import { getYoutubeUrl, saveExerciseUrl } from "../data/configurator";
+import Swal from 'sweetalert2';
 
 //import publishExercise from './publishExercise.js';
 const exercise_storage_folder = 'Exercises';
@@ -169,10 +170,14 @@ export async function publishExercise(folderName, fileName, data) {
         }
 
         console.log('LingFlix: File saved successfully!');
-        //alert('Exercise published successfully!');
     } catch (error) {
         console.error('Error saving file:', error);
-        alert('Error publishing exercise. Please try again later.');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error publishing exercise',
+            text: 'Please try again later.',
+            confirmButtonText: 'OK'
+        });
     }
 }
 

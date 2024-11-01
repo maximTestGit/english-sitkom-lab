@@ -9,7 +9,8 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
     playerRef, zIndex = 9000, playing,
     isImbededCaptionsBlured = false,
     clipRange,
-    hasRecording = false
+    hasRecording = false,
+    onPlayingStarted
 }) => {
 
     const [exercisePlayingCounter, setExercisePlayingCounter] = useState(0);
@@ -32,7 +33,7 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
             && exerciseStatus !== ExerciseStatus.PLAYING) {
             setExercisePlayingCounter(0);
         }
-        console.log(`LingFlix: MediaUrlPlayer: useEffect: playing: ${playing} exerciseStatus: ${exerciseStatus}`);  
+        console.log(`LingFlix: MediaUrlPlayer: useEffect: playing: ${playing} exerciseStatus: ${exerciseStatus}`);
     }, [playing]);
 
     const onProgressWrapper = (state) => {
@@ -52,6 +53,9 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
         onEnded();
     }
     const onStartedWrapper = () => {
+        if (onPlayingStarted) {
+            onPlayingStarted();
+        }
         console.log('LingFlix: MediaUrlPlayer: onStartedWrapper:', exerciseStatus);
     }
 

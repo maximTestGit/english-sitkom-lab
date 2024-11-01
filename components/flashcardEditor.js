@@ -41,7 +41,7 @@ const FlashcardEditor = ({ card, onSave, onDelete }) => {
             <div className="row">
                 <div className="col-12">
                     <div className="row">
-                        <h4 className="col-8">Card {card.front}</h4>
+                        <h4 className="col-8">Card "{card.front}"</h4>
                         <button
                             className="btn btn-danger col-2"
                             onClick={handleDelete}
