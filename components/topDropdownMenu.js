@@ -632,7 +632,7 @@ const TopDropdownMenu = ({
             </Modal>
             <Modal show={showFlashcardExamViewModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Flashcards Exam</Modal.Title>
+                    <Modal.Title>{<Trans>Flashcards Exam</Trans>}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <FlashcardExam

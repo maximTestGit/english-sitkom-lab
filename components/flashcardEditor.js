@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getCultureLanguageName } from './data/configurator';
+import { t, Trans } from '@lingui/macro';
 
 const FlashcardEditor = ({ card, onSave, onDelete }) => {
     const [editedBack, setEditedBack] = useState(null);
@@ -41,16 +42,16 @@ const FlashcardEditor = ({ card, onSave, onDelete }) => {
             <div className="row">
                 <div className="col-12">
                     <div className="row">
-                        <h4 className="col-8">Card [{card.front}]</h4>
+                        <h4 className="col-8">{t`Card`} [{card.front}]</h4>
                         <button
                             className="btn btn-danger col-2"
                             onClick={handleDelete}
                         >
-                            Delete
+                            {t`Delete`}
                         </button>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="backProperty" className="form-label"><strong>Translation:</strong></label>
+                        <label htmlFor="backProperty" className="form-label"><strong>{t`Translation:`}</strong></label>
                         <input
                             type="text"
                             id="backProperty"
@@ -68,29 +69,29 @@ const FlashcardEditor = ({ card, onSave, onDelete }) => {
                             onClick={handleRestore}
                             disabled={!isEditing}
                         >
-                            Restore
+                            {t`Restore`}
                         </button>
                         <button
                             className="btn btn-primary"
                             onClick={handleSave}
                             disabled={!isEditing}
                         >
-                            Save
+                            {t`Save`}
                         </button>
                     </div>
 
                     <div className="container mt-3" style={{ fontSize: '0.9em' }}>
                         <div>
-                            <h6>Card Details:</h6>
+                            <h6>{t`Card Details:`}</h6>
                         </div>
                         <ul id="uiCardDetails" className="list-group">
-                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>Collection:</strong> {card.collection}</li>
-                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>Origin Language:</strong> {getCultureLanguageName(card.frontLanguage)}</li>
-                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>Translation Language:</strong> {getCultureLanguageName(card.backLanguage)}</li>
-                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>Box:</strong> {card.box}</li>
-                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>Created:</strong> {card.created}</li>
-                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>Last Reviewed:</strong> {card.lastReviewed}</li>
-                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>Next Review:</strong> {card.nextReview}</li>
+                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Collection:`}</strong> {card.collection}</li>
+                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Origin Language:`}</strong> {getCultureLanguageName(card.frontLanguage)}</li>
+                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Translation Language:`}</strong> {getCultureLanguageName(card.backLanguage)}</li>
+                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Box:`}</strong> {card.box}</li>
+                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Created:`}</strong> {card.created}</li>
+                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Last Reviewed:`}</strong> {card.lastReviewed}</li>
+                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Next Review:`}</strong> {card.nextReview}</li>
                             {/* <li className="list-group-item" style={{ backgroundColor: background }}><strong>Front:</strong> {card.front}</li> */}
                         </ul>
                     </div>

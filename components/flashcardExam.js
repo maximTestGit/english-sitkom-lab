@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getCultureLanguageName } from './data/configurator';
+import { t, Trans } from '@lingui/macro';
 
 const FlashcardExam = ({ cards, onIKnowIt }) => {
     const [shuffledCards, setShuffledCards] = useState([]);
@@ -7,7 +8,6 @@ const FlashcardExam = ({ cards, onIKnowIt }) => {
     const [isFlipped, setIsFlipped] = useState(false);
     const [correctAnswers, setCorrectAnswers] = useState([]);
     const [isReady, setIsReady] = useState(false);
-
 
     function isAlreadyCorrect(card) {
         return correctAnswers.some(answer => answer.cardId === card.cardId && answer.inverted === card.inverted);
@@ -65,7 +65,7 @@ const FlashcardExam = ({ cards, onIKnowIt }) => {
     }, [currentCardIndex]);
 
     if (shuffledCards.length === 0 || !isReady) {
-        return <div className="text-center mt-4">No more cards...</div>;
+        return <div className="text-center mt-4">{t`No more cards...`}</div>;
     }
 
     const currentCard = shuffledCards[currentCardIndex];
@@ -106,42 +106,42 @@ const FlashcardExam = ({ cards, onIKnowIt }) => {
     return (
         <div className="container mt-4">
             <div className="row justify-content-center">
-                <div className="col-md-8">
+                <div className="col-md-10">
                     <div className="card mb-4">
                         <div className="card-header d-flex justify-content-between align-items-center">
-                            <span>Card {currentCardIndex + 1} of {shuffledCards.length}</span>
+                            <span>{t`Card ${currentCardIndex + 1} of ${shuffledCards.length}`}</span>
                             <div>
                                 <button
                                     className="btn btn-link btn-sm me-2"
                                     onClick={openYouTube}
                                     disabled={!currentCard.videoId}
                                 >
-                                    YouTube
+                                    {t`YouTube`}
                                 </button>
                                 <button
                                     className="btn btn-link btn-sm"
                                     onClick={openYouglish}
                                 >
-                                    Youglish
+                                    {t`Youglish`}
                                 </button>
                             </div>
                         </div>
 
                         <div
-                            className={`card-body ${isFlipped ? 'bg-success' : 'bg-info'}`}
-                            style={{ minHeight: '200px', color: 'white' }}
+                            className={`card-body ${isFlipped ? 'bg-info-subtle' : 'bg-light'}`}
+                            style={{ minHeight: '200px', color: 'black' }}
                             onClick={() => setIsFlipped(!isFlipped)}
                         >
                             <div className="text-center">
                                 {!isFlipped ? (
                                     <div>
-                                        <h4>Question</h4>
+                                        <h6>{t`Question`}</h6>
                                         <p className="lead">{questionText}</p>
-                                        <p className="text-muted">(Click to reveal answer)</p>
+                                        <p className="text-muted">{t`(Click to reveal answer)`}</p>
                                     </div>
                                 ) : (
                                     <div>
-                                        <h4>Answer</h4>
+                                        <h6>{t`Answer`}</h6>
                                         <p className="lead">{answerText}</p>
                                         <div className="mt-4">
                                             <button
@@ -151,7 +151,7 @@ const FlashcardExam = ({ cards, onIKnowIt }) => {
                                                     handleAnswer(true);
                                                 }}
                                             >
-                                                Correct
+                                                {t`Correct`}
                                             </button>
                                             <button
                                                 className="btn btn-danger"
@@ -160,7 +160,7 @@ const FlashcardExam = ({ cards, onIKnowIt }) => {
                                                     handleAnswer(false);
                                                 }}
                                             >
-                                                Incorrect
+                                                {t`Incorrect`}
                                             </button>
                                         </div>
                                     </div>
@@ -175,5 +175,3 @@ const FlashcardExam = ({ cards, onIKnowIt }) => {
 };
 
 export default FlashcardExam;
-
-
