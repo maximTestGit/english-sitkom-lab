@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: components/flashcardExam.js:140
+msgid "(Click to reveal answer)"
+msgstr "(Натисніть, щоб показати відповідь)"
+
 #: components/playbackSettings.js:114
 msgid "{speed} of Normal Speed Player"
 msgstr "{speed} від нормальної швидкості плеєра"
@@ -21,32 +25,44 @@ msgstr "{speed} від нормальної швидкості плеєра"
 msgid "{speed} of Normal Speed when you talk"
 msgstr "{speed} від нормальної швидкості, коли ви говорите"
 
-#: components/topDropdownMenu.js:452
+#: components/topDropdownMenu.js:458
 msgid "About"
 msgstr "Про нас"
 
-#: components/topDropdownMenu.js:453
+#: components/topDropdownMenu.js:459
 msgid "About the Application"
 msgstr "Про додаток"
 
-#: components/topDropdownMenu.js:400
 #: components/topDropdownMenu.js:406
+#: components/topDropdownMenu.js:412
 msgid "Account"
 msgstr "Обліковий запис"
 
-#: components/topDropdownMenu.js:422
+#: components/topDropdownMenu.js:428
 msgid "Add custom Playlist"
 msgstr "Додати власний плейлист"
 
-#: components/captionBox.js:144
+#: components/captionBox.js:198
+msgid "AI-Generated Interactive Exercise (Experimental)"
+msgstr "Інтерактивна вправа, створена штучним інтелектом (експериментальна)"
+
+#: components/captionBox.js:166
 msgid "Analysis"
 msgstr "Аналіз"
+
+#: components/flashcardExam.js:144
+msgid "Answer"
+msgstr "Відповідь"
 
 #: components/playbackSettings.js:73
 msgid "Blure Youtube Captions"
 msgstr "Розмити YouTube субтитри"
 
-#: components/app.js:112
+#: components/flashcardEditor.js:91
+msgid "Box:"
+msgstr "Коробка:"
+
+#: components/app.js:99
 msgid "Bye-bye {name}"
 msgstr "До побачення, {name}"
 
@@ -54,25 +70,52 @@ msgstr "До побачення, {name}"
 msgid "Camera"
 msgstr "Камера"
 
-#: components/topDropdownMenu.js:425
+#: components/flashcardEditor.js:45
+msgid "Card"
+msgstr "Картка"
+
+#: components/flashcardExam.js:112
+msgid "Card {0} of {1}"
+msgstr "Картка {0} з {1}"
+
+#: components/flashcardEditor.js:85
+msgid "Card Details:"
+msgstr "Деталі картки:"
+
+#: components/topDropdownMenu.js:431
 msgid "Clear Memory"
 msgstr "Очистити пам'ять"
 
-#: components/topDropdownMenu.js:456
+#: components/flashcardEditor.js:88
+msgid "Collection:"
+msgstr "Колекція:"
+
+#: components/topDropdownMenu.js:462
 msgid "Contact Me"
 msgstr "Зв'язатися зі мною"
 
-#: components/captionBox.js:190
+#: components/flashcardExam.js:154
+msgid "Correct"
+msgstr "Правильно"
+
+#: components/flashcardEditor.js:92
+msgid "Created:"
+msgstr "Створено:"
+
+#: components/flashcardEditor.js:50
+msgid "Delete"
+msgstr "Видалити"
+
+#: components/captionBox.js:233
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "Запис \"{textToProcess}\" додано до вашої колекції флеш-карток"
 
-#: components/app.js:116
-#: components/app.js:120
-#: components/app.js:124
+#: components/app.js:106
+#: components/app.js:114
+#: components/app.js:123
 msgid "Error"
 msgstr "Помилка"
 
-#: components/captionBox.js:162
 #: components/videoListView.js:86
 msgid "Exercise"
 msgstr "Вправа"
@@ -81,48 +124,60 @@ msgstr "Вправа"
 msgid "Exercise Captions"
 msgstr "Субтитри для вправ"
 
-#: components/topDropdownMenu.js:411
+#: components/topDropdownMenu.js:417
 msgid "File"
 msgstr "Файл"
 
-#: components/topDropdownMenu.js:434
+#: components/topDropdownMenu.js:440
 msgid "Flashcards"
 msgstr "Флеш-картки"
 
-#: components/topDropdownMenu.js:392
+#: components/topDropdownMenu.js:635
+msgid "Flashcards Exam"
+msgstr "Екзамен з флеш-карток"
+
+#: components/topDropdownMenu.js:398
 msgid "Hello"
 msgstr "Привіт"
 
-#: components/app.js:108
+#: components/app.js:90
 msgid "Hello {name}"
 msgstr "Привіт, {name}"
 
-#: components/topDropdownMenu.js:441
 #: components/topDropdownMenu.js:447
+#: components/topDropdownMenu.js:453
 msgid "Home"
 msgstr "Головна"
 
-#: components/topDropdownMenu.js:455
+#: components/topDropdownMenu.js:461
 msgid "How To Register(Free)?"
 msgstr "Як зареєструватися (безкоштовно)?"
 
-#: components/topDropdownMenu.js:454
+#: components/topDropdownMenu.js:460
 msgid "How To?"
 msgstr "Як?"
 
-#: components/topDropdownMenu.js:401
+#: components/flashcardExam.js:163
+msgid "Incorrect"
+msgstr "Неправильно"
+
+#: components/flashcardEditor.js:93
+msgid "Last Reviewed:"
+msgstr "Останній перегляд:"
+
+#: components/topDropdownMenu.js:407
 msgid "Login"
 msgstr "Увійти"
 
-#: components/app.js:116
+#: components/app.js:107
 msgid "Login {name} failed"
 msgstr "Не вдалося увійти {name}"
 
-#: components/topDropdownMenu.js:407
+#: components/topDropdownMenu.js:413
 msgid "Logout"
 msgstr "Вийти"
 
-#: components/app.js:120
+#: components/app.js:115
 msgid "Logout {name} failed"
 msgstr "Не вдалося вийти {name}"
 
@@ -138,24 +193,36 @@ msgstr "Гучна підказка, коли ви говорите"
 msgid "Mute Player when you talk"
 msgstr "Приглушити звук плеєра, коли ви говорите"
 
-#: components/topDropdownMenu.js:440
 #: components/topDropdownMenu.js:446
+#: components/topDropdownMenu.js:452
 msgid "Navigate"
 msgstr "Навігувати"
+
+#: components/flashcardEditor.js:94
+msgid "Next Review:"
+msgstr "Наступний перегляд:"
+
+#: components/flashcardExam.js:68
+msgid "No more cards..."
+msgstr "Більше немає карток..."
 
 #: components/captionBox.js:178
 #~ msgid "No text selected"
 #~ msgstr "Текст не вибрано"
 
-#: components/captionBox.js:133
+#: components/captionBox.js:152
 msgid "No text to analyze"
 msgstr "Немає тексту для аналізу"
 
-#: components/captionBox.js:101
-msgid "No text to read"
-msgstr "Немає тексту для читання"
+#: components/captionBox.js:110
+msgid "No text to process"
+msgstr "Немає тексту для обробки"
 
-#: components/captionBox.js:90
+#: components/captionBox.js:101
+#~ msgid "No text to read"
+#~ msgstr "Немає тексту для читання"
+
+#: components/captionBox.js:94
 msgid "No text to translate"
 msgstr "Немає тексту для перекладу"
 
@@ -167,40 +234,48 @@ msgstr "Нормальна швидкість плеєра"
 msgid "Normal Speed when you talk"
 msgstr "Нормальна швидкість, коли ви говорите"
 
-#: components/topDropdownMenu.js:415
+#: components/topDropdownMenu.js:421
 msgid "Open .json"
 msgstr "Відкрити .json"
 
-#: components/topDropdownMenu.js:413
+#: components/topDropdownMenu.js:419
 msgid "Open .srt"
 msgstr "Відкрити .srt"
 
-#: components/topDropdownMenu.js:421
+#: components/topDropdownMenu.js:427
 msgid "Open custom video"
 msgstr "Відкрити власне відео"
 
-#: components/topDropdownMenu.js:423
+#: components/topDropdownMenu.js:429
 msgid "Open Exercise File"
 msgstr "Відкрити файл вправи"
 
-#: components/topDropdownMenu.js:420
-#: components/topDropdownMenu.js:430
+#: components/topDropdownMenu.js:426
+#: components/topDropdownMenu.js:436
 msgid "Open Settings"
 msgstr "Відкрити налаштування"
 
-#: components/topDropdownMenu.js:449
+#: components/topDropdownMenu.js:455
 msgid "Open video on Youtube"
 msgstr "Відкрити відео на YouTube"
+
+#: components/flashcardEditor.js:89
+msgid "Origin Language:"
+msgstr "Мова оригіналу:"
 
 #: components/playbackSettings.js:58
 msgid "Prompt when you talk"
 msgstr "Підказка, коли ви говорите"
 
-#: components/captionBox.js:112
+#: components/captionBox.js:124
 msgid "Pronunciation"
 msgstr "Вимова"
 
-#: components/topDropdownMenu.js:402
+#: components/flashcardExam.js:138
+msgid "Question"
+msgstr "Питання"
+
+#: components/topDropdownMenu.js:408
 msgid "Register"
 msgstr "Зареєструватися"
 
@@ -208,20 +283,28 @@ msgstr "Зареєструватися"
 msgid "Register {name} failed, try later"
 msgstr "Не вдалося зареєструвати {name}, спробуйте пізніше"
 
-#: components/topDropdownMenu.js:424
+#: components/topDropdownMenu.js:430
 msgid "Reload Playlist"
 msgstr "Перезавантажити плейлист"
 
-#: components/topDropdownMenu.js:412
+#: components/flashcardEditor.js:72
+msgid "Restore"
+msgstr "Відновити"
+
+#: components/flashcardEditor.js:79
+msgid "Save"
+msgstr "Зберегти"
+
+#: components/topDropdownMenu.js:418
 msgid "Save .srt"
 msgstr "Зберегти .srt"
 
-#: components/captionsView.js:255
+#: components/captionsView.js:265
 msgid "Select"
 msgstr "Вибрати"
 
-#: components/captionBox.js:151
-#: components/captionBox.js:178
+#: components/captionBox.js:175
+#: components/captionBox.js:216
 msgid "Select text to process"
 msgstr "Виберіть текст для обробки"
 
@@ -229,21 +312,21 @@ msgstr "Виберіть текст для обробки"
 msgid "Slight Prompt when you talk"
 msgstr "Тиха підказка, коли ви говорите"
 
-#: components/captionsView.js:257
+#: components/captionsView.js:267
 msgid "Start (sec)"
 msgstr "Початок (сек)"
 
-#: components/topDropdownMenu.js:436
+#: components/topDropdownMenu.js:442
 msgid "Start Test"
 msgstr "Почати тест"
 
-#: components/app.js:108
-#: components/app.js:112
-#: components/captionBox.js:190
+#: components/app.js:89
+#: components/app.js:98
+#: components/captionBox.js:232
 msgid "Success"
 msgstr "Успіх"
 
-#: components/captionsView.js:258
+#: components/captionsView.js:268
 msgid "Text"
 msgstr "Текст"
 
@@ -251,36 +334,52 @@ msgstr "Текст"
 #~ msgid "Text Analysis"
 #~ msgstr "Аналіз тексту"
 
-#: components/topDropdownMenu.js:419
-#: components/topDropdownMenu.js:429
+#: components/topDropdownMenu.js:425
+#: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "Інструменти"
 
-#: components/captionBox.js:94
+#: components/captionBox.js:101
 msgid "Translation"
 msgstr "Переклад"
 
-#: components/topDropdownMenu.js:414
+#: components/flashcardEditor.js:90
+msgid "Translation Language:"
+msgstr "Мова перекладу:"
+
+#: components/flashcardEditor.js:54
+msgid "Translation:"
+msgstr "Переклад:"
+
+#: components/topDropdownMenu.js:420
 msgid "Upload .srt"
 msgstr "Завантажити .srt"
 
-#: components/topDropdownMenu.js:435
+#: components/topDropdownMenu.js:441
 msgid "View Colection"
 msgstr "Переглянути колекцію"
 
-#: components/captionBox.js:90
-#: components/captionBox.js:101
-#: components/captionBox.js:133
+#: components/captionBox.js:93
+#: components/captionBox.js:109
 #: components/captionBox.js:151
-#: components/captionBox.js:178
+#: components/captionBox.js:174
+#: components/captionBox.js:215
 msgid "Warning!"
 msgstr "Попередження!"
 
-#: components/captionsView.js:256
+#: components/flashcardExam.js:125
+msgid "Youglish"
+msgstr "Youglish"
+
+#: components/captionsView.js:266
 msgid "Your Line"
 msgstr "Ваш рядок"
 
-#: components/topDropdownMenu.js:442
 #: components/topDropdownMenu.js:448
+#: components/topDropdownMenu.js:454
 msgid "Youtube"
+msgstr "YouTube"
+
+#: components/flashcardExam.js:119
+msgid "YouTube"
 msgstr "YouTube"

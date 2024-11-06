@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: components/flashcardExam.js:140
+msgid "(Click to reveal answer)"
+msgstr "（点击显示答案）"
+
 #: components/playbackSettings.js:114
 msgid "{speed} of Normal Speed Player"
 msgstr "正常播放速度的{speed}"
@@ -21,32 +25,44 @@ msgstr "正常播放速度的{speed}"
 msgid "{speed} of Normal Speed when you talk"
 msgstr "说话时正常速度的{speed}"
 
-#: components/topDropdownMenu.js:452
+#: components/topDropdownMenu.js:458
 msgid "About"
 msgstr "关于"
 
-#: components/topDropdownMenu.js:453
+#: components/topDropdownMenu.js:459
 msgid "About the Application"
 msgstr "关于应用程序"
 
-#: components/topDropdownMenu.js:400
 #: components/topDropdownMenu.js:406
+#: components/topDropdownMenu.js:412
 msgid "Account"
 msgstr "账户"
 
-#: components/topDropdownMenu.js:422
+#: components/topDropdownMenu.js:428
 msgid "Add custom Playlist"
 msgstr "添加自定义播放列表"
 
-#: components/captionBox.js:144
+#: components/captionBox.js:198
+msgid "AI-Generated Interactive Exercise (Experimental)"
+msgstr "AI生成的互动练习（实验性）"
+
+#: components/captionBox.js:166
 msgid "Analysis"
 msgstr "分析"
+
+#: components/flashcardExam.js:144
+msgid "Answer"
+msgstr "答案"
 
 #: components/playbackSettings.js:73
 msgid "Blure Youtube Captions"
 msgstr "模糊YouTube字幕"
 
-#: components/app.js:112
+#: components/flashcardEditor.js:91
+msgid "Box:"
+msgstr "盒子："
+
+#: components/app.js:99
 msgid "Bye-bye {name}"
 msgstr "再见 {name}"
 
@@ -54,25 +70,52 @@ msgstr "再见 {name}"
 msgid "Camera"
 msgstr "摄像头"
 
-#: components/topDropdownMenu.js:425
+#: components/flashcardEditor.js:45
+msgid "Card"
+msgstr "卡片"
+
+#: components/flashcardExam.js:112
+msgid "Card {0} of {1}"
+msgstr "{1}中的第{0}张卡片"
+
+#: components/flashcardEditor.js:85
+msgid "Card Details:"
+msgstr "卡片详情："
+
+#: components/topDropdownMenu.js:431
 msgid "Clear Memory"
 msgstr "清除内存"
 
-#: components/topDropdownMenu.js:456
+#: components/flashcardEditor.js:88
+msgid "Collection:"
+msgstr "收藏："
+
+#: components/topDropdownMenu.js:462
 msgid "Contact Me"
 msgstr "联系我"
 
-#: components/captionBox.js:190
+#: components/flashcardExam.js:154
+msgid "Correct"
+msgstr "正确"
+
+#: components/flashcardEditor.js:92
+msgid "Created:"
+msgstr "创建时间："
+
+#: components/flashcardEditor.js:50
+msgid "Delete"
+msgstr "删除"
+
+#: components/captionBox.js:233
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "条目 \"{textToProcess}\" 已添加到您的闪卡集合中"
 
-#: components/app.js:116
-#: components/app.js:120
-#: components/app.js:124
+#: components/app.js:106
+#: components/app.js:114
+#: components/app.js:123
 msgid "Error"
 msgstr "错误"
 
-#: components/captionBox.js:162
 #: components/videoListView.js:86
 msgid "Exercise"
 msgstr "练习"
@@ -81,48 +124,60 @@ msgstr "练习"
 msgid "Exercise Captions"
 msgstr "练习字幕"
 
-#: components/topDropdownMenu.js:411
+#: components/topDropdownMenu.js:417
 msgid "File"
 msgstr "文件"
 
-#: components/topDropdownMenu.js:434
+#: components/topDropdownMenu.js:440
 msgid "Flashcards"
 msgstr "闪卡"
 
-#: components/topDropdownMenu.js:392
+#: components/topDropdownMenu.js:635
+msgid "Flashcards Exam"
+msgstr "闪卡考试"
+
+#: components/topDropdownMenu.js:398
 msgid "Hello"
 msgstr "你好"
 
-#: components/app.js:108
+#: components/app.js:90
 msgid "Hello {name}"
 msgstr "你好 {name}"
 
-#: components/topDropdownMenu.js:441
 #: components/topDropdownMenu.js:447
+#: components/topDropdownMenu.js:453
 msgid "Home"
 msgstr "主页"
 
-#: components/topDropdownMenu.js:455
+#: components/topDropdownMenu.js:461
 msgid "How To Register(Free)?"
 msgstr "如何注册（免费）？"
 
-#: components/topDropdownMenu.js:454
+#: components/topDropdownMenu.js:460
 msgid "How To?"
 msgstr "使用说明"
 
-#: components/topDropdownMenu.js:401
+#: components/flashcardExam.js:163
+msgid "Incorrect"
+msgstr "错误"
+
+#: components/flashcardEditor.js:93
+msgid "Last Reviewed:"
+msgstr "上次复习："
+
+#: components/topDropdownMenu.js:407
 msgid "Login"
 msgstr "登录"
 
-#: components/app.js:116
+#: components/app.js:107
 msgid "Login {name} failed"
 msgstr "{name} 登录失败"
 
-#: components/topDropdownMenu.js:407
+#: components/topDropdownMenu.js:413
 msgid "Logout"
 msgstr "退出"
 
-#: components/app.js:120
+#: components/app.js:115
 msgid "Logout {name} failed"
 msgstr "{name} 退出失败"
 
@@ -138,20 +193,32 @@ msgstr "说话时大声提示"
 msgid "Mute Player when you talk"
 msgstr "说话时静音播放器"
 
-#: components/topDropdownMenu.js:440
 #: components/topDropdownMenu.js:446
+#: components/topDropdownMenu.js:452
 msgid "Navigate"
 msgstr "导航"
 
-#: components/captionBox.js:133
+#: components/flashcardEditor.js:94
+msgid "Next Review:"
+msgstr "下次复习："
+
+#: components/flashcardExam.js:68
+msgid "No more cards..."
+msgstr "没有更多卡片了..."
+
+#: components/captionBox.js:152
 msgid "No text to analyze"
 msgstr "没有要分析的文本"
 
-#: components/captionBox.js:101
-msgid "No text to read"
-msgstr "没有要阅读的文本"
+#: components/captionBox.js:110
+msgid "No text to process"
+msgstr "没有要处理的文本"
 
-#: components/captionBox.js:90
+#: components/captionBox.js:101
+#~ msgid "No text to read"
+#~ msgstr "没有要阅读的文本"
+
+#: components/captionBox.js:94
 msgid "No text to translate"
 msgstr "没有要翻译的文本"
 
@@ -163,40 +230,48 @@ msgstr "正常速度播放器"
 msgid "Normal Speed when you talk"
 msgstr "说话时正常速度"
 
-#: components/topDropdownMenu.js:415
+#: components/topDropdownMenu.js:421
 msgid "Open .json"
 msgstr "打开 .json"
 
-#: components/topDropdownMenu.js:413
+#: components/topDropdownMenu.js:419
 msgid "Open .srt"
 msgstr "打开 .srt"
 
-#: components/topDropdownMenu.js:421
+#: components/topDropdownMenu.js:427
 msgid "Open custom video"
 msgstr "打开自定义视频"
 
-#: components/topDropdownMenu.js:423
+#: components/topDropdownMenu.js:429
 msgid "Open Exercise File"
 msgstr "打开练习文件"
 
-#: components/topDropdownMenu.js:420
-#: components/topDropdownMenu.js:430
+#: components/topDropdownMenu.js:426
+#: components/topDropdownMenu.js:436
 msgid "Open Settings"
 msgstr "打开设置"
 
-#: components/topDropdownMenu.js:449
+#: components/topDropdownMenu.js:455
 msgid "Open video on Youtube"
 msgstr "在YouTube上打开视频"
+
+#: components/flashcardEditor.js:89
+msgid "Origin Language:"
+msgstr "原始语言："
 
 #: components/playbackSettings.js:58
 msgid "Prompt when you talk"
 msgstr "说话时提示"
 
-#: components/captionBox.js:112
+#: components/captionBox.js:124
 msgid "Pronunciation"
 msgstr "发音"
 
-#: components/topDropdownMenu.js:402
+#: components/flashcardExam.js:138
+msgid "Question"
+msgstr "问题"
+
+#: components/topDropdownMenu.js:408
 msgid "Register"
 msgstr "注册"
 
@@ -204,20 +279,28 @@ msgstr "注册"
 msgid "Register {name} failed, try later"
 msgstr "{name} 注册失败，请稍后重试"
 
-#: components/topDropdownMenu.js:424
+#: components/topDropdownMenu.js:430
 msgid "Reload Playlist"
 msgstr "重新加载播放列表"
 
-#: components/topDropdownMenu.js:412
+#: components/flashcardEditor.js:72
+msgid "Restore"
+msgstr "恢复"
+
+#: components/flashcardEditor.js:79
+msgid "Save"
+msgstr "保存"
+
+#: components/topDropdownMenu.js:418
 msgid "Save .srt"
 msgstr "保存 .srt"
 
-#: components/captionsView.js:255
+#: components/captionsView.js:265
 msgid "Select"
 msgstr "选择"
 
-#: components/captionBox.js:151
-#: components/captionBox.js:178
+#: components/captionBox.js:175
+#: components/captionBox.js:216
 msgid "Select text to process"
 msgstr "选择要处理的文本"
 
@@ -225,54 +308,70 @@ msgstr "选择要处理的文本"
 msgid "Slight Prompt when you talk"
 msgstr "说话时轻微提示"
 
-#: components/captionsView.js:257
+#: components/captionsView.js:267
 msgid "Start (sec)"
 msgstr "开始（秒）"
 
-#: components/topDropdownMenu.js:436
+#: components/topDropdownMenu.js:442
 msgid "Start Test"
 msgstr "开始测试"
 
-#: components/app.js:108
-#: components/app.js:112
-#: components/captionBox.js:190
+#: components/app.js:89
+#: components/app.js:98
+#: components/captionBox.js:232
 msgid "Success"
 msgstr "成功"
 
-#: components/captionsView.js:258
+#: components/captionsView.js:268
 msgid "Text"
 msgstr "文本"
 
-#: components/topDropdownMenu.js:419
-#: components/topDropdownMenu.js:429
+#: components/topDropdownMenu.js:425
+#: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "工具"
 
-#: components/captionBox.js:94
+#: components/captionBox.js:101
 msgid "Translation"
 msgstr "翻译"
 
-#: components/topDropdownMenu.js:414
+#: components/flashcardEditor.js:90
+msgid "Translation Language:"
+msgstr "翻译语言："
+
+#: components/flashcardEditor.js:54
+msgid "Translation:"
+msgstr "翻译："
+
+#: components/topDropdownMenu.js:420
 msgid "Upload .srt"
 msgstr "上传 .srt"
 
-#: components/topDropdownMenu.js:435
+#: components/topDropdownMenu.js:441
 msgid "View Colection"
 msgstr "查看收藏"
 
-#: components/captionBox.js:90
-#: components/captionBox.js:101
-#: components/captionBox.js:133
+#: components/captionBox.js:93
+#: components/captionBox.js:109
 #: components/captionBox.js:151
-#: components/captionBox.js:178
+#: components/captionBox.js:174
+#: components/captionBox.js:215
 msgid "Warning!"
 msgstr "警告！"
 
-#: components/captionsView.js:256
+#: components/flashcardExam.js:125
+msgid "Youglish"
+msgstr "Youglish"
+
+#: components/captionsView.js:266
 msgid "Your Line"
 msgstr "你的台词"
 
-#: components/topDropdownMenu.js:442
 #: components/topDropdownMenu.js:448
+#: components/topDropdownMenu.js:454
 msgid "Youtube"
+msgstr "YouTube"
+
+#: components/flashcardExam.js:119
+msgid "YouTube"
 msgstr "YouTube"

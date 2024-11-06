@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: components/flashcardExam.js:140
+msgid "(Click to reveal answer)"
+msgstr "(Haz clic para revelar la respuesta)"
+
 #: components/playbackSettings.js:114
 msgid "{speed} of Normal Speed Player"
 msgstr "{speed} de la Velocidad Normal del Reproductor"
@@ -21,32 +25,44 @@ msgstr "{speed} de la Velocidad Normal del Reproductor"
 msgid "{speed} of Normal Speed when you talk"
 msgstr "{speed} de la Velocidad Normal cuando hablas"
 
-#: components/topDropdownMenu.js:452
+#: components/topDropdownMenu.js:458
 msgid "About"
 msgstr "Acerca de"
 
-#: components/topDropdownMenu.js:453
+#: components/topDropdownMenu.js:459
 msgid "About the Application"
 msgstr "Acerca de la Aplicación"
 
-#: components/topDropdownMenu.js:400
 #: components/topDropdownMenu.js:406
+#: components/topDropdownMenu.js:412
 msgid "Account"
 msgstr "Cuenta"
 
-#: components/topDropdownMenu.js:422
+#: components/topDropdownMenu.js:428
 msgid "Add custom Playlist"
 msgstr "Agregar Lista de Reproducción Personalizada"
 
-#: components/captionBox.js:144
+#: components/captionBox.js:198
+msgid "AI-Generated Interactive Exercise (Experimental)"
+msgstr "Ejercicio Interactivo Generado por IA (Experimental)"
+
+#: components/captionBox.js:166
 msgid "Analysis"
 msgstr "Análisis"
+
+#: components/flashcardExam.js:144
+msgid "Answer"
+msgstr "Respuesta"
 
 #: components/playbackSettings.js:73
 msgid "Blure Youtube Captions"
 msgstr "Difuminar Subtítulos de Youtube"
 
-#: components/app.js:112
+#: components/flashcardEditor.js:91
+msgid "Box:"
+msgstr "Caja:"
+
+#: components/app.js:99
 msgid "Bye-bye {name}"
 msgstr "Adiós {name}"
 
@@ -54,25 +70,52 @@ msgstr "Adiós {name}"
 msgid "Camera"
 msgstr "Cámara"
 
-#: components/topDropdownMenu.js:425
+#: components/flashcardEditor.js:45
+msgid "Card"
+msgstr "Tarjeta"
+
+#: components/flashcardExam.js:112
+msgid "Card {0} of {1}"
+msgstr "Tarjeta {0} de {1}"
+
+#: components/flashcardEditor.js:85
+msgid "Card Details:"
+msgstr "Detalles de la Tarjeta:"
+
+#: components/topDropdownMenu.js:431
 msgid "Clear Memory"
 msgstr "Limpiar Memoria"
 
-#: components/topDropdownMenu.js:456
+#: components/flashcardEditor.js:88
+msgid "Collection:"
+msgstr "Colección:"
+
+#: components/topDropdownMenu.js:462
 msgid "Contact Me"
 msgstr "Contáctame"
 
-#: components/captionBox.js:190
+#: components/flashcardExam.js:154
+msgid "Correct"
+msgstr "Correcto"
+
+#: components/flashcardEditor.js:92
+msgid "Created:"
+msgstr "Creado:"
+
+#: components/flashcardEditor.js:50
+msgid "Delete"
+msgstr "Eliminar"
+
+#: components/captionBox.js:233
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "La entrada \"{textToProcess}\" se agregó a tu colección de tarjetas"
 
-#: components/app.js:116
-#: components/app.js:120
-#: components/app.js:124
+#: components/app.js:106
+#: components/app.js:114
+#: components/app.js:123
 msgid "Error"
 msgstr "Error"
 
-#: components/captionBox.js:162
 #: components/videoListView.js:86
 msgid "Exercise"
 msgstr "Ejercicio"
@@ -81,48 +124,60 @@ msgstr "Ejercicio"
 msgid "Exercise Captions"
 msgstr "Subtítulos de Ejercicios"
 
-#: components/topDropdownMenu.js:411
+#: components/topDropdownMenu.js:417
 msgid "File"
 msgstr "Archivo"
 
-#: components/topDropdownMenu.js:434
+#: components/topDropdownMenu.js:440
 msgid "Flashcards"
 msgstr "Tarjetas de Memoria"
 
-#: components/topDropdownMenu.js:392
+#: components/topDropdownMenu.js:635
+msgid "Flashcards Exam"
+msgstr "Examen de Tarjetas de Memoria"
+
+#: components/topDropdownMenu.js:398
 msgid "Hello"
 msgstr "Hola"
 
-#: components/app.js:108
+#: components/app.js:90
 msgid "Hello {name}"
 msgstr "Hola {name}"
 
-#: components/topDropdownMenu.js:441
 #: components/topDropdownMenu.js:447
+#: components/topDropdownMenu.js:453
 msgid "Home"
 msgstr "Inicio"
 
-#: components/topDropdownMenu.js:455
+#: components/topDropdownMenu.js:461
 msgid "How To Register(Free)?"
 msgstr "¿Cómo Registrarse (Gratis)?"
 
-#: components/topDropdownMenu.js:454
+#: components/topDropdownMenu.js:460
 msgid "How To?"
 msgstr "¿Cómo?"
 
-#: components/topDropdownMenu.js:401
+#: components/flashcardExam.js:163
+msgid "Incorrect"
+msgstr "Incorrecto"
+
+#: components/flashcardEditor.js:93
+msgid "Last Reviewed:"
+msgstr "Última Revisión:"
+
+#: components/topDropdownMenu.js:407
 msgid "Login"
 msgstr "Iniciar Sesión"
 
-#: components/app.js:116
+#: components/app.js:107
 msgid "Login {name} failed"
 msgstr "Error al iniciar sesión de {name}"
 
-#: components/topDropdownMenu.js:407
+#: components/topDropdownMenu.js:413
 msgid "Logout"
 msgstr "Cerrar Sesión"
 
-#: components/app.js:120
+#: components/app.js:115
 msgid "Logout {name} failed"
 msgstr "Error al cerrar sesión de {name}"
 
@@ -138,20 +193,32 @@ msgstr "Aviso Sonoro Fuerte cuando hablas"
 msgid "Mute Player when you talk"
 msgstr "Silenciar Reproductor cuando hablas"
 
-#: components/topDropdownMenu.js:440
 #: components/topDropdownMenu.js:446
+#: components/topDropdownMenu.js:452
 msgid "Navigate"
 msgstr "Navegar"
 
-#: components/captionBox.js:133
+#: components/flashcardEditor.js:94
+msgid "Next Review:"
+msgstr "Próxima Revisión:"
+
+#: components/flashcardExam.js:68
+msgid "No more cards..."
+msgstr "No hay más tarjetas..."
+
+#: components/captionBox.js:152
 msgid "No text to analyze"
 msgstr "No hay texto para analizar"
 
-#: components/captionBox.js:101
-msgid "No text to read"
-msgstr "No hay texto para leer"
+#: components/captionBox.js:110
+msgid "No text to process"
+msgstr "No hay texto para procesar"
 
-#: components/captionBox.js:90
+#: components/captionBox.js:101
+#~ msgid "No text to read"
+#~ msgstr "No hay texto para leer"
+
+#: components/captionBox.js:94
 msgid "No text to translate"
 msgstr "No hay texto para traducir"
 
@@ -163,40 +230,48 @@ msgstr "Reproductor a Velocidad Normal"
 msgid "Normal Speed when you talk"
 msgstr "Velocidad Normal cuando hablas"
 
-#: components/topDropdownMenu.js:415
+#: components/topDropdownMenu.js:421
 msgid "Open .json"
 msgstr "Abrir .json"
 
-#: components/topDropdownMenu.js:413
+#: components/topDropdownMenu.js:419
 msgid "Open .srt"
 msgstr "Abrir .srt"
 
-#: components/topDropdownMenu.js:421
+#: components/topDropdownMenu.js:427
 msgid "Open custom video"
 msgstr "Abrir video personalizado"
 
-#: components/topDropdownMenu.js:423
+#: components/topDropdownMenu.js:429
 msgid "Open Exercise File"
 msgstr "Abrir Archivo de Ejercicios"
 
-#: components/topDropdownMenu.js:420
-#: components/topDropdownMenu.js:430
+#: components/topDropdownMenu.js:426
+#: components/topDropdownMenu.js:436
 msgid "Open Settings"
 msgstr "Abrir Configuración"
 
-#: components/topDropdownMenu.js:449
+#: components/topDropdownMenu.js:455
 msgid "Open video on Youtube"
 msgstr "Abrir video en Youtube"
+
+#: components/flashcardEditor.js:89
+msgid "Origin Language:"
+msgstr "Idioma de Origen:"
 
 #: components/playbackSettings.js:58
 msgid "Prompt when you talk"
 msgstr "Aviso cuando hablas"
 
-#: components/captionBox.js:112
+#: components/captionBox.js:124
 msgid "Pronunciation"
 msgstr "Pronunciación"
 
-#: components/topDropdownMenu.js:402
+#: components/flashcardExam.js:138
+msgid "Question"
+msgstr "Pregunta"
+
+#: components/topDropdownMenu.js:408
 msgid "Register"
 msgstr "Registrarse"
 
@@ -204,20 +279,28 @@ msgstr "Registrarse"
 msgid "Register {name} failed, try later"
 msgstr "Error al registrar a {name}, intenta más tarde"
 
-#: components/topDropdownMenu.js:424
+#: components/topDropdownMenu.js:430
 msgid "Reload Playlist"
 msgstr "Recargar Lista de Reproducción"
 
-#: components/topDropdownMenu.js:412
+#: components/flashcardEditor.js:72
+msgid "Restore"
+msgstr "Restaurar"
+
+#: components/flashcardEditor.js:79
+msgid "Save"
+msgstr "Guardar"
+
+#: components/topDropdownMenu.js:418
 msgid "Save .srt"
 msgstr "Guardar .srt"
 
-#: components/captionsView.js:255
+#: components/captionsView.js:265
 msgid "Select"
 msgstr "Seleccionar"
 
-#: components/captionBox.js:151
-#: components/captionBox.js:178
+#: components/captionBox.js:175
+#: components/captionBox.js:216
 msgid "Select text to process"
 msgstr "Selecciona texto para procesar"
 
@@ -225,54 +308,70 @@ msgstr "Selecciona texto para procesar"
 msgid "Slight Prompt when you talk"
 msgstr "Aviso Suave cuando hablas"
 
-#: components/captionsView.js:257
+#: components/captionsView.js:267
 msgid "Start (sec)"
 msgstr "Inicio (seg)"
 
-#: components/topDropdownMenu.js:436
+#: components/topDropdownMenu.js:442
 msgid "Start Test"
 msgstr "Iniciar Prueba"
 
-#: components/app.js:108
-#: components/app.js:112
-#: components/captionBox.js:190
+#: components/app.js:89
+#: components/app.js:98
+#: components/captionBox.js:232
 msgid "Success"
 msgstr "Éxito"
 
-#: components/captionsView.js:258
+#: components/captionsView.js:268
 msgid "Text"
 msgstr "Texto"
 
-#: components/topDropdownMenu.js:419
-#: components/topDropdownMenu.js:429
+#: components/topDropdownMenu.js:425
+#: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "Herramientas"
 
-#: components/captionBox.js:94
+#: components/captionBox.js:101
 msgid "Translation"
 msgstr "Traducción"
 
-#: components/topDropdownMenu.js:414
+#: components/flashcardEditor.js:90
+msgid "Translation Language:"
+msgstr "Idioma de Traducción:"
+
+#: components/flashcardEditor.js:54
+msgid "Translation:"
+msgstr "Traducción:"
+
+#: components/topDropdownMenu.js:420
 msgid "Upload .srt"
 msgstr "Subir .srt"
 
-#: components/topDropdownMenu.js:435
+#: components/topDropdownMenu.js:441
 msgid "View Colection"
 msgstr "Ver Colección"
 
-#: components/captionBox.js:90
-#: components/captionBox.js:101
-#: components/captionBox.js:133
+#: components/captionBox.js:93
+#: components/captionBox.js:109
 #: components/captionBox.js:151
-#: components/captionBox.js:178
+#: components/captionBox.js:174
+#: components/captionBox.js:215
 msgid "Warning!"
 msgstr "¡Advertencia!"
 
-#: components/captionsView.js:256
+#: components/flashcardExam.js:125
+msgid "Youglish"
+msgstr "Youglish"
+
+#: components/captionsView.js:266
 msgid "Your Line"
 msgstr "Tu Línea"
 
-#: components/topDropdownMenu.js:442
 #: components/topDropdownMenu.js:448
+#: components/topDropdownMenu.js:454
 msgid "Youtube"
 msgstr "Youtube"
+
+#: components/flashcardExam.js:119
+msgid "YouTube"
+msgstr "YouTube"

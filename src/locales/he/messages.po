@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: components/flashcardExam.js:140
+msgid "(Click to reveal answer)"
+msgstr "(לחץ כדי לחשוף את התשובה)"
+
 #: components/playbackSettings.js:114
 msgid "{speed} of Normal Speed Player"
 msgstr "מנגן {speed} ממהירות נגן רגילה"
@@ -21,32 +25,44 @@ msgstr "מנגן {speed} ממהירות נגן רגילה"
 msgid "{speed} of Normal Speed when you talk"
 msgstr "מנגן {speed} ממהירות רגילה כשאתה מדבר"
 
-#: components/topDropdownMenu.js:452
+#: components/topDropdownMenu.js:458
 msgid "About"
 msgstr "מידע"
 
-#: components/topDropdownMenu.js:453
+#: components/topDropdownMenu.js:459
 msgid "About the Application"
 msgstr "אודות היישום"
 
-#: components/topDropdownMenu.js:400
 #: components/topDropdownMenu.js:406
+#: components/topDropdownMenu.js:412
 msgid "Account"
 msgstr "חשבון"
 
-#: components/topDropdownMenu.js:422
+#: components/topDropdownMenu.js:428
 msgid "Add custom Playlist"
 msgstr "הוסף רשימת השמעה מותאמת אישית"
 
-#: components/captionBox.js:144
+#: components/captionBox.js:198
+msgid "AI-Generated Interactive Exercise (Experimental)"
+msgstr "תרגיל אינטראקטיבי שנוצר על ידי AI (ניסיוני)"
+
+#: components/captionBox.js:166
 msgid "Analysis"
 msgstr "ניתוח"
+
+#: components/flashcardExam.js:144
+msgid "Answer"
+msgstr "תשובה"
 
 #: components/playbackSettings.js:73
 msgid "Blure Youtube Captions"
 msgstr "טשטש כתוביות יוטיוב"
 
-#: components/app.js:112
+#: components/flashcardEditor.js:91
+msgid "Box:"
+msgstr "תיבה:"
+
+#: components/app.js:99
 msgid "Bye-bye {name}"
 msgstr "להתראות {name}"
 
@@ -54,25 +70,52 @@ msgstr "להתראות {name}"
 msgid "Camera"
 msgstr "מצלמה"
 
-#: components/topDropdownMenu.js:425
+#: components/flashcardEditor.js:45
+msgid "Card"
+msgstr "כרטיס"
+
+#: components/flashcardExam.js:112
+msgid "Card {0} of {1}"
+msgstr "כרטיס {0} מתוך {1}"
+
+#: components/flashcardEditor.js:85
+msgid "Card Details:"
+msgstr "פרטי הכרטיס:"
+
+#: components/topDropdownMenu.js:431
 msgid "Clear Memory"
 msgstr "נקה זיכרון"
 
-#: components/topDropdownMenu.js:456
+#: components/flashcardEditor.js:88
+msgid "Collection:"
+msgstr "אוסף:"
+
+#: components/topDropdownMenu.js:462
 msgid "Contact Me"
 msgstr "צור קשר"
 
-#: components/captionBox.js:190
+#: components/flashcardExam.js:154
+msgid "Correct"
+msgstr "נכון"
+
+#: components/flashcardEditor.js:92
+msgid "Created:"
+msgstr "נוצר:"
+
+#: components/flashcardEditor.js:50
+msgid "Delete"
+msgstr "מחק"
+
+#: components/captionBox.js:233
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "הערך \"{textToProcess}\" נוסף לאוסף כרטיסי הזיכרון שלך"
 
-#: components/app.js:116
-#: components/app.js:120
-#: components/app.js:124
+#: components/app.js:106
+#: components/app.js:114
+#: components/app.js:123
 msgid "Error"
 msgstr "שגיאה"
 
-#: components/captionBox.js:162
 #: components/videoListView.js:86
 msgid "Exercise"
 msgstr "תרגול"
@@ -81,48 +124,60 @@ msgstr "תרגול"
 msgid "Exercise Captions"
 msgstr "כתוביות תרגול"
 
-#: components/topDropdownMenu.js:411
+#: components/topDropdownMenu.js:417
 msgid "File"
 msgstr "קובץ"
 
-#: components/topDropdownMenu.js:434
+#: components/topDropdownMenu.js:440
 msgid "Flashcards"
 msgstr "כרטיסי זיכרון"
 
-#: components/topDropdownMenu.js:392
+#: components/topDropdownMenu.js:635
+msgid "Flashcards Exam"
+msgstr "מבחן כרטיסי זיכרון"
+
+#: components/topDropdownMenu.js:398
 msgid "Hello"
 msgstr "שלום"
 
-#: components/app.js:108
+#: components/app.js:90
 msgid "Hello {name}"
 msgstr "שלום {name}"
 
-#: components/topDropdownMenu.js:441
 #: components/topDropdownMenu.js:447
+#: components/topDropdownMenu.js:453
 msgid "Home"
 msgstr "דף הבית"
 
-#: components/topDropdownMenu.js:455
+#: components/topDropdownMenu.js:461
 msgid "How To Register(Free)?"
 msgstr "איך להירשם (חינם)?"
 
-#: components/topDropdownMenu.js:454
+#: components/topDropdownMenu.js:460
 msgid "How To?"
 msgstr "איך?"
 
-#: components/topDropdownMenu.js:401
+#: components/flashcardExam.js:163
+msgid "Incorrect"
+msgstr "לא נכון"
+
+#: components/flashcardEditor.js:93
+msgid "Last Reviewed:"
+msgstr "נבדק לאחרונה:"
+
+#: components/topDropdownMenu.js:407
 msgid "Login"
 msgstr "התחבר"
 
-#: components/app.js:116
+#: components/app.js:107
 msgid "Login {name} failed"
 msgstr "ההתחברות של {name} נכשלה"
 
-#: components/topDropdownMenu.js:407
+#: components/topDropdownMenu.js:413
 msgid "Logout"
 msgstr "התנתק"
 
-#: components/app.js:120
+#: components/app.js:115
 msgid "Logout {name} failed"
 msgstr "ההתנתקות של {name} נכשלה"
 
@@ -138,24 +193,36 @@ msgstr "הערה רועשת כשאתה מדבר"
 msgid "Mute Player when you talk"
 msgstr "השקט נגן כשאתה מדבר"
 
-#: components/topDropdownMenu.js:440
 #: components/topDropdownMenu.js:446
+#: components/topDropdownMenu.js:452
 msgid "Navigate"
 msgstr "ניווט"
+
+#: components/flashcardEditor.js:94
+msgid "Next Review:"
+msgstr "הסקירה הבאה:"
+
+#: components/flashcardExam.js:68
+msgid "No more cards..."
+msgstr "אין עוד כרטיסים..."
 
 #: components/captionBox.js:178
 #~ msgid "No text selected"
 #~ msgstr "לא נבחר טקסט"
 
-#: components/captionBox.js:133
+#: components/captionBox.js:152
 msgid "No text to analyze"
 msgstr "אין טקסט לניתוח"
 
-#: components/captionBox.js:101
-msgid "No text to read"
-msgstr "אין טקסט לקריאה"
+#: components/captionBox.js:110
+msgid "No text to process"
+msgstr "אין טקסט לעיבוד"
 
-#: components/captionBox.js:90
+#: components/captionBox.js:101
+#~ msgid "No text to read"
+#~ msgstr "אין טקסט לקריאה"
+
+#: components/captionBox.js:94
 msgid "No text to translate"
 msgstr "אין טקסט לתרגום"
 
@@ -167,40 +234,48 @@ msgstr "נגן במהירות רגילה"
 msgid "Normal Speed when you talk"
 msgstr "מהירות רגילה כשאתה מדבר"
 
-#: components/topDropdownMenu.js:415
+#: components/topDropdownMenu.js:421
 msgid "Open .json"
 msgstr "פתח .json"
 
-#: components/topDropdownMenu.js:413
+#: components/topDropdownMenu.js:419
 msgid "Open .srt"
 msgstr "פתח .srt"
 
-#: components/topDropdownMenu.js:421
+#: components/topDropdownMenu.js:427
 msgid "Open custom video"
 msgstr "פתח וידאו מותאם אישית"
 
-#: components/topDropdownMenu.js:423
+#: components/topDropdownMenu.js:429
 msgid "Open Exercise File"
 msgstr "פתח קובץ תרגול"
 
-#: components/topDropdownMenu.js:420
-#: components/topDropdownMenu.js:430
+#: components/topDropdownMenu.js:426
+#: components/topDropdownMenu.js:436
 msgid "Open Settings"
 msgstr "פתח הגדרות"
 
-#: components/topDropdownMenu.js:449
+#: components/topDropdownMenu.js:455
 msgid "Open video on Youtube"
 msgstr "פתח וידאו ביוטיוב"
+
+#: components/flashcardEditor.js:89
+msgid "Origin Language:"
+msgstr "שפת מקור:"
 
 #: components/playbackSettings.js:58
 msgid "Prompt when you talk"
 msgstr "הערה כשאתה מדבר"
 
-#: components/captionBox.js:112
+#: components/captionBox.js:124
 msgid "Pronunciation"
 msgstr "הגייה"
 
-#: components/topDropdownMenu.js:402
+#: components/flashcardExam.js:138
+msgid "Question"
+msgstr "שאלה"
+
+#: components/topDropdownMenu.js:408
 msgid "Register"
 msgstr "הירשם"
 
@@ -208,20 +283,28 @@ msgstr "הירשם"
 msgid "Register {name} failed, try later"
 msgstr "ההרשמה של {name} נכשלה, נסה מאוחר יותר"
 
-#: components/topDropdownMenu.js:424
+#: components/topDropdownMenu.js:430
 msgid "Reload Playlist"
 msgstr "טען מחדש את רשימת ההשמעה"
 
-#: components/topDropdownMenu.js:412
+#: components/flashcardEditor.js:72
+msgid "Restore"
+msgstr "שחזר"
+
+#: components/flashcardEditor.js:79
+msgid "Save"
+msgstr "שמור"
+
+#: components/topDropdownMenu.js:418
 msgid "Save .srt"
 msgstr "שמור .srt"
 
-#: components/captionsView.js:255
+#: components/captionsView.js:265
 msgid "Select"
 msgstr "בחר"
 
-#: components/captionBox.js:151
-#: components/captionBox.js:178
+#: components/captionBox.js:175
+#: components/captionBox.js:216
 msgid "Select text to process"
 msgstr "בחר טקסט לעיבוד"
 
@@ -229,21 +312,21 @@ msgstr "בחר טקסט לעיבוד"
 msgid "Slight Prompt when you talk"
 msgstr "הערה קלה כשאתה מדבר"
 
-#: components/captionsView.js:257
+#: components/captionsView.js:267
 msgid "Start (sec)"
 msgstr "התחלה (שניות)"
 
-#: components/topDropdownMenu.js:436
+#: components/topDropdownMenu.js:442
 msgid "Start Test"
 msgstr "התחל מבחן"
 
-#: components/app.js:108
-#: components/app.js:112
-#: components/captionBox.js:190
+#: components/app.js:89
+#: components/app.js:98
+#: components/captionBox.js:232
 msgid "Success"
 msgstr "הצלחה"
 
-#: components/captionsView.js:258
+#: components/captionsView.js:268
 msgid "Text"
 msgstr "טקסט"
 
@@ -251,36 +334,52 @@ msgstr "טקסט"
 #~ msgid "Text Analysis"
 #~ msgstr "ניתוח טקסט"
 
-#: components/topDropdownMenu.js:419
-#: components/topDropdownMenu.js:429
+#: components/topDropdownMenu.js:425
+#: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "כלים"
 
-#: components/captionBox.js:94
+#: components/captionBox.js:101
 msgid "Translation"
 msgstr "תרגום"
 
-#: components/topDropdownMenu.js:414
+#: components/flashcardEditor.js:90
+msgid "Translation Language:"
+msgstr "שפת תרגום:"
+
+#: components/flashcardEditor.js:54
+msgid "Translation:"
+msgstr "תרגום:"
+
+#: components/topDropdownMenu.js:420
 msgid "Upload .srt"
 msgstr "העלה .srt"
 
-#: components/topDropdownMenu.js:435
+#: components/topDropdownMenu.js:441
 msgid "View Colection"
 msgstr "הצג אוסף"
 
-#: components/captionBox.js:90
-#: components/captionBox.js:101
-#: components/captionBox.js:133
+#: components/captionBox.js:93
+#: components/captionBox.js:109
 #: components/captionBox.js:151
-#: components/captionBox.js:178
+#: components/captionBox.js:174
+#: components/captionBox.js:215
 msgid "Warning!"
 msgstr "אזהרה!"
 
-#: components/captionsView.js:256
+#: components/flashcardExam.js:125
+msgid "Youglish"
+msgstr "יוגליש"
+
+#: components/captionsView.js:266
 msgid "Your Line"
 msgstr "השורה שלך"
 
-#: components/topDropdownMenu.js:442
 #: components/topDropdownMenu.js:448
+#: components/topDropdownMenu.js:454
 msgid "Youtube"
+msgstr "יוטיוב"
+
+#: components/flashcardExam.js:119
+msgid "YouTube"
 msgstr "יוטיוב"

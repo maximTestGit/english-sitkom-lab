@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: components/flashcardExam.js:140
+msgid "(Click to reveal answer)"
+msgstr "(انقر للكشف عن الإجابة)"
+
 #: components/playbackSettings.js:114
 msgid "{speed} of Normal Speed Player"
 msgstr "{speed} من السرعة العادية للمشغل"
@@ -21,32 +25,44 @@ msgstr "{speed} من السرعة العادية للمشغل"
 msgid "{speed} of Normal Speed when you talk"
 msgstr "{speed} من السرعة العادية عندما تتحدث"
 
-#: components/topDropdownMenu.js:452
+#: components/topDropdownMenu.js:458
 msgid "About"
 msgstr "حول"
 
-#: components/topDropdownMenu.js:453
+#: components/topDropdownMenu.js:459
 msgid "About the Application"
 msgstr "حول التطبيق"
 
-#: components/topDropdownMenu.js:400
 #: components/topDropdownMenu.js:406
+#: components/topDropdownMenu.js:412
 msgid "Account"
 msgstr "الحساب"
 
-#: components/topDropdownMenu.js:422
+#: components/topDropdownMenu.js:428
 msgid "Add custom Playlist"
 msgstr "إضافة قائمة تشغيل مخصصة"
 
-#: components/captionBox.js:144
+#: components/captionBox.js:198
+msgid "AI-Generated Interactive Exercise (Experimental)"
+msgstr "تمرين تفاعلي مولد بواسطة الذكاء الاصطناعي (تجريبي)"
+
+#: components/captionBox.js:166
 msgid "Analysis"
 msgstr "تحليل"
+
+#: components/flashcardExam.js:144
+msgid "Answer"
+msgstr "الإجابة"
 
 #: components/playbackSettings.js:73
 msgid "Blure Youtube Captions"
 msgstr "طمس ترجمات يوتيوب"
 
-#: components/app.js:112
+#: components/flashcardEditor.js:91
+msgid "Box:"
+msgstr "صندوق:"
+
+#: components/app.js:99
 msgid "Bye-bye {name}"
 msgstr "مع السلامة {name}"
 
@@ -54,25 +70,52 @@ msgstr "مع السلامة {name}"
 msgid "Camera"
 msgstr "الكاميرا"
 
-#: components/topDropdownMenu.js:425
+#: components/flashcardEditor.js:45
+msgid "Card"
+msgstr "بطاقة"
+
+#: components/flashcardExam.js:112
+msgid "Card {0} of {1}"
+msgstr "البطاقة {0} من {1}"
+
+#: components/flashcardEditor.js:85
+msgid "Card Details:"
+msgstr "تفاصيل البطاقة:"
+
+#: components/topDropdownMenu.js:431
 msgid "Clear Memory"
 msgstr "مسح الذاكرة"
 
-#: components/topDropdownMenu.js:456
+#: components/flashcardEditor.js:88
+msgid "Collection:"
+msgstr "مجموعة"
+
+#: components/topDropdownMenu.js:462
 msgid "Contact Me"
 msgstr "اتصل بي"
 
-#: components/captionBox.js:190
-msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
-msgstr "تمت إضافة \"{textToProcess}\" إلى مجموعة البطاقات التعليمية الخاصة بك"
+#: components/flashcardExam.js:154
+msgid "Correct"
+msgstr "صحيح"
 
-#: components/app.js:116
-#: components/app.js:120
-#: components/app.js:124
+#: components/flashcardEditor.js:92
+msgid "Created:"
+msgstr "تم الإنشاء:"
+
+#: components/flashcardEditor.js:50
+msgid "Delete"
+msgstr "حذف"
+
+#: components/captionBox.js:233
+msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
+msgstr "تم إضافة \"{textToProcess}\" إلى مجموعة البطاقات التعليمية الخاصة بك"
+
+#: components/app.js:106
+#: components/app.js:114
+#: components/app.js:123
 msgid "Error"
 msgstr "خطأ"
 
-#: components/captionBox.js:162
 #: components/videoListView.js:86
 msgid "Exercise"
 msgstr "تمرين"
@@ -81,48 +124,60 @@ msgstr "تمرين"
 msgid "Exercise Captions"
 msgstr "ترجمات التمرين"
 
-#: components/topDropdownMenu.js:411
+#: components/topDropdownMenu.js:417
 msgid "File"
 msgstr "ملف"
 
-#: components/topDropdownMenu.js:434
+#: components/topDropdownMenu.js:440
 msgid "Flashcards"
 msgstr "البطاقات التعليمية"
 
-#: components/topDropdownMenu.js:392
+#: components/topDropdownMenu.js:635
+msgid "Flashcards Exam"
+msgstr "امتحان البطاقات التعليمية"
+
+#: components/topDropdownMenu.js:398
 msgid "Hello"
 msgstr "مرحباً"
 
-#: components/app.js:108
+#: components/app.js:90
 msgid "Hello {name}"
 msgstr "مرحباً {name}"
 
-#: components/topDropdownMenu.js:441
 #: components/topDropdownMenu.js:447
+#: components/topDropdownMenu.js:453
 msgid "Home"
 msgstr "الرئيسية"
 
-#: components/topDropdownMenu.js:455
+#: components/topDropdownMenu.js:461
 msgid "How To Register(Free)?"
 msgstr "كيفية التسجيل (مجاناً)؟"
 
-#: components/topDropdownMenu.js:454
+#: components/topDropdownMenu.js:460
 msgid "How To?"
 msgstr "كيف؟"
 
-#: components/topDropdownMenu.js:401
+#: components/flashcardExam.js:163
+msgid "Incorrect"
+msgstr "غير صحيح"
+
+#: components/flashcardEditor.js:93
+msgid "Last Reviewed:"
+msgstr "آخر مراجعة:"
+
+#: components/topDropdownMenu.js:407
 msgid "Login"
 msgstr "تسجيل الدخول"
 
-#: components/app.js:116
+#: components/app.js:107
 msgid "Login {name} failed"
 msgstr "فشل تسجيل دخول {name}"
 
-#: components/topDropdownMenu.js:407
+#: components/topDropdownMenu.js:413
 msgid "Logout"
 msgstr "تسجيل الخروج"
 
-#: components/app.js:120
+#: components/app.js:115
 msgid "Logout {name} failed"
 msgstr "فشل تسجيل خروج {name}"
 
@@ -138,20 +193,32 @@ msgstr "تنبيه صوتي مرتفع عندما تتحدث"
 msgid "Mute Player when you talk"
 msgstr "كتم صوت المشغل عندما تتحدث"
 
-#: components/topDropdownMenu.js:440
 #: components/topDropdownMenu.js:446
+#: components/topDropdownMenu.js:452
 msgid "Navigate"
 msgstr "تصفح"
 
-#: components/captionBox.js:133
+#: components/flashcardEditor.js:94
+msgid "Next Review:"
+msgstr "المراجعة التالية:"
+
+#: components/flashcardExam.js:68
+msgid "No more cards..."
+msgstr "لا توجد بطاقات أخرى..."
+
+#: components/captionBox.js:152
 msgid "No text to analyze"
 msgstr "لا يوجد نص للتحليل"
 
-#: components/captionBox.js:101
-msgid "No text to read"
-msgstr "لا يوجد نص للقراءة"
+#: components/captionBox.js:110
+msgid "No text to process"
+msgstr "لا يوجد نص للمعالجة"
 
-#: components/captionBox.js:90
+#: components/captionBox.js:101
+#~ msgid "No text to read"
+#~ msgstr "لا يوجد نص للقراءة"
+
+#: components/captionBox.js:94
 msgid "No text to translate"
 msgstr "لا يوجد نص للترجمة"
 
@@ -163,40 +230,48 @@ msgstr "مشغل بالسرعة العادية"
 msgid "Normal Speed when you talk"
 msgstr "السرعة العادية عندما تتحدث"
 
-#: components/topDropdownMenu.js:415
+#: components/topDropdownMenu.js:421
 msgid "Open .json"
 msgstr "فتح ملف .json"
 
-#: components/topDropdownMenu.js:413
+#: components/topDropdownMenu.js:419
 msgid "Open .srt"
 msgstr "فتح ملف .srt"
 
-#: components/topDropdownMenu.js:421
+#: components/topDropdownMenu.js:427
 msgid "Open custom video"
 msgstr "فتح فيديو مخصص"
 
-#: components/topDropdownMenu.js:423
+#: components/topDropdownMenu.js:429
 msgid "Open Exercise File"
 msgstr "فتح ملف التمرين"
 
-#: components/topDropdownMenu.js:420
-#: components/topDropdownMenu.js:430
+#: components/topDropdownMenu.js:426
+#: components/topDropdownMenu.js:436
 msgid "Open Settings"
 msgstr "فتح الإعدادات"
 
-#: components/topDropdownMenu.js:449
+#: components/topDropdownMenu.js:455
 msgid "Open video on Youtube"
 msgstr "فتح الفيديو على يوتيوب"
+
+#: components/flashcardEditor.js:89
+msgid "Origin Language:"
+msgstr "اللغة الأصلية:"
 
 #: components/playbackSettings.js:58
 msgid "Prompt when you talk"
 msgstr "تنبيه عندما تتحدث"
 
-#: components/captionBox.js:112
+#: components/captionBox.js:124
 msgid "Pronunciation"
 msgstr "النطق"
 
-#: components/topDropdownMenu.js:402
+#: components/flashcardExam.js:138
+msgid "Question"
+msgstr "السؤال"
+
+#: components/topDropdownMenu.js:408
 msgid "Register"
 msgstr "تسجيل"
 
@@ -204,20 +279,28 @@ msgstr "تسجيل"
 msgid "Register {name} failed, try later"
 msgstr "فشل تسجيل {name}، حاول لاحقاً"
 
-#: components/topDropdownMenu.js:424
+#: components/topDropdownMenu.js:430
 msgid "Reload Playlist"
 msgstr "إعادة تحميل قائمة التشغيل"
 
-#: components/topDropdownMenu.js:412
+#: components/flashcardEditor.js:72
+msgid "Restore"
+msgstr "استعادة"
+
+#: components/flashcardEditor.js:79
+msgid "Save"
+msgstr "حفظ"
+
+#: components/topDropdownMenu.js:418
 msgid "Save .srt"
 msgstr "حفظ ملف .srt"
 
-#: components/captionsView.js:255
+#: components/captionsView.js:265
 msgid "Select"
 msgstr "اختيار"
 
-#: components/captionBox.js:151
-#: components/captionBox.js:178
+#: components/captionBox.js:175
+#: components/captionBox.js:216
 msgid "Select text to process"
 msgstr "اختر النص للمعالجة"
 
@@ -225,54 +308,70 @@ msgstr "اختر النص للمعالجة"
 msgid "Slight Prompt when you talk"
 msgstr "تنبيه خفيف عندما تتحدث"
 
-#: components/captionsView.js:257
+#: components/captionsView.js:267
 msgid "Start (sec)"
 msgstr "البداية (ثانية)"
 
-#: components/topDropdownMenu.js:436
+#: components/topDropdownMenu.js:442
 msgid "Start Test"
 msgstr "بدء الاختبار"
 
-#: components/app.js:108
-#: components/app.js:112
-#: components/captionBox.js:190
+#: components/app.js:89
+#: components/app.js:98
+#: components/captionBox.js:232
 msgid "Success"
 msgstr "نجاح"
 
-#: components/captionsView.js:258
+#: components/captionsView.js:268
 msgid "Text"
 msgstr "النص"
 
-#: components/topDropdownMenu.js:419
-#: components/topDropdownMenu.js:429
+#: components/topDropdownMenu.js:425
+#: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "الأدوات"
 
-#: components/captionBox.js:94
+#: components/captionBox.js:101
 msgid "Translation"
 msgstr "الترجمة"
 
-#: components/topDropdownMenu.js:414
+#: components/flashcardEditor.js:90
+msgid "Translation Language:"
+msgstr "لغة الترجمة:"
+
+#: components/flashcardEditor.js:54
+msgid "Translation:"
+msgstr "الترجمة:"
+
+#: components/topDropdownMenu.js:420
 msgid "Upload .srt"
 msgstr "رفع ملف .srt"
 
-#: components/topDropdownMenu.js:435
+#: components/topDropdownMenu.js:441
 msgid "View Colection"
 msgstr "عرض المجموعة"
 
-#: components/captionBox.js:90
-#: components/captionBox.js:101
-#: components/captionBox.js:133
+#: components/captionBox.js:93
+#: components/captionBox.js:109
 #: components/captionBox.js:151
-#: components/captionBox.js:178
+#: components/captionBox.js:174
+#: components/captionBox.js:215
 msgid "Warning!"
 msgstr "تحذير!"
 
-#: components/captionsView.js:256
+#: components/flashcardExam.js:125
+msgid "Youglish"
+msgstr "يوجليش"
+
+#: components/captionsView.js:266
 msgid "Your Line"
 msgstr "سطرك"
 
-#: components/topDropdownMenu.js:442
 #: components/topDropdownMenu.js:448
+#: components/topDropdownMenu.js:454
 msgid "Youtube"
+msgstr "يوتيوب"
+
+#: components/flashcardExam.js:119
+msgid "YouTube"
 msgstr "يوتيوب"

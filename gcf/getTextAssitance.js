@@ -67,6 +67,26 @@ exports.getTextAssistance = async (req, res) => {
 }
 async function getTextAssistanceAnswer(theText, textLanguage, answerLanguage) {
     let result = '';
+    const htmlPage =
+        `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>English Learning</title>
+    <style>
+        .exercise-container {
+            border: 1px solid black;
+            padding: 20px;
+            width: 600px;
+            margin: 0 auto;
+        }
+        </style>
+</head>
+<body>
+    <div id="theAnswer" class="exercise-container">
+	</div>
+</body>
+</html>`;
     const prompt =
         `Analyze the following text for a student learning ${textLanguage}, ` +
         `whose native language is ${answerLanguage}. ` +
@@ -79,6 +99,8 @@ async function getTextAssistanceAnswer(theText, textLanguage, answerLanguage) {
         `it must have a border. ` +
         `in case a line of text contans both left-to-right and right-to-left languages, ` +
         `the line must be splitted into two lines. ` +
+        `GThe answer must be placed in the <div id="theAnswer"> tag of the following HTML page:` +
+        `"${htmlPage}".` +
         `your answer must start with <!DOCTYPE html> tag and finish with </html> tag.`;
 
     const apiKey = process.env.OPENAI_API_KEY;

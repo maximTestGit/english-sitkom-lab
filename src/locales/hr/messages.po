@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: components/flashcardExam.js:140
+msgid "(Click to reveal answer)"
+msgstr "(Kliknite za otkrivanje odgovora)"
+
 #: components/playbackSettings.js:114
 msgid "{speed} of Normal Speed Player"
 msgstr "{speed} normalne brzine reprodukcije"
@@ -21,32 +25,44 @@ msgstr "{speed} normalne brzine reprodukcije"
 msgid "{speed} of Normal Speed when you talk"
 msgstr "{speed} normalne brzine kada govorite"
 
-#: components/topDropdownMenu.js:452
+#: components/topDropdownMenu.js:458
 msgid "About"
 msgstr "O nama"
 
-#: components/topDropdownMenu.js:453
+#: components/topDropdownMenu.js:459
 msgid "About the Application"
 msgstr "O aplikaciji"
 
-#: components/topDropdownMenu.js:400
 #: components/topDropdownMenu.js:406
+#: components/topDropdownMenu.js:412
 msgid "Account"
 msgstr "Račun"
 
-#: components/topDropdownMenu.js:422
+#: components/topDropdownMenu.js:428
 msgid "Add custom Playlist"
 msgstr "Dodati prilagođenu playlistu"
 
-#: components/captionBox.js:144
+#: components/captionBox.js:198
+msgid "AI-Generated Interactive Exercise (Experimental)"
+msgstr "AI-generirana interaktivna vježba (eksperimentalno)"
+
+#: components/captionBox.js:166
 msgid "Analysis"
 msgstr "Analiza"
+
+#: components/flashcardExam.js:144
+msgid "Answer"
+msgstr "Odgovor"
 
 #: components/playbackSettings.js:73
 msgid "Blure Youtube Captions"
 msgstr "Zamuti YouTube titlove"
 
-#: components/app.js:112
+#: components/flashcardEditor.js:91
+msgid "Box:"
+msgstr "Kutija:"
+
+#: components/app.js:99
 msgid "Bye-bye {name}"
 msgstr "Doviđenja {name}"
 
@@ -54,25 +70,52 @@ msgstr "Doviđenja {name}"
 msgid "Camera"
 msgstr "Kamera"
 
-#: components/topDropdownMenu.js:425
+#: components/flashcardEditor.js:45
+msgid "Card"
+msgstr "Kartica"
+
+#: components/flashcardExam.js:112
+msgid "Card {0} of {1}"
+msgstr "Kartica {0} od {1}"
+
+#: components/flashcardEditor.js:85
+msgid "Card Details:"
+msgstr "Detalji kartice:"
+
+#: components/topDropdownMenu.js:431
 msgid "Clear Memory"
 msgstr "Očisti memoriju"
 
-#: components/topDropdownMenu.js:456
+#: components/flashcardEditor.js:88
+msgid "Collection:"
+msgstr "Kolekcija:"
+
+#: components/topDropdownMenu.js:462
 msgid "Contact Me"
 msgstr "Kontaktirajte me"
 
-#: components/captionBox.js:190
+#: components/flashcardExam.js:154
+msgid "Correct"
+msgstr "Točno"
+
+#: components/flashcardEditor.js:92
+msgid "Created:"
+msgstr "Stvoreno:"
+
+#: components/flashcardEditor.js:50
+msgid "Delete"
+msgstr "Izbriši"
+
+#: components/captionBox.js:233
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "Unos \"{textToProcess}\" je dodan u vašu kolekciju kartica"
 
-#: components/app.js:116
-#: components/app.js:120
-#: components/app.js:124
+#: components/app.js:106
+#: components/app.js:114
+#: components/app.js:123
 msgid "Error"
 msgstr "Greška"
 
-#: components/captionBox.js:162
 #: components/videoListView.js:86
 msgid "Exercise"
 msgstr "Vježba"
@@ -81,48 +124,60 @@ msgstr "Vježba"
 msgid "Exercise Captions"
 msgstr "Titlovi za vježbu"
 
-#: components/topDropdownMenu.js:411
+#: components/topDropdownMenu.js:417
 msgid "File"
 msgstr "Datoteka"
 
-#: components/topDropdownMenu.js:434
+#: components/topDropdownMenu.js:440
 msgid "Flashcards"
 msgstr "Kartice za učenje"
 
-#: components/topDropdownMenu.js:392
+#: components/topDropdownMenu.js:635
+msgid "Flashcards Exam"
+msgstr "Ispit kartica za učenje"
+
+#: components/topDropdownMenu.js:398
 msgid "Hello"
 msgstr "Pozdrav"
 
-#: components/app.js:108
+#: components/app.js:90
 msgid "Hello {name}"
 msgstr "Pozdrav {name}"
 
-#: components/topDropdownMenu.js:441
 #: components/topDropdownMenu.js:447
+#: components/topDropdownMenu.js:453
 msgid "Home"
 msgstr "Početna"
 
-#: components/topDropdownMenu.js:455
+#: components/topDropdownMenu.js:461
 msgid "How To Register(Free)?"
 msgstr "Kako se registrirati (besplatno)?"
 
-#: components/topDropdownMenu.js:454
+#: components/topDropdownMenu.js:460
 msgid "How To?"
 msgstr "Kako?"
 
-#: components/topDropdownMenu.js:401
+#: components/flashcardExam.js:163
+msgid "Incorrect"
+msgstr "Netočno"
+
+#: components/flashcardEditor.js:93
+msgid "Last Reviewed:"
+msgstr "Posljednji pregled:"
+
+#: components/topDropdownMenu.js:407
 msgid "Login"
 msgstr "Prijava"
 
-#: components/app.js:116
+#: components/app.js:107
 msgid "Login {name} failed"
 msgstr "Prijava za {name} nije uspjela"
 
-#: components/topDropdownMenu.js:407
+#: components/topDropdownMenu.js:413
 msgid "Logout"
 msgstr "Odjava"
 
-#: components/app.js:120
+#: components/app.js:115
 msgid "Logout {name} failed"
 msgstr "Odjava za {name} nije uspjela"
 
@@ -138,20 +193,32 @@ msgstr "Glasan zvučni signal kada vi govorite"
 msgid "Mute Player when you talk"
 msgstr "Utišaj player kada vi govorite"
 
-#: components/topDropdownMenu.js:440
 #: components/topDropdownMenu.js:446
+#: components/topDropdownMenu.js:452
 msgid "Navigate"
 msgstr "Navigacija"
 
-#: components/captionBox.js:133
+#: components/flashcardEditor.js:94
+msgid "Next Review:"
+msgstr "Sljedeći pregled:"
+
+#: components/flashcardExam.js:68
+msgid "No more cards..."
+msgstr "Nema više kartica..."
+
+#: components/captionBox.js:152
 msgid "No text to analyze"
 msgstr "Nema teksta za analizu"
 
-#: components/captionBox.js:101
-msgid "No text to read"
-msgstr "Nema teksta za čitanje"
+#: components/captionBox.js:110
+msgid "No text to process"
+msgstr "Nema teksta za obradu"
 
-#: components/captionBox.js:90
+#: components/captionBox.js:101
+#~ msgid "No text to read"
+#~ msgstr "Nema teksta za čitanje"
+
+#: components/captionBox.js:94
 msgid "No text to translate"
 msgstr "Nema teksta za prevođenje"
 
@@ -163,40 +230,48 @@ msgstr "Reprodukcija normalnom brzinom"
 msgid "Normal Speed when you talk"
 msgstr "Normalna brzina kada  vi govorite"
 
-#: components/topDropdownMenu.js:415
+#: components/topDropdownMenu.js:421
 msgid "Open .json"
 msgstr "Otvori .json"
 
-#: components/topDropdownMenu.js:413
+#: components/topDropdownMenu.js:419
 msgid "Open .srt"
 msgstr "Otvori .srt"
 
-#: components/topDropdownMenu.js:421
+#: components/topDropdownMenu.js:427
 msgid "Open custom video"
 msgstr "Otvori prilagođeni video"
 
-#: components/topDropdownMenu.js:423
+#: components/topDropdownMenu.js:429
 msgid "Open Exercise File"
 msgstr "Otvori datoteku za vježbu"
 
-#: components/topDropdownMenu.js:420
-#: components/topDropdownMenu.js:430
+#: components/topDropdownMenu.js:426
+#: components/topDropdownMenu.js:436
 msgid "Open Settings"
 msgstr "Otvori postavke"
 
-#: components/topDropdownMenu.js:449
+#: components/topDropdownMenu.js:455
 msgid "Open video on Youtube"
 msgstr "Otvori video na YouTubeu"
+
+#: components/flashcardEditor.js:89
+msgid "Origin Language:"
+msgstr "Izvorni jezik:"
 
 #: components/playbackSettings.js:58
 msgid "Prompt when you talk"
 msgstr "Signal kada vi govorite"
 
-#: components/captionBox.js:112
+#: components/captionBox.js:124
 msgid "Pronunciation"
 msgstr "Izgovor"
 
-#: components/topDropdownMenu.js:402
+#: components/flashcardExam.js:138
+msgid "Question"
+msgstr "Pitanje"
+
+#: components/topDropdownMenu.js:408
 msgid "Register"
 msgstr "Registracija"
 
@@ -204,20 +279,28 @@ msgstr "Registracija"
 msgid "Register {name} failed, try later"
 msgstr "Registracija za {name} nije uspjela, pokušajte kasnije"
 
-#: components/topDropdownMenu.js:424
+#: components/topDropdownMenu.js:430
 msgid "Reload Playlist"
 msgstr "Ponovno učitaj playlistu"
 
-#: components/topDropdownMenu.js:412
+#: components/flashcardEditor.js:72
+msgid "Restore"
+msgstr "Vrati"
+
+#: components/flashcardEditor.js:79
+msgid "Save"
+msgstr "Spremi"
+
+#: components/topDropdownMenu.js:418
 msgid "Save .srt"
 msgstr "Spremi .srt"
 
-#: components/captionsView.js:255
+#: components/captionsView.js:265
 msgid "Select"
 msgstr "Odaberi"
 
-#: components/captionBox.js:151
-#: components/captionBox.js:178
+#: components/captionBox.js:175
+#: components/captionBox.js:216
 msgid "Select text to process"
 msgstr "Odaberite tekst za obradu"
 
@@ -225,54 +308,70 @@ msgstr "Odaberite tekst za obradu"
 msgid "Slight Prompt when you talk"
 msgstr "Tihi signal kada vi govorite"
 
-#: components/captionsView.js:257
+#: components/captionsView.js:267
 msgid "Start (sec)"
 msgstr "Početak (sek)"
 
-#: components/topDropdownMenu.js:436
+#: components/topDropdownMenu.js:442
 msgid "Start Test"
 msgstr "Započni test"
 
-#: components/app.js:108
-#: components/app.js:112
-#: components/captionBox.js:190
+#: components/app.js:89
+#: components/app.js:98
+#: components/captionBox.js:232
 msgid "Success"
 msgstr "Uspjeh"
 
-#: components/captionsView.js:258
+#: components/captionsView.js:268
 msgid "Text"
 msgstr "Tekst"
 
-#: components/topDropdownMenu.js:419
-#: components/topDropdownMenu.js:429
+#: components/topDropdownMenu.js:425
+#: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "Alati"
 
-#: components/captionBox.js:94
+#: components/captionBox.js:101
 msgid "Translation"
 msgstr "Prijevod"
 
-#: components/topDropdownMenu.js:414
+#: components/flashcardEditor.js:90
+msgid "Translation Language:"
+msgstr "Jezik prijevoda:"
+
+#: components/flashcardEditor.js:54
+msgid "Translation:"
+msgstr "Prijevod:"
+
+#: components/topDropdownMenu.js:420
 msgid "Upload .srt"
 msgstr "Učitaj .srt"
 
-#: components/topDropdownMenu.js:435
+#: components/topDropdownMenu.js:441
 msgid "View Colection"
 msgstr "Pregledaj kolekciju"
 
-#: components/captionBox.js:90
-#: components/captionBox.js:101
-#: components/captionBox.js:133
+#: components/captionBox.js:93
+#: components/captionBox.js:109
 #: components/captionBox.js:151
-#: components/captionBox.js:178
+#: components/captionBox.js:174
+#: components/captionBox.js:215
 msgid "Warning!"
 msgstr "Upozorenje!"
 
-#: components/captionsView.js:256
+#: components/flashcardExam.js:125
+msgid "Youglish"
+msgstr "Youglish"
+
+#: components/captionsView.js:266
 msgid "Your Line"
 msgstr "Vaš redak"
 
-#: components/topDropdownMenu.js:442
 #: components/topDropdownMenu.js:448
+#: components/topDropdownMenu.js:454
 msgid "Youtube"
+msgstr "YouTube"
+
+#: components/flashcardExam.js:119
+msgid "YouTube"
 msgstr "YouTube"

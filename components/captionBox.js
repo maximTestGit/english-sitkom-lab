@@ -22,6 +22,7 @@ import {
 import { Trans, t } from '@lingui/macro';
 import { GoTasklist } from "react-icons/go";
 import { PiCardsThree } from "react-icons/pi";
+import { createHtmlString } from './helpers/htmlHelper';
 
 const CaptionBox = (
     {
@@ -178,14 +179,23 @@ const CaptionBox = (
         } else {
             const textLanguage = getLanguageName(learningLanguage);
             const explainInLanguage = getLanguageName(user?.language);
-            let answer = await assistanceExerciseRequest(user, textToExercise, textLanguage, explainInLanguage);
+            //title, task, text, option0, option1, option2, option3, correctInd, correctMsg, incorrectMsg, checkBtn
+            /*let answer = await assistanceExerciseRequest(user, textToExercise, textLanguage, explainInLanguage);
             answer = answer.replace('```html', '');
             answer = answer.replace('```', '');
             // Save content to exercise.html file
-            const blob = new Blob([answer], { type: 'text/html' });
+            const blob = new Blob([answer], { type: 'text/html' });*/
+
+            let exerciseDataJson = await assistanceExerciseRequest(user, textToExercise, textLanguage, explainInLanguage);
+            exerciseDataJson = exerciseDataJson.replace('```json', '');
+            exerciseDataJson = exerciseDataJson.replace('```', '');
+            const exerciseData = JSON.parse(exerciseDataJson);
+            const exerciseHtml = createHtmlString(exerciseData);
+            const blob = new Blob([exerciseHtml], { type: 'text/html' });
+
             const url = URL.createObjectURL(blob);
 
-            showModalUrl(t`Exercise`, url, 20, 80);
+            showModalUrl(t`AI-Generated Interactive Exercise (Experimental)`, url, 20, 80);
         };
     };
 

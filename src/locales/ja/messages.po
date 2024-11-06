@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: components/flashcardExam.js:140
+msgid "(Click to reveal answer)"
+msgstr "（クリックして答えを表示）"
+
 #: components/playbackSettings.js:114
 msgid "{speed} of Normal Speed Player"
 msgstr "通常速度の{speed}倍"
@@ -21,32 +25,44 @@ msgstr "通常速度の{speed}倍"
 msgid "{speed} of Normal Speed when you talk"
 msgstr "会話時の通常速度の{speed}倍"
 
-#: components/topDropdownMenu.js:452
+#: components/topDropdownMenu.js:458
 msgid "About"
 msgstr "概要"
 
-#: components/topDropdownMenu.js:453
+#: components/topDropdownMenu.js:459
 msgid "About the Application"
 msgstr "アプリケーションについて"
 
-#: components/topDropdownMenu.js:400
 #: components/topDropdownMenu.js:406
+#: components/topDropdownMenu.js:412
 msgid "Account"
 msgstr "アカウント"
 
-#: components/topDropdownMenu.js:422
+#: components/topDropdownMenu.js:428
 msgid "Add custom Playlist"
 msgstr "カスタムプレイリストを追加"
 
-#: components/captionBox.js:144
+#: components/captionBox.js:198
+msgid "AI-Generated Interactive Exercise (Experimental)"
+msgstr "AI生成のインタラクティブな練習（実験的）"
+
+#: components/captionBox.js:166
 msgid "Analysis"
 msgstr "分析"
+
+#: components/flashcardExam.js:144
+msgid "Answer"
+msgstr "答え"
 
 #: components/playbackSettings.js:73
 msgid "Blure Youtube Captions"
 msgstr "YouTube字幕をぼかす"
 
-#: components/app.js:112
+#: components/flashcardEditor.js:91
+msgid "Box:"
+msgstr "ボックス:"
+
+#: components/app.js:99
 msgid "Bye-bye {name}"
 msgstr "さようなら {name}"
 
@@ -54,25 +70,52 @@ msgstr "さようなら {name}"
 msgid "Camera"
 msgstr "カメラ"
 
-#: components/topDropdownMenu.js:425
+#: components/flashcardEditor.js:45
+msgid "Card"
+msgstr "カード"
+
+#: components/flashcardExam.js:112
+msgid "Card {0} of {1}"
+msgstr "{1}枚中の{0}枚目のカード"
+
+#: components/flashcardEditor.js:85
+msgid "Card Details:"
+msgstr "カードの詳細:"
+
+#: components/topDropdownMenu.js:431
 msgid "Clear Memory"
 msgstr "メモリをクリア"
 
-#: components/topDropdownMenu.js:456
+#: components/flashcardEditor.js:88
+msgid "Collection:"
+msgstr "コレクション:"
+
+#: components/topDropdownMenu.js:462
 msgid "Contact Me"
 msgstr "お問い合わせ"
 
-#: components/captionBox.js:190
+#: components/flashcardExam.js:154
+msgid "Correct"
+msgstr "正解"
+
+#: components/flashcardEditor.js:92
+msgid "Created:"
+msgstr "作成日:"
+
+#: components/flashcardEditor.js:50
+msgid "Delete"
+msgstr "削除"
+
+#: components/captionBox.js:233
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "「{textToProcess}」がフラッシュカードコレクションに追加されました"
 
-#: components/app.js:116
-#: components/app.js:120
-#: components/app.js:124
+#: components/app.js:106
+#: components/app.js:114
+#: components/app.js:123
 msgid "Error"
 msgstr "エラー"
 
-#: components/captionBox.js:162
 #: components/videoListView.js:86
 msgid "Exercise"
 msgstr "練習"
@@ -81,48 +124,60 @@ msgstr "練習"
 msgid "Exercise Captions"
 msgstr "練習用字幕"
 
-#: components/topDropdownMenu.js:411
+#: components/topDropdownMenu.js:417
 msgid "File"
 msgstr "ファイル"
 
-#: components/topDropdownMenu.js:434
+#: components/topDropdownMenu.js:440
 msgid "Flashcards"
 msgstr "フラッシュカード"
 
-#: components/topDropdownMenu.js:392
+#: components/topDropdownMenu.js:635
+msgid "Flashcards Exam"
+msgstr "フラッシュカード試験"
+
+#: components/topDropdownMenu.js:398
 msgid "Hello"
 msgstr "こんにちは"
 
-#: components/app.js:108
+#: components/app.js:90
 msgid "Hello {name}"
 msgstr "こんにちは {name}"
 
-#: components/topDropdownMenu.js:441
 #: components/topDropdownMenu.js:447
+#: components/topDropdownMenu.js:453
 msgid "Home"
 msgstr "ホーム"
 
-#: components/topDropdownMenu.js:455
+#: components/topDropdownMenu.js:461
 msgid "How To Register(Free)?"
 msgstr "登録方法（無料）"
 
-#: components/topDropdownMenu.js:454
+#: components/topDropdownMenu.js:460
 msgid "How To?"
 msgstr "使い方"
 
-#: components/topDropdownMenu.js:401
+#: components/flashcardExam.js:163
+msgid "Incorrect"
+msgstr "不正解"
+
+#: components/flashcardEditor.js:93
+msgid "Last Reviewed:"
+msgstr "最終レビュー:"
+
+#: components/topDropdownMenu.js:407
 msgid "Login"
 msgstr "ログイン"
 
-#: components/app.js:116
+#: components/app.js:107
 msgid "Login {name} failed"
 msgstr "{name}のログインに失敗しました"
 
-#: components/topDropdownMenu.js:407
+#: components/topDropdownMenu.js:413
 msgid "Logout"
 msgstr "ログアウト"
 
-#: components/app.js:120
+#: components/app.js:115
 msgid "Logout {name} failed"
 msgstr "{name}のログアウトに失敗しました"
 
@@ -138,20 +193,32 @@ msgstr "会話時の大きな音声プロンプト"
 msgid "Mute Player when you talk"
 msgstr "会話時にプレーヤーをミュート"
 
-#: components/topDropdownMenu.js:440
 #: components/topDropdownMenu.js:446
+#: components/topDropdownMenu.js:452
 msgid "Navigate"
 msgstr "ナビゲート"
 
-#: components/captionBox.js:133
+#: components/flashcardEditor.js:94
+msgid "Next Review:"
+msgstr "次のレビュー:"
+
+#: components/flashcardExam.js:68
+msgid "No more cards..."
+msgstr "これ以上カードはありません..."
+
+#: components/captionBox.js:152
 msgid "No text to analyze"
 msgstr "分析するテキストがありません"
 
-#: components/captionBox.js:101
-msgid "No text to read"
-msgstr "読み上げるテキストがありません"
+#: components/captionBox.js:110
+msgid "No text to process"
+msgstr "処理するテキストがありません"
 
-#: components/captionBox.js:90
+#: components/captionBox.js:101
+#~ msgid "No text to read"
+#~ msgstr "読み上げるテキストがありません"
+
+#: components/captionBox.js:94
 msgid "No text to translate"
 msgstr "翻訳するテキストがありません"
 
@@ -163,40 +230,48 @@ msgstr "通常速度プレーヤー"
 msgid "Normal Speed when you talk"
 msgstr "会話時の通常速度"
 
-#: components/topDropdownMenu.js:415
+#: components/topDropdownMenu.js:421
 msgid "Open .json"
 msgstr ".jsonを開く"
 
-#: components/topDropdownMenu.js:413
+#: components/topDropdownMenu.js:419
 msgid "Open .srt"
 msgstr ".srtを開く"
 
-#: components/topDropdownMenu.js:421
+#: components/topDropdownMenu.js:427
 msgid "Open custom video"
 msgstr "カスタム動画を開く"
 
-#: components/topDropdownMenu.js:423
+#: components/topDropdownMenu.js:429
 msgid "Open Exercise File"
 msgstr "練習ファイルを開く"
 
-#: components/topDropdownMenu.js:420
-#: components/topDropdownMenu.js:430
+#: components/topDropdownMenu.js:426
+#: components/topDropdownMenu.js:436
 msgid "Open Settings"
 msgstr "設定を開く"
 
-#: components/topDropdownMenu.js:449
+#: components/topDropdownMenu.js:455
 msgid "Open video on Youtube"
 msgstr "YouTubeで動画を開く"
+
+#: components/flashcardEditor.js:89
+msgid "Origin Language:"
+msgstr "原文の言語:"
 
 #: components/playbackSettings.js:58
 msgid "Prompt when you talk"
 msgstr "会話時のプロンプト"
 
-#: components/captionBox.js:112
+#: components/captionBox.js:124
 msgid "Pronunciation"
 msgstr "発音"
 
-#: components/topDropdownMenu.js:402
+#: components/flashcardExam.js:138
+msgid "Question"
+msgstr "質問"
+
+#: components/topDropdownMenu.js:408
 msgid "Register"
 msgstr "登録"
 
@@ -204,20 +279,28 @@ msgstr "登録"
 msgid "Register {name} failed, try later"
 msgstr "{name}の登録に失敗しました。後でお試しください"
 
-#: components/topDropdownMenu.js:424
+#: components/topDropdownMenu.js:430
 msgid "Reload Playlist"
 msgstr "プレイリストを再読み込み"
 
-#: components/topDropdownMenu.js:412
+#: components/flashcardEditor.js:72
+msgid "Restore"
+msgstr "復元"
+
+#: components/flashcardEditor.js:79
+msgid "Save"
+msgstr "保存"
+
+#: components/topDropdownMenu.js:418
 msgid "Save .srt"
 msgstr ".srtを保存"
 
-#: components/captionsView.js:255
+#: components/captionsView.js:265
 msgid "Select"
 msgstr "選択"
 
-#: components/captionBox.js:151
-#: components/captionBox.js:178
+#: components/captionBox.js:175
+#: components/captionBox.js:216
 msgid "Select text to process"
 msgstr "処理するテキストを選択してください"
 
@@ -225,54 +308,70 @@ msgstr "処理するテキストを選択してください"
 msgid "Slight Prompt when you talk"
 msgstr "会話時の小さな音声プロンプト"
 
-#: components/captionsView.js:257
+#: components/captionsView.js:267
 msgid "Start (sec)"
 msgstr "開始（秒）"
 
-#: components/topDropdownMenu.js:436
+#: components/topDropdownMenu.js:442
 msgid "Start Test"
 msgstr "テスト開始"
 
-#: components/app.js:108
-#: components/app.js:112
-#: components/captionBox.js:190
+#: components/app.js:89
+#: components/app.js:98
+#: components/captionBox.js:232
 msgid "Success"
 msgstr "成功"
 
-#: components/captionsView.js:258
+#: components/captionsView.js:268
 msgid "Text"
 msgstr "テキスト"
 
-#: components/topDropdownMenu.js:419
-#: components/topDropdownMenu.js:429
+#: components/topDropdownMenu.js:425
+#: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "ツール"
 
-#: components/captionBox.js:94
+#: components/captionBox.js:101
 msgid "Translation"
 msgstr "翻訳"
 
-#: components/topDropdownMenu.js:414
+#: components/flashcardEditor.js:90
+msgid "Translation Language:"
+msgstr "翻訳言語:"
+
+#: components/flashcardEditor.js:54
+msgid "Translation:"
+msgstr "翻訳:"
+
+#: components/topDropdownMenu.js:420
 msgid "Upload .srt"
 msgstr ".srtをアップロード"
 
-#: components/topDropdownMenu.js:435
+#: components/topDropdownMenu.js:441
 msgid "View Colection"
 msgstr "コレクションを表示"
 
-#: components/captionBox.js:90
-#: components/captionBox.js:101
-#: components/captionBox.js:133
+#: components/captionBox.js:93
+#: components/captionBox.js:109
 #: components/captionBox.js:151
-#: components/captionBox.js:178
+#: components/captionBox.js:174
+#: components/captionBox.js:215
 msgid "Warning!"
 msgstr "警告！"
 
-#: components/captionsView.js:256
+#: components/flashcardExam.js:125
+msgid "Youglish"
+msgstr "Youglish"
+
+#: components/captionsView.js:266
 msgid "Your Line"
 msgstr "あなたの行"
 
-#: components/topDropdownMenu.js:442
 #: components/topDropdownMenu.js:448
+#: components/topDropdownMenu.js:454
 msgid "Youtube"
+msgstr "YouTube"
+
+#: components/flashcardExam.js:119
+msgid "YouTube"
 msgstr "YouTube"

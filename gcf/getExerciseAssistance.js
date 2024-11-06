@@ -56,83 +56,120 @@ exports.getTextExerciseAssistance = async (req, res) => {
             }
 
             console.log(`getExerciseAssistance: ${theText}(${textLanguage}) in ${answerLanguage}`);
-            var answer = await getExerciseAssistanceAnswer(theText, textLanguage, answerLanguage);
-            console.log(`getExerciseAssistance: ${theText}(${textLanguage}) in ${answerLanguage}: ${answer}`);
-            res.status(200).send({ answer: answer });
+            var exerciseData = await getExerciseData(theText, textLanguage, answerLanguage);
+            console.log(`getExerciseAssistance: ${theText}(${textLanguage}) in ${answerLanguage}:`);
+            console.log(JSON.stringify(exerciseData, null, 2)); // Log exerciseData in a readable format
+
+            res.json({ answer: exerciseData });
         } catch (error) {
             console.error('getExerciseAssistance: Error:', error);
             res.status(500).send(error.message);
         }
     })
 }
-async function getExerciseAssistanceAnswer(theText, textLanguage, answerLanguage, promptLanguage = 'English') {
-    let result = '';
+
+function getExerciseData(text, textLanguage, answerLanguage) {
+    /*
+  title: "string", // The title of the task or question
+  correctMsg: "string", // A message displayed when the correct answer is chosen
+  incorrectMsg: "string", // A message displayed when an incorrect answer is chosen
+  checkBtn: "string" // Label or text for the check button
+  */
+    const promptFormatRequest =
+        `Please generate a response in the following json format:
+{
+  "text": "string", // given text for the task
+  "task": "string", // A description or prompt for the task, must be in a ${answerLanguage}, but contains original text in ${textLanguage}
+  "options": ["string", "string", ...], // An array of possible answer options
+  "correctInd": integer, // The index of the correct answer in the options array
+}
+The response should be structured exactly as shown above, with all fields populated.`;
+
     const exerciseTypes = [
-        `Original Text Completion of a rundom word in starting part of text in ${textLanguage} ` +
-        `giving four options of the word in ${textLanguage} as radioboxes`,
-
-        `Original Text Completion of a rundom word in ending part of text in ${textLanguage} ` +
-        `giving four options of the word in ${textLanguage} as radioboxes`,
-
-        `Multiple Choice for translating the whole text ` +
-        `giving four options in ${answerLanguage} as radioboxes`,
-
-        `Multiple Choice for translating a random 2-3 words expression from the starting part of the text ` +
-        `giving four options of translation in ${answerLanguage} as radioboxes`,
-
-        `Multiple Choice for translating a random 2-3 words expression from the ending part of the text ` +
-        `giving four options of translation in ${answerLanguage} as radioboxes`,
-
-        `Multiple Choice for translating a random ${textLanguage} word from the starting part of the text ` +
-        `giving four options in ${answerLanguage} as radioboxes`,
-
-        `Multiple Choice for translating a random ${textLanguage} word from the ending part of the text ` +
-        `giving four options in ${answerLanguage} as radioboxes`,
-
-        `Multiple choice for ${answerLanguage} word equavalent of a random words from the starting part of the text,` +
-        `giving four options in ${textLanguage} as radioboxes`,
-
-        `Multiple choice for ${answerLanguage} word equavalent of a random words from the ending part of the text` +
-        `giving four options in ${textLanguage} as radioboxes`,
-
-        //`Multiple choice ${answerLanguage} translation of a random ${textLanguage} word from the starting part of the text ` +
-        //`giving four options in ${answerLanguage} as radioboxes`,
-
-        `Multiple Choice for translation of the slightly modified starting part of the original text ` +
-        `giving four options in ${answerLanguage} of translation as radioboxes`,
-
-        `Multiple Choice for translation of the slightly modified ending part of the original text ` +
-        `giving four options in ${answerLanguage} of translation as radioboxes`,
-
+        // 1. fill the blank
+        `
+1. Create a list of unique ${textLanguage} words from the given ${textLanguage} text.
+2. Remove articles and names from the list and save it in shortList variable.
+3. Find the number L, which is the length of the shortList.
+4. Generate a random number N between 0 and (L-1).
+5. Find the word at index N in shortList.
+6. Generate an exercise where the student must choose the correct word from a list of words to fill in the blank in the original text.
+7. Generate a random number K between 0 and 3.
+8. The exercise should offer the student 4 options in ${textLanguage} as radioboxes to choose the correct answer.
+The correct answer should be placed at position K.
+`,
+        // 2. translation of a word
+        `
+1. Create a list of unique ${textLanguage} words from the given ${textLanguage} text.
+2. Remove articles and names from the list and save it in shortList variable.
+3. Find the number L, which is the length of the shortList.
+4. Generate a random number N between 0 and (L-1).
+5. Find the word at index N in the shortList.
+6. Generate an exercise where the student must choose the correct translation of the word in the context of the given text
+   from a list of options. The word must be mentioned in the prompt.
+7. Generate a random number K between 0 and 3.
+8. The exercise should offer the student 4 options in ${answerLanguage} as radioboxes to choose the correct answer.
+The correct answer should be placed at position K.`,
+        // 3. text translation
+        //         `
+        // 1. Create a variable A containing the correct translation of the original text from ${textLanguage} to ${answerLanguage}.
+        // 2. Generate 3 incorrect translations.
+        // Introduce errors or variations into the correct translation to create plausible but incorrect options.
+        // Consider using techniques like grammatical errors, or mistranslations of specific phrases.
+        // 3. Generate an exercise where the student is provided with the original ${textLanguage} text and
+        // must select the correct ${answerLanguage} translation of the original ${textLanguage} text.
+        // This involves creating a multiple-choice question format.
+        // 4. Generate a random number K between 0 and 3.
+        // This will determine the position of the correct answer among the options.
+        // 5. The exercise should offer the student 4 options as radioboxes to choose from.
+        // 6. Include the correct translation (A) at position K and the 3 incorrect translations in the remaining positions.
+        // The correct answer should be placed at position K.
+        // Ensure that the correct answer is consistently placed at the randomly generated position.
+        // `,
+        // 4. modified text translation
+        //         `
+        // 1. Slightly change the given text
+        // 2. Create a variable A containing the correct translation of the changed text from ${textLanguage} to ${answerLanguage}.
+        // 3. Generate 3 incorrect translations.
+        // Introduce errors or variations into the correct translation to create plausible but incorrect options.
+        // Consider using techniques like grammatical errors, or mistranslations of specific phrases.
+        // 4. Generate an exercise where the student is provided with the modified ${textLanguage} text from p.1 and
+        // must select the correct ${answerLanguage} translation of the modified in p.1 ${textLanguage} text.
+        // This involves creating a multiple-choice question format.
+        // 5. Generate a random number K between 0 and 3.
+        // This will determine the position of the correct answer among the options.
+        // 6. The exercise should offer the student 4 options as radioboxes to choose from.
+        // 7. Include the correct translation (A) at position K and the 3 incorrect translations in the remaining positions.
+        // The correct answer should be placed at position K.
+        // Ensure that the correct answer is consistently placed at the randomly generated position.`,
     ];
     const ind = Math.round(Math.random() * exerciseTypes.length);
-    const exerciseType = exerciseTypes[ind];
-    console.log(`getExerciseAssistance: Exercise_type(${ind}): ${exerciseType}`);
+    console.log(`getExerciseAssistance: exerciseTypes[${ind}]`);
+    const correctPos = Math.round(Math.random() * 3);
+
     const prompt =
-        `You are an experienced ${textLanguage} language teacher and methodologist ` +
-        `with deep HTML and JavaScript knowledge. ` +
-        `Given some ${textLanguage} text or word, you can create a single random interactive exercise ` +
-        `using HTML and JavaScript for ${answerLanguage} speaking students learning ${textLanguage}. ` +
-        `Requirements for an exercise: ` +
-        `- Exercise type: ${exerciseType}. ` +
-        `- It presents a student with a task. ` +
-        `- It suggests a few options for a student to answer. ` +
-        `- Only one of these options is correct. ` +
-        `- It checks if the student's answer is correct. ` +
-        `- The task must be formulated in ${answerLanguage}. ` +
-        `Your answer must contain an HTML page only! without any presentations, comments or explanations.` +
-        //`input form must be located in the center of the screen and 
-        `it must have a border. ` +
-        `in case a line of text contans both left-to-right and right-to-left languages, the line must be splitted into two lines. ` +
-        `your answer must start with <!DOCTYPE html> tag and finish with </html> tag.` +
-        `you estimation if the answer is correct must appear right below the input form.` +
-        `if a user answered correctly your message must be green, otherwise it must be red.`;
+        `Please create a data for a multiple choice exercise for a ${answerLanguage} speaking student ` +
+        `based on a given ${textLanguage} text. ` +
+        `the exercise should be created according for the following algorithm: ${exerciseTypes[ind]}. ` +
+        //`The correct answer should be an options at position ${correctPos}. ` +
+        `The exercise should be in the following structured format: ${promptFormatRequest}. ` +
+        `Also add correctMsg parameter as "Correct" in ${answerLanguage}. ` +
+        `incorrectMsg parameter as "Incorrect" in ${answerLanguage}, ` +
+        ` and checkBtn parameter as "Check Answer" in ${answerLanguage}.`;
+    const content = text;
+    // const model = 'gpt-4o';
+    // const maxTokens = 1000;
+    // const temperature = 0.5;
+    const exerciseData = assistantRequest(prompt, content);
+    return exerciseData;
+}
+
+async function assistantRequest(prompt, content, model = 'gpt-4o', maxTokens = 1000, temperature = 0.5) {
     console.log(`getExerciseAssistance: running Prompt: ${prompt}`);
 
     const apiKey = process.env.OPENAI_API_KEY;
     const url = 'https://api.openai.com/v1/chat/completions';
-    const theContent = theText;
-    console.log(`getExerciseAssistance: running theContent: ${theContent}`);
+    console.log(`getExerciseAssistance: running theContent: ${content}`);
 
     const headers = {
         'Content-Type': 'application/json',
@@ -140,13 +177,13 @@ async function getExerciseAssistanceAnswer(theText, textLanguage, answerLanguage
     };
 
     const data = {
-        model: 'gpt-4o',
+        model: model,
         messages: [
             { role: 'system', content: prompt },
-            { role: 'user', content: theContent }
+            { role: 'user', content: `Process the following text: "${content}"` }
         ],
-        max_tokens: 1000,
-        temperature: 0.5
+        max_tokens: maxTokens,
+        temperature: temperature
     };
 
     const options = {
