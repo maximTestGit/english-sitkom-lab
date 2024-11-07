@@ -42,15 +42,15 @@ const CaptionsView = forwardRef(({
         return result;
     }
 
-    const setCaptionsWrapper = async (newCaptions) => {
-        await saveDataToLocalStorage(
+    const setCaptionsWrapper = (newCaptions) => {
+        saveDataToLocalStorage(
             storageDataAttributes.captions_data_prefix,
             videoData.videoId,
             newCaptions);
         onUpdateCaptions(newCaptions);
     };
 
-    const onClipIndexRangeChangeWrapper = async (theCaptions, start, end) => {
+    const onClipIndexRangeChangeWrapper = (theCaptions, start, end) => {
         if (!theCaptions || theCaptions.length === 0) {
             return;
         }
@@ -61,7 +61,7 @@ const CaptionsView = forwardRef(({
             end = theCaptions.length - 1;
         }
         const tempClipIndexRange = { startIndex: start, endIndex: end };
-        await saveDataToLocalStorage(
+        saveDataToLocalStorage(
             storageDataAttributes.captions_range_data_prefix,
             videoData.videoId,
             tempClipIndexRange
@@ -91,14 +91,14 @@ const CaptionsView = forwardRef(({
         return result;
     };
 
-    const assignCaptions = async (newCaptions) => {
+    const assignCaptions = (newCaptions) => {
         let result = [];
         if (newCaptions?.length > 0) {
             result =
                 newCaptions
                     .map(caption => ({ ...caption, checked: decideCaptionToCheck(caption) }));
         }
-        await setCaptionsWrapper(result);
+        setCaptionsWrapper(result);
         return result;
     };
 
@@ -116,7 +116,7 @@ const CaptionsView = forwardRef(({
                 videoData.intervals = getIntervals(newCaptions);
             }
         }
-        const result = await assignCaptions(newCaptions);
+        const result = assignCaptions(newCaptions);
         return result;
     };
 
@@ -132,9 +132,9 @@ const CaptionsView = forwardRef(({
         return result;
     };
 
-    const captionChange = async (caption) => {
+    const captionChange = (caption) => {
         const updatedCaptions = resetCheckedCaptions(captions, caption.target.id);
-        await setCaptionsWrapper(updatedCaptions);
+        setCaptionsWrapper(updatedCaptions);
     }
 
     // new vdeo opened
@@ -289,7 +289,7 @@ const CaptionsView = forwardRef(({
                                         className="form-check-input"
                                         type="checkbox"
                                         checked={caption.checked}
-                                        onChange={async (caption) => await captionChange(caption)}
+                                        onChange={(caption) => captionChange(caption)}
                                     />
                                 </td>
                                 <td id={'td_' + caption.start} className={isPlaying ? 'table-warning' : ''}>

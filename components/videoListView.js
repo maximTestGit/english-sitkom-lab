@@ -51,7 +51,7 @@ const VideoListView = forwardRef(({
             await fetchVideos(playlistId, true);
         };
         fetchUserVideos();
-    }, [user, user?.username]);
+    }, [user]);
     return (
         <>
             <div id="selectPlaylistArea" className="row p-1 rounded-3 mb-2 text-white d-flex align-items-center" style={{ backgroundColor: '#ee3e38' }}>

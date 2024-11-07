@@ -157,11 +157,11 @@ const App = () => {
       })
   }, [user, learningLanguage]);
 
-  useEffect(() => {
-    if (playlistId) {
-      handleReloadPlaylist();
-    }
-  }, [playlistId]);
+  // useEffect(() => {
+  //   if (playlistId) {
+  //     handleReloadPlaylist(false);
+  //   }
+  // }, [playlistId]);
 
   useEffect(() => {
     if (playlistRegistry?.length > 0) {
@@ -341,9 +341,9 @@ const App = () => {
     exerciseViewRef.current?.handleSrtSave();
   }
   //#region .srt handlers
-  const handleReloadPlaylist = async () => {
+  const handleReloadPlaylist = async (refetch=true) => {
     //await cleanUpLocalStorage(true);
-    await videolistViewRef.current?.fetchVideos(playlistId, true);
+    await videolistViewRef.current?.fetchVideos(playlistId, refetch);
   }
   const handleSavePlaylist = async (playlistId, playlistName) => {
     const playlistData = {

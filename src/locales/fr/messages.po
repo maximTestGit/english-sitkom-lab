@@ -42,11 +42,11 @@ msgstr "Compte"
 msgid "Add custom Playlist"
 msgstr "Ajouter une playlist personnalisée"
 
-#: components/captionBox.js:198
+#: components/captionBox.js:201
 msgid "AI-Generated Interactive Exercise (Experimental)"
 msgstr "Exercice interactif généré par IA (Expérimental)"
 
-#: components/captionBox.js:166
+#: components/captionBox.js:169
 msgid "Analysis"
 msgstr "Analyse"
 
@@ -106,7 +106,7 @@ msgstr "Créé :"
 msgid "Delete"
 msgstr "Supprimer"
 
-#: components/captionBox.js:233
+#: components/captionBox.js:238
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "L'entrée \"{textToProcess}\" a été ajoutée à votre collection de cartes mémoire"
 
@@ -206,11 +206,11 @@ msgstr "Prochaine révision :"
 msgid "No more cards..."
 msgstr "Plus de cartes..."
 
-#: components/captionBox.js:152
+#: components/captionBox.js:155
 msgid "No text to analyze"
 msgstr "Aucun texte à analyser"
 
-#: components/captionBox.js:110
+#: components/captionBox.js:113
 msgid "No text to process"
 msgstr "Aucun texte à traiter"
 
@@ -218,7 +218,7 @@ msgstr "Aucun texte à traiter"
 #~ msgid "No text to read"
 #~ msgstr "Aucun texte à lire"
 
-#: components/captionBox.js:94
+#: components/captionBox.js:97
 msgid "No text to translate"
 msgstr "Aucun texte à traduire"
 
@@ -263,7 +263,7 @@ msgstr "Langue d'origine :"
 msgid "Prompt when you talk"
 msgstr "Signal quand vous parlez"
 
-#: components/captionBox.js:124
+#: components/captionBox.js:127
 msgid "Pronunciation"
 msgstr "Prononciation"
 
@@ -299,8 +299,8 @@ msgstr "Enregistrer .srt"
 msgid "Select"
 msgstr "Sélectionner"
 
-#: components/captionBox.js:175
-#: components/captionBox.js:216
+#: components/captionBox.js:178
+#: components/captionBox.js:220
 msgid "Select text to process"
 msgstr "Sélectionnez le texte à traiter"
 
@@ -318,7 +318,7 @@ msgstr "Commencer le test"
 
 #: components/app.js:89
 #: components/app.js:98
-#: components/captionBox.js:232
+#: components/captionBox.js:237
 msgid "Success"
 msgstr "Succès"
 
@@ -331,7 +331,7 @@ msgstr "Texte"
 msgid "Tools"
 msgstr "Outils"
 
-#: components/captionBox.js:101
+#: components/captionBox.js:104
 msgid "Translation"
 msgstr "Traduction"
 
@@ -351,11 +351,11 @@ msgstr "Téléverser .srt"
 msgid "View Colection"
 msgstr "Voir la collection"
 
-#: components/captionBox.js:93
-#: components/captionBox.js:109
-#: components/captionBox.js:151
-#: components/captionBox.js:174
-#: components/captionBox.js:215
+#: components/captionBox.js:96
+#: components/captionBox.js:112
+#: components/captionBox.js:154
+#: components/captionBox.js:177
+#: components/captionBox.js:219
 msgid "Warning!"
 msgstr "Attention !"
 

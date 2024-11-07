@@ -112,7 +112,7 @@ async function unregisterDataAtLocalStorageByKey(dataKey) {
 
 // expirationSec === null - infinit storage
 // expirationSec === 0 - no cache
-export async function saveDataToLocalStorage(prefix, key, data, expirationSec = null) {
+export function saveDataToLocalStorage(prefix, key, data, expirationSec = null) {
     if (expirationSec !== 0) { // 0 means no cache
         const keys = Object.keys(localStorage)
             .filter((k) => k.startsWith(prefix))
@@ -133,7 +133,7 @@ export function fetchDataFromLocalStorage(prefix, key, expirationSec = null) {
     const data = localStorage.getItem(dataKey);
     if (data && data !== 'undefined') {
         result = JSON.parse(data);
-        if (result && expirationSec === 0) { // no cach, but if found - remove
+        if (result && expirationSec === 0) { // no cache, but if found - remove
             removeDataFromLocalStorage(prefix, key);
             result = null;
             console.log(`LingFlix: Removed data with key ${dataKey} from local storage.`);

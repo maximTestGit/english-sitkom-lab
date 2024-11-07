@@ -42,11 +42,11 @@ msgstr "账户"
 msgid "Add custom Playlist"
 msgstr "添加自定义播放列表"
 
-#: components/captionBox.js:198
+#: components/captionBox.js:201
 msgid "AI-Generated Interactive Exercise (Experimental)"
 msgstr "AI生成的互动练习（实验性）"
 
-#: components/captionBox.js:166
+#: components/captionBox.js:169
 msgid "Analysis"
 msgstr "分析"
 
@@ -106,7 +106,7 @@ msgstr "创建时间："
 msgid "Delete"
 msgstr "删除"
 
-#: components/captionBox.js:233
+#: components/captionBox.js:238
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "条目 \"{textToProcess}\" 已添加到您的闪卡集合中"
 
@@ -206,11 +206,11 @@ msgstr "下次复习："
 msgid "No more cards..."
 msgstr "没有更多卡片了..."
 
-#: components/captionBox.js:152
+#: components/captionBox.js:155
 msgid "No text to analyze"
 msgstr "没有要分析的文本"
 
-#: components/captionBox.js:110
+#: components/captionBox.js:113
 msgid "No text to process"
 msgstr "没有要处理的文本"
 
@@ -218,7 +218,7 @@ msgstr "没有要处理的文本"
 #~ msgid "No text to read"
 #~ msgstr "没有要阅读的文本"
 
-#: components/captionBox.js:94
+#: components/captionBox.js:97
 msgid "No text to translate"
 msgstr "没有要翻译的文本"
 
@@ -263,7 +263,7 @@ msgstr "原始语言："
 msgid "Prompt when you talk"
 msgstr "说话时提示"
 
-#: components/captionBox.js:124
+#: components/captionBox.js:127
 msgid "Pronunciation"
 msgstr "发音"
 
@@ -299,8 +299,8 @@ msgstr "保存 .srt"
 msgid "Select"
 msgstr "选择"
 
-#: components/captionBox.js:175
-#: components/captionBox.js:216
+#: components/captionBox.js:178
+#: components/captionBox.js:220
 msgid "Select text to process"
 msgstr "选择要处理的文本"
 
@@ -318,7 +318,7 @@ msgstr "开始测试"
 
 #: components/app.js:89
 #: components/app.js:98
-#: components/captionBox.js:232
+#: components/captionBox.js:237
 msgid "Success"
 msgstr "成功"
 
@@ -331,7 +331,7 @@ msgstr "文本"
 msgid "Tools"
 msgstr "工具"
 
-#: components/captionBox.js:101
+#: components/captionBox.js:104
 msgid "Translation"
 msgstr "翻译"
 
@@ -351,11 +351,11 @@ msgstr "上传 .srt"
 msgid "View Colection"
 msgstr "查看收藏"
 
-#: components/captionBox.js:93
-#: components/captionBox.js:109
-#: components/captionBox.js:151
-#: components/captionBox.js:174
-#: components/captionBox.js:215
+#: components/captionBox.js:96
+#: components/captionBox.js:112
+#: components/captionBox.js:154
+#: components/captionBox.js:177
+#: components/captionBox.js:219
 msgid "Warning!"
 msgstr "警告！"
 

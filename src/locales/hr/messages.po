@@ -42,11 +42,11 @@ msgstr "Račun"
 msgid "Add custom Playlist"
 msgstr "Dodati prilagođenu playlistu"
 
-#: components/captionBox.js:198
+#: components/captionBox.js:201
 msgid "AI-Generated Interactive Exercise (Experimental)"
 msgstr "AI-generirana interaktivna vježba (eksperimentalno)"
 
-#: components/captionBox.js:166
+#: components/captionBox.js:169
 msgid "Analysis"
 msgstr "Analiza"
 
@@ -106,7 +106,7 @@ msgstr "Stvoreno:"
 msgid "Delete"
 msgstr "Izbriši"
 
-#: components/captionBox.js:233
+#: components/captionBox.js:238
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "Unos \"{textToProcess}\" je dodan u vašu kolekciju kartica"
 
@@ -206,11 +206,11 @@ msgstr "Sljedeći pregled:"
 msgid "No more cards..."
 msgstr "Nema više kartica..."
 
-#: components/captionBox.js:152
+#: components/captionBox.js:155
 msgid "No text to analyze"
 msgstr "Nema teksta za analizu"
 
-#: components/captionBox.js:110
+#: components/captionBox.js:113
 msgid "No text to process"
 msgstr "Nema teksta za obradu"
 
@@ -218,7 +218,7 @@ msgstr "Nema teksta za obradu"
 #~ msgid "No text to read"
 #~ msgstr "Nema teksta za čitanje"
 
-#: components/captionBox.js:94
+#: components/captionBox.js:97
 msgid "No text to translate"
 msgstr "Nema teksta za prevođenje"
 
@@ -263,7 +263,7 @@ msgstr "Izvorni jezik:"
 msgid "Prompt when you talk"
 msgstr "Signal kada vi govorite"
 
-#: components/captionBox.js:124
+#: components/captionBox.js:127
 msgid "Pronunciation"
 msgstr "Izgovor"
 
@@ -299,8 +299,8 @@ msgstr "Spremi .srt"
 msgid "Select"
 msgstr "Odaberi"
 
-#: components/captionBox.js:175
-#: components/captionBox.js:216
+#: components/captionBox.js:178
+#: components/captionBox.js:220
 msgid "Select text to process"
 msgstr "Odaberite tekst za obradu"
 
@@ -318,7 +318,7 @@ msgstr "Započni test"
 
 #: components/app.js:89
 #: components/app.js:98
-#: components/captionBox.js:232
+#: components/captionBox.js:237
 msgid "Success"
 msgstr "Uspjeh"
 
@@ -331,7 +331,7 @@ msgstr "Tekst"
 msgid "Tools"
 msgstr "Alati"
 
-#: components/captionBox.js:101
+#: components/captionBox.js:104
 msgid "Translation"
 msgstr "Prijevod"
 
@@ -351,11 +351,11 @@ msgstr "Učitaj .srt"
 msgid "View Colection"
 msgstr "Pregledaj kolekciju"
 
-#: components/captionBox.js:93
-#: components/captionBox.js:109
-#: components/captionBox.js:151
-#: components/captionBox.js:174
-#: components/captionBox.js:215
+#: components/captionBox.js:96
+#: components/captionBox.js:112
+#: components/captionBox.js:154
+#: components/captionBox.js:177
+#: components/captionBox.js:219
 msgid "Warning!"
 msgstr "Upozorenje!"
 

@@ -30,8 +30,9 @@ const CaptionBox = (
         caption,
         learningLanguage,
         uiLanguage,
-        videoData
-    }) => {
+        videoData,
+        onCaptionAssistenceOperation
+        }) => {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [formTitle, setFormTitle] = useState('');
@@ -45,12 +46,14 @@ const CaptionBox = (
 
     const handleCaptionButtonClick = async (action) => {
         try {
+            onCaptionAssistenceOperation(true)
             document.body.style.cursor = 'wait';
             setIsButtonDisabled(true);
             await action();
             setIsButtonDisabled(false);
         } finally {
             document.body.style.cursor = 'default';
+            onCaptionAssistenceOperation(false);
         }
     };
 
@@ -86,7 +89,7 @@ const CaptionBox = (
         setIsModalVisible(true);
     };
 
-    const onCaptionTranslate = async () => {
+    const handleCaptionTranslate = async () => {
         const textToTranslate = getTextToProcess();
         if (!textToTranslate || textToTranslate.length === 0) {
             Swal.fire({
@@ -102,7 +105,7 @@ const CaptionBox = (
         }
     };
 
-    const onCaptionRead = async () => {
+    const handleCaptionRead = async () => {
         const textToReadAloud = getTextToProcess();
         if (!textToReadAloud || textToReadAloud.length === 0) {
             Swal.fire({
@@ -144,7 +147,7 @@ const CaptionBox = (
             });
         }
     }
-    const onCaptionAnalyze = async () => {
+    const handleCaptionAnalyze = async () => {
         const textToAnalyze = getTextToProcess();
         if (!textToAnalyze || textToAnalyze.length === 0) {
             Swal.fire({
@@ -167,7 +170,7 @@ const CaptionBox = (
         };
     };
 
-    const onCaptionExercise = async () => {
+    const handleCaptionExercise = async () => {
         const textToExercise = getTextToProcess();
         if (!textToExercise || textToExercise.length === 0) {
             Swal.fire({
@@ -207,6 +210,7 @@ const CaptionBox = (
 
     const handleSelectedButtonClick = async (action) => {
         try {
+            onCaptionAssistenceOperation(true);
             document.body.style.cursor = 'wait';
             setIsButtonDisabled(true);
             let textToProcess = getTextToProcess(true);
@@ -223,6 +227,7 @@ const CaptionBox = (
             setIsButtonDisabled(false);
         } finally {
             document.body.style.cursor = 'default';
+            onCaptionAssistenceOperation(false);
         }
     }
     const onAddSelectionToDict = async (textToProcess) => {
@@ -246,7 +251,7 @@ const CaptionBox = (
                                 disabled={!caption || !user || isButtonDisabled}>
                                 <PiCardsThree style={{ width: '100%', height: '100%' }} />
                             </button>
-                            <button className="mb-1" onClick={() => handleCaptionButtonClick(onCaptionExercise)} title="Exercise for current caption"
+                            <button className="mb-1" onClick={() => handleCaptionButtonClick(handleCaptionExercise)} title="Exercise for current caption"
                                 disabled={!caption || !user || isButtonDisabled}>
                                 <GoTasklist style={{ width: '100%', height: '100%' }} />
                             </button>
@@ -255,15 +260,15 @@ const CaptionBox = (
                             {caption && decodeHtml(caption?.text)}
                         </td>
                         <td id="tdCaptionActions" style={{ width: '50px', height: '50px', border: 'none', backgroundColor: 'white' }}>
-                            <button className="mb-1" onClick={() => handleCaptionButtonClick(onCaptionTranslate)} title="Translate current caption"
+                            <button className="mb-1" onClick={() => handleCaptionButtonClick(handleCaptionTranslate)} title="Translate current caption"
                                 disabled={!caption || !user || isButtonDisabled}>
                                 <PiTranslate style={{ width: '100%', height: '100%' }} />
                             </button>
-                            <button className="mb-1" onClick={() => handleCaptionButtonClick(onCaptionRead)} title="Read current caption"
+                            <button className="mb-1" onClick={() => handleCaptionButtonClick(handleCaptionRead)} title="Read current caption"
                                 disabled={!caption || !user || isButtonDisabled}>
                                 <AiOutlineSound style={{ width: '100%', height: '100%' }} />
                             </button>
-                            <button className="mb-1" onClick={() => handleCaptionButtonClick(onCaptionAnalyze)} title="Analyze current caption"
+                            <button className="mb-1" onClick={() => handleCaptionButtonClick(handleCaptionAnalyze)} title="Analyze current caption"
                                 disabled={!caption || !user || isButtonDisabled}>
                                 <RiInformation2Line style={{ width: '100%', height: '100%' }} />
                             </button>

@@ -66,21 +66,24 @@ export async function fetchRetrieveCaptions(user, videoId, language, playlistId,
 }
 
 export async function fetchRetrievePlayistContent(user, playlistId, refetchFromSource = false) {
-  const prefix = storageDataAttributes.videoList_data_prefix;
-  const expirationSec = 60 * 60;
-  if (refetchFromSource) {
-    removeDataFromLocalStorage(prefix, playlistId);
-  }
-  let result = fetchDataFromLocalStorage(prefix, playlistId, expirationSec);
+  let result = [];
+  if (playlistId) {
+    const prefix = storageDataAttributes.videoList_data_prefix;
+    const expirationSec = 60 * 60;
+    if (refetchFromSource) {
+      removeDataFromLocalStorage(prefix, playlistId);
+    }
+    result = fetchDataFromLocalStorage(prefix, playlistId, expirationSec);
 
-  if (!result) { // not found or no cache
-    const url = getPlaylistContentUrlPost();
-    const data = {
-      playlistId: playlistId
-    };
-    result = await fetchDataFromSource(user, url, data);
-    if (result) {
-      saveDataToLocalStorage(prefix, playlistId, result, expirationSec);
+    if (!result) { // not found or no cache
+      const url = getPlaylistContentUrlPost();
+      const data = {
+        playlistId: playlistId
+      };
+      result = await fetchDataFromSource(user, url, data);
+      if (result) {
+        saveDataToLocalStorage(prefix, playlistId, result, expirationSec);
+      }
     }
   }
   return result;

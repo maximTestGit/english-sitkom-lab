@@ -42,11 +42,11 @@ msgstr "アカウント"
 msgid "Add custom Playlist"
 msgstr "カスタムプレイリストを追加"
 
-#: components/captionBox.js:198
+#: components/captionBox.js:201
 msgid "AI-Generated Interactive Exercise (Experimental)"
 msgstr "AI生成のインタラクティブな練習（実験的）"
 
-#: components/captionBox.js:166
+#: components/captionBox.js:169
 msgid "Analysis"
 msgstr "分析"
 
@@ -106,7 +106,7 @@ msgstr "作成日:"
 msgid "Delete"
 msgstr "削除"
 
-#: components/captionBox.js:233
+#: components/captionBox.js:238
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "「{textToProcess}」がフラッシュカードコレクションに追加されました"
 
@@ -206,11 +206,11 @@ msgstr "次のレビュー:"
 msgid "No more cards..."
 msgstr "これ以上カードはありません..."
 
-#: components/captionBox.js:152
+#: components/captionBox.js:155
 msgid "No text to analyze"
 msgstr "分析するテキストがありません"
 
-#: components/captionBox.js:110
+#: components/captionBox.js:113
 msgid "No text to process"
 msgstr "処理するテキストがありません"
 
@@ -218,7 +218,7 @@ msgstr "処理するテキストがありません"
 #~ msgid "No text to read"
 #~ msgstr "読み上げるテキストがありません"
 
-#: components/captionBox.js:94
+#: components/captionBox.js:97
 msgid "No text to translate"
 msgstr "翻訳するテキストがありません"
 
@@ -263,7 +263,7 @@ msgstr "原文の言語:"
 msgid "Prompt when you talk"
 msgstr "会話時のプロンプト"
 
-#: components/captionBox.js:124
+#: components/captionBox.js:127
 msgid "Pronunciation"
 msgstr "発音"
 
@@ -299,8 +299,8 @@ msgstr ".srtを保存"
 msgid "Select"
 msgstr "選択"
 
-#: components/captionBox.js:175
-#: components/captionBox.js:216
+#: components/captionBox.js:178
+#: components/captionBox.js:220
 msgid "Select text to process"
 msgstr "処理するテキストを選択してください"
 
@@ -318,7 +318,7 @@ msgstr "テスト開始"
 
 #: components/app.js:89
 #: components/app.js:98
-#: components/captionBox.js:232
+#: components/captionBox.js:237
 msgid "Success"
 msgstr "成功"
 
@@ -331,7 +331,7 @@ msgstr "テキスト"
 msgid "Tools"
 msgstr "ツール"
 
-#: components/captionBox.js:101
+#: components/captionBox.js:104
 msgid "Translation"
 msgstr "翻訳"
 
@@ -351,11 +351,11 @@ msgstr ".srtをアップロード"
 msgid "View Colection"
 msgstr "コレクションを表示"
 
-#: components/captionBox.js:93
-#: components/captionBox.js:109
-#: components/captionBox.js:151
-#: components/captionBox.js:174
-#: components/captionBox.js:215
+#: components/captionBox.js:96
+#: components/captionBox.js:112
+#: components/captionBox.js:154
+#: components/captionBox.js:177
+#: components/captionBox.js:219
 msgid "Warning!"
 msgstr "警告！"
 

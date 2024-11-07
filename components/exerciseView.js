@@ -79,6 +79,8 @@ const ExerciseView = forwardRef(({
     const [recordingStartedAt, setRecordingStartedAt] = useState(null);
     const [playingStartedAt, setPlayingStartedAt] = useState(null);
 
+    const [isAvaillable, setIsAvailable] = useState(true);
+
     const emailInputRef = useRef(null);
     const nameInputRef = useRef(null);
     const unlistedInputRef = useRef(false);
@@ -770,9 +772,11 @@ const ExerciseView = forwardRef(({
             console.log(`LingFlix: setPlayingCaption: ${caption.text}`);
         }
     }
-
+    const handleCaptionAssistenceOperation = (isStarted) => {
+        setIsAvailable(!isStarted);
+    }
     return (
-        <>
+        <div id="exercizeViewDiv" style={{ pointerEvents: isAvaillable ? 'auto' : 'none', opacity: isAvaillable ? 1 : 0.5 }}>
             <div id="PlaybackSettingsArea" className="row mb-3 col-12 col-md-12 col-lg-7">
                 <PlaybackSettings
                     settings={settings}
@@ -850,6 +854,7 @@ const ExerciseView = forwardRef(({
                         learningLanguage={learningLanguage}
                         uiLanguage={uiLanguage}
                         videoData={videoData}
+                        onCaptionAssistenceOperation={handleCaptionAssistenceOperation}
                     />
                 }
 
@@ -899,7 +904,7 @@ const ExerciseView = forwardRef(({
                     </button>
                 </Modal.Footer>
             </Modal>
-        </>
+        </div>
     );
 });
 
