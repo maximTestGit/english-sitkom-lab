@@ -23,7 +23,8 @@ const CaptionsView = forwardRef(({
     srtCaptionsData,
     onCurrentCaptionChange,
     onUpdateCaptions,
-    onAnalyzeCaption = null
+    onAnalyzeCaption,
+    onWaitForAction
 }, ref) => {
     const [currentCaption, setCurrentCaption] = useState(null);
 
@@ -103,21 +104,26 @@ const CaptionsView = forwardRef(({
     };
 
     const retrieveCaptions = async (videoId, captions, toRestoreDefaultExercise = false) => {
-        let newCaptions = captions;
-        if (toRestoreDefaultExercise || !captions || captions.length === 0) {
-            newCaptions = await fetchRetrieveCaptions(
-                user,
-                videoData.videoId,
-                videoData.learningLanguage,
-                videoData.playlistId,
-                user?.username,
-                toRestoreDefaultExercise);
-            if (toRestoreDefaultExercise) {
-                videoData.intervals = getIntervals(newCaptions);
+        try {
+            onWaitForAction(true);
+            let newCaptions = captions;
+            if (toRestoreDefaultExercise || !captions || captions.length === 0) {
+                newCaptions = await fetchRetrieveCaptions(
+                    user,
+                    videoData.videoId,
+                    videoData.learningLanguage,
+                    videoData.playlistId,
+                    user?.username,
+                    toRestoreDefaultExercise);
+                if (toRestoreDefaultExercise) {
+                    videoData.intervals = getIntervals(newCaptions);
+                }
             }
+            const result = assignCaptions(newCaptions);
+            return result;
+        } finally {
+            onWaitForAction(false);
         }
-        const result = assignCaptions(newCaptions);
-        return result;
     };
 
     const resetCheckedCaptions = (captions, captionStart) => {

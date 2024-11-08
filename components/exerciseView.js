@@ -17,6 +17,7 @@ import { captionsSaveToStorage } from './helpers/fetchData';
 import { buildClipRange } from './helpers/exerciseHelper';
 import { CaptionsNavigationControls, CaptionAction } from './captionsNavigationControls';
 import Swal from 'sweetalert2';
+import { Trans, t } from '@lingui/macro';
 
 const ExerciseView = forwardRef(({
     user,
@@ -289,7 +290,9 @@ const ExerciseView = forwardRef(({
         setIsImbededCaptionsBlured(checked);
     };
 
+
     const handleAllowCameraChange = (checked) => {
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true });
         setIsCameraAllowed(checked);
         saveDataToLocalStorage(
             storageDataAttributes.session_data_prefix,
@@ -555,7 +558,17 @@ const ExerciseView = forwardRef(({
         }
     };
 
-    const handleShareExerciseWrapper = () => handleShowEmailForm();
+    const handleShareExerciseWrapper = () => {
+        Swal.fire({
+            title: 'Info',
+            text: t`The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary.`,
+            icon: 'warning',
+            confirmButtonText: 'OK',
+        }
+        );
+
+        //handleShowEmailForm();
+    }
     // #endregion Email form
 
     const handleClipRangeChange = (newClipIndexRange) => {
@@ -772,8 +785,14 @@ const ExerciseView = forwardRef(({
             console.log(`LingFlix: setPlayingCaption: ${caption.text}`);
         }
     }
-    const handleCaptionAssistenceOperation = (isStarted) => {
-        setIsAvailable(!isStarted);
+    const handleWaitForAction = (isStarted) => {
+        if (isStarted) {
+            setIsAvailable(false);
+            document.body.style.cursor = 'wait';
+        } else {
+            setIsAvailable(true);
+            document.body.style.cursor = 'default';
+        }
     }
     return (
         <div id="exercizeViewDiv" style={{ pointerEvents: isAvaillable ? 'auto' : 'none', opacity: isAvaillable ? 1 : 0.5 }}>
@@ -854,7 +873,7 @@ const ExerciseView = forwardRef(({
                         learningLanguage={learningLanguage}
                         uiLanguage={uiLanguage}
                         videoData={videoData}
-                        onCaptionAssistenceOperation={handleCaptionAssistenceOperation}
+                        onWaitForAction={handleWaitForAction}
                     />
                 }
 
@@ -875,6 +894,8 @@ const ExerciseView = forwardRef(({
                     onCurrentCaptionChange={setPlayingCaption}
                     onUpdateCaptions={handleUpdateCaptions}
                     onAnalyzeCaption={handleAnalyzeCaption}
+                    onWaitForAction={handleWaitForAction}
+
                 />
             </div>
 

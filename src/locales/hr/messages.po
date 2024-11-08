@@ -42,11 +42,11 @@ msgstr "Račun"
 msgid "Add custom Playlist"
 msgstr "Dodati prilagođenu playlistu"
 
-#: components/captionBox.js:201
+#: components/captionBox.js:199
 msgid "AI-Generated Interactive Exercise (Experimental)"
 msgstr "AI-generirana interaktivna vježba (eksperimentalno)"
 
-#: components/captionBox.js:169
+#: components/captionBox.js:167
 msgid "Analysis"
 msgstr "Analiza"
 
@@ -106,7 +106,7 @@ msgstr "Stvoreno:"
 msgid "Delete"
 msgstr "Izbriši"
 
-#: components/captionBox.js:238
+#: components/captionBox.js:234
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "Unos \"{textToProcess}\" je dodan u vašu kolekciju kartica"
 
@@ -206,11 +206,11 @@ msgstr "Sljedeći pregled:"
 msgid "No more cards..."
 msgstr "Nema više kartica..."
 
-#: components/captionBox.js:155
+#: components/captionBox.js:153
 msgid "No text to analyze"
 msgstr "Nema teksta za analizu"
 
-#: components/captionBox.js:113
+#: components/captionBox.js:111
 msgid "No text to process"
 msgstr "Nema teksta za obradu"
 
@@ -218,7 +218,7 @@ msgstr "Nema teksta za obradu"
 #~ msgid "No text to read"
 #~ msgstr "Nema teksta za čitanje"
 
-#: components/captionBox.js:97
+#: components/captionBox.js:95
 msgid "No text to translate"
 msgstr "Nema teksta za prevođenje"
 
@@ -263,7 +263,7 @@ msgstr "Izvorni jezik:"
 msgid "Prompt when you talk"
 msgstr "Signal kada vi govorite"
 
-#: components/captionBox.js:127
+#: components/captionBox.js:125
 msgid "Pronunciation"
 msgstr "Izgovor"
 
@@ -295,12 +295,12 @@ msgstr "Spremi"
 msgid "Save .srt"
 msgstr "Spremi .srt"
 
-#: components/captionsView.js:265
+#: components/captionsView.js:271
 msgid "Select"
 msgstr "Odaberi"
 
-#: components/captionBox.js:178
-#: components/captionBox.js:220
+#: components/captionBox.js:176
+#: components/captionBox.js:217
 msgid "Select text to process"
 msgstr "Odaberite tekst za obradu"
 
@@ -308,7 +308,7 @@ msgstr "Odaberite tekst za obradu"
 msgid "Slight Prompt when you talk"
 msgstr "Tihi signal kada vi govorite"
 
-#: components/captionsView.js:267
+#: components/captionsView.js:273
 msgid "Start (sec)"
 msgstr "Početak (sek)"
 
@@ -318,20 +318,24 @@ msgstr "Započni test"
 
 #: components/app.js:89
 #: components/app.js:98
-#: components/captionBox.js:237
+#: components/captionBox.js:233
 msgid "Success"
 msgstr "Uspjeh"
 
-#: components/captionsView.js:268
+#: components/captionsView.js:274
 msgid "Text"
 msgstr "Tekst"
+
+#: components/exerciseView.js:562
+msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
+msgstr "Značajka objavljivanja na YouTubeu trenutno nije dostupna. Ako je potrebno, kontaktirajte programera."
 
 #: components/topDropdownMenu.js:425
 #: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "Alati"
 
-#: components/captionBox.js:104
+#: components/captionBox.js:102
 msgid "Translation"
 msgstr "Prijevod"
 
@@ -351,11 +355,11 @@ msgstr "Učitaj .srt"
 msgid "View Colection"
 msgstr "Pregledaj kolekciju"
 
-#: components/captionBox.js:96
-#: components/captionBox.js:112
-#: components/captionBox.js:154
-#: components/captionBox.js:177
-#: components/captionBox.js:219
+#: components/captionBox.js:94
+#: components/captionBox.js:110
+#: components/captionBox.js:152
+#: components/captionBox.js:175
+#: components/captionBox.js:216
 msgid "Warning!"
 msgstr "Upozorenje!"
 
@@ -363,7 +367,7 @@ msgstr "Upozorenje!"
 msgid "Youglish"
 msgstr "Youglish"
 
-#: components/captionsView.js:266
+#: components/captionsView.js:272
 msgid "Your Line"
 msgstr "Vaš redak"
 

@@ -42,11 +42,11 @@ msgstr "Account"
 msgid "Add custom Playlist"
 msgstr "Add custom Playlist"
 
-#: components/captionBox.js:201
+#: components/captionBox.js:199
 msgid "AI-Generated Interactive Exercise (Experimental)"
 msgstr "AI-Generated Interactive Exercise (Experimental)"
 
-#: components/captionBox.js:169
+#: components/captionBox.js:167
 msgid "Analysis"
 msgstr "Analysis"
 
@@ -106,7 +106,7 @@ msgstr "Created:"
 msgid "Delete"
 msgstr "Delete"
 
-#: components/captionBox.js:238
+#: components/captionBox.js:234
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "Entry \"{textToProcess}\" is added to your flashcard collection"
 
@@ -219,11 +219,11 @@ msgstr "No more cards..."
 #~ msgid "No text selected"
 #~ msgstr "No text selected"
 
-#: components/captionBox.js:155
+#: components/captionBox.js:153
 msgid "No text to analyze"
 msgstr "No text to analyze"
 
-#: components/captionBox.js:113
+#: components/captionBox.js:111
 msgid "No text to process"
 msgstr "No text to process"
 
@@ -231,7 +231,7 @@ msgstr "No text to process"
 #~ msgid "No text to read"
 #~ msgstr "No text to read"
 
-#: components/captionBox.js:97
+#: components/captionBox.js:95
 msgid "No text to translate"
 msgstr "No text to translate"
 
@@ -280,7 +280,7 @@ msgstr "Origin Language:"
 msgid "Prompt when you talk"
 msgstr "Prompt when you talk"
 
-#: components/captionBox.js:127
+#: components/captionBox.js:125
 msgid "Pronunciation"
 msgstr "Pronunciation"
 
@@ -316,12 +316,12 @@ msgstr "Save"
 msgid "Save .srt"
 msgstr "Save .srt"
 
-#: components/captionsView.js:265
+#: components/captionsView.js:271
 msgid "Select"
 msgstr "Select"
 
-#: components/captionBox.js:178
-#: components/captionBox.js:220
+#: components/captionBox.js:176
+#: components/captionBox.js:217
 msgid "Select text to process"
 msgstr "Select text to process"
 
@@ -329,7 +329,7 @@ msgstr "Select text to process"
 msgid "Slight Prompt when you talk"
 msgstr "Slight Prompt when you talk"
 
-#: components/captionsView.js:267
+#: components/captionsView.js:273
 msgid "Start (sec)"
 msgstr "Start (sec)"
 
@@ -339,11 +339,11 @@ msgstr "Start Test"
 
 #: components/app.js:89
 #: components/app.js:98
-#: components/captionBox.js:237
+#: components/captionBox.js:233
 msgid "Success"
 msgstr "Success"
 
-#: components/captionsView.js:268
+#: components/captionsView.js:274
 msgid "Text"
 msgstr "Text"
 
@@ -351,12 +351,16 @@ msgstr "Text"
 #~ msgid "Text Analysis"
 #~ msgstr "Text Analysis"
 
+#: components/exerciseView.js:562
+msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
+msgstr "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
+
 #: components/topDropdownMenu.js:425
 #: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "Tools"
 
-#: components/captionBox.js:104
+#: components/captionBox.js:102
 msgid "Translation"
 msgstr "Translation"
 
@@ -376,11 +380,11 @@ msgstr "Upload .srt"
 msgid "View Colection"
 msgstr "View Colection"
 
-#: components/captionBox.js:96
-#: components/captionBox.js:112
-#: components/captionBox.js:154
-#: components/captionBox.js:177
-#: components/captionBox.js:219
+#: components/captionBox.js:94
+#: components/captionBox.js:110
+#: components/captionBox.js:152
+#: components/captionBox.js:175
+#: components/captionBox.js:216
 msgid "Warning!"
 msgstr "Warning!"
 
@@ -388,7 +392,7 @@ msgstr "Warning!"
 msgid "Youglish"
 msgstr "Youglish"
 
-#: components/captionsView.js:266
+#: components/captionsView.js:272
 msgid "Your Line"
 msgstr "Your Line"
 

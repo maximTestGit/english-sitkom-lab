@@ -3,7 +3,7 @@ import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
 
 const BlurringPanel = ({
-    zIndex = 1,
+    zIndex,
     bottom = 0,
     startLeft = 0,
     width = '200px',

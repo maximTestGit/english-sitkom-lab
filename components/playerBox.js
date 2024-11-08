@@ -119,7 +119,7 @@ const PlayerBox = forwardRef(({
                         width: 200,
                         height: 150,
                         backgroundColor: 'transparent',
-                        zIndex: 9990
+                        zIndex: 2
                     }}>
                         <MediaUrlPlayer
                             playerRef={recPlayerRef}
@@ -145,16 +145,16 @@ const PlayerBox = forwardRef(({
                         width: 150,
                         height: 100,
                         backgroundColor: 'transparent',
-                        zIndex: 9990
+                        zIndex: 2
                     }}>
-                        <WebcamBorderKeeper zIndex={9999} />
+                        <WebcamBorderKeeper zIndex={3} />
                         <WebcamBox
                             isLoop={isLoop}
                             cameraWidth={150}
                             exerciseStatus={exerciseStatus}
                             onStopRecording={handleStopRecordingWraper}
                             onRecordingStarted={onRecordingStarted}
-                            zIndex={9991}
+                            zIndex={2}
                         />
                     </div>
                 )}

@@ -46,11 +46,11 @@ msgstr "Пользователь"
 msgid "Add custom Playlist"
 msgstr "Добавить плейлист"
 
-#: components/captionBox.js:201
+#: components/captionBox.js:199
 msgid "AI-Generated Interactive Exercise (Experimental)"
 msgstr "Интерактивное упражнение, созданное ИИ (экспериментальное)"
 
-#: components/captionBox.js:169
+#: components/captionBox.js:167
 msgid "Analysis"
 msgstr "Анализ"
 
@@ -110,7 +110,7 @@ msgstr "Создано:"
 msgid "Delete"
 msgstr "Удалить"
 
-#: components/captionBox.js:238
+#: components/captionBox.js:234
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "Элемент \"{textToProcess}\" добавлен в вашу коллекцию карточек"
 
@@ -223,11 +223,11 @@ msgstr "Больше нет карточек..."
 #~ msgid "No text selected"
 #~ msgstr "Текст не выбран"
 
-#: components/captionBox.js:155
+#: components/captionBox.js:153
 msgid "No text to analyze"
 msgstr "Нет текста для анализа"
 
-#: components/captionBox.js:113
+#: components/captionBox.js:111
 msgid "No text to process"
 msgstr "Нет текста для обработки"
 
@@ -235,7 +235,7 @@ msgstr "Нет текста для обработки"
 #~ msgid "No text to read"
 #~ msgstr "Нет текста для чтения"
 
-#: components/captionBox.js:97
+#: components/captionBox.js:95
 msgid "No text to translate"
 msgstr "Нет текста для перевода"
 
@@ -284,7 +284,7 @@ msgstr "Исходный язык:"
 msgid "Prompt when you talk"
 msgstr "Средняя громкость подсказки Вашего текста"
 
-#: components/captionBox.js:127
+#: components/captionBox.js:125
 msgid "Pronunciation"
 msgstr "Произношение"
 
@@ -320,12 +320,12 @@ msgstr "Сохранить"
 msgid "Save .srt"
 msgstr "Сохранить .srt"
 
-#: components/captionsView.js:265
+#: components/captionsView.js:271
 msgid "Select"
 msgstr "Выделить"
 
-#: components/captionBox.js:178
-#: components/captionBox.js:220
+#: components/captionBox.js:176
+#: components/captionBox.js:217
 msgid "Select text to process"
 msgstr "Выделите текст для обработки"
 
@@ -333,7 +333,7 @@ msgstr "Выделите текст для обработки"
 msgid "Slight Prompt when you talk"
 msgstr "Тихая подсказка Вашего текста"
 
-#: components/captionsView.js:267
+#: components/captionsView.js:273
 msgid "Start (sec)"
 msgstr "Начало (сек)"
 
@@ -343,11 +343,11 @@ msgstr "Начать тест"
 
 #: components/app.js:89
 #: components/app.js:98
-#: components/captionBox.js:237
+#: components/captionBox.js:233
 msgid "Success"
 msgstr "Операция завершена успешно"
 
-#: components/captionsView.js:268
+#: components/captionsView.js:274
 msgid "Text"
 msgstr "Текст"
 
@@ -355,12 +355,16 @@ msgstr "Текст"
 #~ msgid "Text Analysis"
 #~ msgstr "Анализ текста"
 
+#: components/exerciseView.js:562
+msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
+msgstr "Функция публикации на YouTube временно недоступна. При необходимости свяжитесь с разработчиком."
+
 #: components/topDropdownMenu.js:425
 #: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "Инструменты"
 
-#: components/captionBox.js:104
+#: components/captionBox.js:102
 msgid "Translation"
 msgstr "Перевод"
 
@@ -380,11 +384,11 @@ msgstr "Загрузить .srt"
 msgid "View Colection"
 msgstr "Просмотр коллекции"
 
-#: components/captionBox.js:96
-#: components/captionBox.js:112
-#: components/captionBox.js:154
-#: components/captionBox.js:177
-#: components/captionBox.js:219
+#: components/captionBox.js:94
+#: components/captionBox.js:110
+#: components/captionBox.js:152
+#: components/captionBox.js:175
+#: components/captionBox.js:216
 msgid "Warning!"
 msgstr "Предупреждение!"
 
@@ -392,7 +396,7 @@ msgstr "Предупреждение!"
 msgid "Youglish"
 msgstr "Youglish"
 
-#: components/captionsView.js:266
+#: components/captionsView.js:272
 msgid "Your Line"
 msgstr "Ваш текст"
 

@@ -42,11 +42,11 @@ msgstr "חשבון"
 msgid "Add custom Playlist"
 msgstr "הוסף רשימת השמעה מותאמת אישית"
 
-#: components/captionBox.js:201
+#: components/captionBox.js:199
 msgid "AI-Generated Interactive Exercise (Experimental)"
 msgstr "תרגיל אינטראקטיבי שנוצר על ידי AI (ניסיוני)"
 
-#: components/captionBox.js:169
+#: components/captionBox.js:167
 msgid "Analysis"
 msgstr "ניתוח"
 
@@ -106,7 +106,7 @@ msgstr "נוצר:"
 msgid "Delete"
 msgstr "מחק"
 
-#: components/captionBox.js:238
+#: components/captionBox.js:234
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "הערך \"{textToProcess}\" נוסף לאוסף כרטיסי הזיכרון שלך"
 
@@ -210,11 +210,11 @@ msgstr "אין עוד כרטיסים..."
 #~ msgid "No text selected"
 #~ msgstr "לא נבחר טקסט"
 
-#: components/captionBox.js:155
+#: components/captionBox.js:153
 msgid "No text to analyze"
 msgstr "אין טקסט לניתוח"
 
-#: components/captionBox.js:113
+#: components/captionBox.js:111
 msgid "No text to process"
 msgstr "אין טקסט לעיבוד"
 
@@ -222,7 +222,7 @@ msgstr "אין טקסט לעיבוד"
 #~ msgid "No text to read"
 #~ msgstr "אין טקסט לקריאה"
 
-#: components/captionBox.js:97
+#: components/captionBox.js:95
 msgid "No text to translate"
 msgstr "אין טקסט לתרגום"
 
@@ -267,7 +267,7 @@ msgstr "שפת מקור:"
 msgid "Prompt when you talk"
 msgstr "הערה כשאתה מדבר"
 
-#: components/captionBox.js:127
+#: components/captionBox.js:125
 msgid "Pronunciation"
 msgstr "הגייה"
 
@@ -299,12 +299,12 @@ msgstr "שמור"
 msgid "Save .srt"
 msgstr "שמור .srt"
 
-#: components/captionsView.js:265
+#: components/captionsView.js:271
 msgid "Select"
 msgstr "בחר"
 
-#: components/captionBox.js:178
-#: components/captionBox.js:220
+#: components/captionBox.js:176
+#: components/captionBox.js:217
 msgid "Select text to process"
 msgstr "בחר טקסט לעיבוד"
 
@@ -312,7 +312,7 @@ msgstr "בחר טקסט לעיבוד"
 msgid "Slight Prompt when you talk"
 msgstr "הערה קלה כשאתה מדבר"
 
-#: components/captionsView.js:267
+#: components/captionsView.js:273
 msgid "Start (sec)"
 msgstr "התחלה (שניות)"
 
@@ -322,11 +322,11 @@ msgstr "התחל מבחן"
 
 #: components/app.js:89
 #: components/app.js:98
-#: components/captionBox.js:237
+#: components/captionBox.js:233
 msgid "Success"
 msgstr "הצלחה"
 
-#: components/captionsView.js:268
+#: components/captionsView.js:274
 msgid "Text"
 msgstr "טקסט"
 
@@ -334,12 +334,16 @@ msgstr "טקסט"
 #~ msgid "Text Analysis"
 #~ msgstr "ניתוח טקסט"
 
+#: components/exerciseView.js:562
+msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
+msgstr "תכונת הפרסום ביוטיוב אינה זמינה זמנית. אנא צור קשר עם המפתח במידת הצורך."
+
 #: components/topDropdownMenu.js:425
 #: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "כלים"
 
-#: components/captionBox.js:104
+#: components/captionBox.js:102
 msgid "Translation"
 msgstr "תרגום"
 
@@ -359,11 +363,11 @@ msgstr "העלה .srt"
 msgid "View Colection"
 msgstr "הצג אוסף"
 
-#: components/captionBox.js:96
-#: components/captionBox.js:112
-#: components/captionBox.js:154
-#: components/captionBox.js:177
-#: components/captionBox.js:219
+#: components/captionBox.js:94
+#: components/captionBox.js:110
+#: components/captionBox.js:152
+#: components/captionBox.js:175
+#: components/captionBox.js:216
 msgid "Warning!"
 msgstr "אזהרה!"
 
@@ -371,7 +375,7 @@ msgstr "אזהרה!"
 msgid "Youglish"
 msgstr "יוגליש"
 
-#: components/captionsView.js:266
+#: components/captionsView.js:272
 msgid "Your Line"
 msgstr "השורה שלך"
 

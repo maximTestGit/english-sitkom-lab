@@ -42,11 +42,11 @@ msgstr "账户"
 msgid "Add custom Playlist"
 msgstr "添加自定义播放列表"
 
-#: components/captionBox.js:201
+#: components/captionBox.js:199
 msgid "AI-Generated Interactive Exercise (Experimental)"
 msgstr "AI生成的互动练习（实验性）"
 
-#: components/captionBox.js:169
+#: components/captionBox.js:167
 msgid "Analysis"
 msgstr "分析"
 
@@ -106,7 +106,7 @@ msgstr "创建时间："
 msgid "Delete"
 msgstr "删除"
 
-#: components/captionBox.js:238
+#: components/captionBox.js:234
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "条目 \"{textToProcess}\" 已添加到您的闪卡集合中"
 
@@ -206,11 +206,11 @@ msgstr "下次复习："
 msgid "No more cards..."
 msgstr "没有更多卡片了..."
 
-#: components/captionBox.js:155
+#: components/captionBox.js:153
 msgid "No text to analyze"
 msgstr "没有要分析的文本"
 
-#: components/captionBox.js:113
+#: components/captionBox.js:111
 msgid "No text to process"
 msgstr "没有要处理的文本"
 
@@ -218,7 +218,7 @@ msgstr "没有要处理的文本"
 #~ msgid "No text to read"
 #~ msgstr "没有要阅读的文本"
 
-#: components/captionBox.js:97
+#: components/captionBox.js:95
 msgid "No text to translate"
 msgstr "没有要翻译的文本"
 
@@ -263,7 +263,7 @@ msgstr "原始语言："
 msgid "Prompt when you talk"
 msgstr "说话时提示"
 
-#: components/captionBox.js:127
+#: components/captionBox.js:125
 msgid "Pronunciation"
 msgstr "发音"
 
@@ -295,12 +295,12 @@ msgstr "保存"
 msgid "Save .srt"
 msgstr "保存 .srt"
 
-#: components/captionsView.js:265
+#: components/captionsView.js:271
 msgid "Select"
 msgstr "选择"
 
-#: components/captionBox.js:178
-#: components/captionBox.js:220
+#: components/captionBox.js:176
+#: components/captionBox.js:217
 msgid "Select text to process"
 msgstr "选择要处理的文本"
 
@@ -308,7 +308,7 @@ msgstr "选择要处理的文本"
 msgid "Slight Prompt when you talk"
 msgstr "说话时轻微提示"
 
-#: components/captionsView.js:267
+#: components/captionsView.js:273
 msgid "Start (sec)"
 msgstr "开始（秒）"
 
@@ -318,20 +318,24 @@ msgstr "开始测试"
 
 #: components/app.js:89
 #: components/app.js:98
-#: components/captionBox.js:237
+#: components/captionBox.js:233
 msgid "Success"
 msgstr "成功"
 
-#: components/captionsView.js:268
+#: components/captionsView.js:274
 msgid "Text"
 msgstr "文本"
+
+#: components/exerciseView.js:562
+msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
+msgstr "YouTube发布功能暂时不可用。如有必要，请联系开发人员。"
 
 #: components/topDropdownMenu.js:425
 #: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "工具"
 
-#: components/captionBox.js:104
+#: components/captionBox.js:102
 msgid "Translation"
 msgstr "翻译"
 
@@ -351,11 +355,11 @@ msgstr "上传 .srt"
 msgid "View Colection"
 msgstr "查看收藏"
 
-#: components/captionBox.js:96
-#: components/captionBox.js:112
-#: components/captionBox.js:154
-#: components/captionBox.js:177
-#: components/captionBox.js:219
+#: components/captionBox.js:94
+#: components/captionBox.js:110
+#: components/captionBox.js:152
+#: components/captionBox.js:175
+#: components/captionBox.js:216
 msgid "Warning!"
 msgstr "警告！"
 
@@ -363,7 +367,7 @@ msgstr "警告！"
 msgid "Youglish"
 msgstr "Youglish"
 
-#: components/captionsView.js:266
+#: components/captionsView.js:272
 msgid "Your Line"
 msgstr "你的台词"
 

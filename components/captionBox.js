@@ -31,7 +31,7 @@ const CaptionBox = (
         learningLanguage,
         uiLanguage,
         videoData,
-        onCaptionAssistenceOperation
+        onWaitForAction
         }) => {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -46,14 +46,12 @@ const CaptionBox = (
 
     const handleCaptionButtonClick = async (action) => {
         try {
-            onCaptionAssistenceOperation(true)
-            document.body.style.cursor = 'wait';
+            onWaitForAction(true)
             setIsButtonDisabled(true);
             await action();
             setIsButtonDisabled(false);
         } finally {
-            document.body.style.cursor = 'default';
-            onCaptionAssistenceOperation(false);
+            onWaitForAction(false);
         }
     };
 
@@ -210,8 +208,7 @@ const CaptionBox = (
 
     const handleSelectedButtonClick = async (action) => {
         try {
-            onCaptionAssistenceOperation(true);
-            document.body.style.cursor = 'wait';
+            onWaitForAction(true);
             setIsButtonDisabled(true);
             let textToProcess = getTextToProcess(true);
             if (!textToProcess) {
@@ -226,8 +223,7 @@ const CaptionBox = (
             }
             setIsButtonDisabled(false);
         } finally {
-            document.body.style.cursor = 'default';
-            onCaptionAssistenceOperation(false);
+            onWaitForAction(false);
         }
     }
     const onAddSelectionToDict = async (textToProcess) => {

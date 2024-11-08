@@ -6,7 +6,7 @@ import { jumpToPos } from './helpers/exerciseHelper';
 
 const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
     playbackRate, volume = 100, progressInterval = 10, onProgress, onEnded,
-    playerRef, zIndex = 9000, playing,
+    playerRef, zIndex, playing,
     isImbededCaptionsBlured = false,
     clipRange,
     hasRecording = false,
@@ -96,7 +96,7 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
                     height={'12%'}
                     backgroundColor={'rgba(0, 0, 0, 0.1)'}
                     backdropFilter={'blur(5px)'}
-                    zIndex={6}
+                    zIndex={2}
                     hint={exercisePlayingCounter}
                 />
             }
@@ -108,7 +108,7 @@ const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
                     height={'20%'}
                     backgroundColor={'rgba(0, 0, 0, 0.1)'}
                     backdropFilter={'blur(5px)'}
-                    zIndex={9999}
+                    zIndex={2}
                 // hint={(exerciseStatus === ExerciseStatus.ORIGIN || exerciseStatus === ExerciseStatus.PLAYING) ?
                 //     "Drag it!" : ""}
                 />

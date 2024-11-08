@@ -42,11 +42,11 @@ msgstr "Rekening"
 msgid "Add custom Playlist"
 msgstr "Voeg pasgemaakte Speellys by"
 
-#: components/captionBox.js:201
+#: components/captionBox.js:199
 msgid "AI-Generated Interactive Exercise (Experimental)"
 msgstr "KI-gegenereerde Interaktiewe Oefening (Eksperimenteel)"
 
-#: components/captionBox.js:169
+#: components/captionBox.js:167
 msgid "Analysis"
 msgstr "Analise"
 
@@ -106,7 +106,7 @@ msgstr "Geskep:"
 msgid "Delete"
 msgstr "Vee Uit"
 
-#: components/captionBox.js:238
+#: components/captionBox.js:234
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "Inskrywing \"{textToProcess}\" is by jou flitskaartversameling gevoeg"
 
@@ -210,11 +210,11 @@ msgstr "Geen kaarte meer nie..."
 #~ msgid "No text selected"
 #~ msgstr "Geen teks gekies nie"
 
-#: components/captionBox.js:155
+#: components/captionBox.js:153
 msgid "No text to analyze"
 msgstr "Geen teks om te ontleed"
 
-#: components/captionBox.js:113
+#: components/captionBox.js:111
 msgid "No text to process"
 msgstr "Geen teks om te verwerk nie"
 
@@ -222,7 +222,7 @@ msgstr "Geen teks om te verwerk nie"
 #~ msgid "No text to read"
 #~ msgstr "Geen teks om te lees nie"
 
-#: components/captionBox.js:97
+#: components/captionBox.js:95
 msgid "No text to translate"
 msgstr "Geen teks om te vertaal"
 
@@ -267,7 +267,7 @@ msgstr "Oorsprong Taal:"
 msgid "Prompt when you talk"
 msgstr "Opskrif wanneer jy praat"
 
-#: components/captionBox.js:127
+#: components/captionBox.js:125
 msgid "Pronunciation"
 msgstr "Uitspraak"
 
@@ -299,12 +299,12 @@ msgstr "Stoor"
 msgid "Save .srt"
 msgstr "Stoor .srt"
 
-#: components/captionsView.js:265
+#: components/captionsView.js:271
 msgid "Select"
 msgstr "Kies"
 
-#: components/captionBox.js:178
-#: components/captionBox.js:220
+#: components/captionBox.js:176
+#: components/captionBox.js:217
 msgid "Select text to process"
 msgstr "Kies teks om te verwerk"
 
@@ -312,7 +312,7 @@ msgstr "Kies teks om te verwerk"
 msgid "Slight Prompt when you talk"
 msgstr "Klein Opskrif wanneer jy praat"
 
-#: components/captionsView.js:267
+#: components/captionsView.js:273
 msgid "Start (sec)"
 msgstr "Begin (sek)"
 
@@ -322,11 +322,11 @@ msgstr "Begin Toets"
 
 #: components/app.js:89
 #: components/app.js:98
-#: components/captionBox.js:237
+#: components/captionBox.js:233
 msgid "Success"
 msgstr "Sukses"
 
-#: components/captionsView.js:268
+#: components/captionsView.js:274
 msgid "Text"
 msgstr "Teks"
 
@@ -334,12 +334,16 @@ msgstr "Teks"
 #~ msgid "Text Analysis"
 #~ msgstr "Teksanalise"
 
+#: components/exerciseView.js:562
+msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
+msgstr "Die YouTube-publikasie-funksie is tydelik onbeskikbaar. Kontak asseblief die ontwikkelaar indien nodig."
+
 #: components/topDropdownMenu.js:425
 #: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "Gereedskap"
 
-#: components/captionBox.js:104
+#: components/captionBox.js:102
 msgid "Translation"
 msgstr "Vertaling"
 
@@ -359,11 +363,11 @@ msgstr "Laai .srt op"
 msgid "View Colection"
 msgstr "Bekyk Versameling"
 
-#: components/captionBox.js:96
-#: components/captionBox.js:112
-#: components/captionBox.js:154
-#: components/captionBox.js:177
-#: components/captionBox.js:219
+#: components/captionBox.js:94
+#: components/captionBox.js:110
+#: components/captionBox.js:152
+#: components/captionBox.js:175
+#: components/captionBox.js:216
 msgid "Warning!"
 msgstr "Waarskuwing!"
 
@@ -371,7 +375,7 @@ msgstr "Waarskuwing!"
 msgid "Youglish"
 msgstr "Youglish"
 
-#: components/captionsView.js:266
+#: components/captionsView.js:272
 msgid "Your Line"
 msgstr "Jou Reël"
 

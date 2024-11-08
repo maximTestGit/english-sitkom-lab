@@ -42,11 +42,11 @@ msgstr "アカウント"
 msgid "Add custom Playlist"
 msgstr "カスタムプレイリストを追加"
 
-#: components/captionBox.js:201
+#: components/captionBox.js:199
 msgid "AI-Generated Interactive Exercise (Experimental)"
 msgstr "AI生成のインタラクティブな練習（実験的）"
 
-#: components/captionBox.js:169
+#: components/captionBox.js:167
 msgid "Analysis"
 msgstr "分析"
 
@@ -106,7 +106,7 @@ msgstr "作成日:"
 msgid "Delete"
 msgstr "削除"
 
-#: components/captionBox.js:238
+#: components/captionBox.js:234
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "「{textToProcess}」がフラッシュカードコレクションに追加されました"
 
@@ -206,11 +206,11 @@ msgstr "次のレビュー:"
 msgid "No more cards..."
 msgstr "これ以上カードはありません..."
 
-#: components/captionBox.js:155
+#: components/captionBox.js:153
 msgid "No text to analyze"
 msgstr "分析するテキストがありません"
 
-#: components/captionBox.js:113
+#: components/captionBox.js:111
 msgid "No text to process"
 msgstr "処理するテキストがありません"
 
@@ -218,7 +218,7 @@ msgstr "処理するテキストがありません"
 #~ msgid "No text to read"
 #~ msgstr "読み上げるテキストがありません"
 
-#: components/captionBox.js:97
+#: components/captionBox.js:95
 msgid "No text to translate"
 msgstr "翻訳するテキストがありません"
 
@@ -263,7 +263,7 @@ msgstr "原文の言語:"
 msgid "Prompt when you talk"
 msgstr "会話時のプロンプト"
 
-#: components/captionBox.js:127
+#: components/captionBox.js:125
 msgid "Pronunciation"
 msgstr "発音"
 
@@ -295,12 +295,12 @@ msgstr "保存"
 msgid "Save .srt"
 msgstr ".srtを保存"
 
-#: components/captionsView.js:265
+#: components/captionsView.js:271
 msgid "Select"
 msgstr "選択"
 
-#: components/captionBox.js:178
-#: components/captionBox.js:220
+#: components/captionBox.js:176
+#: components/captionBox.js:217
 msgid "Select text to process"
 msgstr "処理するテキストを選択してください"
 
@@ -308,7 +308,7 @@ msgstr "処理するテキストを選択してください"
 msgid "Slight Prompt when you talk"
 msgstr "会話時の小さな音声プロンプト"
 
-#: components/captionsView.js:267
+#: components/captionsView.js:273
 msgid "Start (sec)"
 msgstr "開始（秒）"
 
@@ -318,20 +318,24 @@ msgstr "テスト開始"
 
 #: components/app.js:89
 #: components/app.js:98
-#: components/captionBox.js:237
+#: components/captionBox.js:233
 msgid "Success"
 msgstr "成功"
 
-#: components/captionsView.js:268
+#: components/captionsView.js:274
 msgid "Text"
 msgstr "テキスト"
+
+#: components/exerciseView.js:562
+msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
+msgstr "YouTubeの公開機能は一時的に利用できません。必要に応じて開発者に連絡してください。"
 
 #: components/topDropdownMenu.js:425
 #: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "ツール"
 
-#: components/captionBox.js:104
+#: components/captionBox.js:102
 msgid "Translation"
 msgstr "翻訳"
 
@@ -351,11 +355,11 @@ msgstr ".srtをアップロード"
 msgid "View Colection"
 msgstr "コレクションを表示"
 
-#: components/captionBox.js:96
-#: components/captionBox.js:112
-#: components/captionBox.js:154
-#: components/captionBox.js:177
-#: components/captionBox.js:219
+#: components/captionBox.js:94
+#: components/captionBox.js:110
+#: components/captionBox.js:152
+#: components/captionBox.js:175
+#: components/captionBox.js:216
 msgid "Warning!"
 msgstr "警告！"
 
@@ -363,7 +367,7 @@ msgstr "警告！"
 msgid "Youglish"
 msgstr "Youglish"
 
-#: components/captionsView.js:266
+#: components/captionsView.js:272
 msgid "Your Line"
 msgstr "あなたの行"
 
