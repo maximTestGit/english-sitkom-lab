@@ -73,18 +73,20 @@ const ExerciseView = forwardRef(({
     const [whisperVolumePreRec, setWhisperVolumePreRec] = useState(settings.whisperVolume);
 
     // #region ShowEmailFormModalOpen
+    /*
     const [isShowEmailFormModalOpen, setIsShowEmailFormModalOpen] = useState(false); // State variable to control modal visibility
     const [emailAddress, setEmailAddress] = useState(null); // State variable to store email address
     const [studentName, setStudentName] = useState('Unknown'); // State variable to store student name
+    */
 
     const [recordingStartedAt, setRecordingStartedAt] = useState(null);
     const [playingStartedAt, setPlayingStartedAt] = useState(null);
 
     const [isAvaillable, setIsAvailable] = useState(true);
 
-    const emailInputRef = useRef(null);
-    const nameInputRef = useRef(null);
-    const unlistedInputRef = useRef(false);
+    //const emailInputRef = useRef(null);
+    //const nameInputRef = useRef(null);
+    //const unlistedInputRef = useRef(false);
 
     // #endregion ShowEmailFormModalOpen
 
@@ -515,59 +517,78 @@ const ExerciseView = forwardRef(({
     }, [captions]);
 
     // #region Email form
-    const handleCloseEmailForm = () => setIsShowEmailFormModalOpen(false);
-    const handleShowEmailForm = () => setIsShowEmailFormModalOpen(true);
-    const handleShareHomework = () => {
-        if (emailInputRef.current) {
-            const emailToSend = emailInputRef.current.value;
-            const name = nameInputRef.current.value;
-            const isUnlistedVideo = unlistedInputRef.current.checked;
-            setIsShowEmailFormModalOpen(false);
-            doShareHomework(learningLanguage, videoData, playlistData, captions, recordedChunks,
-                buildClipRange(
-                    captions,
-                    exerciseStatus === ExerciseStatus.CAPTION ?
-                        {
-                            startIndex: captions.findIndex(caption => caption.start === currentCaption.start),
-                            endIndex: captions.findIndex(caption => caption.start === currentCaption.start)
-                        } :
-                        clipIndexRange),
-                settings.playerLineSpeed, settings.yourLineSpeed, name, emailToSend, isUnlistedVideo);
-            setEmailAddress(emailToSend);
-            setStudentName(name);
+    // const handleCloseEmailForm = () => setIsShowEmailFormModalOpen(false);
+    // const handleShowEmailForm = () => setIsShowEmailFormModalOpen(true);
+    const handleShareHomework = async () => {
+        if (user?.email) {
+            handleWaitForAction(true);
+            try {
+                const emailToSend = user.email;
+                const name = user.username;
+                const isUnlistedVideo = true;
+                //setIsShowEmailFormModalOpen(false);
+                await doShareHomework(learningLanguage, videoData, playlistData, captions, recordedChunks,
+                    buildClipRange(
+                        captions,
+                        exerciseStatus === ExerciseStatus.CAPTION ?
+                            {
+                                startIndex: captions.findIndex(caption => caption.start === currentCaption.start),
+                                endIndex: captions.findIndex(caption => caption.start === currentCaption.start)
+                            } :
+                            clipIndexRange),
+                    settings.playerLineSpeed, settings.yourLineSpeed, name, emailToSend, isUnlistedVideo);
+                //setEmailAddress(emailToSend);
+                //setStudentName(name);
+                Swal.fire({
+                    title: t`Homework uploaded to the server successfully!`,
+                    text: t`You'll get an email letting you know when your video goes live on YouTube. It'll be set to "unlisted" so only the people you send the link to can watch it.`,
+                    icon: 'success',
+                    confirmButtonText: t`OK`,
+                });
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error publishing exercise',
+                    text: 'Please, save your homework to the file and try again later. Contact the developer if the problem persists.',
+                    confirmButtonText: 'OK'
+                });
+            } finally {
+                handleWaitForAction(false);
+            }
         }
     };
 
-    const handleNameInputChange = (event) => {
-        const regex = /^[a-zA-Z0-9.-]*$/;
-        let inputValue = event.target.value;
-        if (inputValue.length > 20) {
-            inputValue = inputValue.slice(0, 20);
-        }
-        if (regex.test(inputValue)) {
-            nameInputRef.current.value = inputValue;
-        } else {
-            nameInputRef.current.value = inputValue.replace(/[^a-zA-Z0-9.-]/g, '');
-            Swal.fire({
-                icon: 'warning',
-                title: 'Invalid Input',
-                text: 'Only english letters, numbers, and hyphens are allowed!',
-                confirmButtonText: 'OK',
+    // const handleNameInputChange = (event) => {
+    //     const regex = /^[a-zA-Z0-9.-]*$/;
+    //     let inputValue = event.target.value;
+    //     if (inputValue.length > 20) {
+    //         inputValue = inputValue.slice(0, 20);
+    //     }
+    //     if (regex.test(inputValue)) {
+    //         nameInputRef.current.value = inputValue;
+    //     } else {
+    //         nameInputRef.current.value = inputValue.replace(/[^a-zA-Z0-9.-]/g, '');
+    //         Swal.fire({
+    //             icon: 'warning',
+    //             title: 'Invalid Input',
+    //             text: 'Only english letters, numbers, and hyphens are allowed!',
+    //             confirmButtonText: 'OK',
 
-            });
-        }
-    };
+    //         });
+    //     }
+    // };
 
     const handleShareExerciseWrapper = () => {
-        Swal.fire({
-            title: 'Info',
-            text: t`The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary.`,
-            icon: 'warning',
-            confirmButtonText: 'OK',
-        }
-        );
+        // Swal.fire({
+        //     title: 'Info',
+        //     text: t`The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary.`,
+        //     icon: 'warning',
+        //     confirmButtonText: 'OK',
+        // }
+        // );
 
         //handleShowEmailForm();
+        handleShareHomework();
     }
     // #endregion Email form
 
@@ -898,8 +919,7 @@ const ExerciseView = forwardRef(({
 
                 />
             </div>
-
-            <Modal show={isShowEmailFormModalOpen} >
+            {/* <Modal show={isShowEmailFormModalOpen} >
                 <Modal.Body>
                     <form>
                         <div className="form-group">
@@ -924,7 +944,8 @@ const ExerciseView = forwardRef(({
                         Send
                     </button>
                 </Modal.Footer>
-            </Modal>
+            </Modal> */}
+
         </div>
     );
 });

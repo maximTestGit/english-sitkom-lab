@@ -1,7 +1,5 @@
 import { getYoutubeUrl, saveExerciseUrl } from "../data/configurator";
-import Swal from 'sweetalert2';
 
-//import publishExercise from './publishExercise.js';
 const exercise_storage_folder = 'Exercises';
 
 export function jumpToStart(playerRef) {
@@ -25,12 +23,9 @@ export function doSaveExerciseToFile(learningLanguage, videoData, playlistData, 
         }
         );
 }
-export function doShareHomework(learningLanguage, video, playlistData, captions, recordedChunks, clipRange, playbackRate, youLinePlaybackRate, studentName, emailAddress, isUnlistedVideo) {
-    buildExerciseData(learningLanguage, video, playlistData, captions, recordedChunks, clipRange, playbackRate, youLinePlaybackRate, studentName, emailAddress, isUnlistedVideo)
-        .then(videoData => {
-            publishJsonToCloud(videoData);
-        }
-        );
+export async function doShareHomework(learningLanguage, video, playlistData, captions, recordedChunks, clipRange, playbackRate, youLinePlaybackRate, studentName, emailAddress, isUnlistedVideo) {
+    const videoData = await buildExerciseData(learningLanguage, video, playlistData, captions, recordedChunks, clipRange, playbackRate, youLinePlaybackRate, studentName, emailAddress, isUnlistedVideo);
+    await publishJsonToCloud(videoData);
 }
 export function buildExerciseData(learningLanguage, video, playlistData, captions, recordedChunks, clipIndexRange, playbackRate, youLinePlaybackRate, studentName = null, emailAddress = null, isUnlistedVideo = false) {
     const language = playlistData?.language ?? learningLanguage;
@@ -138,14 +133,10 @@ export async function publishJsonToCloud(videoData) {
     let safeTitle = videoData.title.replace(/['<>:"/\\|?*]+/g, '') + (videoData.videoRecordedChunks.length > 0 ? '-homework' : '-exercise');
     safeTitle = safeTitle.replace(/ /g, '-');
     const randomSuffixLen5 = Math.floor(Math.random() * 100000);
-    try {
-        await publishExercise(
-            exercise_storage_folder,
-            `${safeTitle}-${videoData.studentName}-${randomSuffixLen5}.json`,
-            jsonData);
-    } catch (error) {
-        console.error(`Error publishing to cloud: ${error}`);
-    }
+    await publishExercise(
+        exercise_storage_folder,
+        `${safeTitle}-${videoData.studentName}-${randomSuffixLen5}.json`,
+        jsonData);
 }
 
 export async function publishExercise(folderName, fileName, data) {
@@ -166,18 +157,13 @@ export async function publishExercise(folderName, fileName, data) {
                 });
 
         if (!response.ok) {
-            throw new Error(`Error saving file: ${response.statusText}`);
+            throw new Error(`Error publishing video: ${response.statusText}`);
         }
 
-        console.log('LingFlix: File saved successfully!');
+        console.log('LingFlix: published successfully!');
     } catch (error) {
-        console.error('Error saving file:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Error publishing exercise',
-            text: 'Please try again later.',
-            confirmButtonText: 'OK'
-        });
+        console.error('Exception publishing video:', error?.message);
+        throw error;
     }
 }
 

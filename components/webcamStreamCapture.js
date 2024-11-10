@@ -22,9 +22,14 @@ const WebcamStreamCapture = ({
   const createMediaStream = async (source) => {
     var result = await navigator.mediaDevices.getUserMedia({
       video: {
+        /*
         width: { max: 900 },
         height: { max: 750 },
         frameRate: { max: 20 },
+        */
+        width: { max: 640 },
+        height: { max: 480 },
+        frameRate: { max: 15 },
       },
       audio: true
     });
