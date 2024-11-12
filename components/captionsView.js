@@ -24,7 +24,8 @@ const CaptionsView = forwardRef(({
     onCurrentCaptionChange,
     onUpdateCaptions,
     onAnalyzeCaption,
-    onWaitForAction
+    onWaitForAction,
+    exerciseStatus
 }, ref) => {
     const [currentCaption, setCurrentCaption] = useState(null);
 
@@ -203,7 +204,7 @@ const CaptionsView = forwardRef(({
                     }
                 }
                 if (!captionAtPosition) {
-                    console.log(`LingFlix: CaptionsView.findCurrentCaption: No caption found at position ${position}`);
+                    console.log(`LingFlix: CaptionsView.findCurrentCaption: No caption found at position ${position} status: ${exerciseStatus}`);
                     setCurrentCaption(null)
                     onCurrentCaptionChange(null);
                 } else if (currentCaption?.start < 0.1 || currentCaption !== captionAtPosition) { //???
