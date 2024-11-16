@@ -148,9 +148,11 @@ async function saveCaptionToStorage(videoId, language, user, captions) {
 async function tryToGetCaptions(videoId, language, user, videoInfo) {
     const adminUser = 'admin';
     let captions = await getCaptionsFromStorage(videoId, language, user);
+    console.log(`tryToGetCaptions: getCaptionsFromStorage: language:${language} user:${user}: captions: ${captions}`);
     if (!captions) {
         // if not found try to find caption uploaded by administrator
         captions = await getCaptionsFromStorage(videoId, language, adminUser);
+        console.log(`tryToGetCaptions: getCaptionsFromStorage: language:${language} user:${adminUser}: captions: ${captions}`);
     }
     if (!captions) {
         // if captions not found try to find captions uploaded by the video owner
@@ -163,6 +165,7 @@ async function tryToGetCaptions(videoId, language, user, videoInfo) {
         } else {
             console.log(`fetchCaptions: no videoInfor for request videoId: ${videoId} language:${language} user:${user}: captions: ${captions}`);
         }
+        console.log(`tryToGetCaptions: getCaptionsFromStorage: getCaptionsFromYoutube: language:${language} user:${user}: captions: ${captions}`);
     }
     return captions;
 }
@@ -300,13 +303,14 @@ async function getCaptionsFromYoutube(videoId, videoInfo, language, strict = fal
             var jsonObject = await fetchCaptionsFromUrl(fetchCaptionsUrl);
             if (jsonObject) {
                 console.log(`fetchCaptions:: response of jsonObject: ${JSON.stringify(jsonObject)}`);
-                result = jsonObject?.transcript?.text.map(entry => ({
+                const transcript = jsonObject?.transcript?.text.map(entry => ({
                     start: entry.$.start,
                     duration: entry.$.dur,
                     text: entry._,
                     videoId: videoId
                 }));
-                console.log(`fetchCaptions:: result: ${JSON.stringify(result)}`);
+                result = JSON.stringify(transcript);
+                console.log(`fetchCaptions:: result: ${result}`);
             } else {
                 console.log(`fetchCaptions:: empty response of fetchCaptionsFromUrl: ${jsonObject}`);
             }
@@ -362,7 +366,6 @@ async function translateSrtContent(captions, fromLanguage, toLanguage) {
 
     const apiKey = process.env.OPENAI_API_KEY;
     const url = 'https://api.openai.com/v1/chat/completions';
-    const theContent = JSON.stringify(captions);
 
     const headers = {
         'Content-Type': 'application/json',
@@ -370,12 +373,12 @@ async function translateSrtContent(captions, fromLanguage, toLanguage) {
     };
 
     console.log(`translateSrtContent prompt: ${prompt}`);
-    console.log(`translateSrtContent content: ${theContent}`);
+    console.log(`translateSrtContent content: ${captions}`);
     const data = {
         model: 'gpt-3.5-turbo',
         messages: [
             { role: 'system', content: prompt },
-            { role: 'user', content: theContent }
+            { role: 'user', content: captions }
         ],
         max_tokens: 1000,
         temperature: 0.5
