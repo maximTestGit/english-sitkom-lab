@@ -80,11 +80,16 @@ exports.fetchCaptionsJson = async (req, res) => {
             }
             console.log(`fetchCaptions: request videoId: ${videoId} language:${language} user:${user}`);
             // ----------------------------
+            let toSave = false;
             let videoInfo = null;
             let captions = await tryToGetCaptions(videoId, language, user, videoInfo);
+            console.log(`captionsFetch: tryToGetCaptions:${language}: captions found: ${captions}`);
+
             if (!captions && originalLanguage !== language) {
                 const originalCaptions = await tryToGetCaptions(videoId, originalLanguage, user, videoInfo);
                 captions = await translateSrtContent(originalCaptions, originalLanguage, language);
+                console.log(`captionsFetch: tryToGetCaptions:${originalLanguage}: captions found: ${captions}`);
+                toSave = true;
             }
 
             if (!captions && videoInfo) {
@@ -92,22 +97,26 @@ exports.fetchCaptionsJson = async (req, res) => {
                 //const autoCaptions = `${language} (auto-generated)`;
                 captions = await getCaptionsFromYoutube(videoId, videoInfo, language, false);
                 console.log(`fetchCaptions: request videoId: ${videoId} language:${language} strict: false, user:${user}: captions: ${captions}`);
+                console.log(`captionsFetch: getCaptionsFromYoutube:${language}: captions found: ${captions}`);
             }
             if (!captions && videoInfo && originalLanguage !== language) {
                 // if not found, try to find auto-generated captions on YouTube
                 //const autoCaptions = `${language} (auto-generated)`;
                 const originalCaptions = await getCaptionsFromYoutube(videoId, videoInfo, originalLanguage, false);
                 console.log(`fetchCaptions: request videoId: ${videoId} language:${language} strict: false, user:${user}: captions: ${captions}`);
-                captions = await translateSrtContent(originalCaptions, originalLanguage, language);
-
+                if (originalCaptions) {
+                    captions = await translateSrtContent(originalCaptions, originalLanguage, language);
+                    console.log(`captionsFetch: getCaptionsFromYoutube:${originalLanguage}: captions found: ${captions}`);
+                }
+                toSave = true;
+            }
+            if (toSave) {
+                console.log(`captionsFetch: captions found: ${captions}`);
                 if (captions) {
                     await saveCaptionToStorage(videoId, language, user, captions);
                 }
             }
             if (captions) {
-                console.log('captionsFetch: captions found');
-                console.log(captions);
-
                 res.send(captions);
             } else {
                 console.log('captionsFetch: No captions found');
