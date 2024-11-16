@@ -36,9 +36,9 @@ exports.fetchCaptionsJson = async (req, res) => {
                 console.log(`User is not Authenticated`);
             }
 
-            const adminUser = 'admin';
             var videoId;
             var language;
+            var originalLanguage;
             var user;
             if (req.method === 'POST') {
                 const requestBody = req.body;
@@ -46,10 +46,12 @@ exports.fetchCaptionsJson = async (req, res) => {
                 playlistId = requestBody.playlistId;
                 videoId = requestBody.videoId;
                 language = requestBody.language;
+                originalLanguage = requestBody.originalLanguage;
                 user = requestBody.user;
             } else {
                 videoId = req.query.videoId;
                 language = req.query.language;
+                originalLanguage = req.query.originalLanguage;
                 user = req.query.user;
                 playlistId = req.query.playlistId;
             }
@@ -70,39 +72,42 @@ exports.fetchCaptionsJson = async (req, res) => {
             if (!language) {
                 language = "English"
             }
+            if (!originalLanguage) {
+                originalLanguage = "English"
+            }
             if (!user || user === 'undefined') {
                 user = 'guest';
             }
-                console.log(`fetchCaptions: request videoId: ${videoId} language:${language} user:${user}`);
+            console.log(`fetchCaptions: request videoId: ${videoId} language:${language} user:${user}`);
             // ----------------------------
-
-            // try to fetch captions from different sources according to priority
-            // 1st, try to get captions uploaded by the user
-            let captions = await getCaptionsFromStorage(videoId, language, user);
-            if (!captions) {
-                // if not found try to find caption uploaded by administrator
-                captions = await getCaptionsFromStorage(videoId, language, adminUser);
+            let videoInfo = null;
+            let captions = await tryToGetCaptions(videoId, language, user, videoInfo);
+            if (!captions && originalLanguage !== language) {
+                const originalCaptions = await tryToGetCaptions(videoId, originalLanguage, user, videoInfo);
+                captions = await translateSrtContent(originalCaptions, originalLanguage, language);
             }
-            if (!captions) {
-                // if captions not found try to find captions uploaded by the video owner
-                const videoInfo = await fetchPlayerInfo(videoId);
-                if (videoInfo) {
-                    captions = await getCaptionsFromYoutube(videoId, videoInfo, language, true);
-                    console.log(`fetchCaptions: request videoId: ${videoId} language:${language} strict: true, user:${user}: captions: ${captions}`);
-                    if (!captions) {
-                        // if not found, try to find auto-generated captions
-                        //const autoCaptions = `${language} (auto-generated)`;
-                        captions = await getCaptionsFromYoutube(videoId, videoInfo, language, false);
-                        console.log(`fetchCaptions: request videoId: ${videoId} language:${language} strict: false, user:${user}: captions: ${captions}`);
-                    }
-                } else {
-                    console.log(`fetchCaptions: no videoInfor for request videoId: ${videoId} language:${language} user:${user}: captions: ${captions}`);
+
+            if (!captions && videoInfo) {
+                // if not found, try to find auto-generated captions on YouTube
+                //const autoCaptions = `${language} (auto-generated)`;
+                captions = await getCaptionsFromYoutube(videoId, videoInfo, language, false);
+                console.log(`fetchCaptions: request videoId: ${videoId} language:${language} strict: false, user:${user}: captions: ${captions}`);
+            }
+            if (!captions && videoInfo && originalLanguage !== language) {
+                // if not found, try to find auto-generated captions on YouTube
+                //const autoCaptions = `${language} (auto-generated)`;
+                const originalCaptions = await getCaptionsFromYoutube(videoId, videoInfo, originalLanguage, false);
+                console.log(`fetchCaptions: request videoId: ${videoId} language:${language} strict: false, user:${user}: captions: ${captions}`);
+                captions = await translateSrtContent(originalCaptions, originalLanguage, language);
+
+                if (captions) {
+                    await saveCaptionToStorage(videoId, language, user, captions);
                 }
             }
-
             if (captions) {
                 console.log('captionsFetch: captions found');
                 console.log(captions);
+
                 res.send(captions);
             } else {
                 console.log('captionsFetch: No captions found');
@@ -114,6 +119,43 @@ exports.fetchCaptionsJson = async (req, res) => {
         }
     }
     )
+}
+
+async function saveCaptionToStorage(videoId, language, user, captions) {
+    const documentId = generateCaptionsDocumentId(videoId, language, 'admin');
+    const docRef = db.collection('videoCaptions').doc(documentId);
+
+    await docRef.set({
+        videoId,
+        language,
+        user,
+        captions,
+        timestamp: admin.firestore.FieldValue.serverTimestamp()
+    });
+}
+
+// try to fetch captions from different sources according to priority
+// 1st, try to get captions uploaded by the user
+async function tryToGetCaptions(videoId, language, user, videoInfo) {
+    const adminUser = 'admin';
+    let captions = await getCaptionsFromStorage(videoId, language, user);
+    if (!captions) {
+        // if not found try to find caption uploaded by administrator
+        captions = await getCaptionsFromStorage(videoId, language, adminUser);
+    }
+    if (!captions) {
+        // if captions not found try to find captions uploaded by the video owner
+        if (!videoInfo) {
+            videoInfo = await fetchPlayerInfo(videoId);
+        }
+        if (videoInfo) {
+            captions = await getCaptionsFromYoutube(videoId, videoInfo, language, true);
+            console.log(`fetchCaptions: request videoId: ${videoId} language:${language} strict: true, user:${user}: captions: ${captions}`);
+        } else {
+            console.log(`fetchCaptions: no videoInfor for request videoId: ${videoId} language:${language} user:${user}: captions: ${captions}`);
+        }
+    }
+    return captions;
 }
 
 async function fetchPlayerInfo(videoId) {
@@ -276,7 +318,7 @@ async function getCaptionsFromStorage(videoId, language, user) {
 
     if (doc.exists) {
         console.log(`captionsFetchFromStorage: Found captions for specific user: document.caption: ${doc.data().captions}`);
-        result = JSON.parse(doc.data().captions);
+        result = doc.data().captions;
         console.log(`captionsFetchFromStorage: Found captions for specific user result: ${result}`);
     }
     return result;
@@ -298,4 +340,61 @@ async function getExampleVideoId(playlistId) {
 
 function generateCaptionsDocumentId(videoId, language, user) {
     return `Captions-${videoId}-${language}-${user}`;
+}
+
+async function translateSrtContent(captions, fromLanguage, toLanguage) {
+    let result = '';
+    const prompt =
+        `You are a movie translation assistant. ` +
+        `translate the given subtitles data from ${fromLanguage} to ${toLanguage}, ` +
+        `keeping given subtitles data format ` +
+        `and taking into account the context of the dialog of the subtitles data.` +
+        `your answer must contain nothing but translated subtitles data.`;
+
+    const apiKey = process.env.OPENAI_API_KEY;
+    const url = 'https://api.openai.com/v1/chat/completions';
+    const theContent = JSON.stringify(captions);
+
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+    };
+
+    console.log(`translateSrtContent prompt: ${prompt}`);
+    console.log(`translateSrtContent content: ${theContent}`);
+    const data = {
+        model: 'gpt-3.5-turbo',
+        messages: [
+            { role: 'system', content: prompt },
+            { role: 'user', content: theContent }
+        ],
+        max_tokens: 1000,
+        temperature: 0.5
+    };
+
+    const options = {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(data)
+    };
+
+    try {
+        console.log(`translateSrtContent: START request for assistanceRequest url: ${url}`);
+        const response = await fetch(url, options);
+        console.log('translateSrtContent: Response of assistanceRequest:', response);
+        if (!response.ok) {
+            console.error(`translateSrtContent: Error in assistanceRequest: response status: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const resultData = await response.json();
+        console.log('translateSrtContent: Result:', resultData);
+
+        result = resultData.choices[0].message.content;
+        console.log('translateSrtContent: Response Text:', result);
+    } catch (error) {
+        console.error('translateSrtContent: Error:', error);
+        throw error;
+    }
+
+    return result;
 }

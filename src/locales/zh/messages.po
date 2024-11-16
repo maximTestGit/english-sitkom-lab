@@ -17,17 +17,17 @@ msgstr ""
 msgid "(Click to reveal answer)"
 msgstr "（点击显示答案）"
 
-#: components/playbackSettings.js:133
+#: components/playbackSettings.js:127
 msgid "{speed} of Normal Speed Player"
 msgstr "正常播放速度的{speed}"
 
-#: components/playbackSettings.js:109
+#: components/playbackSettings.js:103
 msgid "{speed} of Normal Speed when you talk"
 msgstr "说话时正常速度的{speed}"
 
 #: components/exerciseView.js:128
-#~ msgid "{uiLanguage} subtitles have been loaded successfully."
-#~ msgstr "{uiLanguage} 字幕已成功加载。"
+msgid "{uiLanguage} subtitles have been loaded successfully."
+msgstr "{uiLanguage} 字幕已成功加载。"
 
 #: components/topDropdownMenu.js:458
 msgid "About"
@@ -58,7 +58,7 @@ msgstr "分析"
 msgid "Answer"
 msgstr "答案"
 
-#: components/playbackSettings.js:92
+#: components/playbackSettings.js:86
 msgid "Blure Youtube Captions"
 msgstr "模糊YouTube字幕"
 
@@ -70,11 +70,11 @@ msgstr "盒子："
 msgid "Bye-bye {name}"
 msgstr "再见 {name}"
 
-#: components/playbackSettings.js:96
+#: components/playbackSettings.js:90
 msgid "Camera"
 msgstr "摄像头"
 
-#: components/exerciseView.js:647
+#: components/exerciseView.js:646
 msgid "Captions for \"{0}\" uploaded successfully!"
 msgstr "字幕 \"{0}\" 上传成功！"
 
@@ -122,19 +122,19 @@ msgstr "条目 \"{textToProcess}\" 已添加到您的闪卡集合中"
 #: components/app.js:114
 #: components/app.js:123
 #: components/captionBox.js:141
-#: components/exerciseView.js:677
+#: components/exerciseView.js:676
 msgid "Error"
 msgstr "错误"
 
-#: components/exerciseView.js:579
+#: components/exerciseView.js:578
 msgid "Error publishing exercise"
 msgstr "发布练习时出错"
 
-#: components/exerciseView.js:678
+#: components/exerciseView.js:677
 msgid "Error saving file."
 msgstr "保存文件时出错。"
 
-#: components/exerciseView.js:654
+#: components/exerciseView.js:653
 msgid "Error uploading Captions for \"{0}\"!"
 msgstr "上传字幕 \"{0}\" 时出错！"
 
@@ -150,7 +150,7 @@ msgstr "练习"
 msgid "File"
 msgstr "文件"
 
-#: components/exerciseView.js:671
+#: components/exerciseView.js:670
 msgid "File \"{fileName}\" saved successfully!"
 msgstr "文件 \"{fileName}\" 保存成功！"
 
@@ -175,7 +175,7 @@ msgstr "你好 {name}"
 msgid "Home"
 msgstr "主页"
 
-#: components/exerciseView.js:571
+#: components/exerciseView.js:570
 msgid "Homework uploaded to the server successfully!"
 msgstr "作业已成功上传到服务器！"
 
@@ -211,7 +211,7 @@ msgstr "退出"
 msgid "Logout {name} failed"
 msgstr "{name} 退出失败"
 
-#: components/playbackSettings.js:78
+#: components/playbackSettings.js:72
 msgid "Loop"
 msgstr "循环"
 
@@ -252,15 +252,15 @@ msgstr "没有要处理的文本"
 msgid "No text to translate"
 msgstr "没有要翻译的文本"
 
-#: components/playbackSettings.js:132
+#: components/playbackSettings.js:126
 msgid "Normal Speed Player"
 msgstr "正常速度播放器"
 
-#: components/playbackSettings.js:108
+#: components/playbackSettings.js:102
 msgid "Normal Speed when you talk"
 msgstr "说话时正常速度"
 
-#: components/exerciseView.js:574
+#: components/exerciseView.js:573
 msgid "OK"
 msgstr "确定"
 
@@ -289,33 +289,21 @@ msgstr "打开设置"
 msgid "Open video on Youtube"
 msgstr "在YouTube上打开视频"
 
-#: components/app.js:89
-#: components/app.js:98
-#: components/captionBox.js:233
-#: components/exerciseView.js:646
-#: components/exerciseView.js:670
-msgid "Operation completed successfully"
-msgstr ""
-
 #: components/captionBox.js:233
 #: components/exerciseView.js:645
 #: components/exerciseView.js:669
-#~ msgid "Operation Success"
-#~ msgstr "操作成功"
+msgid "Operation Success"
+msgstr "操作成功"
 
 #: components/flashcardEditor.js:89
 msgid "Origin Language:"
 msgstr "原始语言："
 
-#: components/exerciseView.js:130
-msgid "Please note that these subtitles are auto-generated and may contain semantic and contextual mistakes."
-msgstr ""
-
-#: components/exerciseView.js:442
+#: components/exerciseView.js:441
 msgid "Please restart recording!"
 msgstr "请重新开始录音！"
 
-#: components/exerciseView.js:580
+#: components/exerciseView.js:579
 msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
 msgstr "请将作业保存到文件中，然后稍后再试。如果问题仍然存在，请联系开发人员。"
 
@@ -331,7 +319,7 @@ msgstr "发音"
 msgid "Question"
 msgstr "问题"
 
-#: components/exerciseView.js:441
+#: components/exerciseView.js:440
 msgid "Recording Synchronization Error"
 msgstr "录音同步错误"
 
@@ -372,25 +360,13 @@ msgstr "选择要处理的文本"
 msgid "Show No Captions"
 msgstr "不显示字幕"
 
-#: components/playbackSettings.js:69
-msgid "Show No Subtitles"
-msgstr ""
-
 #: components/data/showCaptionsOptions.js:5
 msgid "Show Original Captions"
 msgstr "显示原始字幕"
 
-#: components/playbackSettings.js:70
-msgid "Show Original Subtitles"
-msgstr ""
-
 #: components/data/showCaptionsOptions.js:6
 msgid "Show Training Captions"
 msgstr "显示训练字幕"
-
-#: components/playbackSettings.js:71
-msgid "Show Training Subtitles"
-msgstr ""
 
 #: components/playbackSettings.js:58
 msgid "Slight Prompt when you talk"
@@ -410,8 +386,8 @@ msgstr "开始测试"
 
 #: components/app.js:89
 #: components/app.js:98
-#~ msgid "Success"
-#~ msgstr "成功"
+msgid "Success"
+msgstr "成功"
 
 #: components/captionsView.js:284
 msgid "Text"
@@ -421,18 +397,10 @@ msgstr "文本"
 #~ msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
 #~ msgstr "YouTube发布功能暂时不可用。如有必要，请联系开发人员。"
 
-#: components/exerciseView.js:131
-msgid "They are provided solely as a reference tool for practicing speech."
-msgstr ""
-
 #: components/topDropdownMenu.js:425
 #: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "工具"
-
-#: components/exerciseView.js:129
-msgid "Training subtitles have been loaded successfully."
-msgstr ""
 
 #: components/captionBox.js:102
 msgid "Translation"
@@ -454,13 +422,7 @@ msgstr "上传 .srt"
 msgid "View Colection"
 msgstr "查看收藏"
 
-#: components/captionBox.js:94
-#: components/captionBox.js:110
-#: components/captionBox.js:152
-#: components/captionBox.js:175
-#: components/captionBox.js:216
 #: components/captionsView.js:247
-#: components/exerciseView.js:128
 msgid "Warning"
 msgstr "警告"
 
@@ -469,18 +431,18 @@ msgstr "警告"
 #: components/captionBox.js:152
 #: components/captionBox.js:175
 #: components/captionBox.js:216
-#~ msgid "Warning!"
-#~ msgstr "警告！"
+msgid "Warning!"
+msgstr "警告！"
 
 #: components/captionsView.js:248
 msgid "You are not allowed to change Selection, when you have recorded exercise. Please clear recording first.(Click \"Clear Record\" button)"
 msgstr "录制练习时不允许更改选择。请先清除录音。（点击“清除录音”按钮）"
 
-#: components/exerciseView.js:403
+#: components/exerciseView.js:402
 msgid "You have already recorded something. Please clear recording first."
 msgstr "您已经录制了一些内容。请先清除录音。"
 
-#: components/exerciseView.js:572
+#: components/exerciseView.js:571
 msgid "You'll get an email letting you know when your video goes live on YouTube. It'll be set to \"unlisted\" so only the people you send the link to can watch it."
 msgstr "当您的视频在YouTube上发布时，您将收到一封电子邮件通知。它将被设置为“未列出”，因此只有您发送链接的人才能观看。"
 

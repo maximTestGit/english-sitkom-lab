@@ -114,15 +114,15 @@ const ExerciseView = forwardRef(({
     const setIsLoop = (value) => {
         updateSettingKey('isLoop', value);
     };
-    const setShowCaptions = (value) => {
+    const setShowCaptions = async (value) => {
         updateSettingKey('showCaptions', value);
         if (value !== settings.showCaptions) {
             console.log(`LingFlix: setShowCaptions', at position set showCaptions=${settings.showCaptions} = ${value}`);
             if (value === 1) {
-                const captionsObject = captionViewRef.current?.handleReloadCaptions(getLanguageName(learningLanguage));
+                const captionsObject = await captionViewRef.current?.handleReloadCaptions(getLanguageName(learningLanguage));
                 handleCaptionsOpen(captionsObject);
             } else if (value === 2) {
-                const captionsObject = captionViewRef.current?.handleReloadCaptions(getCultureLanguageName(uiLanguage));
+                const captionsObject = await captionViewRef.current?.handleReloadCaptions(getCultureLanguageName(uiLanguage));
                 handleCaptionsOpen(captionsObject);
                 Swal.fire({
                     title: t`Warning`,
@@ -157,13 +157,13 @@ const ExerciseView = forwardRef(({
 
     // #endregion set settings key functions
 
-    const updateSetting = useCallback((key, value) => {
+    const updateSetting = useCallback(async (key, value) => {
         switch (key) {
             case 'isLoop':
                 handleLoopChange(value);
                 break;
             case 'showCaptions':
-                handleShowCaptionsChange(value);
+                await handleShowCaptionsChange(value);
                 break;
             case 'whisperVolume':
                 handleWhisperVolumeChange(value);
@@ -275,8 +275,8 @@ const ExerciseView = forwardRef(({
         setIsLoop(checked);
     };
 
-    const handleShowCaptionsChange = (option) => {
-        setShowCaptions(option);
+    const handleShowCaptionsChange = async (option) => {
+        await setShowCaptions(option);
     };
 
     const handleYourLineSpeedChange = (rate) => {

@@ -17,17 +17,17 @@ msgstr ""
 msgid "(Click to reveal answer)"
 msgstr "(انقر للكشف عن الإجابة)"
 
-#: components/playbackSettings.js:133
+#: components/playbackSettings.js:127
 msgid "{speed} of Normal Speed Player"
 msgstr "{speed} من السرعة العادية للمشغل"
 
-#: components/playbackSettings.js:109
+#: components/playbackSettings.js:103
 msgid "{speed} of Normal Speed when you talk"
 msgstr "{speed} من السرعة العادية عندما تتحدث"
 
 #: components/exerciseView.js:128
-#~ msgid "{uiLanguage} subtitles have been loaded successfully."
-#~ msgstr "تم تحميل ترجمات {uiLanguage} بنجاح."
+msgid "{uiLanguage} subtitles have been loaded successfully."
+msgstr "تم تحميل ترجمات {uiLanguage} بنجاح."
 
 #: components/topDropdownMenu.js:458
 msgid "About"
@@ -58,7 +58,7 @@ msgstr "تحليل"
 msgid "Answer"
 msgstr "الإجابة"
 
-#: components/playbackSettings.js:92
+#: components/playbackSettings.js:86
 msgid "Blure Youtube Captions"
 msgstr "طمس ترجمات يوتيوب"
 
@@ -70,11 +70,11 @@ msgstr "صندوق:"
 msgid "Bye-bye {name}"
 msgstr "مع السلامة {name}"
 
-#: components/playbackSettings.js:96
+#: components/playbackSettings.js:90
 msgid "Camera"
 msgstr "الكاميرا"
 
-#: components/exerciseView.js:647
+#: components/exerciseView.js:646
 msgid "Captions for \"{0}\" uploaded successfully!"
 msgstr "تم تحميل ترجمات \"{0}\" بنجاح!"
 
@@ -122,19 +122,19 @@ msgstr "تم إضافة \"{textToProcess}\" إلى مجموعة البطاقات
 #: components/app.js:114
 #: components/app.js:123
 #: components/captionBox.js:141
-#: components/exerciseView.js:677
+#: components/exerciseView.js:676
 msgid "Error"
 msgstr "خطأ"
 
-#: components/exerciseView.js:579
+#: components/exerciseView.js:578
 msgid "Error publishing exercise"
 msgstr "خطأ في نشر التمرين"
 
-#: components/exerciseView.js:678
+#: components/exerciseView.js:677
 msgid "Error saving file."
 msgstr "خطأ في حفظ الملف."
 
-#: components/exerciseView.js:654
+#: components/exerciseView.js:653
 msgid "Error uploading Captions for \"{0}\"!"
 msgstr "خطأ في تحميل ترجمات \"{0}\"!"
 
@@ -150,7 +150,7 @@ msgstr "تمرين"
 msgid "File"
 msgstr "ملف"
 
-#: components/exerciseView.js:671
+#: components/exerciseView.js:670
 msgid "File \"{fileName}\" saved successfully!"
 msgstr "تم حفظ الملف \"{fileName}\" بنجاح!"
 
@@ -175,7 +175,7 @@ msgstr "مرحباً {name}"
 msgid "Home"
 msgstr "الرئيسية"
 
-#: components/exerciseView.js:571
+#: components/exerciseView.js:570
 msgid "Homework uploaded to the server successfully!"
 msgstr "تم تحميل الواجب إلى الخادم بنجاح!"
 
@@ -211,7 +211,7 @@ msgstr "تسجيل الخروج"
 msgid "Logout {name} failed"
 msgstr "فشل تسجيل خروج {name}"
 
-#: components/playbackSettings.js:78
+#: components/playbackSettings.js:72
 msgid "Loop"
 msgstr "تكرار"
 
@@ -252,15 +252,15 @@ msgstr "لا يوجد نص للمعالجة"
 msgid "No text to translate"
 msgstr "لا يوجد نص للترجمة"
 
-#: components/playbackSettings.js:132
+#: components/playbackSettings.js:126
 msgid "Normal Speed Player"
 msgstr "مشغل بالسرعة العادية"
 
-#: components/playbackSettings.js:108
+#: components/playbackSettings.js:102
 msgid "Normal Speed when you talk"
 msgstr "السرعة العادية عندما تتحدث"
 
-#: components/exerciseView.js:574
+#: components/exerciseView.js:573
 msgid "OK"
 msgstr "حسنًا"
 
@@ -289,33 +289,21 @@ msgstr "فتح الإعدادات"
 msgid "Open video on Youtube"
 msgstr "فتح الفيديو على يوتيوب"
 
-#: components/app.js:89
-#: components/app.js:98
-#: components/captionBox.js:233
-#: components/exerciseView.js:646
-#: components/exerciseView.js:670
-msgid "Operation completed successfully"
-msgstr ""
-
 #: components/captionBox.js:233
 #: components/exerciseView.js:645
 #: components/exerciseView.js:669
-#~ msgid "Operation Success"
-#~ msgstr "نجاح العملية"
+msgid "Operation Success"
+msgstr "نجاح العملية"
 
 #: components/flashcardEditor.js:89
 msgid "Origin Language:"
 msgstr "اللغة الأصلية:"
 
-#: components/exerciseView.js:130
-msgid "Please note that these subtitles are auto-generated and may contain semantic and contextual mistakes."
-msgstr ""
-
-#: components/exerciseView.js:442
+#: components/exerciseView.js:441
 msgid "Please restart recording!"
 msgstr "يرجى إعادة بدء التسجيل!"
 
-#: components/exerciseView.js:580
+#: components/exerciseView.js:579
 msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
 msgstr "يرجى حفظ الواجب في الملف والمحاولة مرة أخرى لاحقًا. اتصل بالمطور إذا استمرت المشكلة."
 
@@ -331,7 +319,7 @@ msgstr "النطق"
 msgid "Question"
 msgstr "السؤال"
 
-#: components/exerciseView.js:441
+#: components/exerciseView.js:440
 msgid "Recording Synchronization Error"
 msgstr "خطأ في تزامن التسجيل"
 
@@ -372,25 +360,13 @@ msgstr "اختر النص للمعالجة"
 msgid "Show No Captions"
 msgstr "عدم عرض الترجمات"
 
-#: components/playbackSettings.js:69
-msgid "Show No Subtitles"
-msgstr ""
-
 #: components/data/showCaptionsOptions.js:5
 msgid "Show Original Captions"
 msgstr "عرض الترجمات الأصلية"
 
-#: components/playbackSettings.js:70
-msgid "Show Original Subtitles"
-msgstr ""
-
 #: components/data/showCaptionsOptions.js:6
 msgid "Show Training Captions"
 msgstr "عرض ترجمات التدريب"
-
-#: components/playbackSettings.js:71
-msgid "Show Training Subtitles"
-msgstr ""
 
 #: components/playbackSettings.js:58
 msgid "Slight Prompt when you talk"
@@ -410,8 +386,8 @@ msgstr "بدء الاختبار"
 
 #: components/app.js:89
 #: components/app.js:98
-#~ msgid "Success"
-#~ msgstr "نجاح"
+msgid "Success"
+msgstr "نجاح"
 
 #: components/captionsView.js:284
 msgid "Text"
@@ -421,18 +397,10 @@ msgstr "النص"
 #~ msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
 #~ msgstr "ميزة نشر YouTube غير متاحة مؤقتًا. يرجى الاتصال بالمطور إذا لزم الأمر."
 
-#: components/exerciseView.js:131
-msgid "They are provided solely as a reference tool for practicing speech."
-msgstr ""
-
 #: components/topDropdownMenu.js:425
 #: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "الأدوات"
-
-#: components/exerciseView.js:129
-msgid "Training subtitles have been loaded successfully."
-msgstr ""
 
 #: components/captionBox.js:102
 msgid "Translation"
@@ -454,13 +422,7 @@ msgstr "رفع ملف .srt"
 msgid "View Colection"
 msgstr "عرض المجموعة"
 
-#: components/captionBox.js:94
-#: components/captionBox.js:110
-#: components/captionBox.js:152
-#: components/captionBox.js:175
-#: components/captionBox.js:216
 #: components/captionsView.js:247
-#: components/exerciseView.js:128
 msgid "Warning"
 msgstr "تحذير"
 
@@ -469,18 +431,18 @@ msgstr "تحذير"
 #: components/captionBox.js:152
 #: components/captionBox.js:175
 #: components/captionBox.js:216
-#~ msgid "Warning!"
-#~ msgstr "تحذير!"
+msgid "Warning!"
+msgstr "تحذير!"
 
 #: components/captionsView.js:248
 msgid "You are not allowed to change Selection, when you have recorded exercise. Please clear recording first.(Click \"Clear Record\" button)"
 msgstr "غير مسموح لك بتغيير التحديد عندما تكون قد سجلت تمرينًا. يرجى مسح التسجيل أولاً. (انقر على زر \"مسح التسجيل\")"
 
-#: components/exerciseView.js:403
+#: components/exerciseView.js:402
 msgid "You have already recorded something. Please clear recording first."
 msgstr "لقد سجلت شيئًا بالفعل. يرجى مسح التسجيل أولاً."
 
-#: components/exerciseView.js:572
+#: components/exerciseView.js:571
 msgid "You'll get an email letting you know when your video goes live on YouTube. It'll be set to \"unlisted\" so only the people you send the link to can watch it."
 msgstr "ستتلقى بريدًا إلكترونيًا لإعلامك عندما يصبح الفيديو الخاص بك مباشرًا على YouTube. سيتم تعيينه على \"غير مدرج\" بحيث يمكن فقط للأشخاص الذين ترسل لهم الرابط مشاهدته."
 

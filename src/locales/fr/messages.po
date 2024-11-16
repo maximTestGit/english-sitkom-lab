@@ -17,17 +17,17 @@ msgstr ""
 msgid "(Click to reveal answer)"
 msgstr "(Cliquez pour révéler la réponse)"
 
-#: components/playbackSettings.js:133
+#: components/playbackSettings.js:127
 msgid "{speed} of Normal Speed Player"
 msgstr "{speed} de la vitesse normale du lecteur"
 
-#: components/playbackSettings.js:109
+#: components/playbackSettings.js:103
 msgid "{speed} of Normal Speed when you talk"
 msgstr "{speed} de la vitesse normale quand vous parlez"
 
 #: components/exerciseView.js:128
-#~ msgid "{uiLanguage} subtitles have been loaded successfully."
-#~ msgstr "Les sous-titres en {uiLanguage} ont été chargés avec succès."
+msgid "{uiLanguage} subtitles have been loaded successfully."
+msgstr "Les sous-titres en {uiLanguage} ont été chargés avec succès."
 
 #: components/topDropdownMenu.js:458
 msgid "About"
@@ -58,7 +58,7 @@ msgstr "Analyse"
 msgid "Answer"
 msgstr "Réponse"
 
-#: components/playbackSettings.js:92
+#: components/playbackSettings.js:86
 msgid "Blure Youtube Captions"
 msgstr "Flouter les sous-titres Youtube"
 
@@ -70,11 +70,11 @@ msgstr "Boîte :"
 msgid "Bye-bye {name}"
 msgstr "Au revoir {name}"
 
-#: components/playbackSettings.js:96
+#: components/playbackSettings.js:90
 msgid "Camera"
 msgstr "Caméra"
 
-#: components/exerciseView.js:647
+#: components/exerciseView.js:646
 msgid "Captions for \"{0}\" uploaded successfully!"
 msgstr "Les sous-titres pour \"{0}\" ont été téléversés avec succès!"
 
@@ -122,19 +122,19 @@ msgstr "L'entrée \"{textToProcess}\" a été ajoutée à votre collection de ca
 #: components/app.js:114
 #: components/app.js:123
 #: components/captionBox.js:141
-#: components/exerciseView.js:677
+#: components/exerciseView.js:676
 msgid "Error"
 msgstr "Erreur"
 
-#: components/exerciseView.js:579
+#: components/exerciseView.js:578
 msgid "Error publishing exercise"
 msgstr "Erreur lors de la publication de l'exercice"
 
-#: components/exerciseView.js:678
+#: components/exerciseView.js:677
 msgid "Error saving file."
 msgstr "Erreur lors de l'enregistrement du fichier."
 
-#: components/exerciseView.js:654
+#: components/exerciseView.js:653
 msgid "Error uploading Captions for \"{0}\"!"
 msgstr "Erreur lors du téléversement des sous-titres pour \"{0}\"!"
 
@@ -150,7 +150,7 @@ msgstr "Exercice"
 msgid "File"
 msgstr "Fichier"
 
-#: components/exerciseView.js:671
+#: components/exerciseView.js:670
 msgid "File \"{fileName}\" saved successfully!"
 msgstr "Le fichier \"{fileName}\" a été enregistré avec succès!"
 
@@ -175,7 +175,7 @@ msgstr "Bonjour {name}"
 msgid "Home"
 msgstr "Accueil"
 
-#: components/exerciseView.js:571
+#: components/exerciseView.js:570
 msgid "Homework uploaded to the server successfully!"
 msgstr "Les devoirs ont été téléversés sur le serveur avec succès!"
 
@@ -211,7 +211,7 @@ msgstr "Déconnexion"
 msgid "Logout {name} failed"
 msgstr "Échec de déconnexion pour {name}"
 
-#: components/playbackSettings.js:78
+#: components/playbackSettings.js:72
 msgid "Loop"
 msgstr "Boucle"
 
@@ -252,15 +252,15 @@ msgstr "Aucun texte à traiter"
 msgid "No text to translate"
 msgstr "Aucun texte à traduire"
 
-#: components/playbackSettings.js:132
+#: components/playbackSettings.js:126
 msgid "Normal Speed Player"
 msgstr "Lecteur à vitesse normale"
 
-#: components/playbackSettings.js:108
+#: components/playbackSettings.js:102
 msgid "Normal Speed when you talk"
 msgstr "Vitesse normale quand vous parlez"
 
-#: components/exerciseView.js:574
+#: components/exerciseView.js:573
 msgid "OK"
 msgstr "OK"
 
@@ -289,33 +289,21 @@ msgstr "Ouvrir les paramètres"
 msgid "Open video on Youtube"
 msgstr "Ouvrir la vidéo sur Youtube"
 
-#: components/app.js:89
-#: components/app.js:98
-#: components/captionBox.js:233
-#: components/exerciseView.js:646
-#: components/exerciseView.js:670
-msgid "Operation completed successfully"
-msgstr ""
-
 #: components/captionBox.js:233
 #: components/exerciseView.js:645
 #: components/exerciseView.js:669
-#~ msgid "Operation Success"
-#~ msgstr "Opération réussie"
+msgid "Operation Success"
+msgstr "Opération réussie"
 
 #: components/flashcardEditor.js:89
 msgid "Origin Language:"
 msgstr "Langue d'origine :"
 
-#: components/exerciseView.js:130
-msgid "Please note that these subtitles are auto-generated and may contain semantic and contextual mistakes."
-msgstr ""
-
-#: components/exerciseView.js:442
+#: components/exerciseView.js:441
 msgid "Please restart recording!"
 msgstr "Veuillez redémarrer l'enregistrement!"
 
-#: components/exerciseView.js:580
+#: components/exerciseView.js:579
 msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
 msgstr "Veuillez enregistrer vos devoirs dans le fichier et réessayer plus tard. Contactez le développeur si le problème persiste."
 
@@ -331,7 +319,7 @@ msgstr "Prononciation"
 msgid "Question"
 msgstr "Question"
 
-#: components/exerciseView.js:441
+#: components/exerciseView.js:440
 msgid "Recording Synchronization Error"
 msgstr "Erreur de synchronisation de l'enregistrement"
 
@@ -372,25 +360,13 @@ msgstr "Sélectionnez le texte à traiter"
 msgid "Show No Captions"
 msgstr "Ne pas afficher les sous-titres"
 
-#: components/playbackSettings.js:69
-msgid "Show No Subtitles"
-msgstr ""
-
 #: components/data/showCaptionsOptions.js:5
 msgid "Show Original Captions"
 msgstr "Afficher les sous-titres originaux"
 
-#: components/playbackSettings.js:70
-msgid "Show Original Subtitles"
-msgstr ""
-
 #: components/data/showCaptionsOptions.js:6
 msgid "Show Training Captions"
 msgstr "Afficher les sous-titres d'entraînement"
-
-#: components/playbackSettings.js:71
-msgid "Show Training Subtitles"
-msgstr ""
 
 #: components/playbackSettings.js:58
 msgid "Slight Prompt when you talk"
@@ -410,8 +386,8 @@ msgstr "Commencer le test"
 
 #: components/app.js:89
 #: components/app.js:98
-#~ msgid "Success"
-#~ msgstr "Succès"
+msgid "Success"
+msgstr "Succès"
 
 #: components/captionsView.js:284
 msgid "Text"
@@ -421,18 +397,10 @@ msgstr "Texte"
 #~ msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
 #~ msgstr "La fonctionnalité de publication YouTube est temporairement indisponible. Veuillez contacter le développeur si nécessaire."
 
-#: components/exerciseView.js:131
-msgid "They are provided solely as a reference tool for practicing speech."
-msgstr ""
-
 #: components/topDropdownMenu.js:425
 #: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "Outils"
-
-#: components/exerciseView.js:129
-msgid "Training subtitles have been loaded successfully."
-msgstr ""
 
 #: components/captionBox.js:102
 msgid "Translation"
@@ -454,13 +422,7 @@ msgstr "Téléverser .srt"
 msgid "View Colection"
 msgstr "Voir la collection"
 
-#: components/captionBox.js:94
-#: components/captionBox.js:110
-#: components/captionBox.js:152
-#: components/captionBox.js:175
-#: components/captionBox.js:216
 #: components/captionsView.js:247
-#: components/exerciseView.js:128
 msgid "Warning"
 msgstr "Attention"
 
@@ -469,18 +431,18 @@ msgstr "Attention"
 #: components/captionBox.js:152
 #: components/captionBox.js:175
 #: components/captionBox.js:216
-#~ msgid "Warning!"
-#~ msgstr "Attention !"
+msgid "Warning!"
+msgstr "Attention !"
 
 #: components/captionsView.js:248
 msgid "You are not allowed to change Selection, when you have recorded exercise. Please clear recording first.(Click \"Clear Record\" button)"
 msgstr "Vous n'êtes pas autorisé à changer la sélection lorsque vous avez enregistré un exercice. Veuillez d'abord effacer l'enregistrement. (Cliquez sur le bouton \"Effacer l'enregistrement\")"
 
-#: components/exerciseView.js:403
+#: components/exerciseView.js:402
 msgid "You have already recorded something. Please clear recording first."
 msgstr "Vous avez déjà enregistré quelque chose. Veuillez d'abord effacer l'enregistrement."
 
-#: components/exerciseView.js:572
+#: components/exerciseView.js:571
 msgid "You'll get an email letting you know when your video goes live on YouTube. It'll be set to \"unlisted\" so only the people you send the link to can watch it."
 msgstr "Vous recevrez un email vous informant lorsque votre vidéo sera mise en ligne sur YouTube. Elle sera définie comme \"non répertoriée\" afin que seules les personnes à qui vous envoyez le lien puissent la regarder."
 

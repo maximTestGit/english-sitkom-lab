@@ -189,14 +189,11 @@ const CaptionsView = forwardRef(({
     );
     useImperativeHandle(ref, () =>
     ({
-        handleReloadCaptions(language) {
-            retrieveCaptions(videoData.videoId, null, language)
-                .then(captions => {
-                    onClipIndexRangeChangeWrapper(captions);
-                });
+        async handleReloadCaptions(language) {
+            const newCaptions = await retrieveCaptions(videoData.videoId, null, language);
+            onClipIndexRangeChangeWrapper(newCaptions);
         }
-    })
-    );
+    }));
 
     useEffect(() => {
         const findCurrentCaption = (captions, position) => {
