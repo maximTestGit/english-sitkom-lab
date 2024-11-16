@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Switch from './helpers/switch';
 import { isRunningOnBigScreen } from './data/configurator';
 import { t, Trans } from '@lingui/macro';
+//import showCaptionsOptions from './data/showCaptionsOptions';
 
 const PlaybackSettings = ({
     settings,
@@ -10,7 +11,7 @@ const PlaybackSettings = ({
     onImbededCaptionBluringChange, onAllowCameraChange
 }) => {
     let isLoop = settings.isLoop;
-    let toShowCaptions = settings.toShowCaptions;
+    let showCaptions = settings.showCaptions;
     let whisperVolume = settings.whisperVolume;
     let playerLineSpeed = settings.playerLineSpeed;
     let playerLineVolume = settings.playerLineVolume;
@@ -60,6 +61,16 @@ const PlaybackSettings = ({
     ];
     const speedOptions = [0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
 
+    const handleShowCaptionsChange = (event) => {
+        const newShowCaptions = parseInt(event.target.value);
+        onShowCaptionsChange(newShowCaptions);
+    }
+    const showCaptionsOptions = [
+        { value: 0, text: t`Show No Subtitles` },
+        { value: 1, text: t`Show Original Subtitles` },
+        { value: 2, text: t`Show Training Subtitles` },
+    ];
+
     return (
         <>
             <div className="row mb-2">
@@ -67,7 +78,15 @@ const PlaybackSettings = ({
                     <Switch id="loopPlaySwitch" label={<Trans>Loop</Trans>} onChange={onLoopChange} initValue={isLoop} />
                 </div>
                 <div className="col-5 col-md-3 col-lg-4">
-                    <Switch id="showCaptionsSwitch" label={<Trans>Exercise Captions</Trans>} onChange={onShowCaptionsChange} initValue={toShowCaptions} />
+                    <select className="form-select form-select-sm"
+                        onChange={handleShowCaptionsChange}
+                        value={showCaptions}>
+                        {showCaptionsOptions.map(({ value, text }) => (
+                            <option key={value} value={value}>
+                                {text}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div className="col-4 col-md-3 col-lg-4">
                     <Switch id="imbededCaptionBluringSwitch" label={<Trans>Blure Youtube Captions</Trans>} onChange={onImbededCaptionBluringChange} initValue={isImbededCaptionsBlured} />

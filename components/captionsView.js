@@ -104,7 +104,7 @@ const CaptionsView = forwardRef(({
         return result;
     };
 
-    const retrieveCaptions = async (videoId, captions, toRestoreDefaultExercise = false) => {
+    const retrieveCaptions = async (videoId, captions, language, toRestoreDefaultExercise = false) => {
         try {
             onWaitForAction(true);
             let newCaptions = captions;
@@ -112,6 +112,7 @@ const CaptionsView = forwardRef(({
                 newCaptions = await fetchRetrieveCaptions(
                     user,
                     videoData.videoId,
+                    language ?? videoData.learningLanguage,
                     videoData.learningLanguage,
                     videoData.playlistId,
                     user?.username,
@@ -171,17 +172,25 @@ const CaptionsView = forwardRef(({
     // if cations are loaded from srt file
     useEffect(() => {
         if (srtCaptionsData?.length > 0) {
-            assignCaptions(srtCaptionsData)
-                .then(captions => {
-                    onClipIndexRangeChangeWrapper(captions);
-                });
+            const loadedCaptions = assignCaptions(srtCaptionsData);
+            onClipIndexRangeChangeWrapper(loadedCaptions);
         }
     }, [srtCaptionsData]);
 
     useImperativeHandle(ref, () =>
     ({
         handleRestoreDefaultExercise() {
-            retrieveCaptions(videoData.videoId, null, true)
+            retrieveCaptions(videoData.videoId, null, null, true)
+                .then(captions => {
+                    onClipIndexRangeChangeWrapper(captions);
+                });
+        }
+    })
+    );
+    useImperativeHandle(ref, () =>
+    ({
+        handleReloadCaptions(language) {
+            retrieveCaptions(videoData.videoId, null, language)
                 .then(captions => {
                     onClipIndexRangeChangeWrapper(captions);
                 });
@@ -235,8 +244,8 @@ const CaptionsView = forwardRef(({
     const handleSelectCaptionClick = (event) => {
         if (hasRecordedChunks) {
             Swal.fire({
-                title: 'Warning',
-                text: 'You are not allowed to change Selection, when you have recorded exercise.\nPlease clear recording first.(Click "Clear Record" button)',
+                title: t`Warning`,
+                text: t`You are not allowed to change Selection, when you have recorded exercise. Please clear recording first.(Click "Clear Record" button)`,
                 icon: 'warning',
                 confirmButtonText: 'OK'
             });

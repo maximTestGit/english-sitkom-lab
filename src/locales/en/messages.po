@@ -17,13 +17,17 @@ msgstr ""
 msgid "(Click to reveal answer)"
 msgstr "(Click to reveal answer)"
 
-#: components/playbackSettings.js:114
+#: components/playbackSettings.js:133
 msgid "{speed} of Normal Speed Player"
 msgstr "{speed} of Normal Speed Player"
 
-#: components/playbackSettings.js:90
+#: components/playbackSettings.js:109
 msgid "{speed} of Normal Speed when you talk"
 msgstr "{speed} of Normal Speed when you talk"
+
+#: components/exerciseView.js:128
+#~ msgid "{uiLanguage} subtitles have been loaded successfully."
+#~ msgstr "{uiLanguage} subtitles have been loaded successfully."
 
 #: components/topDropdownMenu.js:458
 msgid "About"
@@ -54,7 +58,7 @@ msgstr "Analysis"
 msgid "Answer"
 msgstr "Answer"
 
-#: components/playbackSettings.js:73
+#: components/playbackSettings.js:92
 msgid "Blure Youtube Captions"
 msgstr "Blure Youtube Captions"
 
@@ -66,9 +70,13 @@ msgstr "Box:"
 msgid "Bye-bye {name}"
 msgstr "Bye-bye {name}"
 
-#: components/playbackSettings.js:77
+#: components/playbackSettings.js:96
 msgid "Camera"
 msgstr "Camera"
+
+#: components/exerciseView.js:647
+msgid "Captions for \"{0}\" uploaded successfully!"
+msgstr "Captions for \"{0}\" uploaded successfully!"
 
 #: components/flashcardEditor.js:45
 msgid "Card"
@@ -113,26 +121,44 @@ msgstr "Entry \"{textToProcess}\" is added to your flashcard collection"
 #: components/app.js:106
 #: components/app.js:114
 #: components/app.js:123
+#: components/captionBox.js:141
+#: components/exerciseView.js:677
 msgid "Error"
 msgstr "Error"
+
+#: components/exerciseView.js:579
+msgid "Error publishing exercise"
+msgstr "Error publishing exercise"
+
+#: components/exerciseView.js:678
+msgid "Error saving file."
+msgstr "Error saving file."
+
+#: components/exerciseView.js:654
+msgid "Error uploading Captions for \"{0}\"!"
+msgstr "Error uploading Captions for \"{0}\"!"
 
 #: components/videoListView.js:86
 msgid "Exercise"
 msgstr "Exercise"
 
 #: components/playbackSettings.js:70
-msgid "Exercise Captions"
-msgstr "Exercise Captions"
+#~ msgid "Exercise Captions"
+#~ msgstr "Exercise Captions"
 
 #: components/topDropdownMenu.js:417
 msgid "File"
 msgstr "File"
 
+#: components/exerciseView.js:671
+msgid "File \"{fileName}\" saved successfully!"
+msgstr "File \"{fileName}\" saved successfully!"
+
 #: components/topDropdownMenu.js:440
 msgid "Flashcards"
 msgstr "Flashcards"
 
-#: components/topDropdownMenu.js:635
+#: components/topDropdownMenu.js:636
 msgid "Flashcards Exam"
 msgstr "Flashcards Exam"
 
@@ -153,6 +179,10 @@ msgstr "Hello {name}"
 #: components/topDropdownMenu.js:453
 msgid "Home"
 msgstr "Home"
+
+#: components/exerciseView.js:571
+msgid "Homework uploaded to the server successfully!"
+msgstr "Homework uploaded to the server successfully!"
 
 #: components/topDropdownMenu.js:461
 msgid "How To Register(Free)?"
@@ -190,15 +220,15 @@ msgstr "Logout"
 msgid "Logout {name} failed"
 msgstr "Logout {name} failed"
 
-#: components/playbackSettings.js:67
+#: components/playbackSettings.js:78
 msgid "Loop"
 msgstr "Loop"
 
-#: components/playbackSettings.js:59
+#: components/playbackSettings.js:60
 msgid "Loud Prompt when you talk"
 msgstr "Loud Prompt when you talk"
 
-#: components/playbackSettings.js:56
+#: components/playbackSettings.js:57
 msgid "Mute Player when you talk"
 msgstr "Mute Player when you talk"
 
@@ -235,13 +265,17 @@ msgstr "No text to process"
 msgid "No text to translate"
 msgstr "No text to translate"
 
-#: components/playbackSettings.js:113
+#: components/playbackSettings.js:132
 msgid "Normal Speed Player"
 msgstr "Normal Speed Player"
 
-#: components/playbackSettings.js:89
+#: components/playbackSettings.js:108
 msgid "Normal Speed when you talk"
 msgstr "Normal Speed when you talk"
+
+#: components/exerciseView.js:574
+msgid "OK"
+msgstr "OK"
 
 #: components/topDropdownMenu.js:421
 msgid "Open .json"
@@ -268,6 +302,20 @@ msgstr "Open Settings"
 msgid "Open video on Youtube"
 msgstr "Open video on Youtube"
 
+#: components/app.js:89
+#: components/app.js:98
+#: components/captionBox.js:233
+#: components/exerciseView.js:646
+#: components/exerciseView.js:670
+msgid "Operation completed successfully"
+msgstr "Operation completed successfully"
+
+#: components/captionBox.js:233
+#: components/exerciseView.js:645
+#: components/exerciseView.js:669
+#~ msgid "Operation Success"
+#~ msgstr "Operation Success"
+
 #: components/flashcardEditor.js:89
 msgid "Origin Language:"
 msgstr "Origin Language:"
@@ -276,7 +324,19 @@ msgstr "Origin Language:"
 #~ msgid "Passwords do not match!"
 #~ msgstr "Passwords do not match!"
 
-#: components/playbackSettings.js:58
+#: components/exerciseView.js:130
+msgid "Please note that these subtitles are auto-generated and may contain semantic and contextual mistakes."
+msgstr "Please note that these subtitles are auto-generated and may contain semantic and contextual mistakes."
+
+#: components/exerciseView.js:442
+msgid "Please restart recording!"
+msgstr "Please restart recording!"
+
+#: components/exerciseView.js:580
+msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
+msgstr "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
+
+#: components/playbackSettings.js:59
 msgid "Prompt when you talk"
 msgstr "Prompt when you talk"
 
@@ -287,6 +347,10 @@ msgstr "Pronunciation"
 #: components/flashcardExam.js:138
 msgid "Question"
 msgstr "Question"
+
+#: components/exerciseView.js:441
+msgid "Recording Synchronization Error"
+msgstr "Recording Synchronization Error"
 
 #: components/topDropdownMenu.js:408
 msgid "Register"
@@ -316,7 +380,7 @@ msgstr "Save"
 msgid "Save .srt"
 msgstr "Save .srt"
 
-#: components/captionsView.js:271
+#: components/captionsView.js:281
 msgid "Select"
 msgstr "Select"
 
@@ -325,11 +389,39 @@ msgstr "Select"
 msgid "Select text to process"
 msgstr "Select text to process"
 
-#: components/playbackSettings.js:57
+#: components/data/showCaptionsOptions.js:4
+msgid "Show No Captions"
+msgstr "Show No Captions"
+
+#: components/playbackSettings.js:69
+msgid "Show No Subtitles"
+msgstr "Show No Subtitles"
+
+#: components/data/showCaptionsOptions.js:5
+msgid "Show Original Captions"
+msgstr "Show Original Captions"
+
+#: components/playbackSettings.js:70
+msgid "Show Original Subtitles"
+msgstr "Show Original Subtitles"
+
+#: components/data/showCaptionsOptions.js:6
+msgid "Show Training Captions"
+msgstr "Show Training Captions"
+
+#: components/playbackSettings.js:71
+msgid "Show Training Subtitles"
+msgstr "Show Training Subtitles"
+
+#: components/playbackSettings.js:58
 msgid "Slight Prompt when you talk"
 msgstr "Slight Prompt when you talk"
 
-#: components/captionsView.js:273
+#: components/captionBox.js:142
+msgid "Speech synthesis is not supported in this browser."
+msgstr "Speech synthesis is not supported in this browser."
+
+#: components/captionsView.js:283
 msgid "Start (sec)"
 msgstr "Start (sec)"
 
@@ -339,11 +431,10 @@ msgstr "Start Test"
 
 #: components/app.js:89
 #: components/app.js:98
-#: components/captionBox.js:233
-msgid "Success"
-msgstr "Success"
+#~ msgid "Success"
+#~ msgstr "Success"
 
-#: components/captionsView.js:274
+#: components/captionsView.js:284
 msgid "Text"
 msgstr "Text"
 
@@ -352,13 +443,21 @@ msgstr "Text"
 #~ msgstr "Text Analysis"
 
 #: components/exerciseView.js:562
-msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
-msgstr "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
+#~ msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
+#~ msgstr "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
+
+#: components/exerciseView.js:131
+msgid "They are provided solely as a reference tool for practicing speech."
+msgstr "They are provided solely as a reference tool for practicing speech."
 
 #: components/topDropdownMenu.js:425
 #: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "Tools"
+
+#: components/exerciseView.js:129
+msgid "Training subtitles have been loaded successfully."
+msgstr "Training subtitles have been loaded successfully."
 
 #: components/captionBox.js:102
 msgid "Translation"
@@ -385,14 +484,36 @@ msgstr "View Colection"
 #: components/captionBox.js:152
 #: components/captionBox.js:175
 #: components/captionBox.js:216
-msgid "Warning!"
-msgstr "Warning!"
+#: components/captionsView.js:247
+#: components/exerciseView.js:128
+msgid "Warning"
+msgstr "Warning"
+
+#: components/captionBox.js:94
+#: components/captionBox.js:110
+#: components/captionBox.js:152
+#: components/captionBox.js:175
+#: components/captionBox.js:216
+#~ msgid "Warning!"
+#~ msgstr "Warning!"
+
+#: components/captionsView.js:248
+msgid "You are not allowed to change Selection, when you have recorded exercise. Please clear recording first.(Click \"Clear Record\" button)"
+msgstr "You are not allowed to change Selection, when you have recorded exercise. Please clear recording first.(Click \"Clear Record\" button)"
+
+#: components/exerciseView.js:403
+msgid "You have already recorded something. Please clear recording first."
+msgstr "You have already recorded something. Please clear recording first."
+
+#: components/exerciseView.js:572
+msgid "You'll get an email letting you know when your video goes live on YouTube. It'll be set to \"unlisted\" so only the people you send the link to can watch it."
+msgstr "You'll get an email letting you know when your video goes live on YouTube. It'll be set to \"unlisted\" so only the people you send the link to can watch it."
 
 #: components/flashcardExam.js:125
 msgid "Youglish"
 msgstr "Youglish"
 
-#: components/captionsView.js:272
+#: components/captionsView.js:282
 msgid "Your Line"
 msgstr "Your Line"
 

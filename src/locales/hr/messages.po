@@ -17,13 +17,17 @@ msgstr ""
 msgid "(Click to reveal answer)"
 msgstr "(Kliknite za otkrivanje odgovora)"
 
-#: components/playbackSettings.js:114
+#: components/playbackSettings.js:133
 msgid "{speed} of Normal Speed Player"
 msgstr "{speed} normalne brzine reprodukcije"
 
-#: components/playbackSettings.js:90
+#: components/playbackSettings.js:109
 msgid "{speed} of Normal Speed when you talk"
 msgstr "{speed} normalne brzine kada govorite"
+
+#: components/exerciseView.js:128
+#~ msgid "{uiLanguage} subtitles have been loaded successfully."
+#~ msgstr "{uiLanguage} titlovi su uspješno učitani."
 
 #: components/topDropdownMenu.js:458
 msgid "About"
@@ -54,7 +58,7 @@ msgstr "Analiza"
 msgid "Answer"
 msgstr "Odgovor"
 
-#: components/playbackSettings.js:73
+#: components/playbackSettings.js:92
 msgid "Blure Youtube Captions"
 msgstr "Zamuti YouTube titlove"
 
@@ -66,9 +70,13 @@ msgstr "Kutija:"
 msgid "Bye-bye {name}"
 msgstr "Doviđenja {name}"
 
-#: components/playbackSettings.js:77
+#: components/playbackSettings.js:96
 msgid "Camera"
 msgstr "Kamera"
+
+#: components/exerciseView.js:647
+msgid "Captions for \"{0}\" uploaded successfully!"
+msgstr "Titlovi za \"{0}\" uspješno učitani!"
 
 #: components/flashcardEditor.js:45
 msgid "Card"
@@ -113,26 +121,44 @@ msgstr "Unos \"{textToProcess}\" je dodan u vašu kolekciju kartica"
 #: components/app.js:106
 #: components/app.js:114
 #: components/app.js:123
+#: components/captionBox.js:141
+#: components/exerciseView.js:677
 msgid "Error"
 msgstr "Greška"
+
+#: components/exerciseView.js:579
+msgid "Error publishing exercise"
+msgstr "Greška pri objavljivanju vježbe"
+
+#: components/exerciseView.js:678
+msgid "Error saving file."
+msgstr "Greška pri spremanju datoteke."
+
+#: components/exerciseView.js:654
+msgid "Error uploading Captions for \"{0}\"!"
+msgstr "Greška pri učitavanju titlova za \"{0}\"!"
 
 #: components/videoListView.js:86
 msgid "Exercise"
 msgstr "Vježba"
 
 #: components/playbackSettings.js:70
-msgid "Exercise Captions"
-msgstr "Titlovi za vježbu"
+#~ msgid "Exercise Captions"
+#~ msgstr "Titlovi za vježbu"
 
 #: components/topDropdownMenu.js:417
 msgid "File"
 msgstr "Datoteka"
 
+#: components/exerciseView.js:671
+msgid "File \"{fileName}\" saved successfully!"
+msgstr "Datoteka \"{fileName}\" uspješno spremljena!"
+
 #: components/topDropdownMenu.js:440
 msgid "Flashcards"
 msgstr "Kartice za učenje"
 
-#: components/topDropdownMenu.js:635
+#: components/topDropdownMenu.js:636
 msgid "Flashcards Exam"
 msgstr "Ispit kartica za učenje"
 
@@ -148,6 +174,10 @@ msgstr "Pozdrav {name}"
 #: components/topDropdownMenu.js:453
 msgid "Home"
 msgstr "Početna"
+
+#: components/exerciseView.js:571
+msgid "Homework uploaded to the server successfully!"
+msgstr "Zadaća uspješno učitana na server!"
 
 #: components/topDropdownMenu.js:461
 msgid "How To Register(Free)?"
@@ -181,15 +211,15 @@ msgstr "Odjava"
 msgid "Logout {name} failed"
 msgstr "Odjava za {name} nije uspjela"
 
-#: components/playbackSettings.js:67
+#: components/playbackSettings.js:78
 msgid "Loop"
 msgstr "Ponavljanje"
 
-#: components/playbackSettings.js:59
+#: components/playbackSettings.js:60
 msgid "Loud Prompt when you talk"
 msgstr "Glasan zvučni signal kada vi govorite"
 
-#: components/playbackSettings.js:56
+#: components/playbackSettings.js:57
 msgid "Mute Player when you talk"
 msgstr "Utišaj player kada vi govorite"
 
@@ -222,13 +252,17 @@ msgstr "Nema teksta za obradu"
 msgid "No text to translate"
 msgstr "Nema teksta za prevođenje"
 
-#: components/playbackSettings.js:113
+#: components/playbackSettings.js:132
 msgid "Normal Speed Player"
 msgstr "Reprodukcija normalnom brzinom"
 
-#: components/playbackSettings.js:89
+#: components/playbackSettings.js:108
 msgid "Normal Speed when you talk"
 msgstr "Normalna brzina kada  vi govorite"
+
+#: components/exerciseView.js:574
+msgid "OK"
+msgstr "U redu"
 
 #: components/topDropdownMenu.js:421
 msgid "Open .json"
@@ -255,11 +289,37 @@ msgstr "Otvori postavke"
 msgid "Open video on Youtube"
 msgstr "Otvori video na YouTubeu"
 
+#: components/app.js:89
+#: components/app.js:98
+#: components/captionBox.js:233
+#: components/exerciseView.js:646
+#: components/exerciseView.js:670
+msgid "Operation completed successfully"
+msgstr "Operacija uspješno dovršena"
+
+#: components/captionBox.js:233
+#: components/exerciseView.js:645
+#: components/exerciseView.js:669
+#~ msgid "Operation Success"
+#~ msgstr "Operacija uspješna"
+
 #: components/flashcardEditor.js:89
 msgid "Origin Language:"
 msgstr "Izvorni jezik:"
 
-#: components/playbackSettings.js:58
+#: components/exerciseView.js:130
+msgid "Please note that these subtitles are auto-generated and may contain semantic and contextual mistakes."
+msgstr "Imajte na umu da su ovi titlovi automatski generirani i mogu sadržavati semantičke i kontekstualne pogreške."
+
+#: components/exerciseView.js:442
+msgid "Please restart recording!"
+msgstr "Molimo ponovno pokrenite snimanje!"
+
+#: components/exerciseView.js:580
+msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
+msgstr "Molimo spremite svoju zadaću u datoteku i pokušajte ponovno kasnije. Kontaktirajte programera ako problem potraje."
+
+#: components/playbackSettings.js:59
 msgid "Prompt when you talk"
 msgstr "Signal kada vi govorite"
 
@@ -270,6 +330,10 @@ msgstr "Izgovor"
 #: components/flashcardExam.js:138
 msgid "Question"
 msgstr "Pitanje"
+
+#: components/exerciseView.js:441
+msgid "Recording Synchronization Error"
+msgstr "Greška sinkronizacije snimanja"
 
 #: components/topDropdownMenu.js:408
 msgid "Register"
@@ -295,7 +359,7 @@ msgstr "Spremi"
 msgid "Save .srt"
 msgstr "Spremi .srt"
 
-#: components/captionsView.js:271
+#: components/captionsView.js:281
 msgid "Select"
 msgstr "Odaberi"
 
@@ -304,11 +368,39 @@ msgstr "Odaberi"
 msgid "Select text to process"
 msgstr "Odaberite tekst za obradu"
 
-#: components/playbackSettings.js:57
+#: components/data/showCaptionsOptions.js:4
+msgid "Show No Captions"
+msgstr "Ne prikazuj titlove"
+
+#: components/playbackSettings.js:69
+msgid "Show No Subtitles"
+msgstr "Ne prikazuj titlove"
+
+#: components/data/showCaptionsOptions.js:5
+msgid "Show Original Captions"
+msgstr "Prikaži originalne titlove"
+
+#: components/playbackSettings.js:70
+msgid "Show Original Subtitles"
+msgstr "Prikaži originalne podnaslove"
+
+#: components/data/showCaptionsOptions.js:6
+msgid "Show Training Captions"
+msgstr "Prikaži titlove za vježbanje"
+
+#: components/playbackSettings.js:71
+msgid "Show Training Subtitles"
+msgstr "Prikaži podnaslove za vježbanje"
+
+#: components/playbackSettings.js:58
 msgid "Slight Prompt when you talk"
 msgstr "Tihi signal kada vi govorite"
 
-#: components/captionsView.js:273
+#: components/captionBox.js:142
+msgid "Speech synthesis is not supported in this browser."
+msgstr "Sinteza govora nije podržana u ovom pregledniku."
+
+#: components/captionsView.js:283
 msgid "Start (sec)"
 msgstr "Početak (sek)"
 
@@ -318,22 +410,29 @@ msgstr "Započni test"
 
 #: components/app.js:89
 #: components/app.js:98
-#: components/captionBox.js:233
-msgid "Success"
-msgstr "Uspjeh"
+#~ msgid "Success"
+#~ msgstr "Uspjeh"
 
-#: components/captionsView.js:274
+#: components/captionsView.js:284
 msgid "Text"
 msgstr "Tekst"
 
 #: components/exerciseView.js:562
-msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
-msgstr "Značajka objavljivanja na YouTubeu trenutno nije dostupna. Ako je potrebno, kontaktirajte programera."
+#~ msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
+#~ msgstr "Značajka objavljivanja na YouTubeu trenutno nije dostupna. Ako je potrebno, kontaktirajte programera."
+
+#: components/exerciseView.js:131
+msgid "They are provided solely as a reference tool for practicing speech."
+msgstr "Oni su pruženi isključivo kao referentni alat za vježbanje govora."
 
 #: components/topDropdownMenu.js:425
 #: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "Alati"
+
+#: components/exerciseView.js:129
+msgid "Training subtitles have been loaded successfully."
+msgstr "Titlovi za vježbanje su uspješno učitani."
 
 #: components/captionBox.js:102
 msgid "Translation"
@@ -360,14 +459,36 @@ msgstr "Pregledaj kolekciju"
 #: components/captionBox.js:152
 #: components/captionBox.js:175
 #: components/captionBox.js:216
-msgid "Warning!"
-msgstr "Upozorenje!"
+#: components/captionsView.js:247
+#: components/exerciseView.js:128
+msgid "Warning"
+msgstr "Upozorenje"
+
+#: components/captionBox.js:94
+#: components/captionBox.js:110
+#: components/captionBox.js:152
+#: components/captionBox.js:175
+#: components/captionBox.js:216
+#~ msgid "Warning!"
+#~ msgstr "Upozorenje!"
+
+#: components/captionsView.js:248
+msgid "You are not allowed to change Selection, when you have recorded exercise. Please clear recording first.(Click \"Clear Record\" button)"
+msgstr "Nije vam dopušteno mijenjati odabir kada imate snimljenu vježbu. Molimo prvo očistite snimanje. (Kliknite gumb \"Očisti snimanje\")"
+
+#: components/exerciseView.js:403
+msgid "You have already recorded something. Please clear recording first."
+msgstr "Već ste nešto snimili. Molimo prvo očistite snimanje."
+
+#: components/exerciseView.js:572
+msgid "You'll get an email letting you know when your video goes live on YouTube. It'll be set to \"unlisted\" so only the people you send the link to can watch it."
+msgstr "Dobit ćete email koji će vas obavijestiti kada vaš video bude objavljen na YouTubeu. Bit će postavljen kao \"nepopisan\" tako da ga mogu gledati samo ljudi kojima pošaljete poveznicu."
 
 #: components/flashcardExam.js:125
 msgid "Youglish"
 msgstr "Youglish"
 
-#: components/captionsView.js:272
+#: components/captionsView.js:282
 msgid "Your Line"
 msgstr "Vaš redak"
 

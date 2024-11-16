@@ -3,6 +3,7 @@ import CryptoJS from 'crypto-js';
 // #region local storage keys
 const global_data_prefix = 'global';
 const captions_data_prefix = 'captions';
+const captions_language_prefix = 'captionsLanguage';
 const captions_range_data_prefix = 'captionsRange';
 const videoList_data_prefix = 'videoList';
 const session_data_prefix = 'session';
@@ -33,6 +34,7 @@ export const storageDataAttributes =
 {
     global_data_prefix,
     captions_data_prefix,
+    captions_language_prefix,
     captions_range_data_prefix,
     videoList_data_prefix,
     playlist_registry_data_prefix,

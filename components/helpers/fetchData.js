@@ -39,27 +39,33 @@ export async function fetchData(user, prefix, key, url, expirationSec, refetchFr
   return result;
 }
 
-export async function fetchRetrieveCaptions(user, videoId, language, playlistId, userName, refetchFromSource = false) {
-  const prefix = storageDataAttributes.captions_data_prefix;
+export async function fetchRetrieveCaptions(user, videoId, language, originalLanguage, playlistId, userName, refetchFromSource = false) {
+  const prefixCaptionsData = storageDataAttributes.captions_data_prefix;
+  const prefixCaptionsLanguage = storageDataAttributes.captions_language_prefix;
+  const captionsStoredLanguage = fetchDataFromLocalStorage(prefixCaptionsLanguage, videoId, null);
+  let result = null;
 
-  if (refetchFromSource) {
-    removeDataFromLocalStorage(prefix, videoId);
+  if (refetchFromSource || captionsStoredLanguage !== language) {
+    removeDataFromLocalStorage(prefixCaptionsData, videoId);
+  } else {
+    result = fetchDataFromLocalStorage(prefixCaptionsData, videoId, null);
   }
-  let result = fetchDataFromLocalStorage(prefix, videoId, null);
 
   if (!result || result.length === 0) { // not found or no cache
     console.log(`fetchRetrieveCaptions: videoId: ${videoId}, language: ${language}, playlistId: ${playlistId}, userName: ${userName}, refetchFromSource: ${refetchFromSource}`);
     const url = getCaptionsUrlPost();
-    //videoId=${videoId}&language=${language}&user=${user}
+
     const data = {
       videoId: videoId,
       language: language,
+      originalLanguage: originalLanguage,
       user: userName,
       playlistId: playlistId,
     };
     result = await fetchDataFromSource(user, url, data);
     if (result && result.length > 0) {
-      saveDataToLocalStorage(prefix, videoId, result, null);
+      saveDataToLocalStorage(prefixCaptionsData, videoId, result, null);
+      saveDataToLocalStorage(prefixCaptionsLanguage, videoId, language, null);
     }
   }
   return result;

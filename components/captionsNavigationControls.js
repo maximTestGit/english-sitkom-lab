@@ -10,7 +10,7 @@ export const CaptionAction = Object.freeze({
 
 // Import necessary React and icon components
 import React from 'react';
-import { FaStepBackward, FaBackward, FaPlay, FaForward, FaStepForward, FaSearch  } from 'react-icons/fa'; // Import FaArrowDown
+import { FaStepBackward, FaBackward, FaPlay, FaForward, FaStepForward, FaSearch  } from './helpers/iconHelper';
 
 // Define the CaptionsNavigationControls component
 export const CaptionsNavigationControls = ({ currentCaption = null, onCaptionAction, isActive }) => {

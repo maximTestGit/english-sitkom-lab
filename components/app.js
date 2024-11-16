@@ -29,30 +29,30 @@ import { messages as ruMessages } from '../src/locales/ru/messages';
 import { messages as afMessages } from '../src/locales/af/messages';
 import { messages as heMessages } from '../src/locales/he/messages';
 import { messages as ukMessages } from '../src/locales/uk/messages';
-import { messages as arMessages } from '../src/locales/ar/messages';
-import { messages as deMessages } from '../src/locales/de/messages';
+//import { messages as arMessages } from '../src/locales/ar/messages';
+//import { messages as deMessages } from '../src/locales/de/messages';
 import { messages as esMessages } from '../src/locales/es/messages';
-import { messages as frMessages } from '../src/locales/fr/messages';
+//import { messages as frMessages } from '../src/locales/fr/messages';
 import { messages as hrMessages } from '../src/locales/hr/messages';
-import { messages as jaMessages } from '../src/locales/ja/messages';
-import { messages as trMessages } from '../src/locales/tr/messages';
-import { messages as zhMessages } from '../src/locales/zh/messages';
+//import { messages as jaMessages } from '../src/locales/ja/messages';
+//import { messages as trMessages } from '../src/locales/tr/messages';
+//import { messages as zhMessages } from '../src/locales/zh/messages';
 import { Trans, t } from '@lingui/macro';
 //-----------
 i18n.load({
   af: afMessages,
-  ar: arMessages,
-  de: deMessages,
+  //ar: arMessages,
+  //de: deMessages,
   en: enMessages,
   es: esMessages,
-  fr: frMessages,
+  //fr: frMessages,
   he: heMessages,
   hr: hrMessages,
-  ja: jaMessages,
+  //ja: jaMessages,
   ru: ruMessages,
-  tr: trMessages,
+  //tr: trMessages,
   uk: ukMessages,
-  zh: zhMessages,
+  //zh: zhMessages,
 });
 i18n.activate('en');
 
@@ -86,7 +86,7 @@ const App = () => {
       case loginoutEvents.LOGIN_SUCCESS:
         activateUiLanguage(extractCulture(language));
         Swal.fire({
-          title: t`Success`,
+          title: t`Operation completed successfully`,
           text: t`Hello ${name}`,
           icon: 'success',
           confirmButtonText: 'OK'
@@ -95,7 +95,7 @@ const App = () => {
       case loginoutEvents.LOGOUT_SUCCESS:
         activateUiLanguage(extractCulture(language));
         Swal.fire({
-          title: t`Success`,
+          title: t`Operation completed successfully`,
           text: t`Bye-bye ${name}`,
           icon: 'success',
           confirmButtonText: 'OK'
@@ -341,7 +341,7 @@ const App = () => {
     exerciseViewRef.current?.handleSrtSave();
   }
   //#region .srt handlers
-  const handleReloadPlaylist = async (refetch=true) => {
+  const handleReloadPlaylist = async (refetch = true) => {
     //await cleanUpLocalStorage(true);
     await videolistViewRef.current?.fetchVideos(playlistId, refetch);
   }

@@ -17,13 +17,17 @@ msgstr ""
 msgid "(Click to reveal answer)"
 msgstr "(לחץ כדי לחשוף את התשובה)"
 
-#: components/playbackSettings.js:114
+#: components/playbackSettings.js:133
 msgid "{speed} of Normal Speed Player"
 msgstr "מנגן {speed} ממהירות נגן רגילה"
 
-#: components/playbackSettings.js:90
+#: components/playbackSettings.js:109
 msgid "{speed} of Normal Speed when you talk"
 msgstr "מנגן {speed} ממהירות רגילה כשאתה מדבר"
+
+#: components/exerciseView.js:128
+#~ msgid "{uiLanguage} subtitles have been loaded successfully."
+#~ msgstr "כתוביות {uiLanguage} נטענו בהצלחה."
 
 #: components/topDropdownMenu.js:458
 msgid "About"
@@ -54,7 +58,7 @@ msgstr "ניתוח"
 msgid "Answer"
 msgstr "תשובה"
 
-#: components/playbackSettings.js:73
+#: components/playbackSettings.js:92
 msgid "Blure Youtube Captions"
 msgstr "טשטש כתוביות יוטיוב"
 
@@ -66,9 +70,13 @@ msgstr "תיבה:"
 msgid "Bye-bye {name}"
 msgstr "להתראות {name}"
 
-#: components/playbackSettings.js:77
+#: components/playbackSettings.js:96
 msgid "Camera"
 msgstr "מצלמה"
+
+#: components/exerciseView.js:647
+msgid "Captions for \"{0}\" uploaded successfully!"
+msgstr "כתוביות עבור \"{0}\" הועלו בהצלחה!"
 
 #: components/flashcardEditor.js:45
 msgid "Card"
@@ -113,26 +121,44 @@ msgstr "הערך \"{textToProcess}\" נוסף לאוסף כרטיסי הזיכר
 #: components/app.js:106
 #: components/app.js:114
 #: components/app.js:123
+#: components/captionBox.js:141
+#: components/exerciseView.js:677
 msgid "Error"
 msgstr "שגיאה"
+
+#: components/exerciseView.js:579
+msgid "Error publishing exercise"
+msgstr "שגיאה בפרסום התרגיל"
+
+#: components/exerciseView.js:678
+msgid "Error saving file."
+msgstr "שגיאה בשמירת הקובץ."
+
+#: components/exerciseView.js:654
+msgid "Error uploading Captions for \"{0}\"!"
+msgstr "שגיאה בהעלאת כתוביות עבור \"{0}\"!"
 
 #: components/videoListView.js:86
 msgid "Exercise"
 msgstr "תרגול"
 
 #: components/playbackSettings.js:70
-msgid "Exercise Captions"
-msgstr "כתוביות תרגול"
+#~ msgid "Exercise Captions"
+#~ msgstr "כתוביות תרגול"
 
 #: components/topDropdownMenu.js:417
 msgid "File"
 msgstr "קובץ"
 
+#: components/exerciseView.js:671
+msgid "File \"{fileName}\" saved successfully!"
+msgstr "הקובץ \"{fileName}\" נשמר בהצלחה!"
+
 #: components/topDropdownMenu.js:440
 msgid "Flashcards"
 msgstr "כרטיסי זיכרון"
 
-#: components/topDropdownMenu.js:635
+#: components/topDropdownMenu.js:636
 msgid "Flashcards Exam"
 msgstr "מבחן כרטיסי זיכרון"
 
@@ -148,6 +174,10 @@ msgstr "שלום {name}"
 #: components/topDropdownMenu.js:453
 msgid "Home"
 msgstr "דף הבית"
+
+#: components/exerciseView.js:571
+msgid "Homework uploaded to the server successfully!"
+msgstr "שיעורי הבית הועלו לשרת בהצלחה!"
 
 #: components/topDropdownMenu.js:461
 msgid "How To Register(Free)?"
@@ -181,15 +211,15 @@ msgstr "התנתק"
 msgid "Logout {name} failed"
 msgstr "ההתנתקות של {name} נכשלה"
 
-#: components/playbackSettings.js:67
+#: components/playbackSettings.js:78
 msgid "Loop"
 msgstr "לולאה"
 
-#: components/playbackSettings.js:59
+#: components/playbackSettings.js:60
 msgid "Loud Prompt when you talk"
 msgstr "הערה רועשת כשאתה מדבר"
 
-#: components/playbackSettings.js:56
+#: components/playbackSettings.js:57
 msgid "Mute Player when you talk"
 msgstr "השקט נגן כשאתה מדבר"
 
@@ -226,13 +256,17 @@ msgstr "אין טקסט לעיבוד"
 msgid "No text to translate"
 msgstr "אין טקסט לתרגום"
 
-#: components/playbackSettings.js:113
+#: components/playbackSettings.js:132
 msgid "Normal Speed Player"
 msgstr "נגן במהירות רגילה"
 
-#: components/playbackSettings.js:89
+#: components/playbackSettings.js:108
 msgid "Normal Speed when you talk"
 msgstr "מהירות רגילה כשאתה מדבר"
+
+#: components/exerciseView.js:574
+msgid "OK"
+msgstr "אישור"
 
 #: components/topDropdownMenu.js:421
 msgid "Open .json"
@@ -259,11 +293,37 @@ msgstr "פתח הגדרות"
 msgid "Open video on Youtube"
 msgstr "פתח וידאו ביוטיוב"
 
+#: components/app.js:89
+#: components/app.js:98
+#: components/captionBox.js:233
+#: components/exerciseView.js:646
+#: components/exerciseView.js:670
+msgid "Operation completed successfully"
+msgstr "הפעולה הושלמה בהצלחה"
+
+#: components/captionBox.js:233
+#: components/exerciseView.js:645
+#: components/exerciseView.js:669
+#~ msgid "Operation Success"
+#~ msgstr "הפעולה הצליחה"
+
 #: components/flashcardEditor.js:89
 msgid "Origin Language:"
 msgstr "שפת מקור:"
 
-#: components/playbackSettings.js:58
+#: components/exerciseView.js:130
+msgid "Please note that these subtitles are auto-generated and may contain semantic and contextual mistakes."
+msgstr "שימו לב שכתוביות אלו נוצרו אוטומטית ועשויות להכיל טעויות סמנטיות והקשריות."
+
+#: components/exerciseView.js:442
+msgid "Please restart recording!"
+msgstr "אנא הפעל מחדש את ההקלטה!"
+
+#: components/exerciseView.js:580
+msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
+msgstr "אנא שמור את שיעורי הבית לקובץ ונסה שוב מאוחר יותר. צור קשר עם המפתח אם הבעיה נמשכת."
+
+#: components/playbackSettings.js:59
 msgid "Prompt when you talk"
 msgstr "הערה כשאתה מדבר"
 
@@ -274,6 +334,10 @@ msgstr "הגייה"
 #: components/flashcardExam.js:138
 msgid "Question"
 msgstr "שאלה"
+
+#: components/exerciseView.js:441
+msgid "Recording Synchronization Error"
+msgstr "שגיאת סנכרון הקלטה"
 
 #: components/topDropdownMenu.js:408
 msgid "Register"
@@ -299,7 +363,7 @@ msgstr "שמור"
 msgid "Save .srt"
 msgstr "שמור .srt"
 
-#: components/captionsView.js:271
+#: components/captionsView.js:281
 msgid "Select"
 msgstr "בחר"
 
@@ -308,11 +372,39 @@ msgstr "בחר"
 msgid "Select text to process"
 msgstr "בחר טקסט לעיבוד"
 
-#: components/playbackSettings.js:57
+#: components/data/showCaptionsOptions.js:4
+msgid "Show No Captions"
+msgstr "הצג ללא כתוביות"
+
+#: components/playbackSettings.js:69
+msgid "Show No Subtitles"
+msgstr "הצג ללא כתוביות"
+
+#: components/data/showCaptionsOptions.js:5
+msgid "Show Original Captions"
+msgstr "הצג כתוביות מקוריות"
+
+#: components/playbackSettings.js:70
+msgid "Show Original Subtitles"
+msgstr "הצג כתוביות מקוריות"
+
+#: components/data/showCaptionsOptions.js:6
+msgid "Show Training Captions"
+msgstr "הצג כתוביות תרגול"
+
+#: components/playbackSettings.js:71
+msgid "Show Training Subtitles"
+msgstr "הצג כתוביות תרגול"
+
+#: components/playbackSettings.js:58
 msgid "Slight Prompt when you talk"
 msgstr "הערה קלה כשאתה מדבר"
 
-#: components/captionsView.js:273
+#: components/captionBox.js:142
+msgid "Speech synthesis is not supported in this browser."
+msgstr "הסינתזה של דיבור אינה נתמכת בדפדפן זה."
+
+#: components/captionsView.js:283
 msgid "Start (sec)"
 msgstr "התחלה (שניות)"
 
@@ -322,11 +414,10 @@ msgstr "התחל מבחן"
 
 #: components/app.js:89
 #: components/app.js:98
-#: components/captionBox.js:233
-msgid "Success"
-msgstr "הצלחה"
+#~ msgid "Success"
+#~ msgstr "הצלחה"
 
-#: components/captionsView.js:274
+#: components/captionsView.js:284
 msgid "Text"
 msgstr "טקסט"
 
@@ -335,13 +426,21 @@ msgstr "טקסט"
 #~ msgstr "ניתוח טקסט"
 
 #: components/exerciseView.js:562
-msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
-msgstr "תכונת הפרסום ביוטיוב אינה זמינה זמנית. אנא צור קשר עם המפתח במידת הצורך."
+#~ msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
+#~ msgstr "תכונת הפרסום ביוטיוב אינה זמינה זמנית. אנא צור קשר עם המפתח במידת הצורך."
+
+#: components/exerciseView.js:131
+msgid "They are provided solely as a reference tool for practicing speech."
+msgstr "הן ניתנות אך ורק ככלי עזר לתרגול דיבור."
 
 #: components/topDropdownMenu.js:425
 #: components/topDropdownMenu.js:435
 msgid "Tools"
 msgstr "כלים"
+
+#: components/exerciseView.js:129
+msgid "Training subtitles have been loaded successfully."
+msgstr "כתוביות האימון נטענו בהצלחה."
 
 #: components/captionBox.js:102
 msgid "Translation"
@@ -368,14 +467,36 @@ msgstr "הצג אוסף"
 #: components/captionBox.js:152
 #: components/captionBox.js:175
 #: components/captionBox.js:216
-msgid "Warning!"
-msgstr "אזהרה!"
+#: components/captionsView.js:247
+#: components/exerciseView.js:128
+msgid "Warning"
+msgstr "אזהרה"
+
+#: components/captionBox.js:94
+#: components/captionBox.js:110
+#: components/captionBox.js:152
+#: components/captionBox.js:175
+#: components/captionBox.js:216
+#~ msgid "Warning!"
+#~ msgstr "אזהרה!"
+
+#: components/captionsView.js:248
+msgid "You are not allowed to change Selection, when you have recorded exercise. Please clear recording first.(Click \"Clear Record\" button)"
+msgstr "אינך רשאי לשנות את הבחירה כאשר יש לך תרגיל מוקלט. אנא נקה את ההקלטה תחילה. (לחץ על כפתור \"נקה הקלטה\")"
+
+#: components/exerciseView.js:403
+msgid "You have already recorded something. Please clear recording first."
+msgstr "כבר הקלטת משהו. אנא נקה את ההקלטה תחילה."
+
+#: components/exerciseView.js:572
+msgid "You'll get an email letting you know when your video goes live on YouTube. It'll be set to \"unlisted\" so only the people you send the link to can watch it."
+msgstr "תקבל אימייל שמודיע לך כאשר הסרטון שלך יעלה ליוטיוב. הוא יוגדר כ\"לא רשום\" כך שרק האנשים שאתה שולח להם את הקישור יוכלו לצפות בו."
 
 #: components/flashcardExam.js:125
 msgid "Youglish"
 msgstr "יוגליש"
 
-#: components/captionsView.js:272
+#: components/captionsView.js:282
 msgid "Your Line"
 msgstr "השורה שלך"
 

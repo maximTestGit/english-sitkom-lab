@@ -2,9 +2,9 @@ import React from 'react';
 import ConditionalButton from './helpers/conditionalButton.js';
 import ExerciseStatus from './data/exerciseStatus.js';
 import { isRunningOnBigScreen } from './data/configurator';
-import { FaHome, FaStop, FaYoutube, FaPlay, FaVideo, FaShareAlt, FaSave, FaEraser } from 'react-icons/fa';
-import { FaRotate } from 'react-icons/fa6';
-import { MdOutlineVideoCameraFront } from "react-icons/md"
+import { FaHome, FaStop, FaYoutube, FaPlay, FaShareAlt, FaSave, FaEraser } from './helpers/iconHelper';
+import { FaRotate } from './helpers/iconHelper';
+import { MdOutlineVideoCameraFront } from './helpers/iconHelper';
 
 function ControlsArea({
     exerciseStatus,

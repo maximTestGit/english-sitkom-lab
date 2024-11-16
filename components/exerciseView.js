@@ -18,6 +18,8 @@ import { buildClipRange } from './helpers/exerciseHelper';
 import { CaptionsNavigationControls, CaptionAction } from './captionsNavigationControls';
 import Swal from 'sweetalert2';
 import { Trans, t } from '@lingui/macro';
+import showCaptionsOptions from './data/showCaptionsOptions';
+import {getCultureLanguageName, getLanguageName} from './data/configurator';
 
 const ExerciseView = forwardRef(({
     user,
@@ -43,10 +45,11 @@ const ExerciseView = forwardRef(({
 
     // #region defaults
 
-    // #region State
+    // #region 
+
     const initialSettings = {
         isLoop: false,
-        toShowCaptions: true,
+        showCaptions: showCaptionsOptions[1].value,
         whisperVolume: default_your_line_volume,
         yourLineSpeed: videoData.yourLineRate ? videoData.yourLineRate : default_your_line_playback_rate, // rate of your line during exercise/recording
         playerLineSpeed: videoData.playbackRate ? videoData.playbackRate : default_playback_rate, // rate of player line during exercise/recording
@@ -111,8 +114,27 @@ const ExerciseView = forwardRef(({
     const setIsLoop = (value) => {
         updateSettingKey('isLoop', value);
     };
-    const setToShowCaptions = (value) => {
-        updateSettingKey('toShowCaptions', value);
+    const setShowCaptions = (value) => {
+        updateSettingKey('showCaptions', value);
+        if (value !== settings.showCaptions) {
+            console.log(`LingFlix: setShowCaptions', at position set showCaptions=${settings.showCaptions} = ${value}`);
+            if (value === 1) {
+                const captionsObject = captionViewRef.current?.handleReloadCaptions(getLanguageName(learningLanguage));
+                handleCaptionsOpen(captionsObject);
+            } else if (value === 2) {
+                const captionsObject = captionViewRef.current?.handleReloadCaptions(getCultureLanguageName(uiLanguage));
+                handleCaptionsOpen(captionsObject);
+                Swal.fire({
+                    title: t`Warning`,
+                    text: t`Training subtitles have been loaded successfully. ` +
+                        t`Please note that these subtitles are auto-generated and may contain semantic and contextual mistakes. ` +
+                        t`They are provided solely as a reference tool for practicing speech.`,
+                    icon: 'warning',
+                    confirmButtonText: 'OK',
+                }
+                );
+            }
+        }
     };
     const setWhisperVolume = (value) => {
         updateSettingKey('whisperVolume', value);
@@ -140,7 +162,7 @@ const ExerciseView = forwardRef(({
             case 'isLoop':
                 handleLoopChange(value);
                 break;
-            case 'toShowCaptions':
+            case 'showCaptions':
                 handleShowCaptionsChange(value);
                 break;
             case 'whisperVolume':
@@ -253,8 +275,8 @@ const ExerciseView = forwardRef(({
         setIsLoop(checked);
     };
 
-    const handleShowCaptionsChange = (checked) => {
-        setToShowCaptions(checked);
+    const handleShowCaptionsChange = (option) => {
+        setShowCaptions(option);
     };
 
     const handleYourLineSpeedChange = (rate) => {
@@ -378,7 +400,8 @@ const ExerciseView = forwardRef(({
             if (recordedChunks?.length > 0) {
                 Swal.fire({
                     title: 'Warning',
-                    text: 'You have already recorded something. Please clear recording first.\n(Click "Clear Homework Record" button)',
+                    text: t`You have already recorded something. Please clear recording first. ` +
+                        `(Click "Clear Homework Record" button)`,
                     icon: 'warning',
                     confirmButtonText: 'OK',
                 }
@@ -415,8 +438,8 @@ const ExerciseView = forwardRef(({
                 console.log(`LingFlix: MediaLogger: PlayingStartedAt: ${playingStartedAt.toISOString()}`);
                 console.log(`LingFlix: MediaLogger: deltaMilliseconds: ${deltaMilliseconds}`);
                 Swal.fire({
-                    title: 'Recording Synchronization Error',
-                    text: 'Please restart recording!',
+                    title: t`Recording Synchronization Error`,
+                    text: t`Please restart recording!`,
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
@@ -553,8 +576,8 @@ const ExerciseView = forwardRef(({
             } catch (error) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error publishing exercise',
-                    text: 'Please, save your homework to the file and try again later. Contact the developer if the problem persists.',
+                    title: t`Error publishing exercise`,
+                    text: t`Please, save your homework to the file and try again later. Contact the developer if the problem persists.`,
                     confirmButtonText: 'OK'
                 });
             } finally {
@@ -611,7 +634,7 @@ const ExerciseView = forwardRef(({
         return result;
     }
 
-    const handleSrtOpen = (newCaptions) => {
+    const handleCaptionsOpen = (newCaptions) => {
         setSrtCaptionsData(newCaptions);
     }
     const handleSrtUpload = () => {
@@ -620,15 +643,15 @@ const ExerciseView = forwardRef(({
                 if (result) {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Success',
-                        text: `Captions for "${videoData.title}" uploaded successfully!`,
+                        title: t`Operation completed successfully`,
+                        text: t`Captions for "${videoData.title}" uploaded successfully!`,
                         confirmButtonText: 'OK',
                     });
                 } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        text: `Error uploading Captions for "${videoData.title}"!`,
+                        text: t`Error uploading Captions for "${videoData.title}"!`,
                         confirmButtonText: 'OK',
                     });
                 }
@@ -644,15 +667,15 @@ const ExerciseView = forwardRef(({
         if (fileName) {
             Swal.fire({
                 icon: 'success',
-                title: 'Success',
-                text: `File "${fileName}" saved successfully!`,
+                title: t`Operation completed successfully`,
+                text: t`File "${fileName}" saved successfully!`,
                 confirmButtonText: 'OK',
             });
         } else {
             Swal.fire({
                 icon: 'error',
-                title: 'Error',
-                text: 'Error saving file.',
+                title: t`Error`,
+                text: t`Error saving file.`,
                 confirmButtonText: 'OK',
             });
         }
@@ -660,7 +683,7 @@ const ExerciseView = forwardRef(({
 
     useImperativeHandle(ref, () =>
     ({
-        handleSrtOpen,
+        handleSrtOpen: handleCaptionsOpen,
         handleSrtUpload,
         handleSrtSave,
     })
@@ -881,7 +904,7 @@ const ExerciseView = forwardRef(({
                     isActive={exerciseStatus === ExerciseStatus.STOPPED}
                 />
                 {
-                    settings.toShowCaptions &&
+                    settings.showCaptions !== 0 &&
                     <CaptionBox
                         user={user}
                         caption={currentCaption}

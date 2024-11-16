@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import Swal from 'sweetalert2';
 import { decodeHtml } from './helpers/presentationUtils.js';
-import { PiTranslate } from "react-icons/pi";
-import { AiOutlineSound } from "react-icons/ai";
-import { RiInformation2Line } from "react-icons/ri";
+import { PiTranslate } from './helpers/iconHelper';
+import { AiOutlineSound } from './helpers/iconHelper';
+import { RiInformation2Line } from './helpers/iconHelper';
 import {
     getTranslation,
     saveTextToFlashcards,
@@ -20,8 +20,8 @@ import {
 } from './helpers/assistanceHelper';
 //import ReactMarkdown from 'react-markdown';
 import { Trans, t } from '@lingui/macro';
-import { GoTasklist } from "react-icons/go";
-import { PiCardsThree } from "react-icons/pi";
+import { GoTasklist } from './helpers/iconHelper';
+import { PiCardsThree } from './helpers/iconHelper';
 import { createHtmlString } from './helpers/htmlHelper';
 
 const CaptionBox = (
@@ -32,7 +32,7 @@ const CaptionBox = (
         uiLanguage,
         videoData,
         onWaitForAction
-        }) => {
+    }) => {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [formTitle, setFormTitle] = useState('');
@@ -91,7 +91,7 @@ const CaptionBox = (
         const textToTranslate = getTextToProcess();
         if (!textToTranslate || textToTranslate.length === 0) {
             Swal.fire({
-                title: t`Warning!`,
+                title: t`Warning`,
                 text: t`No text to translate`,
                 icon: 'warning',
                 confirmButtonText: 'OK'
@@ -107,7 +107,7 @@ const CaptionBox = (
         const textToReadAloud = getTextToProcess();
         if (!textToReadAloud || textToReadAloud.length === 0) {
             Swal.fire({
-                title: t`Warning!`,
+                title: t`Warning`,
                 text: t`No text to process`,
                 icon: 'warning',
                 confirmButtonText: 'OK'
@@ -138,8 +138,8 @@ const CaptionBox = (
             console.log(`Reading aloud FINISH: ${textToReadAloud} in ${readLanguage}`);
         } else {
             Swal.fire({
-                title: 'Error',
-                text: 'Speech synthesis is not supported in this browser.',
+                title: t`Error`,
+                text: t`Speech synthesis is not supported in this browser.`,
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
@@ -149,7 +149,7 @@ const CaptionBox = (
         const textToAnalyze = getTextToProcess();
         if (!textToAnalyze || textToAnalyze.length === 0) {
             Swal.fire({
-                title: t`Warning!`,
+                title: t`Warning`,
                 text: t`No text to analyze`,
                 icon: 'warning',
                 confirmButtonText: 'OK'
@@ -172,7 +172,7 @@ const CaptionBox = (
         const textToExercise = getTextToProcess();
         if (!textToExercise || textToExercise.length === 0) {
             Swal.fire({
-                title: t`Warning!`,
+                title: t`Warning`,
                 text: t`Select text to process`,
                 icon: 'warning',
                 confirmButtonText: 'OK'
@@ -213,7 +213,7 @@ const CaptionBox = (
             let textToProcess = getTextToProcess(true);
             if (!textToProcess) {
                 Swal.fire({
-                    title: t`Warning!`,
+                    title: t`Warning`,
                     text: t`Select text to process`,
                     icon: 'warning',
                     confirmButtonText: 'OK'
@@ -230,7 +230,7 @@ const CaptionBox = (
         const frontLanguage = extractCulture(learningLanguage);
         await saveTextToFlashcards(user, textToProcess, frontLanguage, uiLanguage, videoData.videoId, parseFloat(caption.start));
         Swal.fire({
-            title: t`Success`,
+            title: t`Operation completed successfully`,
             text: t`Entry "${textToProcess}" is added to your flashcard collection`,
             icon: 'success',
             confirmButtonText: 'OK'
