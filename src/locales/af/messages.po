@@ -29,20 +29,20 @@ msgstr "{speed} van Normale Spoed wanneer jy praat"
 #~ msgid "{uiLanguage} subtitles have been loaded successfully."
 #~ msgstr "{uiLanguage} onderskrifte is suksesvol gelaai."
 
-#: components/topDropdownMenu.js:458
+#: components/topDropdownMenu.js:459
 msgid "About"
 msgstr "Oor"
 
-#: components/topDropdownMenu.js:459
+#: components/topDropdownMenu.js:460
 msgid "About the Application"
 msgstr "Oor die Toepassing"
 
-#: components/topDropdownMenu.js:406
-#: components/topDropdownMenu.js:412
+#: components/topDropdownMenu.js:407
+#: components/topDropdownMenu.js:413
 msgid "Account"
 msgstr "Rekening"
 
-#: components/topDropdownMenu.js:428
+#: components/topDropdownMenu.js:429
 msgid "Add custom Playlist"
 msgstr "Voeg pasgemaakte Speellys by"
 
@@ -74,7 +74,7 @@ msgstr "Totsiens {name}"
 msgid "Camera"
 msgstr "Kamera"
 
-#: components/exerciseView.js:647
+#: components/exerciseView.js:648
 msgid "Captions for \"{0}\" uploaded successfully!"
 msgstr "Onderskrifte vir \"{0}\" suksesvol opgelaai!"
 
@@ -90,7 +90,7 @@ msgstr "Kaart {0} van {1}"
 msgid "Card Details:"
 msgstr "Kaart Besonderhede:"
 
-#: components/topDropdownMenu.js:431
+#: components/topDropdownMenu.js:432
 msgid "Clear Memory"
 msgstr "Vee Geheue Skoon"
 
@@ -98,7 +98,7 @@ msgstr "Vee Geheue Skoon"
 msgid "Collection:"
 msgstr "Versameling:"
 
-#: components/topDropdownMenu.js:462
+#: components/topDropdownMenu.js:463
 msgid "Contact Me"
 msgstr "Kontak My"
 
@@ -122,19 +122,19 @@ msgstr "Inskrywing \"{textToProcess}\" is by jou flitskaartversameling gevoeg"
 #: components/app.js:114
 #: components/app.js:123
 #: components/captionBox.js:141
-#: components/exerciseView.js:677
+#: components/exerciseView.js:678
 msgid "Error"
 msgstr "Fout"
 
-#: components/exerciseView.js:579
+#: components/exerciseView.js:580
 msgid "Error publishing exercise"
 msgstr "Fout met publisering van oefening"
 
-#: components/exerciseView.js:678
+#: components/exerciseView.js:679
 msgid "Error saving file."
 msgstr "Fout met stoor van lêer."
 
-#: components/exerciseView.js:654
+#: components/exerciseView.js:655
 msgid "Error uploading Captions for \"{0}\"!"
 msgstr "Fout met oplaai van onderskrifte vir \"{0}\"!"
 
@@ -146,23 +146,23 @@ msgstr "Oefening"
 #~ msgid "Exercise Captions"
 #~ msgstr "Oefening Onderskrifte"
 
-#: components/topDropdownMenu.js:417
+#: components/topDropdownMenu.js:418
 msgid "File"
 msgstr "Lêer"
 
-#: components/exerciseView.js:671
+#: components/exerciseView.js:672
 msgid "File \"{fileName}\" saved successfully!"
 msgstr "Lêer \"{fileName}\" suksesvol gestoor!"
 
-#: components/topDropdownMenu.js:440
+#: components/topDropdownMenu.js:441
 msgid "Flashcards"
 msgstr "Flitskaarte"
 
-#: components/topDropdownMenu.js:636
+#: components/topDropdownMenu.js:637
 msgid "Flashcards Exam"
 msgstr "Flitskaarte Eksamen"
 
-#: components/topDropdownMenu.js:398
+#: components/topDropdownMenu.js:399
 msgid "Hello"
 msgstr "Hallo"
 
@@ -170,20 +170,20 @@ msgstr "Hallo"
 msgid "Hello {name}"
 msgstr "Hallo {name}"
 
-#: components/topDropdownMenu.js:447
-#: components/topDropdownMenu.js:453
+#: components/topDropdownMenu.js:448
+#: components/topDropdownMenu.js:454
 msgid "Home"
 msgstr "Tuis"
 
-#: components/exerciseView.js:571
+#: components/exerciseView.js:572
 msgid "Homework uploaded to the server successfully!"
 msgstr "Huiswerk suksesvol na die bediener opgelaai!"
 
-#: components/topDropdownMenu.js:461
+#: components/topDropdownMenu.js:462
 msgid "How To Register(Free)?"
 msgstr "Hoe Om Te Registreer (Gratis)?"
 
-#: components/topDropdownMenu.js:460
+#: components/topDropdownMenu.js:461
 msgid "How To?"
 msgstr "Hoe Om?"
 
@@ -195,7 +195,7 @@ msgstr "Verkeerde"
 msgid "Last Reviewed:"
 msgstr "Laas Hersien:"
 
-#: components/topDropdownMenu.js:407
+#: components/topDropdownMenu.js:408
 msgid "Login"
 msgstr "Teken In"
 
@@ -203,7 +203,7 @@ msgstr "Teken In"
 msgid "Login {name} failed"
 msgstr "Teken In {name} het misluk"
 
-#: components/topDropdownMenu.js:413
+#: components/topDropdownMenu.js:414
 msgid "Logout"
 msgstr "Teken Uit"
 
@@ -223,8 +223,8 @@ msgstr "Luid Opskrif wanneer jy praat"
 msgid "Mute Player when you talk"
 msgstr "Demper Speler wanneer jy praat"
 
-#: components/topDropdownMenu.js:446
-#: components/topDropdownMenu.js:452
+#: components/topDropdownMenu.js:447
+#: components/topDropdownMenu.js:453
 msgid "Navigate"
 msgstr "Navigeer"
 
@@ -264,40 +264,40 @@ msgstr "Normale Spoed Speler"
 msgid "Normal Speed when you talk"
 msgstr "Normale Spoed wanneer jy praat"
 
-#: components/exerciseView.js:574
+#: components/exerciseView.js:575
 msgid "OK"
 msgstr "OK"
 
-#: components/topDropdownMenu.js:421
+#: components/topDropdownMenu.js:422
 msgid "Open .json"
 msgstr "Maak .json oop"
 
-#: components/topDropdownMenu.js:419
+#: components/topDropdownMenu.js:420
 msgid "Open .srt"
 msgstr "Maak .srt oop"
 
-#: components/topDropdownMenu.js:427
+#: components/topDropdownMenu.js:428
 msgid "Open custom video"
 msgstr "Maak pasgemaakte video oop"
 
-#: components/topDropdownMenu.js:429
+#: components/topDropdownMenu.js:430
 msgid "Open Exercise File"
 msgstr "Maak Oefening Lêer oop"
 
-#: components/topDropdownMenu.js:426
-#: components/topDropdownMenu.js:436
+#: components/topDropdownMenu.js:427
+#: components/topDropdownMenu.js:437
 msgid "Open Settings"
 msgstr "Maak Instellings oop"
 
-#: components/topDropdownMenu.js:455
+#: components/topDropdownMenu.js:456
 msgid "Open video on Youtube"
 msgstr "Maak video op Youtube oop"
 
 #: components/app.js:89
 #: components/app.js:98
 #: components/captionBox.js:233
-#: components/exerciseView.js:646
-#: components/exerciseView.js:670
+#: components/exerciseView.js:647
+#: components/exerciseView.js:671
 msgid "Operation completed successfully"
 msgstr "Operasie suksesvol voltooi"
 
@@ -319,7 +319,7 @@ msgstr "Neem asseblief kennis dat hierdie onderskrifte outomaties gegenereer is 
 msgid "Please restart recording!"
 msgstr "Begin asseblief weer met opname!"
 
-#: components/exerciseView.js:580
+#: components/exerciseView.js:581
 msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
 msgstr "Stoor asseblief jou huiswerk na die lêer en probeer later weer. Kontak die ontwikkelaar indien die probleem voortduur."
 
@@ -339,7 +339,7 @@ msgstr "Vraag"
 msgid "Recording Synchronization Error"
 msgstr "Opname Sinchronisasie Fout"
 
-#: components/topDropdownMenu.js:408
+#: components/topDropdownMenu.js:409
 msgid "Register"
 msgstr "Registreer"
 
@@ -347,7 +347,7 @@ msgstr "Registreer"
 msgid "Register {name} failed, try later"
 msgstr "Registreer {name} het misluk, probeer later"
 
-#: components/topDropdownMenu.js:430
+#: components/topDropdownMenu.js:431
 msgid "Reload Playlist"
 msgstr "Herlaai Speellys"
 
@@ -359,11 +359,11 @@ msgstr "Herstel"
 msgid "Save"
 msgstr "Stoor"
 
-#: components/topDropdownMenu.js:418
+#: components/topDropdownMenu.js:419
 msgid "Save .srt"
 msgstr "Stoor .srt"
 
-#: components/captionsView.js:281
+#: components/captionsView.js:272
 msgid "Select"
 msgstr "Kies"
 
@@ -404,11 +404,11 @@ msgstr "Klein Opskrif wanneer jy praat"
 msgid "Speech synthesis is not supported in this browser."
 msgstr "Spraaksintese word nie in hierdie blaaier ondersteun nie."
 
-#: components/captionsView.js:283
+#: components/captionsView.js:274
 msgid "Start (sec)"
 msgstr "Begin (sek)"
 
-#: components/topDropdownMenu.js:442
+#: components/topDropdownMenu.js:443
 msgid "Start Test"
 msgstr "Begin Toets"
 
@@ -417,7 +417,7 @@ msgstr "Begin Toets"
 #~ msgid "Success"
 #~ msgstr "Sukses"
 
-#: components/captionsView.js:284
+#: components/captionsView.js:275
 msgid "Text"
 msgstr "Teks"
 
@@ -433,8 +433,8 @@ msgstr "Teks"
 msgid "They are provided solely as a reference tool for practicing speech."
 msgstr "Hulle word slegs as 'n verwysingsinstrument vir die oefening van spraak verskaf."
 
-#: components/topDropdownMenu.js:425
-#: components/topDropdownMenu.js:435
+#: components/topDropdownMenu.js:426
+#: components/topDropdownMenu.js:436
 msgid "Tools"
 msgstr "Gereedskap"
 
@@ -454,11 +454,11 @@ msgstr "Vertaling Taal:"
 msgid "Translation:"
 msgstr "Vertaling:"
 
-#: components/topDropdownMenu.js:420
+#: components/topDropdownMenu.js:421
 msgid "Upload .srt"
 msgstr "Laai .srt op"
 
-#: components/topDropdownMenu.js:441
+#: components/topDropdownMenu.js:442
 msgid "View Colection"
 msgstr "Bekyk Versameling"
 
@@ -467,7 +467,7 @@ msgstr "Bekyk Versameling"
 #: components/captionBox.js:152
 #: components/captionBox.js:175
 #: components/captionBox.js:216
-#: components/captionsView.js:247
+#: components/captionsView.js:238
 #: components/exerciseView.js:128
 msgid "Warning"
 msgstr "Waarskuwing"
@@ -480,7 +480,7 @@ msgstr "Waarskuwing"
 #~ msgid "Warning!"
 #~ msgstr "Waarskuwing!"
 
-#: components/captionsView.js:248
+#: components/captionsView.js:239
 msgid "You are not allowed to change Selection, when you have recorded exercise. Please clear recording first.(Click \"Clear Record\" button)"
 msgstr "Jy mag nie die keuse verander wanneer jy 'n oefening opgeneem het nie. Vee asseblief eers die opname uit. (Klik op die \"Vee Opname\" knoppie)"
 
@@ -488,7 +488,7 @@ msgstr "Jy mag nie die keuse verander wanneer jy 'n oefening opgeneem het nie. V
 msgid "You have already recorded something. Please clear recording first."
 msgstr "Jy het reeds iets opgeneem. Vee asseblief eers die opname uit."
 
-#: components/exerciseView.js:572
+#: components/exerciseView.js:573
 msgid "You'll get an email letting you know when your video goes live on YouTube. It'll be set to \"unlisted\" so only the people you send the link to can watch it."
 msgstr "Jy sal 'n e-pos ontvang wat jou laat weet wanneer jou video op YouTube lewendig gaan. Dit sal op \"ongelys\" gestel word sodat slegs die mense aan wie jy die skakel stuur dit kan kyk."
 
@@ -496,12 +496,12 @@ msgstr "Jy sal 'n e-pos ontvang wat jou laat weet wanneer jou video op YouTube l
 msgid "Youglish"
 msgstr "Youglish"
 
-#: components/captionsView.js:282
+#: components/captionsView.js:273
 msgid "Your Line"
 msgstr "Jou Reël"
 
-#: components/topDropdownMenu.js:448
-#: components/topDropdownMenu.js:454
+#: components/topDropdownMenu.js:449
+#: components/topDropdownMenu.js:455
 msgid "Youtube"
 msgstr "Youtube"
 

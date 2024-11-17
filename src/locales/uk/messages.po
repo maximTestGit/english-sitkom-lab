@@ -29,20 +29,20 @@ msgstr "{speed} від нормальної швидкості, коли ви г
 #~ msgid "{uiLanguage} subtitles have been loaded successfully."
 #~ msgstr "{uiLanguage} субтитри були успішно завантажені."
 
-#: components/topDropdownMenu.js:458
+#: components/topDropdownMenu.js:459
 msgid "About"
 msgstr "Про нас"
 
-#: components/topDropdownMenu.js:459
+#: components/topDropdownMenu.js:460
 msgid "About the Application"
 msgstr "Про додаток"
 
-#: components/topDropdownMenu.js:406
-#: components/topDropdownMenu.js:412
+#: components/topDropdownMenu.js:407
+#: components/topDropdownMenu.js:413
 msgid "Account"
 msgstr "Обліковий запис"
 
-#: components/topDropdownMenu.js:428
+#: components/topDropdownMenu.js:429
 msgid "Add custom Playlist"
 msgstr "Додати власний плейлист"
 
@@ -74,7 +74,7 @@ msgstr "До побачення, {name}"
 msgid "Camera"
 msgstr "Камера"
 
-#: components/exerciseView.js:647
+#: components/exerciseView.js:648
 msgid "Captions for \"{0}\" uploaded successfully!"
 msgstr "Субтитри для \"{0}\" успішно завантажені!"
 
@@ -90,7 +90,7 @@ msgstr "Картка {0} з {1}"
 msgid "Card Details:"
 msgstr "Деталі картки:"
 
-#: components/topDropdownMenu.js:431
+#: components/topDropdownMenu.js:432
 msgid "Clear Memory"
 msgstr "Очистити пам'ять"
 
@@ -98,7 +98,7 @@ msgstr "Очистити пам'ять"
 msgid "Collection:"
 msgstr "Колекція:"
 
-#: components/topDropdownMenu.js:462
+#: components/topDropdownMenu.js:463
 msgid "Contact Me"
 msgstr "Зв'язатися зі мною"
 
@@ -122,19 +122,19 @@ msgstr "Запис \"{textToProcess}\" додано до вашої колекц
 #: components/app.js:114
 #: components/app.js:123
 #: components/captionBox.js:141
-#: components/exerciseView.js:677
+#: components/exerciseView.js:678
 msgid "Error"
 msgstr "Помилка"
 
-#: components/exerciseView.js:579
+#: components/exerciseView.js:580
 msgid "Error publishing exercise"
 msgstr "Помилка публікації вправи"
 
-#: components/exerciseView.js:678
+#: components/exerciseView.js:679
 msgid "Error saving file."
 msgstr "Помилка збереження файлу."
 
-#: components/exerciseView.js:654
+#: components/exerciseView.js:655
 msgid "Error uploading Captions for \"{0}\"!"
 msgstr "Помилка завантаження субтитрів для \"{0}\"!"
 
@@ -146,23 +146,23 @@ msgstr "Вправа"
 #~ msgid "Exercise Captions"
 #~ msgstr "Субтитри для вправ"
 
-#: components/topDropdownMenu.js:417
+#: components/topDropdownMenu.js:418
 msgid "File"
 msgstr "Файл"
 
-#: components/exerciseView.js:671
+#: components/exerciseView.js:672
 msgid "File \"{fileName}\" saved successfully!"
 msgstr "Файл \"{fileName}\" успішно збережено!"
 
-#: components/topDropdownMenu.js:440
+#: components/topDropdownMenu.js:441
 msgid "Flashcards"
 msgstr "Флеш-картки"
 
-#: components/topDropdownMenu.js:636
+#: components/topDropdownMenu.js:637
 msgid "Flashcards Exam"
 msgstr "Екзамен з флеш-карток"
 
-#: components/topDropdownMenu.js:398
+#: components/topDropdownMenu.js:399
 msgid "Hello"
 msgstr "Привіт"
 
@@ -170,20 +170,20 @@ msgstr "Привіт"
 msgid "Hello {name}"
 msgstr "Привіт, {name}"
 
-#: components/topDropdownMenu.js:447
-#: components/topDropdownMenu.js:453
+#: components/topDropdownMenu.js:448
+#: components/topDropdownMenu.js:454
 msgid "Home"
 msgstr "Головна"
 
-#: components/exerciseView.js:571
+#: components/exerciseView.js:572
 msgid "Homework uploaded to the server successfully!"
 msgstr "Домашнє завдання успішно завантажено на сервер!"
 
-#: components/topDropdownMenu.js:461
+#: components/topDropdownMenu.js:462
 msgid "How To Register(Free)?"
 msgstr "Як зареєструватися (безкоштовно)?"
 
-#: components/topDropdownMenu.js:460
+#: components/topDropdownMenu.js:461
 msgid "How To?"
 msgstr "Як?"
 
@@ -195,7 +195,7 @@ msgstr "Неправильно"
 msgid "Last Reviewed:"
 msgstr "Останній перегляд:"
 
-#: components/topDropdownMenu.js:407
+#: components/topDropdownMenu.js:408
 msgid "Login"
 msgstr "Увійти"
 
@@ -203,7 +203,7 @@ msgstr "Увійти"
 msgid "Login {name} failed"
 msgstr "Не вдалося увійти {name}"
 
-#: components/topDropdownMenu.js:413
+#: components/topDropdownMenu.js:414
 msgid "Logout"
 msgstr "Вийти"
 
@@ -223,8 +223,8 @@ msgstr "Гучна підказка, коли ви говорите"
 msgid "Mute Player when you talk"
 msgstr "Приглушити звук плеєра, коли ви говорите"
 
-#: components/topDropdownMenu.js:446
-#: components/topDropdownMenu.js:452
+#: components/topDropdownMenu.js:447
+#: components/topDropdownMenu.js:453
 msgid "Navigate"
 msgstr "Навігувати"
 
@@ -264,40 +264,40 @@ msgstr "Нормальна швидкість плеєра"
 msgid "Normal Speed when you talk"
 msgstr "Нормальна швидкість, коли ви говорите"
 
-#: components/exerciseView.js:574
+#: components/exerciseView.js:575
 msgid "OK"
 msgstr "Гаразд"
 
-#: components/topDropdownMenu.js:421
+#: components/topDropdownMenu.js:422
 msgid "Open .json"
 msgstr "Відкрити .json"
 
-#: components/topDropdownMenu.js:419
+#: components/topDropdownMenu.js:420
 msgid "Open .srt"
 msgstr "Відкрити .srt"
 
-#: components/topDropdownMenu.js:427
+#: components/topDropdownMenu.js:428
 msgid "Open custom video"
 msgstr "Відкрити власне відео"
 
-#: components/topDropdownMenu.js:429
+#: components/topDropdownMenu.js:430
 msgid "Open Exercise File"
 msgstr "Відкрити файл вправи"
 
-#: components/topDropdownMenu.js:426
-#: components/topDropdownMenu.js:436
+#: components/topDropdownMenu.js:427
+#: components/topDropdownMenu.js:437
 msgid "Open Settings"
 msgstr "Відкрити налаштування"
 
-#: components/topDropdownMenu.js:455
+#: components/topDropdownMenu.js:456
 msgid "Open video on Youtube"
 msgstr "Відкрити відео на YouTube"
 
 #: components/app.js:89
 #: components/app.js:98
 #: components/captionBox.js:233
-#: components/exerciseView.js:646
-#: components/exerciseView.js:670
+#: components/exerciseView.js:647
+#: components/exerciseView.js:671
 msgid "Operation completed successfully"
 msgstr "Операцію успішно завершено"
 
@@ -319,7 +319,7 @@ msgstr "Зверніть увагу, що ці субтитри створені
 msgid "Please restart recording!"
 msgstr "Будь ласка, перезапустіть запис!"
 
-#: components/exerciseView.js:580
+#: components/exerciseView.js:581
 msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
 msgstr "Будь ласка, збережіть своє домашнє завдання у файл і спробуйте пізніше. Зверніться до розробника, якщо проблема не зникне."
 
@@ -339,7 +339,7 @@ msgstr "Питання"
 msgid "Recording Synchronization Error"
 msgstr "Помилка синхронізації запису"
 
-#: components/topDropdownMenu.js:408
+#: components/topDropdownMenu.js:409
 msgid "Register"
 msgstr "Зареєструватися"
 
@@ -347,7 +347,7 @@ msgstr "Зареєструватися"
 msgid "Register {name} failed, try later"
 msgstr "Не вдалося зареєструвати {name}, спробуйте пізніше"
 
-#: components/topDropdownMenu.js:430
+#: components/topDropdownMenu.js:431
 msgid "Reload Playlist"
 msgstr "Перезавантажити плейлист"
 
@@ -359,11 +359,11 @@ msgstr "Відновити"
 msgid "Save"
 msgstr "Зберегти"
 
-#: components/topDropdownMenu.js:418
+#: components/topDropdownMenu.js:419
 msgid "Save .srt"
 msgstr "Зберегти .srt"
 
-#: components/captionsView.js:281
+#: components/captionsView.js:272
 msgid "Select"
 msgstr "Вибрати"
 
@@ -404,11 +404,11 @@ msgstr "Тиха підказка, коли ви говорите"
 msgid "Speech synthesis is not supported in this browser."
 msgstr "Синтез мовлення не підтримується в цьому браузері."
 
-#: components/captionsView.js:283
+#: components/captionsView.js:274
 msgid "Start (sec)"
 msgstr "Початок (сек)"
 
-#: components/topDropdownMenu.js:442
+#: components/topDropdownMenu.js:443
 msgid "Start Test"
 msgstr "Почати тест"
 
@@ -417,7 +417,7 @@ msgstr "Почати тест"
 #~ msgid "Success"
 #~ msgstr "Успіх"
 
-#: components/captionsView.js:284
+#: components/captionsView.js:275
 msgid "Text"
 msgstr "Текст"
 
@@ -433,8 +433,8 @@ msgstr "Текст"
 msgid "They are provided solely as a reference tool for practicing speech."
 msgstr "Вони надаються виключно як довідковий інструмент для практики мовлення."
 
-#: components/topDropdownMenu.js:425
-#: components/topDropdownMenu.js:435
+#: components/topDropdownMenu.js:426
+#: components/topDropdownMenu.js:436
 msgid "Tools"
 msgstr "Інструменти"
 
@@ -454,11 +454,11 @@ msgstr "Мова перекладу:"
 msgid "Translation:"
 msgstr "Переклад:"
 
-#: components/topDropdownMenu.js:420
+#: components/topDropdownMenu.js:421
 msgid "Upload .srt"
 msgstr "Завантажити .srt"
 
-#: components/topDropdownMenu.js:441
+#: components/topDropdownMenu.js:442
 msgid "View Colection"
 msgstr "Переглянути колекцію"
 
@@ -467,7 +467,7 @@ msgstr "Переглянути колекцію"
 #: components/captionBox.js:152
 #: components/captionBox.js:175
 #: components/captionBox.js:216
-#: components/captionsView.js:247
+#: components/captionsView.js:238
 #: components/exerciseView.js:128
 msgid "Warning"
 msgstr "Попередження"
@@ -480,7 +480,7 @@ msgstr "Попередження"
 #~ msgid "Warning!"
 #~ msgstr "Попередження!"
 
-#: components/captionsView.js:248
+#: components/captionsView.js:239
 msgid "You are not allowed to change Selection, when you have recorded exercise. Please clear recording first.(Click \"Clear Record\" button)"
 msgstr "Вам не дозволено змінювати вибір, коли ви записали вправу. Спочатку очистіть запис. (Натисніть кнопку \"Очистити запис\")"
 
@@ -488,7 +488,7 @@ msgstr "Вам не дозволено змінювати вибір, коли �
 msgid "You have already recorded something. Please clear recording first."
 msgstr "Ви вже щось записали. Спочатку очистіть запис."
 
-#: components/exerciseView.js:572
+#: components/exerciseView.js:573
 msgid "You'll get an email letting you know when your video goes live on YouTube. It'll be set to \"unlisted\" so only the people you send the link to can watch it."
 msgstr "Ви отримаєте електронний лист, коли ваше відео стане доступним на YouTube. Воно буде встановлено як \"неперелічене\", тому його зможуть переглянути лише ті, кому ви надішлете посилання."
 
@@ -496,12 +496,12 @@ msgstr "Ви отримаєте електронний лист, коли ваш
 msgid "Youglish"
 msgstr "Youglish"
 
-#: components/captionsView.js:282
+#: components/captionsView.js:273
 msgid "Your Line"
 msgstr "Ваш рядок"
 
-#: components/topDropdownMenu.js:448
-#: components/topDropdownMenu.js:454
+#: components/topDropdownMenu.js:449
+#: components/topDropdownMenu.js:455
 msgid "Youtube"
 msgstr "YouTube"
 

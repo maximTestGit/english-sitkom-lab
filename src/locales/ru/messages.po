@@ -33,20 +33,20 @@ msgstr "{speed} от Нормальной скорости для Вашего �
 #~ msgid "{uiLanguage} subtitles have been loaded successfully."
 #~ msgstr "{uiLanguage} субтитры успешно загружены."
 
-#: components/topDropdownMenu.js:458
+#: components/topDropdownMenu.js:459
 msgid "About"
 msgstr "Информация"
 
-#: components/topDropdownMenu.js:459
+#: components/topDropdownMenu.js:460
 msgid "About the Application"
 msgstr "О приложении"
 
-#: components/topDropdownMenu.js:406
-#: components/topDropdownMenu.js:412
+#: components/topDropdownMenu.js:407
+#: components/topDropdownMenu.js:413
 msgid "Account"
 msgstr "Пользователь"
 
-#: components/topDropdownMenu.js:428
+#: components/topDropdownMenu.js:429
 msgid "Add custom Playlist"
 msgstr "Добавить плейлист"
 
@@ -78,7 +78,7 @@ msgstr "Досвидания, {name}"
 msgid "Camera"
 msgstr "Камера"
 
-#: components/exerciseView.js:647
+#: components/exerciseView.js:648
 msgid "Captions for \"{0}\" uploaded successfully!"
 msgstr "Субтитры для \"{0}\" успешно загружены!"
 
@@ -94,7 +94,7 @@ msgstr "Карточка {0} из {1}"
 msgid "Card Details:"
 msgstr "Детали карточки:"
 
-#: components/topDropdownMenu.js:431
+#: components/topDropdownMenu.js:432
 msgid "Clear Memory"
 msgstr "Очистить память"
 
@@ -102,7 +102,7 @@ msgstr "Очистить память"
 msgid "Collection:"
 msgstr "Коллекция:"
 
-#: components/topDropdownMenu.js:462
+#: components/topDropdownMenu.js:463
 msgid "Contact Me"
 msgstr "Связаться со мной"
 
@@ -126,19 +126,19 @@ msgstr "Элемент \"{textToProcess}\" добавлен в вашу колл
 #: components/app.js:114
 #: components/app.js:123
 #: components/captionBox.js:141
-#: components/exerciseView.js:677
+#: components/exerciseView.js:678
 msgid "Error"
 msgstr "Ошибка"
 
-#: components/exerciseView.js:579
+#: components/exerciseView.js:580
 msgid "Error publishing exercise"
 msgstr "Ошибка публикации упражнения"
 
-#: components/exerciseView.js:678
+#: components/exerciseView.js:679
 msgid "Error saving file."
 msgstr "Ошибка сохранения файла."
 
-#: components/exerciseView.js:654
+#: components/exerciseView.js:655
 msgid "Error uploading Captions for \"{0}\"!"
 msgstr "Ошибка загрузки субтитров для \"{0}\"!"
 
@@ -150,23 +150,23 @@ msgstr "Упражнение"
 #~ msgid "Exercise Captions"
 #~ msgstr "Субтитры Упражнения"
 
-#: components/topDropdownMenu.js:417
+#: components/topDropdownMenu.js:418
 msgid "File"
 msgstr "Файл"
 
-#: components/exerciseView.js:671
+#: components/exerciseView.js:672
 msgid "File \"{fileName}\" saved successfully!"
 msgstr "Файл \"{fileName}\" успешно сохранен!"
 
-#: components/topDropdownMenu.js:440
+#: components/topDropdownMenu.js:441
 msgid "Flashcards"
 msgstr "Карточки"
 
-#: components/topDropdownMenu.js:636
+#: components/topDropdownMenu.js:637
 msgid "Flashcards Exam"
 msgstr "Экзамен по карточкам"
 
-#: components/topDropdownMenu.js:398
+#: components/topDropdownMenu.js:399
 msgid "Hello"
 msgstr "Привет,"
 
@@ -179,20 +179,20 @@ msgstr "Привет,"
 msgid "Hello {name}"
 msgstr "Привет, {name}"
 
-#: components/topDropdownMenu.js:447
-#: components/topDropdownMenu.js:453
+#: components/topDropdownMenu.js:448
+#: components/topDropdownMenu.js:454
 msgid "Home"
 msgstr "Главная"
 
-#: components/exerciseView.js:571
+#: components/exerciseView.js:572
 msgid "Homework uploaded to the server successfully!"
 msgstr "Домашнее задание успешно загружено на сервер!"
 
-#: components/topDropdownMenu.js:461
+#: components/topDropdownMenu.js:462
 msgid "How To Register(Free)?"
 msgstr "Как зарегистрироваться (бесплатно)?"
 
-#: components/topDropdownMenu.js:460
+#: components/topDropdownMenu.js:461
 msgid "How To?"
 msgstr "Как это сделать?"
 
@@ -204,7 +204,7 @@ msgstr "Неправильно"
 msgid "Last Reviewed:"
 msgstr "Последняя проверка:"
 
-#: components/topDropdownMenu.js:407
+#: components/topDropdownMenu.js:408
 msgid "Login"
 msgstr "Вход"
 
@@ -216,7 +216,7 @@ msgstr "Вход {name} не удался"
 #~ msgid "Login failed!"
 #~ msgstr "Ошибка входа!"
 
-#: components/topDropdownMenu.js:413
+#: components/topDropdownMenu.js:414
 msgid "Logout"
 msgstr "Выход"
 
@@ -236,8 +236,8 @@ msgstr "Громкая подсказка Вашего текста"
 msgid "Mute Player when you talk"
 msgstr "Выключить звук Вашего текста"
 
-#: components/topDropdownMenu.js:446
-#: components/topDropdownMenu.js:452
+#: components/topDropdownMenu.js:447
+#: components/topDropdownMenu.js:453
 msgid "Navigate"
 msgstr "Перейти"
 
@@ -277,40 +277,40 @@ msgstr "Нормальная скорость плейера"
 msgid "Normal Speed when you talk"
 msgstr "Нормальная скорость для Вашего текста"
 
-#: components/exerciseView.js:574
+#: components/exerciseView.js:575
 msgid "OK"
 msgstr "ОК"
 
-#: components/topDropdownMenu.js:421
+#: components/topDropdownMenu.js:422
 msgid "Open .json"
 msgstr "Открыть .json"
 
-#: components/topDropdownMenu.js:419
+#: components/topDropdownMenu.js:420
 msgid "Open .srt"
 msgstr "Открыть .srt"
 
-#: components/topDropdownMenu.js:427
+#: components/topDropdownMenu.js:428
 msgid "Open custom video"
 msgstr "Открыть видео"
 
-#: components/topDropdownMenu.js:429
+#: components/topDropdownMenu.js:430
 msgid "Open Exercise File"
 msgstr "Открыть файл упражнения"
 
-#: components/topDropdownMenu.js:426
-#: components/topDropdownMenu.js:436
+#: components/topDropdownMenu.js:427
+#: components/topDropdownMenu.js:437
 msgid "Open Settings"
 msgstr "Открыть настройки"
 
-#: components/topDropdownMenu.js:455
+#: components/topDropdownMenu.js:456
 msgid "Open video on Youtube"
 msgstr "Открыть видео на Youtube"
 
 #: components/app.js:89
 #: components/app.js:98
 #: components/captionBox.js:233
-#: components/exerciseView.js:646
-#: components/exerciseView.js:670
+#: components/exerciseView.js:647
+#: components/exerciseView.js:671
 msgid "Operation completed successfully"
 msgstr "Операция завершена успешно"
 
@@ -336,7 +336,7 @@ msgstr "Обратите внимание, что эти субтитры соз
 msgid "Please restart recording!"
 msgstr "Пожалуйста, перезапустите запись!"
 
-#: components/exerciseView.js:580
+#: components/exerciseView.js:581
 msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
 msgstr "Пожалуйста, сохраните домашнее задание в файл и попробуйте позже. Свяжитесь с разработчиком, если проблема не исчезнет."
 
@@ -356,7 +356,7 @@ msgstr "Вопрос"
 msgid "Recording Synchronization Error"
 msgstr "Ошибка синхронизации записи"
 
-#: components/topDropdownMenu.js:408
+#: components/topDropdownMenu.js:409
 msgid "Register"
 msgstr "Регистрация"
 
@@ -368,7 +368,7 @@ msgstr "Регистрация {name} не удалась, попробуйте 
 #~ msgid "Registration failed!"
 #~ msgstr "Ошибка регистрации!"
 
-#: components/topDropdownMenu.js:430
+#: components/topDropdownMenu.js:431
 msgid "Reload Playlist"
 msgstr "Перезагрузить плейлист"
 
@@ -380,11 +380,11 @@ msgstr "Восстановить"
 msgid "Save"
 msgstr "Сохранить"
 
-#: components/topDropdownMenu.js:418
+#: components/topDropdownMenu.js:419
 msgid "Save .srt"
 msgstr "Сохранить .srt"
 
-#: components/captionsView.js:281
+#: components/captionsView.js:272
 msgid "Select"
 msgstr "Выделить"
 
@@ -425,11 +425,11 @@ msgstr "Тихая подсказка Вашего текста"
 msgid "Speech synthesis is not supported in this browser."
 msgstr "Синтез речи не поддерживается в этом браузере."
 
-#: components/captionsView.js:283
+#: components/captionsView.js:274
 msgid "Start (sec)"
 msgstr "Начало (сек)"
 
-#: components/topDropdownMenu.js:442
+#: components/topDropdownMenu.js:443
 msgid "Start Test"
 msgstr "Начать тест"
 
@@ -438,7 +438,7 @@ msgstr "Начать тест"
 #~ msgid "Success"
 #~ msgstr "Операция завершена успешно"
 
-#: components/captionsView.js:284
+#: components/captionsView.js:275
 msgid "Text"
 msgstr "Текст"
 
@@ -454,8 +454,8 @@ msgstr "Текст"
 msgid "They are provided solely as a reference tool for practicing speech."
 msgstr "Они предоставляются исключительно в качестве справочного инструмента для практики речи."
 
-#: components/topDropdownMenu.js:425
-#: components/topDropdownMenu.js:435
+#: components/topDropdownMenu.js:426
+#: components/topDropdownMenu.js:436
 msgid "Tools"
 msgstr "Инструменты"
 
@@ -475,11 +475,11 @@ msgstr "Язык перевода:"
 msgid "Translation:"
 msgstr "Перевод:"
 
-#: components/topDropdownMenu.js:420
+#: components/topDropdownMenu.js:421
 msgid "Upload .srt"
 msgstr "Загрузить .srt"
 
-#: components/topDropdownMenu.js:441
+#: components/topDropdownMenu.js:442
 msgid "View Colection"
 msgstr "Просмотр коллекции"
 
@@ -488,7 +488,7 @@ msgstr "Просмотр коллекции"
 #: components/captionBox.js:152
 #: components/captionBox.js:175
 #: components/captionBox.js:216
-#: components/captionsView.js:247
+#: components/captionsView.js:238
 #: components/exerciseView.js:128
 msgid "Warning"
 msgstr "Предупреждение"
@@ -501,7 +501,7 @@ msgstr "Предупреждение"
 #~ msgid "Warning!"
 #~ msgstr "Предупреждение!"
 
-#: components/captionsView.js:248
+#: components/captionsView.js:239
 msgid "You are not allowed to change Selection, when you have recorded exercise. Please clear recording first.(Click \"Clear Record\" button)"
 msgstr "Вы не можете изменить выбор, когда у вас есть записанное упражнение. Пожалуйста, сначала очистите запись. (Нажмите кнопку \"Очистить запись\")"
 
@@ -509,7 +509,7 @@ msgstr "Вы не можете изменить выбор, когда у вас
 msgid "You have already recorded something. Please clear recording first."
 msgstr "Вы уже что-то записали. Пожалуйста, сначала очистите запись."
 
-#: components/exerciseView.js:572
+#: components/exerciseView.js:573
 msgid "You'll get an email letting you know when your video goes live on YouTube. It'll be set to \"unlisted\" so only the people you send the link to can watch it."
 msgstr "Вы получите электронное письмо, когда ваше видео будет опубликовано на YouTube. Оно будет установлено как \"не в списке\", поэтому его смогут смотреть только те, кому вы отправите ссылку."
 
@@ -517,12 +517,12 @@ msgstr "Вы получите электронное письмо, когда в
 msgid "Youglish"
 msgstr "Youglish"
 
-#: components/captionsView.js:282
+#: components/captionsView.js:273
 msgid "Your Line"
 msgstr "Ваш текст"
 
-#: components/topDropdownMenu.js:448
-#: components/topDropdownMenu.js:454
+#: components/topDropdownMenu.js:449
+#: components/topDropdownMenu.js:455
 msgid "Youtube"
 msgstr "Youtube"
 

@@ -19,7 +19,7 @@ import { CaptionsNavigationControls, CaptionAction } from './captionsNavigationC
 import Swal from 'sweetalert2';
 import { Trans, t } from '@lingui/macro';
 import showCaptionsOptions from './data/showCaptionsOptions';
-import {getCultureLanguageName, getLanguageName} from './data/configurator';
+import { getCultureLanguageName, getLanguageName } from './data/configurator';
 
 const ExerciseView = forwardRef(({
     user,
@@ -95,7 +95,7 @@ const ExerciseView = forwardRef(({
     const playerRef = useRef(null);
     const playerBoxRef = useRef(null);
     const recPlayerRef = useRef(null);
-    const captionViewRef = useRef(null);
+    const captionsViewRef = useRef(null);
 
     // #endregion State
 
@@ -119,10 +119,10 @@ const ExerciseView = forwardRef(({
         if (value !== settings.showCaptions) {
             console.log(`LingFlix: setShowCaptions', at position set showCaptions=${settings.showCaptions} = ${value}`);
             if (value === 1) {
-                const captionsObject = await captionViewRef.current?.handleReloadCaptions(getLanguageName(learningLanguage));
+                const captionsObject = await captionsViewRef.current?.handleReloadCaptions(getLanguageName(learningLanguage));
                 handleCaptionsOpen(captionsObject);
             } else if (value === 2) {
-                const captionsObject = await captionViewRef.current?.handleReloadCaptions(getCultureLanguageName(uiLanguage));
+                const captionsObject = await captionsViewRef.current?.handleReloadCaptions(getCultureLanguageName(uiLanguage));
                 handleCaptionsOpen(captionsObject);
                 Swal.fire({
                     title: t`Warning`,
@@ -468,8 +468,9 @@ const ExerciseView = forwardRef(({
         setRecordedChunks([]);
         videoData.videoRecordedChunks = [];
     }
-    const handleRestoreDefaultExercise = () => {
-        captionViewRef.current?.handleRestoreDefaultExercise(); // Calling resetCaptions function in CaptionsView
+    const handleRestoreDefaultExercise = async () => {
+        await captionsViewRef.current?.handleRestoreDefaultExercise(); // Calling resetCaptions function in CaptionsView
+        updateSettingKey('showCaptions', 1);
     }
     // #endregion Recording
 
@@ -806,6 +807,12 @@ const ExerciseView = forwardRef(({
     }, [analyzedCaption]);
 
     useEffect(() => {
+        if (exerciseStatus === ExerciseStatus.STOPPED &&
+            captions?.length > 0) {
+            const startIndex = clipIndexRange?.startIndex ?? 0;
+            const startCaption = captions[startIndex];
+            setCurrentCaptionWrapper(startCaption, `useEffect[exerciseStatus] exerciseStatus: ${exerciseStatus} caption: ${startCaption?.text}`);
+        }
         console.log(`LingFlix: useEffect[currentCaption]: status: ${exerciseStatus} currentCation: ${currentCaption?.text}`);
     }, [currentCaption]);
 
@@ -916,7 +923,7 @@ const ExerciseView = forwardRef(({
                 }
 
 
-                <CaptionsView ref={captionViewRef}
+                <CaptionsView ref={captionsViewRef}
                     user={user}
                     isSingleCaption={analyzedCaption}
                     videoData={videoData}

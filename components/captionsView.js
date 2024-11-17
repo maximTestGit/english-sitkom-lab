@@ -179,16 +179,10 @@ const CaptionsView = forwardRef(({
 
     useImperativeHandle(ref, () =>
     ({
-        handleRestoreDefaultExercise() {
-            retrieveCaptions(videoData.videoId, null, null, true)
-                .then(captions => {
-                    onClipIndexRangeChangeWrapper(captions);
-                });
-        }
-    })
-    );
-    useImperativeHandle(ref, () =>
-    ({
+        async handleRestoreDefaultExercise() {
+            const theCaptions = await retrieveCaptions(videoData.videoId, null, null, true);
+            onClipIndexRangeChangeWrapper(theCaptions);
+        },
         async handleReloadCaptions(language) {
             const newCaptions = await retrieveCaptions(videoData.videoId, null, language);
             onClipIndexRangeChangeWrapper(newCaptions);

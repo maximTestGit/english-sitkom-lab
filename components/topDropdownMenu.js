@@ -6,7 +6,8 @@ import {
     inDebugEnv,
     languages,
     loginoutEvents,
-    extractCulture
+    extractCulture,
+    currentVersion
 }
     from './data/configurator';
 import { loadCaptionObjectsFromFile, eventsToSubtitleObjectsFromFile } from './helpers/srtHelper';
@@ -460,7 +461,7 @@ const TopDropdownMenu = ({
                             <NavDropdown.Item onClick={handleHowTo}><Trans>How To?</Trans></NavDropdown.Item>
                             <NavDropdown.Item onClick={handleHowToSignup}><Trans>How To Register(Free)?</Trans></NavDropdown.Item>
                             <NavDropdown.Item onClick={handleContactMe}><Trans>Contact Me</Trans></NavDropdown.Item>
-                            <NavDropdown.Item onClick={handleAbout}>v2.0.124</NavDropdown.Item>
+                            <NavDropdown.Item onClick={handleAbout}>{currentVersion}</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
