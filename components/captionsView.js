@@ -9,6 +9,7 @@ import {
     fetchDataFromLocalStorage,
 } from './helpers/storageHelper';
 import { t, Trans } from '@lingui/macro';
+import ExerciseStatus from './data/exerciseStatus';
 
 const CaptionsView = forwardRef(({
     user,
@@ -223,7 +224,12 @@ const CaptionsView = forwardRef(({
         }
 
         const handlePositionChange = () => {
-            if (!isSingleCaption) {
+            if (!isSingleCaption &&
+                (exerciseStatus === ExerciseStatus.PLAYING ||
+                    exerciseStatus === ExerciseStatus.RECORDING ||
+                    exerciseStatus === ExerciseStatus.ORIGIN
+                )
+            ) {
                 findCurrentCaption(captions, position);
             }
             //console.log(`LingFlix: CaptionsView handlePositionChange position: ${position}, cap: ${cap?.text}, currentCaption: ${currentCaption?.text}`);    

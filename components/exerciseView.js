@@ -711,6 +711,9 @@ const ExerciseView = forwardRef(({
             case CaptionAction.PLAY_CURRENT:
                 playSingleCaption();
                 break;
+            case CaptionAction.STOP_PLAY_CURRENT:
+                handleStopPlay();
+                break;
             case CaptionAction.SEARCH:
                 searchCaption();
                 break;
@@ -807,12 +810,6 @@ const ExerciseView = forwardRef(({
     }, [analyzedCaption]);
 
     useEffect(() => {
-        // if (exerciseStatus === ExerciseStatus.STOPPED &&
-        //     captions?.length > 0) {
-        //     const startIndex = clipIndexRange?.startIndex ?? 0;
-        //     const startCaption = captions[startIndex];
-        //     setCurrentCaptionWrapper(startCaption, `useEffect[exerciseStatus] exerciseStatus: ${exerciseStatus} caption: ${startCaption?.text}`);
-        // }
         console.log(`LingFlix: useEffect[currentCaption]: status: ${exerciseStatus} currentCation: ${currentCaption?.text}`);
     }, [currentCaption]);
 
@@ -909,6 +906,7 @@ const ExerciseView = forwardRef(({
                     currentCaption={currentCaption}
                     onCaptionAction={handleCaptionAction}
                     isActive={exerciseStatus === ExerciseStatus.STOPPED}
+                    exerciseStatus={exerciseStatus}
                 />
                 {
                     settings.showCaptions !== 0 &&
