@@ -390,6 +390,7 @@ const App = () => {
           user={user}
           videoData={videoData}
           learningLanguage={learningLanguage}
+          uiLanguage={uiLanguage}
           onCustomVideoOpen={handleCustomVideoOpen}
           onExerciseOpen={handleExerciseOpen}
           onGoHome={handleExerciseExit}

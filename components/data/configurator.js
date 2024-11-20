@@ -173,7 +173,7 @@ export const languages = [
     { code: 'ja-JP', name: 'Japanese', nativeName: '日本語' },
     //{ code: 'pa-IN', name: 'Punjabi', nativeName: 'ਪੰਜਾਬੀ' },
     //{ code: 'pt-BR', name: 'Portuguese', nativeName: 'Português' },
-    { code: 'ru-RU', name: 'Russian', nativeName: 'Русский' },
+    { code: 'ru-RU', name: 'Russian', nativeName: 'Русский', helpSubpath: 'ru/help.html' },
     { code: 'es-ES', name: 'Spanish', nativeName: 'Español' },
     { code: 'tr-TR', name: 'Turkish', nativeName: 'Türkçe' },
     { code: 'uk-UA', name: 'Ukrainian', nativeName: 'Українська' }
@@ -228,4 +228,9 @@ export function initLearningLanguage() {
     return result;
 }
 
-
+export function getHelpUrl(culture) {
+    const lang = languages.find(l => l.code.startsWith(culture));
+    const helpSubpath = lang?.helpSubpath;
+    const result = `https://about.tube2fluency.com/${helpSubpath ?? ''}`;
+    return result;
+}

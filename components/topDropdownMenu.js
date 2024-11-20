@@ -7,7 +7,8 @@ import {
     languages,
     loginoutEvents,
     extractCulture,
-    currentVersion
+    currentVersion,
+    getHelpUrl
 }
     from './data/configurator';
 import { loadCaptionObjectsFromFile, eventsToSubtitleObjectsFromFile } from './helpers/srtHelper';
@@ -27,6 +28,7 @@ const TopDropdownMenu = ({
     user,
     videoData,
     learningLanguage,
+    uiLanguage,
     onCustomVideoOpen,
     onExerciseOpen,
     onGoHome,
@@ -151,7 +153,8 @@ const TopDropdownMenu = ({
     };
 
     const handleAbout = () => {
-        window.open('https://about.tube2fluency.com/', '_blank');
+        const helpUrl=getHelpUrl(uiLanguage);
+        window.open(helpUrl, '_blank');
     };
 
     const handleVideoYoutube = () => {
