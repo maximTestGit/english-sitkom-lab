@@ -153,7 +153,7 @@ const TopDropdownMenu = ({
     };
 
     const handleAbout = () => {
-        const helpUrl=getHelpUrl(uiLanguage);
+        const helpUrl = getHelpUrl(uiLanguage);
         window.open(helpUrl, '_blank');
     };
 
@@ -421,7 +421,7 @@ const TopDropdownMenu = ({
                             < NavDropdown title={<Trans>File</Trans>} id="File-dropdown">
                                 <NavDropdown.Item onClick={handleSrtSave}><Trans>Save .srt</Trans></NavDropdown.Item>
                                 <NavDropdown.Item onClick={handleSrtOpen}><Trans>Open .srt</Trans></NavDropdown.Item>
-                                <NavDropdown.Item onClick={handleSrtUpload}><Trans>Upload .srt</Trans></NavDropdown.Item>
+                                <NavDropdown.Item onClick={handleSrtUpload}><Trans>Upload .srt to Server</Trans></NavDropdown.Item>
                                 <NavDropdown.Item onClick={handleOpenJsonSrt}><Trans>Open .json</Trans></NavDropdown.Item>
                             </NavDropdown>
                         )}
