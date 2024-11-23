@@ -4,7 +4,7 @@ import { fetchLearningLanguageFromLocalStorage } from '../helpers/storageHelper'
 export const inDebugEnv = isInDevEnvironment();
 console.log(`running in DebugEnv=${inDebugEnv}`);
 export const isRunningOnBigScreen = !isMobile;
-export const currentVersion = 'version 2.0.204';
+export const currentVersion = 'version 2.0.205';
 
 function isInDevEnvironment() {
     try {

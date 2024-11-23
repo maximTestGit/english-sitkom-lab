@@ -461,7 +461,7 @@ const TopDropdownMenu = ({
                         )}
                         <NavDropdown title={<Trans>About</Trans>} id="about-dropdown">
                             <NavDropdown.Item onClick={handleAbout}><Trans>About the Application</Trans></NavDropdown.Item>
-                            <NavDropdown.Item onClick={handleHowTo}><Trans>How To?</Trans></NavDropdown.Item>
+                            {/* <NavDropdown.Item onClick={handleHowTo}><Trans>How To?</Trans></NavDropdown.Item> */}
                             <NavDropdown.Item onClick={handleHowToSignup}><Trans>How To Register(Free)?</Trans></NavDropdown.Item>
                             <NavDropdown.Item onClick={handleContactMe}><Trans>Contact Me</Trans></NavDropdown.Item>
                             <NavDropdown.Item onClick={handleAbout}>{currentVersion}</NavDropdown.Item>

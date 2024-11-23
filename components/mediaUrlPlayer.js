@@ -5,7 +5,10 @@ import ExerciseStatus from './data/exerciseStatus';
 import { jumpToPos } from './helpers/exerciseHelper';
 
 const MediaUrlPlayer = ({ url, exerciseStatus, muted = false,
-    playbackRate, volume = 100, progressInterval = 10, onProgress, onEnded,
+    playbackRate,
+    volume = 100, progressInterval = 10,
+    onProgress = () => { },
+    onEnded,
     playerRef, zIndex, playing,
     isImbededCaptionsBlured = false,
     clipRange,

@@ -19,7 +19,11 @@ import { CaptionsNavigationControls, CaptionAction } from './captionsNavigationC
 import Swal from 'sweetalert2';
 import { Trans, t } from '@lingui/macro';
 import showCaptionsOptions from './data/showCaptionsOptions';
-import { getCultureLanguageName, getLanguageName } from './data/configurator';
+import {
+    getCultureLanguageName,
+    getLanguageName,
+    isRunningOnBigScreen
+} from './data/configurator';
 
 const ExerciseView = forwardRef(({
     user,
@@ -28,7 +32,7 @@ const ExerciseView = forwardRef(({
     videoData,
     playlistData,
     captions,
-    clipIndexRange, //???
+    clipIndexRange,
     onExit,
     onClipIndexRangeChange,
     onUpdateCaptions,
@@ -317,7 +321,9 @@ const ExerciseView = forwardRef(({
 
 
     const handleAllowCameraChange = (checked) => {
-        navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        if (isRunningOnBigScreen) {
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        }
         setIsCameraAllowed(checked);
         saveDataToLocalStorage(
             storageDataAttributes.session_data_prefix,
@@ -340,7 +346,7 @@ const ExerciseView = forwardRef(({
             handleStopPlay();
             setCurrentCaptionWrapper(analyzedCaption, 'handlePlayingEnd', analyzedCaption.start);
             //setAnalyzedCaption(null);
-        } else if (!settings.isLoop) {
+        } else if (!settings.isLoop || recordedChunks?.length > 0) {
             handleStopPlay();
         } else {
             //handleStopPlay();
@@ -552,22 +558,16 @@ const ExerciseView = forwardRef(({
         if (user?.email) {
             handleWaitForAction(true);
             try {
-                const emailToSend = user.email;
-                const name = user.username;
-                const isUnlistedVideo = true;
-                //setIsShowEmailFormModalOpen(false);
-                await doShareHomework(learningLanguage, videoData, playlistData, captions, recordedChunks,
-                    buildClipRange(
-                        captions,
-                        exerciseStatus === ExerciseStatus.CAPTION ?
-                            {
-                                startIndex: captions.findIndex(caption => caption.start === currentCaption.start),
-                                endIndex: captions.findIndex(caption => caption.start === currentCaption.start)
-                            } :
-                            clipIndexRange),
-                    settings.playerLineSpeed, settings.yourLineSpeed, name, emailToSend, isUnlistedVideo);
-                //setEmailAddress(emailToSend);
-                //setStudentName(name);
+                const clipRange = buildClipRange(clipIndexRange);
+                await doShareHomework(
+                    learningLanguage,
+                    videoData,
+                    playlistData,
+                    captions,
+                    recordedChunks,
+                    clipRange,
+                    settings,
+                    user);
                 Swal.fire({
                     title: t`Homework uploaded to the server successfully!`,
                     text: t`You'll get an email letting you know when your video goes live on YouTube. It'll be set to "unlisted" so only the people you send the link to can watch it.`,

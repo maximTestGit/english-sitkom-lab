@@ -23,8 +23,33 @@ export function doSaveExerciseToFile(learningLanguage, videoData, playlistData, 
         }
         );
 }
-export async function doShareHomework(learningLanguage, video, playlistData, captions, recordedChunks, clipRange, playbackRate, youLinePlaybackRate, studentName, emailAddress, isUnlistedVideo) {
-    const videoData = await buildExerciseData(learningLanguage, video, playlistData, captions, recordedChunks, clipRange, playbackRate, youLinePlaybackRate, studentName, emailAddress, isUnlistedVideo);
+export async function doShareHomework(
+    learningLanguage,
+    video,
+    playlistData,
+    captions,
+    recordedChunks,
+    clipRange,
+    settings,
+    user,
+    isUnlistedVideo = true
+) {
+
+    const { playerLineSpeed: playbackRate, yourLineSpeed: youLinePlaybackRate } = settings;
+    const { displayName: studentName, email: emailAddress } = user;
+
+    const videoData = await buildExerciseData(
+        learningLanguage,
+        video,
+        playlistData,
+        captions,
+        recordedChunks,
+        clipRange,
+        playbackRate,
+        youLinePlaybackRate,
+        studentName,
+        emailAddress,
+        isUnlistedVideo);
     await publishJsonToCloud(videoData);
 }
 export function buildExerciseData(learningLanguage, video, playlistData, captions, recordedChunks, clipIndexRange, playbackRate, youLinePlaybackRate, studentName = null, emailAddress = null, isUnlistedVideo = false) {

@@ -84,8 +84,7 @@ const PlayerBox = forwardRef(({
                             url={recordedChunksUrl}
                             playing={exerciseStatus === ExerciseStatus.PLAYING}
                             exerciseStatus={exerciseStatus}
-                            onProgress={() => { }}
-                            onEnded={() => onPlayingEnd()}
+                            onEnded={onPlayingEnd}
                             clipRange={clipRange}
                             hasRecording={true}
                         />
@@ -98,7 +97,7 @@ const PlayerBox = forwardRef(({
                             isMited={isMited}
                             playbackRate={currentPlaybackRate}
                             onProgress={(state) => onProgress(state)}
-                            onEnded={() => handlePlayingEndWrapper()}
+                            onEnded={handlePlayingEndWrapper}
                             volume={currentVolume}
                             isImbededCaptionsBlured={isImbededCaptionsBlured}
                             clipRange={clipRange}
