@@ -831,9 +831,20 @@ const ExerciseView = forwardRef(({
         if (isStarted) {
             setIsAvailable(false);
             document.body.style.cursor = 'wait';
+            Swal.fire({
+                title: t`Please wait`,
+                text: t`Your request is being processed...`,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showConfirmButton: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                }
+            });
         } else {
             setIsAvailable(true);
             document.body.style.cursor = 'default';
+            Swal.close();
         }
     }
     return (
