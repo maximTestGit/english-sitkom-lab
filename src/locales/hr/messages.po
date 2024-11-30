@@ -29,20 +29,20 @@ msgstr "{speed} normalne brzine kada govorite"
 #~ msgid "{uiLanguage} subtitles have been loaded successfully."
 #~ msgstr "{uiLanguage} titlovi su uspješno učitani."
 
-#: components/topDropdownMenu.js:462
+#: components/topDropdownMenu.js:465
 msgid "About"
 msgstr "O nama"
 
-#: components/topDropdownMenu.js:463
+#: components/topDropdownMenu.js:466
 msgid "About the Application"
 msgstr "O aplikaciji"
 
-#: components/topDropdownMenu.js:410
-#: components/topDropdownMenu.js:416
+#: components/topDropdownMenu.js:413
+#: components/topDropdownMenu.js:419
 msgid "Account"
 msgstr "Račun"
 
-#: components/topDropdownMenu.js:432
+#: components/topDropdownMenu.js:435
 msgid "Add custom Playlist"
 msgstr "Dodati prilagođenu playlistu"
 
@@ -90,7 +90,7 @@ msgstr "Kartica {0} od {1}"
 msgid "Card Details:"
 msgstr "Detalji kartice:"
 
-#: components/topDropdownMenu.js:435
+#: components/topDropdownMenu.js:438
 msgid "Clear Memory"
 msgstr "Očisti memoriju"
 
@@ -98,7 +98,7 @@ msgstr "Očisti memoriju"
 msgid "Collection:"
 msgstr "Kolekcija:"
 
-#: components/topDropdownMenu.js:466
+#: components/topDropdownMenu.js:469
 msgid "Contact Me"
 msgstr "Kontaktirajte me"
 
@@ -113,6 +113,10 @@ msgstr "Stvoreno:"
 #: components/flashcardEditor.js:50
 msgid "Delete"
 msgstr "Izbriši"
+
+#: components/topDropdownMenu.js:506
+msgid "Email"
+msgstr "E-pošta"
 
 #: components/captionBox.js:234
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
@@ -146,7 +150,7 @@ msgstr "Vježba"
 #~ msgid "Exercise Captions"
 #~ msgstr "Titlovi za vježbu"
 
-#: components/topDropdownMenu.js:421
+#: components/topDropdownMenu.js:424
 msgid "File"
 msgstr "Datoteka"
 
@@ -154,15 +158,15 @@ msgstr "Datoteka"
 msgid "File \"{fileName}\" saved successfully!"
 msgstr "Datoteka \"{fileName}\" uspješno spremljena!"
 
-#: components/topDropdownMenu.js:444
+#: components/topDropdownMenu.js:447
 msgid "Flashcards"
 msgstr "Kartice za učenje"
 
-#: components/topDropdownMenu.js:640
+#: components/topDropdownMenu.js:654
 msgid "Flashcards Exam"
 msgstr "Ispit kartica za učenje"
 
-#: components/topDropdownMenu.js:402
+#: components/topDropdownMenu.js:405
 msgid "Hello"
 msgstr "Pozdrav"
 
@@ -170,8 +174,8 @@ msgstr "Pozdrav"
 msgid "Hello {name}"
 msgstr "Pozdrav {name}"
 
-#: components/topDropdownMenu.js:451
-#: components/topDropdownMenu.js:457
+#: components/topDropdownMenu.js:454
+#: components/topDropdownMenu.js:460
 msgid "Home"
 msgstr "Početna"
 
@@ -179,13 +183,13 @@ msgstr "Početna"
 msgid "Homework uploaded to the server successfully!"
 msgstr "Zadaća uspješno učitana na server!"
 
-#: components/topDropdownMenu.js:465
+#: components/topDropdownMenu.js:468
 msgid "How To Register(Free)?"
 msgstr "Kako se registrirati (besplatno)?"
 
 #: components/topDropdownMenu.js:464
-msgid "How To?"
-msgstr "Kako?"
+#~ msgid "How To?"
+#~ msgstr "Kako?"
 
 #: components/flashcardExam.js:163
 msgid "Incorrect"
@@ -195,7 +199,11 @@ msgstr "Netočno"
 msgid "Last Reviewed:"
 msgstr "Posljednji pregled:"
 
-#: components/topDropdownMenu.js:411
+#: components/topDropdownMenu.js:558
+msgid "Learning Language"
+msgstr "Jezik učenja"
+
+#: components/topDropdownMenu.js:414
 msgid "Login"
 msgstr "Prijava"
 
@@ -203,7 +211,7 @@ msgstr "Prijava"
 msgid "Login {name} failed"
 msgstr "Prijava za {name} nije uspjela"
 
-#: components/topDropdownMenu.js:417
+#: components/topDropdownMenu.js:420
 msgid "Logout"
 msgstr "Odjava"
 
@@ -223,8 +231,13 @@ msgstr "Glasan zvučni signal kada vi govorite"
 msgid "Mute Player when you talk"
 msgstr "Utišaj player kada vi govorite"
 
-#: components/topDropdownMenu.js:450
-#: components/topDropdownMenu.js:456
+#: components/topDropdownMenu.js:518
+#: components/topDropdownMenu.js:569
+msgid "My Language"
+msgstr "Moj jezik"
+
+#: components/topDropdownMenu.js:453
+#: components/topDropdownMenu.js:459
 msgid "Navigate"
 msgstr "Navigacija"
 
@@ -264,28 +277,28 @@ msgstr "Normalna brzina kada  vi govorite"
 msgid "OK"
 msgstr "U redu"
 
-#: components/topDropdownMenu.js:425
+#: components/topDropdownMenu.js:428
 msgid "Open .json"
 msgstr "Otvori .json"
 
-#: components/topDropdownMenu.js:423
+#: components/topDropdownMenu.js:426
 msgid "Open .srt"
 msgstr "Otvori .srt"
 
-#: components/topDropdownMenu.js:431
+#: components/topDropdownMenu.js:434
 msgid "Open custom video"
 msgstr "Otvori prilagođeni video"
 
-#: components/topDropdownMenu.js:433
+#: components/topDropdownMenu.js:436
 msgid "Open Exercise File"
 msgstr "Otvori datoteku za vježbu"
 
-#: components/topDropdownMenu.js:430
-#: components/topDropdownMenu.js:440
+#: components/topDropdownMenu.js:433
+#: components/topDropdownMenu.js:443
 msgid "Open Settings"
 msgstr "Otvori postavke"
 
-#: components/topDropdownMenu.js:459
+#: components/topDropdownMenu.js:462
 msgid "Open video on Youtube"
 msgstr "Otvori video na YouTubeu"
 
@@ -307,13 +320,21 @@ msgstr "Operacija uspješno dovršena"
 msgid "Origin Language:"
 msgstr "Izvorni jezik:"
 
-#: components/exerciseView.js:130
+#: components/topDropdownMenu.js:510
+msgid "Password"
+msgstr "Lozinka"
+
+#: components/exerciseView.js:134
 msgid "Please note that these subtitles are auto-generated and may contain semantic and contextual mistakes."
 msgstr "Imajte na umu da su ovi titlovi automatski generirani i mogu sadržavati semantičke i kontekstualne pogreške."
 
-#: components/exerciseView.js:442
+#: components/exerciseView.js:448
 msgid "Please restart recording!"
 msgstr "Molimo ponovno pokrenite snimanje!"
+
+#: components/exerciseView.js:835
+msgid "Please wait"
+msgstr "Molimo pričekajte"
 
 #: components/exerciseView.js:581
 msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
@@ -331,11 +352,12 @@ msgstr "Izgovor"
 msgid "Question"
 msgstr "Pitanje"
 
-#: components/exerciseView.js:441
+#: components/exerciseView.js:447
 msgid "Recording Synchronization Error"
 msgstr "Greška sinkronizacije snimanja"
 
-#: components/topDropdownMenu.js:412
+#: components/topDropdownMenu.js:415
+#: components/topDropdownMenu.js:497
 msgid "Register"
 msgstr "Registracija"
 
@@ -343,7 +365,7 @@ msgstr "Registracija"
 msgid "Register {name} failed, try later"
 msgstr "Registracija za {name} nije uspjela, pokušajte kasnije"
 
-#: components/topDropdownMenu.js:434
+#: components/topDropdownMenu.js:437
 msgid "Reload Playlist"
 msgstr "Ponovno učitaj playlistu"
 
@@ -355,7 +377,7 @@ msgstr "Vrati"
 msgid "Save"
 msgstr "Spremi"
 
-#: components/topDropdownMenu.js:422
+#: components/topDropdownMenu.js:425
 msgid "Save .srt"
 msgstr "Spremi .srt"
 
@@ -367,6 +389,10 @@ msgstr "Odaberi"
 #: components/captionBox.js:217
 msgid "Select text to process"
 msgstr "Odaberite tekst za obradu"
+
+#: components/topDropdownMenu.js:553
+msgid "Settings"
+msgstr "Postavke"
 
 #: components/data/showCaptionsOptions.js:4
 msgid "Show No Captions"
@@ -404,7 +430,7 @@ msgstr "Sinteza govora nije podržana u ovom pregledniku."
 msgid "Start (sec)"
 msgstr "Početak (sek)"
 
-#: components/topDropdownMenu.js:446
+#: components/topDropdownMenu.js:449
 msgid "Start Test"
 msgstr "Započni test"
 
@@ -421,16 +447,16 @@ msgstr "Tekst"
 #~ msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
 #~ msgstr "Značajka objavljivanja na YouTubeu trenutno nije dostupna. Ako je potrebno, kontaktirajte programera."
 
-#: components/exerciseView.js:131
+#: components/exerciseView.js:135
 msgid "They are provided solely as a reference tool for practicing speech."
 msgstr "Oni su pruženi isključivo kao referentni alat za vježbanje govora."
 
-#: components/topDropdownMenu.js:429
-#: components/topDropdownMenu.js:439
+#: components/topDropdownMenu.js:432
+#: components/topDropdownMenu.js:442
 msgid "Tools"
 msgstr "Alati"
 
-#: components/exerciseView.js:129
+#: components/exerciseView.js:133
 msgid "Training subtitles have been loaded successfully."
 msgstr "Titlovi za vježbanje su uspješno učitani."
 
@@ -446,11 +472,19 @@ msgstr "Jezik prijevoda:"
 msgid "Translation:"
 msgstr "Prijevod:"
 
-#: components/topDropdownMenu.js:424
+#: components/topDropdownMenu.js:427
 msgid "Upload .srt to Server"
 msgstr "Učitaj .srt na poslužitelj"
 
-#: components/topDropdownMenu.js:445
+#: components/topDropdownMenu.js:502
+msgid "Username"
+msgstr "Korisničko ime"
+
+#: components/topDropdownMenu.js:514
+msgid "Verify Password"
+msgstr "Potvrdi lozinku"
+
+#: components/topDropdownMenu.js:448
 msgid "View Colection"
 msgstr "Pregledaj kolekciju"
 
@@ -460,7 +494,7 @@ msgstr "Pregledaj kolekciju"
 #: components/captionBox.js:175
 #: components/captionBox.js:216
 #: components/captionsView.js:244
-#: components/exerciseView.js:128
+#: components/exerciseView.js:132
 msgid "Warning"
 msgstr "Upozorenje"
 
@@ -476,7 +510,7 @@ msgstr "Upozorenje"
 msgid "You are not allowed to change Selection, when you have recorded exercise. Please clear recording first.(Click \"Clear Record\" button)"
 msgstr "Nije vam dopušteno mijenjati odabir kada imate snimljenu vježbu. Molimo prvo očistite snimanje. (Kliknite gumb \"Očisti snimanje\")"
 
-#: components/exerciseView.js:403
+#: components/exerciseView.js:409
 msgid "You have already recorded something. Please clear recording first."
 msgstr "Već ste nešto snimili. Molimo prvo očistite snimanje."
 
@@ -492,8 +526,12 @@ msgstr "Youglish"
 msgid "Your Line"
 msgstr "Vaš redak"
 
-#: components/topDropdownMenu.js:452
-#: components/topDropdownMenu.js:458
+#: components/exerciseView.js:836
+msgid "Your request is being processed..."
+msgstr "Vaš zahtjev se obrađuje..."
+
+#: components/topDropdownMenu.js:455
+#: components/topDropdownMenu.js:461
 msgid "Youtube"
 msgstr "YouTube"
 

@@ -29,20 +29,20 @@ msgstr "מנגן {speed} ממהירות רגילה כשאתה מדבר"
 #~ msgid "{uiLanguage} subtitles have been loaded successfully."
 #~ msgstr "כתוביות {uiLanguage} נטענו בהצלחה."
 
-#: components/topDropdownMenu.js:462
+#: components/topDropdownMenu.js:465
 msgid "About"
 msgstr "מידע"
 
-#: components/topDropdownMenu.js:463
+#: components/topDropdownMenu.js:466
 msgid "About the Application"
 msgstr "אודות היישום"
 
-#: components/topDropdownMenu.js:410
-#: components/topDropdownMenu.js:416
+#: components/topDropdownMenu.js:413
+#: components/topDropdownMenu.js:419
 msgid "Account"
 msgstr "חשבון"
 
-#: components/topDropdownMenu.js:432
+#: components/topDropdownMenu.js:435
 msgid "Add custom Playlist"
 msgstr "הוסף רשימת השמעה מותאמת אישית"
 
@@ -90,7 +90,7 @@ msgstr "כרטיס {0} מתוך {1}"
 msgid "Card Details:"
 msgstr "פרטי הכרטיס:"
 
-#: components/topDropdownMenu.js:435
+#: components/topDropdownMenu.js:438
 msgid "Clear Memory"
 msgstr "נקה זיכרון"
 
@@ -98,7 +98,7 @@ msgstr "נקה זיכרון"
 msgid "Collection:"
 msgstr "אוסף:"
 
-#: components/topDropdownMenu.js:466
+#: components/topDropdownMenu.js:469
 msgid "Contact Me"
 msgstr "צור קשר"
 
@@ -113,6 +113,10 @@ msgstr "נוצר:"
 #: components/flashcardEditor.js:50
 msgid "Delete"
 msgstr "מחק"
+
+#: components/topDropdownMenu.js:506
+msgid "Email"
+msgstr "אימייל"
 
 #: components/captionBox.js:234
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
@@ -146,7 +150,7 @@ msgstr "תרגול"
 #~ msgid "Exercise Captions"
 #~ msgstr "כתוביות תרגול"
 
-#: components/topDropdownMenu.js:421
+#: components/topDropdownMenu.js:424
 msgid "File"
 msgstr "קובץ"
 
@@ -154,15 +158,15 @@ msgstr "קובץ"
 msgid "File \"{fileName}\" saved successfully!"
 msgstr "הקובץ \"{fileName}\" נשמר בהצלחה!"
 
-#: components/topDropdownMenu.js:444
+#: components/topDropdownMenu.js:447
 msgid "Flashcards"
 msgstr "כרטיסי זיכרון"
 
-#: components/topDropdownMenu.js:640
+#: components/topDropdownMenu.js:654
 msgid "Flashcards Exam"
 msgstr "מבחן כרטיסי זיכרון"
 
-#: components/topDropdownMenu.js:402
+#: components/topDropdownMenu.js:405
 msgid "Hello"
 msgstr "שלום"
 
@@ -170,8 +174,8 @@ msgstr "שלום"
 msgid "Hello {name}"
 msgstr "שלום {name}"
 
-#: components/topDropdownMenu.js:451
-#: components/topDropdownMenu.js:457
+#: components/topDropdownMenu.js:454
+#: components/topDropdownMenu.js:460
 msgid "Home"
 msgstr "דף הבית"
 
@@ -179,13 +183,13 @@ msgstr "דף הבית"
 msgid "Homework uploaded to the server successfully!"
 msgstr "שיעורי הבית הועלו לשרת בהצלחה!"
 
-#: components/topDropdownMenu.js:465
+#: components/topDropdownMenu.js:468
 msgid "How To Register(Free)?"
 msgstr "איך להירשם (חינם)?"
 
 #: components/topDropdownMenu.js:464
-msgid "How To?"
-msgstr "איך?"
+#~ msgid "How To?"
+#~ msgstr "איך?"
 
 #: components/flashcardExam.js:163
 msgid "Incorrect"
@@ -195,7 +199,11 @@ msgstr "לא נכון"
 msgid "Last Reviewed:"
 msgstr "נבדק לאחרונה:"
 
-#: components/topDropdownMenu.js:411
+#: components/topDropdownMenu.js:558
+msgid "Learning Language"
+msgstr "שפת לימוד"
+
+#: components/topDropdownMenu.js:414
 msgid "Login"
 msgstr "התחבר"
 
@@ -203,7 +211,7 @@ msgstr "התחבר"
 msgid "Login {name} failed"
 msgstr "ההתחברות של {name} נכשלה"
 
-#: components/topDropdownMenu.js:417
+#: components/topDropdownMenu.js:420
 msgid "Logout"
 msgstr "התנתק"
 
@@ -223,8 +231,13 @@ msgstr "הערה רועשת כשאתה מדבר"
 msgid "Mute Player when you talk"
 msgstr "השקט נגן כשאתה מדבר"
 
-#: components/topDropdownMenu.js:450
-#: components/topDropdownMenu.js:456
+#: components/topDropdownMenu.js:518
+#: components/topDropdownMenu.js:569
+msgid "My Language"
+msgstr "השפה שלי"
+
+#: components/topDropdownMenu.js:453
+#: components/topDropdownMenu.js:459
 msgid "Navigate"
 msgstr "ניווט"
 
@@ -268,28 +281,28 @@ msgstr "מהירות רגילה כשאתה מדבר"
 msgid "OK"
 msgstr "אישור"
 
-#: components/topDropdownMenu.js:425
+#: components/topDropdownMenu.js:428
 msgid "Open .json"
 msgstr "פתח .json"
 
-#: components/topDropdownMenu.js:423
+#: components/topDropdownMenu.js:426
 msgid "Open .srt"
 msgstr "פתח .srt"
 
-#: components/topDropdownMenu.js:431
+#: components/topDropdownMenu.js:434
 msgid "Open custom video"
 msgstr "פתח וידאו מותאם אישית"
 
-#: components/topDropdownMenu.js:433
+#: components/topDropdownMenu.js:436
 msgid "Open Exercise File"
 msgstr "פתח קובץ תרגול"
 
-#: components/topDropdownMenu.js:430
-#: components/topDropdownMenu.js:440
+#: components/topDropdownMenu.js:433
+#: components/topDropdownMenu.js:443
 msgid "Open Settings"
 msgstr "פתח הגדרות"
 
-#: components/topDropdownMenu.js:459
+#: components/topDropdownMenu.js:462
 msgid "Open video on Youtube"
 msgstr "פתח וידאו ביוטיוב"
 
@@ -311,13 +324,21 @@ msgstr "הפעולה הושלמה בהצלחה"
 msgid "Origin Language:"
 msgstr "שפת מקור:"
 
-#: components/exerciseView.js:130
+#: components/topDropdownMenu.js:510
+msgid "Password"
+msgstr "סיסמה"
+
+#: components/exerciseView.js:134
 msgid "Please note that these subtitles are auto-generated and may contain semantic and contextual mistakes."
 msgstr "שימו לב שכתוביות אלו נוצרו אוטומטית ועשויות להכיל טעויות סמנטיות והקשריות."
 
-#: components/exerciseView.js:442
+#: components/exerciseView.js:448
 msgid "Please restart recording!"
 msgstr "אנא הפעל מחדש את ההקלטה!"
+
+#: components/exerciseView.js:835
+msgid "Please wait"
+msgstr "אנא המתן"
 
 #: components/exerciseView.js:581
 msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
@@ -335,11 +356,12 @@ msgstr "הגייה"
 msgid "Question"
 msgstr "שאלה"
 
-#: components/exerciseView.js:441
+#: components/exerciseView.js:447
 msgid "Recording Synchronization Error"
 msgstr "שגיאת סנכרון הקלטה"
 
-#: components/topDropdownMenu.js:412
+#: components/topDropdownMenu.js:415
+#: components/topDropdownMenu.js:497
 msgid "Register"
 msgstr "הירשם"
 
@@ -347,7 +369,7 @@ msgstr "הירשם"
 msgid "Register {name} failed, try later"
 msgstr "ההרשמה של {name} נכשלה, נסה מאוחר יותר"
 
-#: components/topDropdownMenu.js:434
+#: components/topDropdownMenu.js:437
 msgid "Reload Playlist"
 msgstr "טען מחדש את רשימת ההשמעה"
 
@@ -359,7 +381,7 @@ msgstr "שחזר"
 msgid "Save"
 msgstr "שמור"
 
-#: components/topDropdownMenu.js:422
+#: components/topDropdownMenu.js:425
 msgid "Save .srt"
 msgstr "שמור .srt"
 
@@ -371,6 +393,10 @@ msgstr "בחר"
 #: components/captionBox.js:217
 msgid "Select text to process"
 msgstr "בחר טקסט לעיבוד"
+
+#: components/topDropdownMenu.js:553
+msgid "Settings"
+msgstr "הגדרות"
 
 #: components/data/showCaptionsOptions.js:4
 msgid "Show No Captions"
@@ -408,7 +434,7 @@ msgstr "הסינתזה של דיבור אינה נתמכת בדפדפן זה."
 msgid "Start (sec)"
 msgstr "התחלה (שניות)"
 
-#: components/topDropdownMenu.js:446
+#: components/topDropdownMenu.js:449
 msgid "Start Test"
 msgstr "התחל מבחן"
 
@@ -429,16 +455,16 @@ msgstr "טקסט"
 #~ msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
 #~ msgstr "תכונת הפרסום ביוטיוב אינה זמינה זמנית. אנא צור קשר עם המפתח במידת הצורך."
 
-#: components/exerciseView.js:131
+#: components/exerciseView.js:135
 msgid "They are provided solely as a reference tool for practicing speech."
 msgstr "הן ניתנות אך ורק ככלי עזר לתרגול דיבור."
 
-#: components/topDropdownMenu.js:429
-#: components/topDropdownMenu.js:439
+#: components/topDropdownMenu.js:432
+#: components/topDropdownMenu.js:442
 msgid "Tools"
 msgstr "כלים"
 
-#: components/exerciseView.js:129
+#: components/exerciseView.js:133
 msgid "Training subtitles have been loaded successfully."
 msgstr "כתוביות האימון נטענו בהצלחה."
 
@@ -454,11 +480,19 @@ msgstr "שפת תרגום:"
 msgid "Translation:"
 msgstr "תרגום:"
 
-#: components/topDropdownMenu.js:424
+#: components/topDropdownMenu.js:427
 msgid "Upload .srt to Server"
 msgstr "העלה .srt לשרת"
 
-#: components/topDropdownMenu.js:445
+#: components/topDropdownMenu.js:502
+msgid "Username"
+msgstr "שם משתמש"
+
+#: components/topDropdownMenu.js:514
+msgid "Verify Password"
+msgstr "אמת סיסמה"
+
+#: components/topDropdownMenu.js:448
 msgid "View Colection"
 msgstr "הצג אוסף"
 
@@ -468,7 +502,7 @@ msgstr "הצג אוסף"
 #: components/captionBox.js:175
 #: components/captionBox.js:216
 #: components/captionsView.js:244
-#: components/exerciseView.js:128
+#: components/exerciseView.js:132
 msgid "Warning"
 msgstr "אזהרה"
 
@@ -484,7 +518,7 @@ msgstr "אזהרה"
 msgid "You are not allowed to change Selection, when you have recorded exercise. Please clear recording first.(Click \"Clear Record\" button)"
 msgstr "אינך רשאי לשנות את הבחירה כאשר יש לך תרגיל מוקלט. אנא נקה את ההקלטה תחילה. (לחץ על כפתור \"נקה הקלטה\")"
 
-#: components/exerciseView.js:403
+#: components/exerciseView.js:409
 msgid "You have already recorded something. Please clear recording first."
 msgstr "כבר הקלטת משהו. אנא נקה את ההקלטה תחילה."
 
@@ -500,8 +534,12 @@ msgstr "יוגליש"
 msgid "Your Line"
 msgstr "השורה שלך"
 
-#: components/topDropdownMenu.js:452
-#: components/topDropdownMenu.js:458
+#: components/exerciseView.js:836
+msgid "Your request is being processed..."
+msgstr "הבקשה שלך בעיבוד..."
+
+#: components/topDropdownMenu.js:455
+#: components/topDropdownMenu.js:461
 msgid "Youtube"
 msgstr "יוטיוב"
 

@@ -38,6 +38,7 @@ const TopDropdownMenu = ({
     onReloadPlaylist,
     onSavePlaylist,
     onLearningLanguageChange,
+    onUILanguageChange,
     onLoginLogout
 }) => {
     const [userName, setUserName] = useState('');
@@ -55,6 +56,7 @@ const TopDropdownMenu = ({
     const [showPlaylistModal, setShowPlaylistModal] = useState(false);
     const [showSettingsModal, setShowSettingsModal] = useState(false);
     const [newLearningLanguage, setNewLearningLanguage] = useState('');
+    const [newUILanguage, setNewUILanguage] = useState('');
     const [showFlashcardsModal, setShowFlashcardsModal] = useState(false);
     const [flashcards, setFlashcards] = useState([]);
     const [showFlashcardExamViewModal, setShowFlashcardExamViewModal] = useState(false);
@@ -284,6 +286,7 @@ const TopDropdownMenu = ({
         console.log('Selected Learning Language:', newLearningLanguage);
         setShowSettingsModal(false);
         onLearningLanguageChange(newLearningLanguage);
+        onUILanguageChange(newUILanguage);
     };
 
     const handleSettingsClose = () => {
@@ -491,28 +494,28 @@ const TopDropdownMenu = ({
             </Modal>
             <Modal show={showRegisterModal} onHide={() => setShowRegisterModal(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Register</Modal.Title>
+                    <Modal.Title>{<Trans>Register</Trans>}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleRegisterSubmit}>
                         <Form.Group>
-                            <Form.Label>Username</Form.Label>
+                            <Form.Label><Trans>Username</Trans></Form.Label>
                             <Form.Control type="text" value={userName} onChange={(e) => setUserName(e.target.value)} required />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Email</Form.Label>
+                            <Form.Label><Trans>Email</Trans></Form.Label>
                             <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label><Trans>Password</Trans></Form.Label>
                             <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Verify Password</Form.Label>
+                            <Form.Label><Trans>Verify Password</Trans></Form.Label>
                             <Form.Control type="password" value={verifyPassword} onChange={(e) => setVerifyPassword(e.target.value)} required />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>My Language</Form.Label>
+                            <Form.Label><Trans>My Language</Trans></Form.Label>
                             <Form.Control as="select" value={selectedLanguage} onChange={(e) => setSelectedLanguage(e.target.value)} required>
                                 {languages.map(lang => (
                                     <option key={lang.code} value={lang.code}>{lang.name}</option>
@@ -547,13 +550,24 @@ const TopDropdownMenu = ({
             </Modal>
             <Modal show={showSettingsModal} onHide={handleSettingsClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Settings</Modal.Title>
+                    <Modal.Title><Trans>Settings</Trans></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleSettingsSubmit}>
-                        <Form.Group>
-                            <Form.Label>Learning Language</Form.Label>
+                    <Form.Group>
+                            <Form.Label><Trans>Learning Language</Trans></Form.Label>
                             <Form.Control as="select" value={newLearningLanguage} onChange={(e) => setNewLearningLanguage(e.target.value)} required>
+                                <option value="">Select a language</option>
+                                {languages.map((lang) => (
+                                    <option key={lang.code} value={lang.code}>
+                                        {lang.name} / {lang.nativeName}
+                                    </option>
+                                ))}
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label><Trans>My Language</Trans></Form.Label>
+                            <Form.Control as="select" value={newUILanguage} onChange={(e) => setNewUILanguage(e.target.value)} required>
                                 <option value="">Select a language</option>
                                 {languages.map((lang) => (
                                     <option key={lang.code} value={lang.code}>

@@ -145,9 +145,11 @@ const App = () => {
     return result;
   }
   useEffect(() => {
-    const newUiLanguage = extractUiLanguage(user);
-    if (newUiLanguage !== uiLanguage) {
-      setUiLanguage(newUiLanguage);
+    if (user) {
+      const newUiLanguage = extractUiLanguage(user);
+      if (newUiLanguage !== uiLanguage) {
+        setUiLanguage(newUiLanguage);
+      }
     }
     fetchPlaylists(user, learningLanguage)
       .then((plRegistry) => {
@@ -155,7 +157,7 @@ const App = () => {
           setPlaylistRegistry(plRegistry);
         }
       })
-  }, [user, learningLanguage]);
+  }, [user, learningLanguage, uiLanguage]);
 
   // useEffect(() => {
   //   if (playlistId) {
@@ -383,6 +385,12 @@ const App = () => {
     saveLearningLanguageToLocalStorage(newLearningLanguage);
     //setPlaylistId(null);
   }
+  const handleUILanguageChange = (newUILanguage) => {
+    console.log(`LingFlix: handleUILanguageChange old: ${uiLanguage}, new: ${newUILanguage}`);
+    const uiCulture = extractCulture(newUILanguage);
+    setUiLanguage(uiCulture);
+    //saveUILanguageToLocalStorage(newUILanguage);
+  }
   return (
     <I18nProvider i18n={i18n}>
       <div>
@@ -400,6 +408,7 @@ const App = () => {
           onReloadPlaylist={handleReloadPlaylist}
           onSavePlaylist={handleSavePlaylist}
           onLearningLanguageChange={handleLearningLanguageChange}
+          onUILanguageChange={handleUILanguageChange}
           onLoginLogout={handleLoginLogout}
         />
         {videoData ? (
