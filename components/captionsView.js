@@ -10,6 +10,7 @@ import {
 } from './helpers/storageHelper';
 import { t, Trans } from '@lingui/macro';
 import ExerciseStatus from './data/exerciseStatus';
+import { translateCaptions } from './helpers/translationHelper';
 
 const CaptionsView = forwardRef(({
     user,
@@ -45,10 +46,12 @@ const CaptionsView = forwardRef(({
         return result;
     }
 
-    const setCaptionsWrapper = (newCaptions) => {
+    const setCaptionsWrapper = (newCaptions, captionsLanguage = null) => {
+        captionsLanguage = captionsLanguage || videoData.learningLanguage;
+        const key = `${videoData.videoId}#${captionsLanguage}`;
         saveDataToLocalStorage(
             storageDataAttributes.captions_data_prefix,
-            videoData.videoId,
+            key,
             newCaptions);
         onUpdateCaptions(newCaptions);
     };
@@ -94,35 +97,48 @@ const CaptionsView = forwardRef(({
         return result;
     };
 
-    const assignCaptions = (newCaptions) => {
+    const assignCaptions = (newCaptions, captionsLanguage = null) => {
         let result = [];
         if (newCaptions?.length > 0) {
             result =
                 newCaptions
                     .map(caption => ({ ...caption, checked: decideCaptionToCheck(caption) }));
         }
-        setCaptionsWrapper(result);
+        setCaptionsWrapper(result, captionsLanguage);
         return result;
     };
 
     const retrieveCaptions = async (videoId, captions, language, toRestoreDefaultExercise = false) => {
         try {
             onWaitForAction(true);
+            const captionsLanguage = language ?? videoData.learningLanguage;
+            const originalLanguage = videoData.learningLanguage;
             let newCaptions = captions;
-            if (toRestoreDefaultExercise || !captions || captions.length === 0) {
-                newCaptions = await fetchRetrieveCaptions(
-                    user,
-                    videoData.videoId,
-                    language ?? videoData.learningLanguage,
-                    videoData.learningLanguage,
-                    videoData.playlistId,
-                    user?.username,
-                    toRestoreDefaultExercise);
+            if (captionsLanguage === originalLanguage) {
+                if (toRestoreDefaultExercise || !captions || captions.length === 0) {
+                    newCaptions = await fetchRetrieveCaptions(
+                        user,
+                        videoData.videoId,
+                        captionsLanguage,
+                        originalLanguage,
+                        videoData.playlistId,
+                        user?.username,
+                        toRestoreDefaultExercise);
+                }
                 if (toRestoreDefaultExercise) {
                     videoData.intervals = getIntervals(newCaptions);
                 }
-            }
-            const result = assignCaptions(newCaptions);
+            } else {
+                newCaptions = await fetchRetrieveCaptions(
+                    user,
+                    videoData.videoId,
+                    captionsLanguage,
+                    originalLanguage,
+                    videoData.playlistId,
+                    user?.username,
+                    toRestoreDefaultExercise);
+        }
+            const result = assignCaptions(newCaptions, captionsLanguage);
             return result;
         } finally {
             onWaitForAction(false);
@@ -184,8 +200,8 @@ const CaptionsView = forwardRef(({
             const theCaptions = await retrieveCaptions(videoData.videoId, null, null, true);
             onClipIndexRangeChangeWrapper(theCaptions);
         },
-        async handleReloadCaptions(language) {
-            const newCaptions = await retrieveCaptions(videoData.videoId, null, language);
+        async handleReloadCaptions(language, captions=null) {
+            const newCaptions = await retrieveCaptions(videoData.videoId, captions, language);
             onClipIndexRangeChangeWrapper(newCaptions);
         }
     }));

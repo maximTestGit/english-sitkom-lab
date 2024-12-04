@@ -1,11 +1,14 @@
+// "@google-cloud/translate": "^3.0.0",
 const fetch = require('node-fetch');
 const { parseString } = require('xml2js');
 const admin = require('firebase-admin');
 const cors = require('cors')({ origin: true });
+const { Translate } = require('@google-cloud/translate');
 
 // Initialize Firestore
 admin.initializeApp();
 const db = admin.firestore();
+const translate = new Translate();
 
 exports.fetchCaptionsJson = async (req, res) => {
     cors(req, res, async () => {
@@ -70,7 +73,7 @@ exports.fetchCaptionsJson = async (req, res) => {
                 videoId = "hgE9Nl8yTMs"
             }
             if (!language) {
-                language = "English"
+                language = "Russian"
             }
             if (!originalLanguage) {
                 originalLanguage = "English"
@@ -356,6 +359,97 @@ function generateCaptionsDocumentId(videoId, language, user) {
 }
 
 async function translateSrtContent(captions, fromLanguage, toLanguage) {
+    const captionsJson = JSON.parse(captions);
+    let answer = [];
+    for (const caption of captionsJson) {
+        const translatedText = await getTranslation(caption.text, fromLanguage, toLanguage);
+        const translatedCaption = {
+            start: caption.start,
+            duration: caption.duration,
+            text: translatedText,
+            videoId: caption.videoId
+        };
+        answer.push(translatedCaption);
+    }
+    return answer;
+}
+
+function getLanguageCode(languageName) {
+    const languageMap = {
+        "Afrikaans": "af",
+        "Albanian": "sq",
+        "Arabic": "ar",
+        "Armenian": "hy",
+        "Basque": "eu",
+        "Bengali": "bn",
+        "Bulgarian": "bg",
+        "Catalan": "ca",
+        "Chinese": "zh",
+        "Croatian": "hr",
+        "Czech": "cs",
+        "Danish": "da",
+        "Dutch": "nl",
+        "English": "en",
+        "Esperanto": "eo",
+        "Estonian": "et",
+        "Finnish": "fi",
+        "French": "fr",
+        "Galician": "gl",
+        "Georgian": "ka",
+        "German": "de",
+        "Greek": "el",
+        "Gujarati": "gu",
+        "Hebrew": "he",
+        "Hindi": "hi",
+        "Hungarian": "hu",
+        "Icelandic": "is",
+        "Indonesian": "id",
+        "Irish": "ga",
+        "Italian": "it",
+        "Japanese": "ja",
+        "Kannada": "kn",
+        "Korean": "ko",
+        "Latvian": "lv",
+        "Lithuanian": "lt",
+        "Macedonian": "mk",
+        "Malay": "ms",
+        "Malayalam": "ml",
+        "Maltese": "mt",
+        "Marathi": "mr",
+        "Norwegian": "no",
+        "Persian": "fa",
+        "Polish": "pl",
+        "Portuguese": "pt",
+        "Romanian": "ro",
+        "Russian": "ru",
+        "Serbian": "sr",
+        "Slovak": "sk",
+        "Slovenian": "sl",
+        "Spanish": "es",
+        "Swahili": "sw",
+        "Swedish": "sv",
+        "Tamil": "ta",
+        "Telugu": "te",
+        "Thai": "th",
+        "Turkish": "tr",
+        "Ukrainian": "uk",
+        "Urdu": "ur",
+        "Vietnamese": "vi",
+        "Welsh": "cy"
+    };
+
+    return languageMap[languageName] || null;
+}
+
+async function getTranslation(text, fromLanguage, toLanguage) {
+    console.log(`translateSrtContent::getTranslation: Text: ${text} from ${fromLanguage} to ${toLanguage}`);
+    const toLanguageCode = getLanguageCode(toLanguage);
+    const [translation] = await translate.translate(text, toLanguageCode);
+    console.log(`translateSrtContent::getTranslation: Text: ${text} to ${translation}`);
+    return translation;
+}
+
+async function translateSrtContentAI(captions, fromLanguage, toLanguage) {
     let result = '';
     const prompt =
         `You are a movie translation assistant. ` +
@@ -410,3 +504,4 @@ async function translateSrtContent(captions, fromLanguage, toLanguage) {
 
     return result;
 }
+

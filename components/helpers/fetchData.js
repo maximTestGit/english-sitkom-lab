@@ -40,15 +40,17 @@ export async function fetchData(user, prefix, key, url, expirationSec, refetchFr
 }
 
 export async function fetchRetrieveCaptions(user, videoId, language, originalLanguage, playlistId, userName, refetchFromSource = false) {
-  const prefixCaptionsData = storageDataAttributes.captions_data_prefix;
   const prefixCaptionsLanguage = storageDataAttributes.captions_language_prefix;
-  const captionsStoredLanguage = fetchDataFromLocalStorage(prefixCaptionsLanguage, videoId, null);
+  const captionsStoredLanguage = fetchDataFromLocalStorage(prefixCaptionsLanguage, key, null);
+  
+  const prefixCaptionsData = storageDataAttributes.captions_data_prefix;
+  const key = `${videoId}#${language}`;
   let result = null;
 
-  if (refetchFromSource || captionsStoredLanguage !== language) {
-    removeDataFromLocalStorage(prefixCaptionsData, videoId);
+  if (refetchFromSource) { // || captionsStoredLanguage !== language) {
+    removeDataFromLocalStorage(prefixCaptionsData, key);
   } else {
-    result = fetchDataFromLocalStorage(prefixCaptionsData, videoId, null);
+    result = fetchDataFromLocalStorage(prefixCaptionsData, key, null);
   }
 
   if (!result || result.length === 0) { // not found or no cache
@@ -64,8 +66,8 @@ export async function fetchRetrieveCaptions(user, videoId, language, originalLan
     };
     result = await fetchDataFromSource(user, url, data);
     if (result && result.length > 0) {
-      saveDataToLocalStorage(prefixCaptionsData, videoId, result, null);
-      saveDataToLocalStorage(prefixCaptionsLanguage, videoId, language, null);
+      saveDataToLocalStorage(prefixCaptionsData, key, result, null);
+      saveDataToLocalStorage(prefixCaptionsLanguage, key, language, null);
     }
   }
   return result;

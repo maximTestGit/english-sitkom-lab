@@ -126,7 +126,7 @@ const ExerciseView = forwardRef(({
                 const captionsObject = await captionsViewRef.current?.handleReloadCaptions(getLanguageName(learningLanguage));
                 handleCaptionsOpen(captionsObject);
             } else if (value === 2) {
-                const captionsObject = await captionsViewRef.current?.handleReloadCaptions(getCultureLanguageName(uiLanguage));
+                const captionsObject = await captionsViewRef.current?.handleReloadCaptions(getCultureLanguageName(uiLanguage), captions);
                 handleCaptionsOpen(captionsObject);
                 Swal.fire({
                     title: t`Warning`,
