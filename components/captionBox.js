@@ -28,6 +28,7 @@ const CaptionBox = (
     {
         user,
         caption,
+        nextCaption,
         learningLanguage,
         uiLanguage,
         videoData,
@@ -242,7 +243,7 @@ const CaptionBox = (
             <table className={`table table-bordered text-center mt-1 ${caption?.checked ? "table-warning" : ""}`} style={{ height: '80px' }}>
                 <tbody>
                     <tr>
-                        <td id="tdCaptionAddintionalActions" style={{ width: '50px', height: '50px', border: 'none', backgroundColor: 'white' }}>
+                        <td id="tdCaptionAddintionalActions" style={{ width: '50px', height: '70px', border: 'none', backgroundColor: 'white' }}>
                             <button className="mb-1" onClick={() => handleSelectedButtonClick(onAddSelectionToDict)} title="Add selected text to flashcard colection"
                                 disabled={!caption || !user || isButtonDisabled}>
                                 <PiCardsThree style={{ width: '100%', height: '100%' }} />
@@ -253,9 +254,24 @@ const CaptionBox = (
                             </button>
                         </td>
                         <td className="fw-bold fs-6">
-                            {caption && decodeHtml(caption?.text)}
+                            <div className="d-flex justify-content-center" style={{ height: '60%' }}>
+                                {caption && decodeHtml(caption?.text)}
+                            </div>
+                            {
+                                nextCaption &&
+                                <div id="nextCaptionDiv" className="d-flex justify-content-center"
+                                    style={{
+                                        height: '40%',
+                                        backgroundColor: '#f0f0f0', // lighter than lightgray
+                                        fontSize: '16px',
+                                        fontStyle: 'italic',
+                                        fontWeight: 'normal' // or fontWeight: 400
+                                    }}>
+                                    {decodeHtml(nextCaption?.text)}
+                                </div>
+                            }
                         </td>
-                        <td id="tdCaptionActions" style={{ width: '50px', height: '50px', border: 'none', backgroundColor: 'white' }}>
+                        <td id="tdCaptionActions" style={{ width: '50px', height: '70px', border: 'none', backgroundColor: 'white' }}>
                             <button className="mb-1" onClick={() => handleCaptionButtonClick(handleCaptionTranslate)} title="Translate current caption"
                                 disabled={!caption || !user || isButtonDisabled}>
                                 <PiTranslate style={{ width: '100%', height: '100%' }} />

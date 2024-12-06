@@ -69,6 +69,7 @@ const PlaybackSettings = ({
         { value: 0, text: t`Show No Subtitles` },
         { value: 1, text: t`Show Original Subtitles` },
         { value: 2, text: t`Show Training Subtitles` },
+        { value: 3, text: t`Show Original Subtitle + Next Line` },
     ];
 
     return (

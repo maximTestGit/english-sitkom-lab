@@ -24,6 +24,7 @@ import {
     getLanguageName,
     isRunningOnBigScreen
 } from './data/configurator';
+import next from 'next';
 
 const ExerciseView = forwardRef(({
     user,
@@ -73,6 +74,8 @@ const ExerciseView = forwardRef(({
     const [currentPlaybackRate, setCurrentPlaybackRate] = useState(default_playback_rate); // current, can be default_playback_rate or youLinePlaybackRate
     const [currentVolume, setCurrentVolume] = useState(default_volume); // current, can be default_volume or whisperVolume
     const [actionStartedAt, setActionStartedAt] = useState(null);
+    const [toShowNextCation, setToShowNextCation] = useState(false);
+    const [nextCaption, setNextCaption] = useState(null);
 
     // save parameters before recording
     const [loopPreRec, setLoopPreRec] = useState(settings.isLoop);
@@ -120,6 +123,7 @@ const ExerciseView = forwardRef(({
     };
     const setShowCaptions = async (value) => {
         updateSettingKey('showCaptions', value);
+        setToShowNextCation(false);
         if (value !== settings.showCaptions) {
             console.log(`LingFlix: setShowCaptions', at position set showCaptions=${settings.showCaptions} = ${value}`);
             if (value === 1) {
@@ -137,6 +141,10 @@ const ExerciseView = forwardRef(({
                     confirmButtonText: 'OK',
                 }
                 );
+            } else if (value===3) {
+                setToShowNextCation(true);
+                const captionsObject = await captionsViewRef.current?.handleReloadCaptions(getLanguageName(learningLanguage));
+                handleCaptionsOpen(captionsObject);
             }
         }
     };
@@ -733,6 +741,7 @@ const ExerciseView = forwardRef(({
                 jumpToPos(playerRef, caption.start);
             }
             setCurrentCaption(caption);
+            resetNextCaption(caption);
             /*if (exerciseStatus === ExerciseStatus.STOPPED
                 && analyzedCaption) {
                 setAnalyzedCaption(null);
@@ -847,6 +856,16 @@ const ExerciseView = forwardRef(({
             Swal.close();
         }
     }
+    function resetNextCaption(currentCaption) {
+        if (currentCaption && captions.length > 0) {
+            const nextCaptionIndex = captions.findIndex(caption => caption.start === currentCaption.start);
+            if (nextCaptionIndex >= 0 && nextCaptionIndex < captions.length - 1) {
+                setNextCaption(captions[nextCaptionIndex + 1]);
+            } else {
+                setNextCaption(null);
+            }
+        }
+    }
     return (
         <div id="exercizeViewDiv" style={{ pointerEvents: isAvaillable ? 'auto' : 'none', opacity: isAvaillable ? 1 : 0.5 }}>
             <div id="PlaybackSettingsArea" className="row mb-3 col-12 col-md-12 col-lg-7">
@@ -924,6 +943,7 @@ const ExerciseView = forwardRef(({
                     <CaptionBox
                         user={user}
                         caption={currentCaption}
+                        nextCaption={toShowNextCation && nextCaption}
                         learningLanguage={learningLanguage}
                         uiLanguage={uiLanguage}
                         videoData={videoData}
