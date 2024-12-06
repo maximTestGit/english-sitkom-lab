@@ -1,19 +1,20 @@
 // "@google-cloud/translate": "^3.0.0",
 const fetch = require('node-fetch');
 const { parseString } = require('xml2js');
-const admin = require('firebase-admin');
+const adminFB = require('firebase-admin');
 const cors = require('cors')({ origin: true });
 const { Translate } = require('@google-cloud/translate');
 
 // Initialize Firestore
-admin.initializeApp();
-const db = admin.firestore();
+adminFB.initializeApp();
+const db = adminFB.firestore();
 const translate = new Translate();
+const adminUser = 'Admin';
 
 exports.fetchCaptionsJson = async (req, res) => {
     cors(req, res, async () => {
 
-        console.log(`fetchCaptions: +++++++++++++++++++++++++++++++++++++`);
+        console.log(`fetchCaptionsJson: ++++++++++++++++ request +++++++++++++++++++++`);
         res.set('Access-Control-Allow-Origin', '*'); // Allow all origins
         res.set('Access-Control-Allow-Methods', 'GET, POST'); // Allow these methods
         res.set('Access-Control-Allow-Headers', 'Content-Type'); // Allow these headers
@@ -26,17 +27,17 @@ exports.fetchCaptionsJson = async (req, res) => {
         }
 
         try {
-            console.log(`fetchCaptions: -----------------------------------------`);
+            console.log(`fetchCaptionsJson: ---------------- start processing -------------------------`);
             let isUserAuthenticated = false;
             const authHeader = req.header('Authorization');
             const idToken = authHeader?.split('Bearer ')?.[1];
 
             if (idToken) {
-                const decodedToken = await admin.auth().verifyIdToken(idToken);
-                console.log(`Authenticated user: ${decodedToken.email}`);
+                const decodedToken = await adminFB.auth().verifyIdToken(idToken);
+                console.log(`fetchCaptionsJson: Authenticated user: ${decodedToken.email}`);
                 isUserAuthenticated = true;
             } else {
-                console.log(`User is not Authenticated`);
+                console.log(`fetchCaptionsJson: User is not Authenticated`);
             }
 
             var videoId;
@@ -45,7 +46,7 @@ exports.fetchCaptionsJson = async (req, res) => {
             var user;
             if (req.method === 'POST') {
                 const requestBody = req.body;
-                console.log('getPlaylistInfo: Request Body:', requestBody);
+                //console.log('fetchCaptionsJson: Request Body:', requestBody);
                 playlistId = requestBody.playlistId;
                 videoId = requestBody.videoId;
                 language = requestBody.language;
@@ -61,14 +62,14 @@ exports.fetchCaptionsJson = async (req, res) => {
 
             if (playlistId) {
                 const exampleVideoId = await getExampleVideoId(playlistId);
-                console.log(`fetchCaptions: input videoId: ${videoId} exampleVideoId:${exampleVideoId}`);
+                //console.log(`fetchCaptionsJson: input videoId: ${videoId} exampleVideoId:${exampleVideoId}`);
                 if (!isUserAuthenticated && videoId !== exampleVideoId) {
                     videoId = process.env.REGISTER_VIDEO_ID;
                     language = 'English';
                 }
             }
-            // setting defaults for testing ----------
-            console.log(`fetchCaptions: input videoId: ${videoId} language:${language} user:${user}`);
+            // setting defaults for testing 
+            console.log(`fetchCaptionsJson: input videoId: ${videoId} language:${language} user:${user}`);
             if (!videoId) {
                 videoId = "hgE9Nl8yTMs"
             }
@@ -81,44 +82,50 @@ exports.fetchCaptionsJson = async (req, res) => {
             if (!user || user === 'undefined') {
                 user = 'guest';
             }
-            console.log(`fetchCaptions: request videoId: ${videoId} language:${language} user:${user}`);
+            console.log(`fetchCaptionsJson: request videoId: ${videoId} language:${language} user:${user}`);
             // ----------------------------
-            let toSave = false;
+
+            //let toSave = false;
             let videoInfo = null;
+            // try to get captions on target language
             let captions = await tryToGetCaptions(videoId, language, user, videoInfo);
-            console.log(`captionsFetch: tryToGetCaptions:${language}: captions found: ${captions}`);
+            console.log(`captionsFetch: --- initial tryToGetCaptions:${language}: captions found: ${captions}`);
 
             if (!captions && originalLanguage !== language) {
-                const originalCaptions = await tryToGetCaptions(videoId, originalLanguage, user, videoInfo);
-                captions = await translateSrtContent(originalCaptions, originalLanguage, language);
-                console.log(`captionsFetch: tryToGetCaptions:${originalLanguage}: captions found: ${captions}`);
-                toSave = true;
+                // if not found, try to find captions in original language
+                // and translate them to the target language
+                const originalCaptions = await tryToGetCaptions(videoId, originalLanguage, user, videoInfo); // as string
+                captions = await translateSrtContent(originalCaptions, originalLanguage, language); // as string
+                console.log(`captionsFetch: --- initial with translation tryToGetCaptions:${originalLanguage}: captions found: ${captions}`);
+                //toSave = true;
             }
 
             if (!captions && videoInfo) {
-                // if not found, try to find auto-generated captions on YouTube
-                //const autoCaptions = `${language} (auto-generated)`;
-                captions = await getCaptionsFromYoutube(videoId, videoInfo, language, false);
-                console.log(`fetchCaptions: request videoId: ${videoId} language:${language} strict: false, user:${user}: captions: ${captions}`);
-                console.log(`captionsFetch: getCaptionsFromYoutube:${language}: captions found: ${captions}`);
+                // if not found, try to find auto-generated captions on target language on YouTube
+                captions = await getCaptionsFromYoutube(videoId, videoInfo, language, false); // as string
+                console.log(`fetchCaptionsJson: --- auto-gen on target getCaptionsFromYoutube:${language}: captions found: ${captions}`);
             }
+
             if (!captions && videoInfo && originalLanguage !== language) {
-                // if not found, try to find auto-generated captions on YouTube
-                //const autoCaptions = `${language} (auto-generated)`;
-                const originalCaptions = await getCaptionsFromYoutube(videoId, videoInfo, originalLanguage, false);
-                console.log(`fetchCaptions: request videoId: ${videoId} language:${language} strict: false, user:${user}: captions: ${captions}`);
+                // if not found, try to find auto-generated captions on original language on YouTube
+                // and translate them to the target language
+                const originalCaptions = await getCaptionsFromYoutube(videoId, videoInfo, originalLanguage, false); // as string
+                console.log(`fetchCaptionsJson: request videoId: ${videoId} language:${language} strict: false, user:${user}: captions: ${captions}`);
                 if (originalCaptions) {
-                    captions = await translateSrtContent(originalCaptions, originalLanguage, language);
-                    console.log(`captionsFetch: getCaptionsFromYoutube:${originalLanguage}: captions found: ${captions}`);
+                    captions = await translateSrtContent(originalCaptions, originalLanguage, language); // as string
+                    console.log(`fetchCaptionsJson: --- auto-gen on original getCaptionsFromYoutube:${originalLanguage}: captions found: ${captions}`);
                 }
-                toSave = true;
+                //toSave = true;
             }
+
+            /*
             if (toSave) {
                 console.log(`captionsFetch: captions found: ${captions}`);
                 if (captions) {
                     await saveCaptionToStorage(videoId, language, user, captions);
                 }
             }
+                */
             if (captions) {
                 res.send(captions);
             } else {
@@ -134,41 +141,46 @@ exports.fetchCaptionsJson = async (req, res) => {
 }
 
 async function saveCaptionToStorage(videoId, language, user, captions) {
-    const documentId = generateCaptionsDocumentId(videoId, language, 'admin');
+    const documentId = generateCaptionsDocumentId(videoId, language, adminUser);
     const docRef = db.collection('videoCaptions').doc(documentId);
+    const timestamp = adminFB.firestore.FieldValue.serverTimestamp();
 
-    await docRef.set({
+    const doc = {
+        captions,
         videoId,
         language,
         user,
-        captions,
-        timestamp: admin.firestore.FieldValue.serverTimestamp()
-    });
+        timestamp
+    };
+    console.log(`saveCaptionToStorage: doc: ${JSON.stringify(doc)}`);
+    await docRef.set(doc);
 }
 
-// try to fetch captions from different sources according to priority
-// 1st, try to get captions uploaded by the user
 async function tryToGetCaptions(videoId, language, user, videoInfo) {
-    const adminUser = 'admin';
-    let captions = await getCaptionsFromStorage(videoId, language, user);
-    console.log(`tryToGetCaptions: getCaptionsFromStorage: language:${language} user:${user}: captions: ${captions}`);
+    // try to fetch captions from different sources according to priority
+
+    // 1st, try to get captions uploaded by the user
+    let captions = await getCaptionsFromStorage(videoId, language, user); // as string
+    console.log(`fetchCaptionsJson: tryToGetCaptions: getCaptionsFromStorage: --- of user language:${language} user:${user}: captions: ${captions}`);
+
     if (!captions) {
         // if not found try to find caption uploaded by administrator
-        captions = await getCaptionsFromStorage(videoId, language, adminUser);
-        console.log(`tryToGetCaptions: getCaptionsFromStorage: language:${language} user:${adminUser}: captions: ${captions}`);
+        captions = await getCaptionsFromStorage(videoId, language, adminUser); // as string
+        console.log(`fetchCaptionsJson: tryToGetCaptions: getCaptionsFromStorage: --- of adminUser language:${language} user:${adminUser}: captions: ${captions}`);
     }
+
     if (!captions) {
-        // if captions not found try to find captions uploaded by the video owner
+        // if captions not found try to find captions from youtube by the video owner
         if (!videoInfo) {
             videoInfo = await fetchPlayerInfo(videoId);
         }
         if (videoInfo) {
-            captions = await getCaptionsFromYoutube(videoId, videoInfo, language, true);
-            console.log(`fetchCaptions: request videoId: ${videoId} language:${language} strict: true, user:${user}: captions: ${captions}`);
+            captions = await getCaptionsFromYoutube(videoId, videoInfo, language, true); // as string
+            console.log(`fetchCaptionsJson: tryToGetCaptions: getCaptionsFromYoutube: --- of language:${language} captions: ${captions}`);
         } else {
-            console.log(`fetchCaptions: no videoInfor for request videoId: ${videoId} language:${language} user:${user}: captions: ${captions}`);
+            console.log(`fetchCaptionsJson: no videoInfo for request videoId: ${videoId} language:${language} user:${user}: captions: ${captions}`);
         }
-        console.log(`tryToGetCaptions: getCaptionsFromStorage: getCaptionsFromYoutube: language:${language} user:${user}: captions: ${captions}`);
+        console.log(`fetchCaptionsJson: tryToGetCaptions: result: --- captions: ${captions}`);
     }
     return captions;
 }
@@ -294,18 +306,18 @@ async function fetchCaptionsFromUrl(fetchCaptionsUrl) {
 }
 
 async function getCaptionsFromYoutube(videoId, videoInfo, language, strict = false) {
-    console.log(`fetchCaptions: getCaptionsFromYoutube videoId: ${videoId} language:${language}`);
+    console.log(`fetchCaptionsJson: getCaptionsFromYoutube videoId: ${videoId} language:${language}`);
 
     let result = null;
     let playabilityStatus = videoInfo?.playabilityStatus?.status;
-    console.log(`fetchCaptions::playabilityStatus: ${playabilityStatus}`);
+    console.log(`fetchCaptionsJson::playabilityStatus: ${playabilityStatus}`);
 
     if (playabilityStatus == 'OK') {
         var fetchCaptionsUrl = getFetchCaptionsUrl(videoInfo, language, strict);
         if (fetchCaptionsUrl) {
             var jsonObject = await fetchCaptionsFromUrl(fetchCaptionsUrl);
             if (jsonObject) {
-                console.log(`fetchCaptions:: response of jsonObject: ${JSON.stringify(jsonObject)}`);
+                console.log(`fetchCaptionsJson:: response of jsonObject: ${JSON.stringify(jsonObject)}`);
                 const transcript = jsonObject?.transcript?.text.map(entry => ({
                     start: entry.$.start,
                     duration: entry.$.dur,
@@ -313,19 +325,19 @@ async function getCaptionsFromYoutube(videoId, videoInfo, language, strict = fal
                     videoId: videoId
                 }));
                 result = JSON.stringify(transcript);
-                console.log(`fetchCaptions:: result: ${result}`);
+                console.log(`fetchCaptionsJson:: result: ${result}`);
             } else {
-                console.log(`fetchCaptions:: empty response of fetchCaptionsFromUrl: ${jsonObject}`);
+                console.log(`fetchCaptionsJson:: empty response of fetchCaptionsFromUrl: ${jsonObject}`);
             }
         } else {
-            console.log(`fetchCaptions:: empty fetchCaptionsUrl: ${fetchCaptionsUrl}`);
+            console.log(`fetchCaptionsJson:: empty fetchCaptionsUrl: ${fetchCaptionsUrl}`);
         }
     }
     return result;
 }
 
 async function getCaptionsFromStorage(videoId, language, user) {
-    console.log(`fetchCaptions: getCaptionsFromStorage videoId: ${videoId} language:${language} user:${user}`);
+    console.log(`fetchCaptionsJson: getCaptionsFromStorage videoId: ${videoId} language:${language} user:${user}`);
     let result = null;
     let documentId = generateCaptionsDocumentId(videoId, language, user);
 
@@ -341,7 +353,7 @@ async function getCaptionsFromStorage(videoId, language, user) {
 }
 
 async function getExampleVideoId(playlistId) {
-    console.log(`fetchCaptions: getExampleVideo: playlistId: ${playlistId}`);
+    console.log(`fetchCaptionsJson: getExampleVideo: playlistId: ${playlistId}`);
     let result = null;
 
     const docRef = db.collection('playlists').doc(playlistId);
@@ -363,15 +375,10 @@ async function translateSrtContent(captions, fromLanguage, toLanguage) {
     let answer = [];
     for (const caption of captionsJson) {
         const translatedText = await getTranslation(caption.text, fromLanguage, toLanguage);
-        const translatedCaption = {
-            start: caption.start,
-            duration: caption.duration,
-            text: translatedText,
-            videoId: caption.videoId
-        };
+        const translatedCaption = { ...caption, text: translatedText };
         answer.push(translatedCaption);
     }
-    return answer;
+    return JSON.stringify(answer);
 }
 
 function getLanguageCode(languageName) {
