@@ -39,7 +39,8 @@ const TopDropdownMenu = ({
     onSavePlaylist,
     onLearningLanguageChange,
     onUILanguageChange,
-    onLoginLogout
+    onLoginLogout,
+    onRootBinyanTenseTableDrillOpen,
 }) => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
@@ -118,8 +119,9 @@ const TopDropdownMenu = ({
     const handleLogout = () => {
         if (user) {
             signOutUser();
-            onGoHome();
         }
+        onGoHome();
+        onLoginLogout(loginoutEvents.LOGOUT_SUCCESS, 'Guest');
     };
 
     const handleRegister = () => {
@@ -398,6 +400,9 @@ const TopDropdownMenu = ({
         deleteFlashcard(user, card);
         setFlashcards(flashcards.filter(flashcard => flashcard.cardId !== card.cardId));
     }
+    function handleRootBinyanTenseTableDrill() {
+        onRootBinyanTenseTableDrillOpen();
+    }
     return (
         <>
             <Navbar bg="light" expand="sm">
@@ -447,6 +452,13 @@ const TopDropdownMenu = ({
                             < NavDropdown title={<Trans>Flashcards</Trans>} id="tools-dropdown">
                                 <NavDropdown.Item onClick={handleFlashcardsCollectionView}><Trans>View Colection</Trans></NavDropdown.Item>
                                 <NavDropdown.Item onClick={handleFlashcardsCollectionSession}><Trans>Start Test</Trans></NavDropdown.Item>
+                            </NavDropdown>
+                        )}
+                        {user && (
+                            < NavDropdown title={<Trans>Drils</Trans>} id="tools-dropdown">
+                                {learningLanguage === 'he-IL' &&
+                                    <NavDropdown.Item onClick={handleRootBinyanTenseTableDrill}><Trans>Root/Binyan/Tense</Trans></NavDropdown.Item>
+                                }
                             </NavDropdown>
                         )}
                         {!videoData && (
@@ -554,8 +566,8 @@ const TopDropdownMenu = ({
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleSettingsSubmit}>
-                    <Form.Group>
-                            <Form.Label><Trans>Learning Language</Trans></Form.Label>
+                        <Form.Group>
+                            <Form.Label><Trans>I Learn Language</Trans></Form.Label>
                             <Form.Control as="select" value={newLearningLanguage} onChange={(e) => setNewLearningLanguage(e.target.value)} required>
                                 <option value="">Select a language</option>
                                 {languages.map((lang) => (
@@ -565,23 +577,25 @@ const TopDropdownMenu = ({
                                 ))}
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label><Trans>My Language</Trans></Form.Label>
-                            <Form.Control as="select" value={newUILanguage} onChange={(e) => setNewUILanguage(e.target.value)} required>
-                                <option value="">Select a language</option>
-                                {languages.map((lang) => (
-                                    <option key={lang.code} value={lang.code}>
-                                        {lang.name} / {lang.nativeName}
-                                    </option>
-                                ))}
-                            </Form.Control>
-                        </Form.Group>
+                        {!user && (
+                            < Form.Group >
+                                <Form.Label><Trans>My Language</Trans></Form.Label>
+                                <Form.Control as="select" value={newUILanguage} onChange={(e) => setNewUILanguage(e.target.value)} required>
+                                    <option value="">Select a language</option>
+                                    {languages.map((lang) => (
+                                        <option key={lang.code} value={lang.code}>
+                                            {lang.name} / {lang.nativeName}
+                                        </option>
+                                    ))}
+                                </Form.Control>
+                            </Form.Group>)
+                        }
                         <Button variant="primary" type="submit">
                             Save
                         </Button>
                     </Form>
                 </Modal.Body>
-            </Modal>
+            </Modal >
             {isCustomVideoModalOpen && (
                 <div className="modal" style={{ display: 'block' }}>
                     <div className="modal-dialog">
@@ -613,7 +627,8 @@ const TopDropdownMenu = ({
                         </div>
                     </div>
                 </div>
-            )}
+            )
+            }
             <Modal show={showFlashcardsModal} onHide={() => setShowFlashcardsModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Flashcards Collection</Modal.Title>

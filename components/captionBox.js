@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react';
 import Swal from 'sweetalert2';
-import { decodeHtml } from './helpers/presentationUtils.js';
+import { decodeHtml } from './helpers/miscUtils.js';
 import { PiTranslate } from './helpers/iconHelper';
 import { AiOutlineSound } from './helpers/iconHelper';
 import { RiInformation2Line } from './helpers/iconHelper';
+import { pronounceText } from './helpers/miscUtils.js';
 import {
     getTranslation,
     saveTextToFlashcards,
@@ -129,23 +130,6 @@ const CaptionBox = (
         }
     };
 
-    function pronounceText(readLanguage, textToReadAloud) {
-        if ('speechSynthesis' in window) {
-            console.log(`Reading aloud START: ${textToReadAloud} in ${readLanguage}`);
-            const utterance = new SpeechSynthesisUtterance(textToReadAloud);
-            utterance.lang = readLanguage;
-            utterance.volume = 1; // Set volume (0.0 to 1.0)
-            window.speechSynthesis.speak(utterance);
-            console.log(`Reading aloud FINISH: ${textToReadAloud} in ${readLanguage}`);
-        } else {
-            Swal.fire({
-                title: t`Error`,
-                text: t`Speech synthesis is not supported in this browser.`,
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        }
-    }
     const handleCaptionAnalyze = async () => {
         const textToAnalyze = getTextToProcess();
         if (!textToAnalyze || textToAnalyze.length === 0) {

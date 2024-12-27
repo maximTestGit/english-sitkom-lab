@@ -1,7 +1,7 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import Swal from 'sweetalert2';
 import { fetchRetrieveCaptions } from './helpers/fetchData';
-import { decodeHtml } from './helpers/presentationUtils';
+import { decodeHtml } from './helpers/miscUtils';
 import { getIntervals } from './helpers/exerciseHelper';
 import {
     storageDataAttributes,
@@ -137,7 +137,7 @@ const CaptionsView = forwardRef(({
                     videoData.playlistId,
                     user?.username,
                     toRestoreDefaultExercise);
-        }
+            }
             const result = assignCaptions(newCaptions, captionsLanguage);
             return result;
         } finally {
@@ -200,7 +200,7 @@ const CaptionsView = forwardRef(({
             const theCaptions = await retrieveCaptions(videoData.videoId, null, null, true);
             onClipIndexRangeChangeWrapper(theCaptions);
         },
-        async handleReloadCaptions(language, captions=null) {
+        async handleReloadCaptions(language, captions = null) {
             const newCaptions = await retrieveCaptions(videoData.videoId, captions, language);
             onClipIndexRangeChangeWrapper(newCaptions);
         }

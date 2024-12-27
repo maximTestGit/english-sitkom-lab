@@ -24,7 +24,6 @@ import {
     getLanguageName,
     isRunningOnBigScreen
 } from './data/configurator';
-import next from 'next';
 
 const ExerciseView = forwardRef(({
     user,
@@ -141,7 +140,7 @@ const ExerciseView = forwardRef(({
                     confirmButtonText: 'OK',
                 }
                 );
-            } else if (value===3) {
+            } else if (value === 3) {
                 setToShowNextCation(true);
                 const captionsObject = await captionsViewRef.current?.handleReloadCaptions(getLanguageName(learningLanguage));
                 handleCaptionsOpen(captionsObject);
@@ -837,24 +836,7 @@ const ExerciseView = forwardRef(({
         }
     }
     const handleWaitForAction = (isStarted) => {
-        if (isStarted) {
-            setIsAvailable(false);
-            document.body.style.cursor = 'wait';
-            Swal.fire({
-                title: t`Please wait`,
-                text: t`Your request is being processed...`,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                showConfirmButton: false,
-                onBeforeOpen: () => {
-                    Swal.showLoading();
-                }
-            });
-        } else {
-            setIsAvailable(true);
-            document.body.style.cursor = 'default';
-            Swal.close();
-        }
+        setIsAvailable(!isStarted);
     }
     function resetNextCaption(currentCaption) {
         if (currentCaption && captions.length > 0) {

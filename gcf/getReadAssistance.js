@@ -78,7 +78,7 @@ async function getReadAssistanceAnswer(theText, textLanguage, answerLanguage, pr
         `Your response should be in ${answerLanguage} formatted as html page. ` +
         `it must start with <!DOCTYPE html> tag and finish with </html> tag. ` +
         `add border to thepage and padding to the body. ` +
-        `it must contain "Listen again" button that will play the pronunciation of the text ` +
+        `it must contain "Listen again" button that will play the pronunciation of the original text in ${textLanguage} ` +
         `using the SpeechSynthesisUtterance. ` +
         `check if SpeechSynthesisUtterance is available in the browser and provide a message if it is not available. `;
 

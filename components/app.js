@@ -21,6 +21,7 @@ import TopDropdownMenu from "./topDropdownMenu";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, completeUserData } from "./gc/firebase";
 import Swal from 'sweetalert2';
+import RootBinyanTenseTableDrill from './drills/hebrew/rootBinyanTenseTableDrill';
 //-----------
 import { I18nProvider } from '@lingui/react';
 import { i18n } from '@lingui/core';
@@ -66,6 +67,7 @@ const App = () => {
   const [learningLanguage, setLearningLanguage] = useState(null);
   const [uiLanguage, setUiLanguage] = useState('en');
   const [newPlaylistId, setNewPlaylistId] = useState(null);
+  const [showRootBinyanTenseTableDrillModal, setShowRootBinyanTenseTableDrillModal] = useState(false);
 
   const activateUiLanguage = (language) => {
     if (language && language !== i18n.locale) {
@@ -80,7 +82,7 @@ const App = () => {
     setUser(newUser);
   }
 
-  const handleLoginLogout = (event, name, language) => {
+  const handleLoginLogout = async (event, name, language) => {
     switch (event) {
       case loginoutEvents.REGISTER_SUCCESS:
       case loginoutEvents.LOGIN_SUCCESS:
@@ -93,13 +95,16 @@ const App = () => {
         });
         break;
       case loginoutEvents.LOGOUT_SUCCESS:
-        activateUiLanguage(extractCulture(language));
-        Swal.fire({
-          title: t`Operation completed successfully`,
-          text: t`Bye-bye ${name}`,
-          icon: 'success',
-          confirmButtonText: 'OK'
-        });
+        setShowRootBinyanTenseTableDrillModal(false);
+        activateUiLanguage(extractCulture('en-US'));
+        const theLearningLanguage = await initLearningLanguage();
+        setLearningLanguage(theLearningLanguage);
+          // Swal.fire({
+        //   title: t`Operation completed successfully`,
+        //   text: t`Bye-bye ${"name"}`,
+        //   icon: 'success',
+        //   confirmButtonText: 'OK'
+        // });
         break;
       case loginoutEvents.LOGIN_ERROR:
         Swal.fire({
@@ -148,7 +153,7 @@ const App = () => {
     if (user) {
       const newUiLanguage = extractUiLanguage(user);
       if (newUiLanguage !== uiLanguage) {
-        setUiLanguage(newUiLanguage);
+        setUiLanguageWrapper(newUiLanguage);
       }
     }
     fetchPlaylists(user, learningLanguage)
@@ -388,8 +393,14 @@ const App = () => {
   const handleUILanguageChange = (newUILanguage) => {
     console.log(`LingFlix: handleUILanguageChange old: ${uiLanguage}, new: ${newUILanguage}`);
     const uiCulture = extractCulture(newUILanguage);
-    setUiLanguage(uiCulture);
+    setUiLanguageWrapper(uiCulture);
     //saveUILanguageToLocalStorage(newUILanguage);
+  }
+  const setUiLanguageWrapper = (newUiLanguage) => {
+    setUiLanguage(newUiLanguage);
+  }
+  const handleRootBinyanTenseTableDrill = () => {
+    setShowRootBinyanTenseTableDrillModal(true);
   }
   return (
     <I18nProvider i18n={i18n}>
@@ -410,6 +421,7 @@ const App = () => {
           onLearningLanguageChange={handleLearningLanguageChange}
           onUILanguageChange={handleUILanguageChange}
           onLoginLogout={handleLoginLogout}
+          onRootBinyanTenseTableDrillOpen={handleRootBinyanTenseTableDrill}
         />
         {videoData ? (
           <ExerciseView ref={exerciseViewRef}
@@ -427,14 +439,23 @@ const App = () => {
         ) : (
           <>
             <Banner />
-            <VideoListView ref={videolistViewRef}
-              user={user}
-              playlistId={playlistId}
-              playlistRegistry={playlistRegistry}
-              onSelectVideo={handleSelectedVideo}
-              onSelectPlaylistId={handleSelectPlaylistId}
-              learningLanguageName={getLearningLanguageName(learningLanguage)}
-            />
+            {!showRootBinyanTenseTableDrillModal &&
+              <VideoListView ref={videolistViewRef}
+                user={user}
+                playlistId={playlistId}
+                playlistRegistry={playlistRegistry}
+                onSelectVideo={handleSelectedVideo}
+                onSelectPlaylistId={handleSelectPlaylistId}
+                learningLanguageName={getLearningLanguageName(learningLanguage)}
+              />
+            }
+            {showRootBinyanTenseTableDrillModal &&
+              <RootBinyanTenseTableDrill
+                user={user}
+                uiLanguage={uiLanguage}
+                onClose={() => setShowRootBinyanTenseTableDrillModal(false)} />
+            }
+
           </>
         )}
       </div>

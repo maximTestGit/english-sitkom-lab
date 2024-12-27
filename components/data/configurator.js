@@ -150,6 +150,14 @@ export function getFlashcardUpdateResultUrlPost() {
     return url;
 }
 
+export function getBinyanimForRootUrlPost() {
+    let url = `https://me-west1-youtube-project-404109.cloudfunctions.net/function-get-bynyan-for-root-2-0`;
+    if (inDebugEnv) {
+        url = `https://me-west1-youtube-project-404109.cloudfunctions.net/function-get-bynyan-for-root-test`;
+    }
+    return url;
+}
+
 export const loginoutEvents = {
     REGISTER_SUCCESS: 'register-success',
     REGISTER_ERROR: 'register-error',

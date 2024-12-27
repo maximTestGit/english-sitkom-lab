@@ -16,6 +16,7 @@ import {
   getFlashcardUpdateResultUrlPost,
   getUpdateFlashcardDataUrlPost,
   getDeleteFlashcardUrlPost,
+  getBinyanimForRootUrlPost
 } from './../data/configurator';
 import {
   storageDataAttributes,
@@ -23,26 +24,12 @@ import {
   saveDataToLocalStorage,
   removeDataFromLocalStorage
 } from './storageHelper';
-
-export async function fetchData(user, prefix, key, url, expirationSec, refetchFromSource = false) {
-  if (refetchFromSource) {
-    removeDataFromLocalStorage(prefix, key);
-  }
-  let result = fetchDataFromLocalStorage(prefix, key, expirationSec);
-
-  if (!result) { // not found or no cache
-    result = await fetchDataFromSource(user, url);
-    if (result) {
-      saveDataToLocalStorage(prefix, key, result, expirationSec);
-    }
-  }
-  return result;
-}
+import Swal from 'sweetalert2';
 
 export async function fetchRetrieveCaptions(user, videoId, language, originalLanguage, playlistId, userName, refetchFromSource = false) {
   const prefixCaptionsLanguage = storageDataAttributes.captions_language_prefix;
   const captionsStoredLanguage = fetchDataFromLocalStorage(prefixCaptionsLanguage, key, null);
-  
+
   const prefixCaptionsData = storageDataAttributes.captions_data_prefix;
   const key = `${videoId}#${language}`;
   let result = null;
@@ -64,7 +51,7 @@ export async function fetchRetrieveCaptions(user, videoId, language, originalLan
       user: userName,
       playlistId: playlistId,
     };
-    result = await fetchDataFromSource(user, url, data);
+    result = await fetchDataFromSourcePost(user, url, data);
     if (result && result.length > 0) {
       saveDataToLocalStorage(prefixCaptionsData, key, result, null);
       saveDataToLocalStorage(prefixCaptionsLanguage, key, language, null);
@@ -88,7 +75,7 @@ export async function fetchRetrievePlayistContent(user, playlistId, refetchFromS
       const data = {
         playlistId: playlistId
       };
-      result = await fetchDataFromSource(user, url, data);
+      result = await fetchDataFromSourcePost(user, url, data);
       if (result) {
         saveDataToLocalStorage(prefix, playlistId, result, expirationSec);
       }
@@ -110,7 +97,7 @@ export async function fetchRetrievePlayistRegistry(user, language, refetchFromSo
     const data = {
       language: language
     };
-    result = await fetchDataFromSource(user, url, data);
+    result = await fetchDataFromSourcePost(user, url, data);
     if (result) {
       saveDataToLocalStorage(prefix, language, result, expirationSec);
     }
@@ -146,59 +133,13 @@ export async function saveTextToFlashcards(user, text, frontLanguage, backLangua
   await fetchDataFromSourcePost(user, url, data);
 }
 
-async function fetchDataFromSource(user, url, data) {
-  return await fetchDataFromSourcePost(user, url, data);
-}
-
-async function fetchDataFromSourcePost(user, url, data) {
-  let result = null;
-  try {
-    document.body.style.cursor = 'wait';
-    const headers = {
-      'Content-Type': 'application/json'
-    };
-    const token = await user?.getIdToken();
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
-    }
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: headers,
-      body: JSON.stringify(data)
-    });
-
-    result = response.ok ? await response.json() : null;
-  } finally {
-    document.body.style.cursor = 'default';
-  }
-  return result;
-}
-
-async function fetchDataFromSourceGet(user, url) {
-  let result = null;
-  const headers = {
-    'Content-Type': 'application/json'
-  };
-  const token = await user?.getIdToken();
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: headers
-  });
-
-  result = response.ok ? await response.json() : null;
-  return result;
-}
-
 export async function loginUser(username, password) {
   const url = loginUrl();
   const data = {
     username: username,
     password: password
   };
-  const response = await fetchDataFromSource(null, url, data);
+  const response = await fetchDataFromSourcePost(null, url, data);
   return response;
 }
 
@@ -267,6 +208,7 @@ export async function getTextAssistance(user, text, textLanguage, answerLanguage
   console.log('info', `getTextAssistance: data: ${answer}`);
   return answer;
 }
+
 export async function getReadAssistance(user, text, textLanguage, answerLanguage) {
   const url = getReadAssistanceUrlPost();
   const data = {
@@ -341,11 +283,66 @@ export async function deleteFlashcard(user, flashcard) {
   return result;
 }
 
-
-
-function generateGUID() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
+export async function getBinyanimForRoot(user, root, binyan, tense, toLanguage) {
+  const url = getBinyanimForRootUrlPost();
+  const data = {
+    root,
+    binyan,
+    tense,
+    toLanguage,
+  };
+  const result = await fetchDataFromSourcePost(user, url, data);
+  //const result = response ?? {};
+  console.log('info', `getBinyanimForRoot: result: ${JSON.stringify(result)}`);
+  return result;
 }
+
+const handleWaitForAction = (isStarted, onHandleWaitForAction=null) => {
+  if (isStarted) {
+    if (onHandleWaitForAction) {
+      onHandleWaitForAction(true);
+    }
+    document.body.style.cursor = 'wait';
+    Swal.fire({
+      title: t`Please wait`,
+      text: t`Your request is being processed...`,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      showConfirmButton: false,
+      onBeforeOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  } else {
+    document.body.style.cursor = 'default';
+    Swal.close();
+    if (onHandleWaitForAction) {
+      onHandleWaitForAction(false);
+    }
+  }
+}
+
+async function fetchDataFromSourcePost(user, url, data, customHandleWaitForAction=null) {
+  let result = null;
+  try {
+    handleWaitForAction(true, customHandleWaitForAction);
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+    const token = await user?.getIdToken();
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(data)
+    });
+
+    result = response.ok ? await response.json() : null;
+  } finally {
+    handleWaitForAction(false, customHandleWaitForAction);
+  }
+  return result;
+}
+
