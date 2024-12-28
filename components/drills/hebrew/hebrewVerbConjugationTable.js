@@ -82,7 +82,7 @@ const HebrewVerbConjugationTable = ({
                             <td>
                                 <button
                                     className="mb-1"
-                                    onClick={() => { handleVoiceHint(item.verb); }}
+                                    onClick={() => { handleVoiceHint(item.subject + ' ' + item.verb); }}
                                 >
                                     <AiOutlineSound style={{ width: '100%', height: '100%' }} />
                                 </button>

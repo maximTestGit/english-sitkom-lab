@@ -17,11 +17,11 @@ msgstr ""
 msgid "(Click to reveal answer)"
 msgstr "(Klik om antwoord te wys)"
 
-#: components/playbackSettings.js:133
+#: components/playbackSettings.js:134
 msgid "{speed} of Normal Speed Player"
 msgstr "{speed} van Normale Spoed Speler"
 
-#: components/playbackSettings.js:109
+#: components/playbackSettings.js:110
 msgid "{speed} of Normal Speed when you talk"
 msgstr "{speed} van Normale Spoed wanneer jy praat"
 
@@ -29,28 +29,84 @@ msgstr "{speed} van Normale Spoed wanneer jy praat"
 #~ msgid "{uiLanguage} subtitles have been loaded successfully."
 #~ msgstr "{uiLanguage} onderskrifte is suksesvol gelaai."
 
-#: components/topDropdownMenu.js:465
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:64
+msgid "<br>כתב: הֻכְתַּב (hukhtav) - \"it was dictated\""
+msgstr "<br>כתב: הֻכְתַּב (hukhtav) - \"dit was gedikteer\""
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:58
+msgid "<br>כתב: הִכְתִּיב (hikhtiv) - \"he dictated\""
+msgstr "<br>כתב: הִכְתִּיב (hikhtiv) - \"hy het gedikteer\""
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:70
+msgid "<br>כתב: הִתְכַּתֵּב (hitkatev) - \"he corresponded\""
+msgstr "<br>כתב: הִתְכַּתֵּב (hitkatev) - \"hy het gekorrespondeer\""
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:34
+msgid "<br>כתב: כָּתַב (katav) - \"he wrote\""
+msgstr "<br>כתב: כָּתַב (katav) - \"hy het geskryf\""
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:46
+msgid "<br>כתב: כִּתֵּב (kitev) - \"he corresponded\""
+msgstr "<br>כתב: כִּתֵּב (kitev) - \"hy het gekorrespondeer\""
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:52
+msgid "<br>כתב: כֻּתַּב (kutav) - \"it was written intensively\""
+msgstr "<br>כתב: כֻּתַּב (kutav) - \"dit was intensief geskryf\""
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:40
+msgid "<br>כתב: נִכְתַּב (nikhtav) - \"it was written\""
+msgstr "<br>כתב: נִכְתַּב (nikhtav) - \"dit was geskryf\""
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:41
+msgid "<br>להכתב: לְהִכָּתֵב (lehikatev) - \"to be written\""
+msgstr "<br>להכתב: לְהִכָּתֵב (lehikatev) - \"om geskryf te word\""
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:65
+msgid "<br>להכתיב: לְהֻכְתַּב (lehuktav) - \"to be dictated\""
+msgstr "<br>להכתיב: לְהֻכְתַּב (lehuktav) - \"om gedikteer te word\""
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:59
+msgid "<br>להכתיב: לְהַכְתִּיב (lehaktiv) - \"to dictate\""
+msgstr "<br>להכתיב: לְהַכְתִּיב (lehaktiv) - \"om te dikteer\""
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:71
+msgid "<br>להתכתב: לְהִתְכַּתֵּב (lehitkatev) - \"to correspond\""
+msgstr "<br>להתכתב: לְהִתְכַּתֵּב (lehitkatev) - \"om te korrespondeer\""
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:35
+msgid "<br>לכתוב: לִכְתּוֹב (likhtov) - \"to write\""
+msgstr "<br>לכתוב: לִכְתּוֹב (likhtov) - \"om te skryf\""
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:47
+msgid "<br>לכתיב: לְכַתֵּב (lekatev) - \"to correspond\""
+msgstr "<br>לכתיב: לְכַתֵּב (lekatev) - \"om te korrespondeer\""
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:53
+msgid "<br>לכתיב: לְכֻתַּב (lekutav) - \"to be written intensively\""
+msgstr "<br>לכתיב: לְכֻתַּב (lekutav) - \"om intensief geskryf te word\""
+
+#: components/topDropdownMenu.js:477
 msgid "About"
 msgstr "Oor"
 
-#: components/topDropdownMenu.js:466
+#: components/topDropdownMenu.js:478
 msgid "About the Application"
 msgstr "Oor die Toepassing"
 
-#: components/topDropdownMenu.js:413
-#: components/topDropdownMenu.js:419
+#: components/topDropdownMenu.js:418
+#: components/topDropdownMenu.js:424
 msgid "Account"
 msgstr "Rekening"
 
-#: components/topDropdownMenu.js:435
+#: components/topDropdownMenu.js:440
 msgid "Add custom Playlist"
 msgstr "Voeg pasgemaakte Speellys by"
 
-#: components/captionBox.js:199
+#: components/captionBox.js:184
 msgid "AI-Generated Interactive Exercise (Experimental)"
 msgstr "KI-gegenereerde Interaktiewe Oefening (Eksperimenteel)"
 
-#: components/captionBox.js:167
+#: components/captionBox.js:152
 msgid "Analysis"
 msgstr "Analise"
 
@@ -58,7 +114,11 @@ msgstr "Analise"
 msgid "Answer"
 msgstr "Antwoord"
 
-#: components/playbackSettings.js:92
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:153
+#~ msgid "Binyan (בניין)"
+#~ msgstr "Binyan (בניין)"
+
+#: components/playbackSettings.js:93
 msgid "Blure Youtube Captions"
 msgstr "Vervaag Youtube Onderskrifte"
 
@@ -66,15 +126,15 @@ msgstr "Vervaag Youtube Onderskrifte"
 msgid "Box:"
 msgstr "Boks:"
 
-#: components/app.js:99
-msgid "Bye-bye {name}"
-msgstr "Totsiens {name}"
+#: components/app.js:101
+#~ msgid "Bye-bye {name}"
+#~ msgstr "Totsiens {name}"
 
-#: components/playbackSettings.js:96
+#: components/playbackSettings.js:97
 msgid "Camera"
 msgstr "Kamera"
 
-#: components/exerciseView.js:648
+#: components/exerciseView.js:655
 msgid "Captions for \"{0}\" uploaded successfully!"
 msgstr "Onderskrifte vir \"{0}\" suksesvol opgelaai!"
 
@@ -90,7 +150,7 @@ msgstr "Kaart {0} van {1}"
 msgid "Card Details:"
 msgstr "Kaart Besonderhede:"
 
-#: components/topDropdownMenu.js:438
+#: components/topDropdownMenu.js:443
 msgid "Clear Memory"
 msgstr "Vee Geheue Skoon"
 
@@ -98,7 +158,7 @@ msgstr "Vee Geheue Skoon"
 msgid "Collection:"
 msgstr "Versameling:"
 
-#: components/topDropdownMenu.js:469
+#: components/topDropdownMenu.js:481
 msgid "Contact Me"
 msgstr "Kontak My"
 
@@ -114,33 +174,40 @@ msgstr "Geskep:"
 msgid "Delete"
 msgstr "Vee Uit"
 
-#: components/topDropdownMenu.js:506
+#: components/topDropdownMenu.js:458
+msgid "Drils"
+msgstr "Oefeninge"
+
+#: components/topDropdownMenu.js:518
 msgid "Email"
 msgstr "E-pos"
 
-#: components/captionBox.js:234
+#: components/captionBox.js:219
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "Inskrywing \"{textToProcess}\" is by jou flitskaartversameling gevoeg"
 
-#: components/app.js:106
-#: components/app.js:114
-#: components/app.js:123
-#: components/captionBox.js:141
-#: components/exerciseView.js:678
+#: components/app.js:111
+#: components/app.js:119
+#: components/app.js:128
+#: components/exerciseView.js:685
 msgid "Error"
 msgstr "Fout"
 
-#: components/exerciseView.js:580
+#: components/exerciseView.js:587
 msgid "Error publishing exercise"
 msgstr "Fout met publisering van oefening"
 
-#: components/exerciseView.js:679
+#: components/exerciseView.js:686
 msgid "Error saving file."
 msgstr "Fout met stoor van lêer."
 
-#: components/exerciseView.js:655
+#: components/exerciseView.js:662
 msgid "Error uploading Captions for \"{0}\"!"
 msgstr "Fout met oplaai van onderskrifte vir \"{0}\"!"
+
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:54
+msgid "Example"
+msgstr "Voorbeeld"
 
 #: components/videoListView.js:86
 msgid "Exercise"
@@ -150,40 +217,49 @@ msgstr "Oefening"
 #~ msgid "Exercise Captions"
 #~ msgstr "Oefening Onderskrifte"
 
-#: components/topDropdownMenu.js:424
+#: components/topDropdownMenu.js:429
 msgid "File"
 msgstr "Lêer"
 
-#: components/exerciseView.js:672
+#: components/exerciseView.js:679
 msgid "File \"{fileName}\" saved successfully!"
 msgstr "Lêer \"{fileName}\" suksesvol gestoor!"
 
-#: components/topDropdownMenu.js:447
+#: components/topDropdownMenu.js:452
 msgid "Flashcards"
 msgstr "Flitskaarte"
 
-#: components/topDropdownMenu.js:654
+#: components/topDropdownMenu.js:669
 msgid "Flashcards Exam"
 msgstr "Flitskaarte Eksamen"
 
-#: components/topDropdownMenu.js:405
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:82
+msgid "Future"
+msgstr "Toekomende Tyd"
+
+#: components/topDropdownMenu.js:410
 msgid "Hello"
 msgstr "Hallo"
 
-#: components/app.js:90
+#: components/app.js:92
 msgid "Hello {name}"
 msgstr "Hallo {name}"
 
-#: components/topDropdownMenu.js:454
-#: components/topDropdownMenu.js:460
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:52
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:81
+msgid "Hint"
+msgstr "Wenk"
+
+#: components/topDropdownMenu.js:466
+#: components/topDropdownMenu.js:472
 msgid "Home"
 msgstr "Tuis"
 
-#: components/exerciseView.js:572
+#: components/exerciseView.js:579
 msgid "Homework uploaded to the server successfully!"
 msgstr "Huiswerk suksesvol na die bediener opgelaai!"
 
-#: components/topDropdownMenu.js:468
+#: components/topDropdownMenu.js:480
 msgid "How To Register(Free)?"
 msgstr "Hoe Om Te Registreer (Gratis)?"
 
@@ -191,35 +267,43 @@ msgstr "Hoe Om Te Registreer (Gratis)?"
 #~ msgid "How To?"
 #~ msgstr "Hoe Om?"
 
+#: components/topDropdownMenu.js:570
+msgid "I Learn Language"
+msgstr "Ek Leer Taal"
+
 #: components/flashcardExam.js:163
 msgid "Incorrect"
 msgstr "Verkeerde"
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:98
+msgid "Invalid Input:"
+msgstr "Ongeldige Invoer:"
 
 #: components/flashcardEditor.js:93
 msgid "Last Reviewed:"
 msgstr "Laas Hersien:"
 
 #: components/topDropdownMenu.js:558
-msgid "Learning Language"
-msgstr "Leer Taal"
+#~ msgid "Learning Language"
+#~ msgstr "Leer Taal"
 
-#: components/topDropdownMenu.js:414
+#: components/topDropdownMenu.js:419
 msgid "Login"
 msgstr "Teken In"
 
-#: components/app.js:107
+#: components/app.js:112
 msgid "Login {name} failed"
 msgstr "Teken In {name} het misluk"
 
-#: components/topDropdownMenu.js:420
+#: components/topDropdownMenu.js:425
 msgid "Logout"
 msgstr "Teken Uit"
 
-#: components/app.js:115
+#: components/app.js:120
 msgid "Logout {name} failed"
 msgstr "Teken Uit {name} het misluk"
 
-#: components/playbackSettings.js:78
+#: components/playbackSettings.js:79
 msgid "Loop"
 msgstr "Herhaal"
 
@@ -231,19 +315,23 @@ msgstr "Luid Opskrif wanneer jy praat"
 msgid "Mute Player when you talk"
 msgstr "Demper Speler wanneer jy praat"
 
-#: components/topDropdownMenu.js:518
-#: components/topDropdownMenu.js:569
+#: components/topDropdownMenu.js:530
+#: components/topDropdownMenu.js:582
 msgid "My Language"
 msgstr "My Taal"
 
-#: components/topDropdownMenu.js:453
-#: components/topDropdownMenu.js:459
+#: components/topDropdownMenu.js:465
+#: components/topDropdownMenu.js:471
 msgid "Navigate"
 msgstr "Navigeer"
 
 #: components/flashcardEditor.js:94
 msgid "Next Review:"
 msgstr "Volgende Hersiening:"
+
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:21
+#~ msgid "Nikud"
+#~ msgstr "Nikud"
 
 #: components/flashcardExam.js:68
 msgid "No more cards..."
@@ -253,11 +341,11 @@ msgstr "Geen kaarte meer nie..."
 #~ msgid "No text selected"
 #~ msgstr "Geen teks gekies nie"
 
-#: components/captionBox.js:153
+#: components/captionBox.js:138
 msgid "No text to analyze"
 msgstr "Geen teks om te ontleed"
 
-#: components/captionBox.js:111
+#: components/captionBox.js:113
 msgid "No text to process"
 msgstr "Geen teks om te verwerk nie"
 
@@ -265,52 +353,51 @@ msgstr "Geen teks om te verwerk nie"
 #~ msgid "No text to read"
 #~ msgstr "Geen teks om te lees nie"
 
-#: components/captionBox.js:95
+#: components/captionBox.js:97
 msgid "No text to translate"
 msgstr "Geen teks om te vertaal"
 
-#: components/playbackSettings.js:132
+#: components/playbackSettings.js:133
 msgid "Normal Speed Player"
 msgstr "Normale Spoed Speler"
 
-#: components/playbackSettings.js:108
+#: components/playbackSettings.js:109
 msgid "Normal Speed when you talk"
 msgstr "Normale Spoed wanneer jy praat"
 
-#: components/exerciseView.js:575
+#: components/exerciseView.js:582
 msgid "OK"
 msgstr "OK"
 
-#: components/topDropdownMenu.js:428
+#: components/topDropdownMenu.js:433
 msgid "Open .json"
 msgstr "Maak .json oop"
 
-#: components/topDropdownMenu.js:426
+#: components/topDropdownMenu.js:431
 msgid "Open .srt"
 msgstr "Maak .srt oop"
 
-#: components/topDropdownMenu.js:434
+#: components/topDropdownMenu.js:439
 msgid "Open custom video"
 msgstr "Maak pasgemaakte video oop"
 
-#: components/topDropdownMenu.js:436
+#: components/topDropdownMenu.js:441
 msgid "Open Exercise File"
 msgstr "Maak Oefening Lêer oop"
 
-#: components/topDropdownMenu.js:433
-#: components/topDropdownMenu.js:443
+#: components/topDropdownMenu.js:438
+#: components/topDropdownMenu.js:448
 msgid "Open Settings"
 msgstr "Maak Instellings oop"
 
-#: components/topDropdownMenu.js:462
+#: components/topDropdownMenu.js:474
 msgid "Open video on Youtube"
 msgstr "Maak video op Youtube oop"
 
-#: components/app.js:89
-#: components/app.js:98
-#: components/captionBox.js:233
-#: components/exerciseView.js:647
-#: components/exerciseView.js:671
+#: components/app.js:91
+#: components/captionBox.js:218
+#: components/exerciseView.js:654
+#: components/exerciseView.js:678
 msgid "Operation completed successfully"
 msgstr "Operasie suksesvol voltooi"
 
@@ -324,31 +411,43 @@ msgstr "Operasie suksesvol voltooi"
 msgid "Origin Language:"
 msgstr "Oorsprong Taal:"
 
-#: components/topDropdownMenu.js:510
+#: components/topDropdownMenu.js:522
 msgid "Password"
 msgstr "Wagwoord"
 
-#: components/exerciseView.js:134
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:81
+msgid "Past"
+msgstr "Verlede Tyd"
+
+#: components/exerciseView.js:137
 msgid "Please note that these subtitles are auto-generated and may contain semantic and contextual mistakes."
 msgstr "Neem asseblief kennis dat hierdie onderskrifte outomaties gegenereer is en semantiese en kontekstuele foute kan bevat."
 
-#: components/exerciseView.js:448
+#: components/exerciseView.js:455
 msgid "Please restart recording!"
 msgstr "Begin asseblief weer met opname!"
 
-#: components/exerciseView.js:835
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:99
+msgid "Please select a root, binyan, and tense to proceed!"
+msgstr "Kies asseblief 'n wortel, binyan, en tyd om voort te gaan!"
+
+#: components/helpers/fetchData.js:307
 msgid "Please wait"
 msgstr "Wag asseblief"
 
-#: components/exerciseView.js:581
+#: components/exerciseView.js:588
 msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
 msgstr "Stoor asseblief jou huiswerk na die lêer en probeer later weer. Kontak die ontwikkelaar indien die probleem voortduur."
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:80
+msgid "Present"
+msgstr "Teenwoordige Tyd"
 
 #: components/playbackSettings.js:59
 msgid "Prompt when you talk"
 msgstr "Opskrif wanneer jy praat"
 
-#: components/captionBox.js:125
+#: components/captionBox.js:127
 msgid "Pronunciation"
 msgstr "Uitspraak"
 
@@ -356,20 +455,20 @@ msgstr "Uitspraak"
 msgid "Question"
 msgstr "Vraag"
 
-#: components/exerciseView.js:447
+#: components/exerciseView.js:454
 msgid "Recording Synchronization Error"
 msgstr "Opname Sinchronisasie Fout"
 
-#: components/topDropdownMenu.js:415
-#: components/topDropdownMenu.js:497
+#: components/topDropdownMenu.js:420
+#: components/topDropdownMenu.js:509
 msgid "Register"
 msgstr "Registreer"
 
-#: components/app.js:124
+#: components/app.js:129
 msgid "Register {name} failed, try later"
 msgstr "Registreer {name} het misluk, probeer later"
 
-#: components/topDropdownMenu.js:437
+#: components/topDropdownMenu.js:442
 msgid "Reload Playlist"
 msgstr "Herlaai Speellys"
 
@@ -377,26 +476,42 @@ msgstr "Herlaai Speellys"
 msgid "Restore"
 msgstr "Herstel"
 
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:132
+#~ msgid "Root (שורש)"
+#~ msgstr "Wortel (שורש)"
+
+#: components/topDropdownMenu.js:460
+msgid "Root/Binyan/Tense"
+msgstr "Wortel/Binyan/Tyd"
+
 #: components/flashcardEditor.js:79
 msgid "Save"
 msgstr "Stoor"
 
-#: components/topDropdownMenu.js:425
+#: components/topDropdownMenu.js:430
 msgid "Save .srt"
 msgstr "Stoor .srt"
 
-#: components/captionsView.js:278
+#: components/captionsView.js:294
 msgid "Select"
 msgstr "Kies"
 
-#: components/captionBox.js:176
-#: components/captionBox.js:217
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:185
+msgid "Select Tense"
+msgstr "Kies Tyd"
+
+#: components/captionBox.js:161
+#: components/captionBox.js:202
 msgid "Select text to process"
 msgstr "Kies teks om te verwerk"
 
-#: components/topDropdownMenu.js:553
+#: components/topDropdownMenu.js:565
 msgid "Settings"
 msgstr "Instellings"
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:200
+msgid "Show"
+msgstr "Wys"
 
 #: components/data/showCaptionsOptions.js:4
 msgid "Show No Captions"
@@ -409,6 +524,10 @@ msgstr "Wys Geen Onderskrifte"
 #: components/data/showCaptionsOptions.js:5
 msgid "Show Original Captions"
 msgstr "Wys Oorspronklike Onderskrifte"
+
+#: components/playbackSettings.js:72
+msgid "Show Original Subtitle + Next Line"
+msgstr "Wys Oorspronklike Onderskrif + Volgende Reël"
 
 #: components/playbackSettings.js:70
 msgid "Show Original Subtitles"
@@ -426,24 +545,36 @@ msgstr "Wys Oefen Onderskrifte"
 msgid "Slight Prompt when you talk"
 msgstr "Klein Opskrif wanneer jy praat"
 
-#: components/captionBox.js:142
-msgid "Speech synthesis is not supported in this browser."
-msgstr "Spraaksintese word nie in hierdie blaaier ondersteun nie."
+#: components/captionBox.js:143
+#~ msgid "Speech synthesis is not supported in this browser."
+#~ msgstr "Spraaksintese word nie in hierdie blaaier ondersteun nie."
 
-#: components/captionsView.js:280
+#: components/captionsView.js:296
 msgid "Start (sec)"
 msgstr "Begin (sek)"
 
-#: components/topDropdownMenu.js:449
+#: components/topDropdownMenu.js:454
 msgid "Start Test"
 msgstr "Begin Toets"
+
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:50
+msgid "Subject"
+msgstr "Onderwerp"
 
 #: components/app.js:89
 #: components/app.js:98
 #~ msgid "Success"
 #~ msgstr "Sukses"
 
-#: components/captionsView.js:281
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:179
+#~ msgid "Tense (זמן)"
+#~ msgstr "Tyd (זמן)"
+
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:11
+#~ msgid "Tense: {tense}"
+#~ msgstr "Tyd: {tense}"
+
+#: components/captionsView.js:297
 msgid "Text"
 msgstr "Teks"
 
@@ -451,24 +582,52 @@ msgstr "Teks"
 #~ msgid "Text Analysis"
 #~ msgstr "Teksanalise"
 
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:57
+msgid "The Hif'il(הִפְעִיל) used to cause the action of the verb."
+msgstr "Die Hif'il(הִפְעִיל) word gebruik om die handeling van die werkwoord te veroorsaak."
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:69
+msgid "The Hitpa'el(הִתְפַּעֵל) used for reflexive actions."
+msgstr "Die Hitpa'el(הִתְפַּעֵל) word gebruik vir refleksiewe handelinge."
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:63
+msgid "The Huf'al(הֻפְעַל) the passive form of Hif'il."
+msgstr "Die Huf'al(הֻפְעַל) is die passiewe vorm van Hif'il."
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:39
+msgid "The Nif'al(נִפְעַל) used for passive voice of Pa'al or reflexive actions."
+msgstr "Die Nif'al(נִפְעַל) word gebruik vir die passiewe vorm van Pa'al of refleksiewe handelinge."
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:33
+msgid "The Pa'al(פעל ,קַל) used for simple, active verbs."
+msgstr "Die Pa'al(פעל ,קַל) word gebruik vir eenvoudige, aktiewe werkwoorde."
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:45
+msgid "The Pi'el(פִּעֵל) used to intensify the meaning of the verb."
+msgstr "Die Pi'el(פִּעֵל) word gebruik om die betekenis van die werkwoord te intensifiseer."
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:51
+msgid "The Pu'al(פֻּעַל) the passive form of Pi'el."
+msgstr "Die Pu'al(פֻּעַל) is die passiewe vorm van Pi'el."
+
 #: components/exerciseView.js:562
 #~ msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
 #~ msgstr "Die YouTube-publikasie-funksie is tydelik onbeskikbaar. Kontak asseblief die ontwikkelaar indien nodig."
 
-#: components/exerciseView.js:135
+#: components/exerciseView.js:138
 msgid "They are provided solely as a reference tool for practicing speech."
 msgstr "Hulle word slegs as 'n verwysingsinstrument vir die oefening van spraak verskaf."
 
-#: components/topDropdownMenu.js:432
-#: components/topDropdownMenu.js:442
+#: components/topDropdownMenu.js:437
+#: components/topDropdownMenu.js:447
 msgid "Tools"
 msgstr "Gereedskap"
 
-#: components/exerciseView.js:133
+#: components/exerciseView.js:136
 msgid "Training subtitles have been loaded successfully."
 msgstr "Oefen onderskrifte is suksesvol gelaai."
 
-#: components/captionBox.js:102
+#: components/captionBox.js:104
 msgid "Translation"
 msgstr "Vertaling"
 
@@ -480,29 +639,37 @@ msgstr "Vertaling Taal:"
 msgid "Translation:"
 msgstr "Vertaling:"
 
-#: components/topDropdownMenu.js:427
+#: components/topDropdownMenu.js:432
 msgid "Upload .srt to Server"
 msgstr "Laai .srt na Bediener op"
 
-#: components/topDropdownMenu.js:502
+#: components/topDropdownMenu.js:514
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: components/topDropdownMenu.js:514
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:51
+msgid "Verb"
+msgstr "Werkwoord"
+
+#: components/topDropdownMenu.js:526
 msgid "Verify Password"
 msgstr "Bevestig Wagwoord"
 
-#: components/topDropdownMenu.js:448
+#: components/topDropdownMenu.js:453
 msgid "View Colection"
 msgstr "Bekyk Versameling"
 
-#: components/captionBox.js:94
-#: components/captionBox.js:110
-#: components/captionBox.js:152
-#: components/captionBox.js:175
-#: components/captionBox.js:216
-#: components/captionsView.js:244
-#: components/exerciseView.js:132
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:53
+msgid "Voice Hint"
+msgstr "Stem Wenk"
+
+#: components/captionBox.js:96
+#: components/captionBox.js:112
+#: components/captionBox.js:137
+#: components/captionBox.js:160
+#: components/captionBox.js:201
+#: components/captionsView.js:260
+#: components/exerciseView.js:135
 msgid "Warning"
 msgstr "Waarskuwing"
 
@@ -514,15 +681,15 @@ msgstr "Waarskuwing"
 #~ msgid "Warning!"
 #~ msgstr "Waarskuwing!"
 
-#: components/captionsView.js:245
+#: components/captionsView.js:261
 msgid "You are not allowed to change Selection, when you have recorded exercise. Please clear recording first.(Click \"Clear Record\" button)"
 msgstr "Jy mag nie die keuse verander wanneer jy 'n oefening opgeneem het nie. Vee asseblief eers die opname uit. (Klik op die \"Vee Opname\" knoppie)"
 
-#: components/exerciseView.js:409
+#: components/exerciseView.js:416
 msgid "You have already recorded something. Please clear recording first."
 msgstr "Jy het reeds iets opgeneem. Vee asseblief eers die opname uit."
 
-#: components/exerciseView.js:573
+#: components/exerciseView.js:580
 msgid "You'll get an email letting you know when your video goes live on YouTube. It'll be set to \"unlisted\" so only the people you send the link to can watch it."
 msgstr "Jy sal 'n e-pos ontvang wat jou laat weet wanneer jou video op YouTube lewendig gaan. Dit sal op \"ongelys\" gestel word sodat slegs die mense aan wie jy die skakel stuur dit kan kyk."
 
@@ -530,19 +697,47 @@ msgstr "Jy sal 'n e-pos ontvang wat jou laat weet wanneer jou video op YouTube l
 msgid "Youglish"
 msgstr "Youglish"
 
-#: components/captionsView.js:279
+#: components/captionsView.js:295
 msgid "Your Line"
 msgstr "Jou Reël"
 
-#: components/exerciseView.js:836
+#: components/helpers/fetchData.js:308
 msgid "Your request is being processed..."
 msgstr "Jou versoek word verwerk..."
 
-#: components/topDropdownMenu.js:455
-#: components/topDropdownMenu.js:461
+#: components/topDropdownMenu.js:467
+#: components/topDropdownMenu.js:473
 msgid "Youtube"
 msgstr "Youtube"
 
 #: components/flashcardExam.js:119
 msgid "YouTube"
 msgstr "YouTube"
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:62
+msgid "הופעל - Huf'al"
+msgstr "הופעל - Huf'al"
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:56
+msgid "הפעיל - Hif'il"
+msgstr "הפעיל - Hif'il"
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:68
+msgid "התפעל - Hitpa'el"
+msgstr "התפעל - Hitpa'el"
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:38
+msgid "נפעל - Nif'al"
+msgstr "נפעל - Nif'al"
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:50
+msgid "פועל - Pu'al"
+msgstr "פועל - Pu'al"
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:44
+msgid "פיעל - Pi'el"
+msgstr "פיעל - Pi'el"
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:32
+msgid "פעל - Pa'al"
+msgstr "פעל - Pa'al"
