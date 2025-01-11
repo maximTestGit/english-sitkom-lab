@@ -117,9 +117,12 @@ export async function getTranslation(user, text, sourceLanguage, targetLanguage)
   return result?.translation;
 }
 
-export async function saveTextToFlashcards(user, text, frontLanguage, backLanguage, videoId, seconds) {
+export async function saveTextToFlashcards(user, text, frontLanguage, backLanguage, videoId, seconds, frontTranslation) {
   const decodedFront = decodeURIComponent(text);
-  const back = await getTranslation(user, decodedFront, frontLanguage, backLanguage);
+  let back = frontTranslation;
+  if (back === undefined || back === null || back === "") {
+    back = await getTranslation(user, decodedFront, frontLanguage, backLanguage);
+  }
   console.log('info', `saveTextToFlashcards: back: ${back}`);
   const url = getSaveFlashcardUrlPost();
   const data = {
@@ -297,7 +300,7 @@ export async function getBinyanimForRoot(user, root, binyan, tense, toLanguage) 
   return result;
 }
 
-const handleWaitForAction = (isStarted, onHandleWaitForAction=null) => {
+const handleWaitForAction = (isStarted, onHandleWaitForAction = null) => {
   if (isStarted) {
     if (onHandleWaitForAction) {
       onHandleWaitForAction(true);
@@ -322,7 +325,7 @@ const handleWaitForAction = (isStarted, onHandleWaitForAction=null) => {
   }
 }
 
-async function fetchDataFromSourcePost(user, url, data, customHandleWaitForAction=null) {
+async function fetchDataFromSourcePost(user, url, data, customHandleWaitForAction = null) {
   let result = null;
   try {
     handleWaitForAction(true, customHandleWaitForAction);

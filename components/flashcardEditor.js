@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { getCultureLanguageName } from './data/configurator';
 import { t, Trans } from '@lingui/macro';
 
-const FlashcardEditor = ({ card, onSave, onDelete }) => {
+const FlashcardEditor = ({
+    card,
+    onSave,
+    onDelete,
+    showDetails
+}) => {
     const [editedBack, setEditedBack] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const detailsBackground = 'lightgray';
@@ -80,21 +85,23 @@ const FlashcardEditor = ({ card, onSave, onDelete }) => {
                         </button>
                     </div>
 
-                    <div className="container mt-3" style={{ fontSize: '0.9em' }}>
-                        <div>
-                            <h6>{t`Card Details:`}</h6>
+                    {showDetails &&
+                        <div className="container mt-3" style={{ fontSize: '0.9em' }}>
+                            <div>
+                                <h6>{t`Card Details:`}</h6>
+                            </div>
+                            <ul id="uiCardDetails" className="list-group">
+                                <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Collection:`}</strong> {card.collection}</li>
+                                <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Origin Language:`}</strong> {getCultureLanguageName(card.frontLanguage)}</li>
+                                <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Translation Language:`}</strong> {getCultureLanguageName(card.backLanguage)}</li>
+                                <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Box:`}</strong> {card.box}</li>
+                                <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Created:`}</strong> {card.created}</li>
+                                <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Last Reviewed:`}</strong> {card.lastReviewed}</li>
+                                <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Next Review:`}</strong> {card.nextReview}</li>
+                                {/* <li className="list-group-item" style={{ backgroundColor: background }}><strong>Front:</strong> {card.front}</li> */}
+                            </ul>
                         </div>
-                        <ul id="uiCardDetails" className="list-group">
-                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Collection:`}</strong> {card.collection}</li>
-                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Origin Language:`}</strong> {getCultureLanguageName(card.frontLanguage)}</li>
-                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Translation Language:`}</strong> {getCultureLanguageName(card.backLanguage)}</li>
-                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Box:`}</strong> {card.box}</li>
-                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Created:`}</strong> {card.created}</li>
-                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Last Reviewed:`}</strong> {card.lastReviewed}</li>
-                            <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Next Review:`}</strong> {card.nextReview}</li>
-                            {/* <li className="list-group-item" style={{ backgroundColor: background }}><strong>Front:</strong> {card.front}</li> */}
-                        </ul>
-                    </div>
+                    }
                 </div>
             </div>
         </div>

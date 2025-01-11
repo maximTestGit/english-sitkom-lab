@@ -23,6 +23,12 @@ import {
 } from './helpers/fetchData';
 import FlashcardExam from './flashcardExam';
 import FlashcardEditor from './flashcardEditor';
+import RootBinyanTenseTableDrill from './drills/hebrew/rootBinyanTenseTableDrill';
+import { saveAs } from 'file-saver'; // Make sure to install file-saver package
+import {
+    getTranslation,
+    saveTextToFlashcards,
+} from './helpers/fetchData';
 
 const TopDropdownMenu = ({
     user,
@@ -40,7 +46,6 @@ const TopDropdownMenu = ({
     onLearningLanguageChange,
     onUILanguageChange,
     onLoginLogout,
-    onRootBinyanTenseTableDrillOpen,
 }) => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
@@ -56,14 +61,37 @@ const TopDropdownMenu = ({
     const [playlistName, setPlaylistName] = useState('');
     const [showPlaylistModal, setShowPlaylistModal] = useState(false);
     const [showSettingsModal, setShowSettingsModal] = useState(false);
-    const [newLearningLanguage, setNewLearningLanguage] = useState('');
-    const [newUILanguage, setNewUILanguage] = useState('');
+    const [newLearningLanguage, setNewLearningLanguage] = useState(learningLanguage);
+    const [newUILanguage, setNewUILanguage] = useState(uiLanguage);
     const [showFlashcardsModal, setShowFlashcardsModal] = useState(false);
     const [flashcards, setFlashcards] = useState([]);
     const [showFlashcardExamViewModal, setShowFlashcardExamViewModal] = useState(false);
+    const [showRootBinyanTenseViewModal, setShowRootBinyanTenseViewModal] = useState(false);
     const [examCards, setExamCards] = useState([]);
     const [examAnswers, setExamAnswers] = useState([]);
+    const [showDetails, setShowDetails] = useState(false);
+    const [showAddCardModal, setShowAddCardModal] = useState(false);
+    const [newCardFront, setNewCardFront] = useState('');
+    const [newCardBack, setNewCardBack] = useState('');
+    const [filterText, setFilterText] = useState('');
 
+
+    useEffect(() => {
+        setNewLearningLanguage(learningLanguage);
+        setNewUILanguage(uiLanguage);
+    }, [learningLanguage, uiLanguage]);
+
+    const isSelectedCulture = (lang, uiCulture) => {
+        const result = extractCulture(lang) === uiCulture;
+        return result;
+    };
+    const setNewUILanguageWrapper = (lang) => {
+        setNewUILanguage(lang);
+    };
+    const extractCultureWrapper = (lang) => {
+        const result = extractCulture(lang);
+        return result;
+    };
     const handleCleanupMem = () => {
         cleanUpLocalStorage(true);
     };
@@ -285,7 +313,7 @@ const TopDropdownMenu = ({
 
     const handleSettingsSubmit = (e) => {
         e.preventDefault();
-        console.log('Selected Learning Language:', newLearningLanguage);
+        console.log(`Selected Learning Language:${newLearningLanguage}/${learningLanguage}, uiLanguage:${newUILanguage}/${uiLanguage}`);
         setShowSettingsModal(false);
         onLearningLanguageChange(newLearningLanguage);
         onUILanguageChange(newUILanguage);
@@ -334,6 +362,12 @@ const TopDropdownMenu = ({
     const handleFlashcardsCollectionViewClose = () => {
         setFlashcards([]);
         setShowFlashcardsModal(false);
+    };
+    const handleShowRootBinyanTenseTableDrilView = () => {
+        setShowRootBinyanTenseViewModal(true);
+    };
+    const handleShowRootBinyanTenseTableDrillClose = () => {
+        setShowRootBinyanTenseViewModal(false);
     };
 
     const handleFlashcardsCollectionSession = async () => {
@@ -403,6 +437,55 @@ const TopDropdownMenu = ({
     function handleRootBinyanTenseTableDrill() {
         onRootBinyanTenseTableDrillOpen();
     }
+
+    const handleExportToCSV = () => {
+        if (!filteredFlashcards || filteredFlashcards.length === 0) return;
+
+        const csvContent = filteredFlashcards.map(flashcard => `${flashcard.front},${flashcard.back}`).join('\n');
+        const bom = '\uFEFF'; // Byte Order Mark for UTF-8
+        const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
+        saveAs(blob, 'flashcards.csv');
+    };
+
+    const handleFlashcardsAddNewCardView = async () => {
+        document.body.style.cursor = 'wait';
+        try {
+            const flashcardsCollection = await getFlashcardsCollection(user, extractCulture(learningLanguage));
+            const newFlashcards = normalizeFlashcardsCollection(flashcardsCollection);
+            setFlashcards(newFlashcards);
+            console.log('Flashcards Collection:', flashcardsCollection);
+            setShowAddCardModal(true)
+        } finally {
+            document.body.style.cursor = 'default';
+        }
+    }
+
+    const handleAddCardConfirm = async () => {
+        //const newCard = { front: newCardFront, back: '' };
+        //setFlashcards([...flashcards, newCard]);
+        const frontLanguage = extractCulture(learningLanguage);
+        await saveTextToFlashcards(user, newCardFront, frontLanguage, uiLanguage, null, null, newCardBack);
+        setShowAddCardModal(false);
+        setNewCardFront('');
+    };
+    function closeAddFlascardView() {
+        setShowAddCardModal(false);
+    }
+
+    const translateFlashcard = async (front) => {
+        const fromLanguage = extractCulture(learningLanguage);
+        const translatedText = await getTranslation(user, front, fromLanguage, uiLanguage);
+        setNewCardBack(translatedText);
+    }
+
+    const handleFilterChange = (e) => {
+        setFilterText(e.target.value);
+    };
+
+    const filteredFlashcards = flashcards.filter(flashcard =>
+        flashcard.front.toLowerCase().includes(filterText.toLowerCase()) ||
+        flashcard.back.toLowerCase().includes(filterText.toLowerCase())
+    );
     return (
         <>
             <Navbar bg="light" expand="sm">
@@ -413,6 +496,15 @@ const TopDropdownMenu = ({
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
+                    {!user && (
+                        <NavDropdown title={<Trans>Site language</Trans>} id="site-language-dropdown">
+                            {languages.map(lang => (
+                                <NavDropdown.Item key={lang.code} onClick={() => onUILanguageChange(lang.code)}>
+                                    {lang.name}
+                                </NavDropdown.Item>
+                            ))}
+                        </NavDropdown>
+                    )}
                     <Nav className="me-auto">
                         {!user && (
                             <NavDropdown title={<Trans>Account</Trans>} id="account-dropdown">
@@ -452,12 +544,13 @@ const TopDropdownMenu = ({
                             < NavDropdown title={<Trans>Flashcards</Trans>} id="tools-dropdown">
                                 <NavDropdown.Item onClick={handleFlashcardsCollectionView}><Trans>View Colection</Trans></NavDropdown.Item>
                                 <NavDropdown.Item onClick={handleFlashcardsCollectionSession}><Trans>Start Test</Trans></NavDropdown.Item>
+                                <NavDropdown.Item onClick={handleFlashcardsAddNewCardView}><Trans>Add Flashcard</Trans></NavDropdown.Item>
                             </NavDropdown>
                         )}
                         {user && (
                             < NavDropdown title={<Trans>Drils</Trans>} id="tools-dropdown">
                                 {learningLanguage === 'he-IL' &&
-                                    <NavDropdown.Item onClick={handleRootBinyanTenseTableDrill}><Trans>Root/Binyan/Tense</Trans></NavDropdown.Item>
+                                    <NavDropdown.Item onClick={handleShowRootBinyanTenseTableDrilView}><Trans>Root/Binyan/Tense</Trans></NavDropdown.Item>
                                 }
                             </NavDropdown>
                         )}
@@ -568,22 +661,31 @@ const TopDropdownMenu = ({
                     <Form onSubmit={handleSettingsSubmit}>
                         <Form.Group>
                             <Form.Label><Trans>I Learn Language</Trans></Form.Label>
-                            <Form.Control as="select" value={newLearningLanguage} onChange={(e) => setNewLearningLanguage(e.target.value)} required>
+                            <Form.Control
+                                as="select"
+                                value={newLearningLanguage}
+                                onChange={(e) => setNewLearningLanguage(e.target.value)}
+                                required>
                                 <option value="">Select a language</option>
                                 {languages.map((lang) => (
-                                    <option key={lang.code} value={lang.code}>
+                                    <option key={lang.code} value={lang.code}
+                                        selected={lang.code === newLearningLanguage}>
                                         {lang.name} / {lang.nativeName}
                                     </option>
                                 ))}
                             </Form.Control>
-                        </Form.Group>
-                        {!user && (
+                        </Form.Group>                        {!user && (
                             < Form.Group >
                                 <Form.Label><Trans>My Language</Trans></Form.Label>
-                                <Form.Control as="select" value={newUILanguage} onChange={(e) => setNewUILanguage(e.target.value)} required>
+                                <Form.Control
+                                    as="select"
+                                    value={newUILanguage}
+                                    onChange={(e) => setNewUILanguageWrapper(e.target.value)}
+                                    required>
                                     <option value="">Select a language</option>
                                     {languages.map((lang) => (
-                                        <option key={lang.code} value={lang.code}>
+                                        <option key={lang.code} value={extractCultureWrapper(lang.code)}
+                                            selected={isSelectedCulture(lang.code, newUILanguage)}>
                                             {lang.name} / {lang.nativeName}
                                         </option>
                                     ))}
@@ -629,39 +731,62 @@ const TopDropdownMenu = ({
                 </div>
             )
             }
-            <Modal show={showFlashcardsModal} onHide={() => setShowFlashcardsModal(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Flashcards Collection</Modal.Title>
+            <Modal show={showFlashcardsModal}
+                onHide={() => setShowFlashcardsModal(false)}
+                dialogClassName="modal-dialog-scrollable"
+            >
+                <Modal.Header
+                    style={{ position: 'sticky', top: 0, backgroundColor: 'white', zIndex: 1000 }}
+                    className='bg-light'
+                >
+                    <div className="w-100">
+                        <div className="d-flex justify-content-between align-items-center mb-3">
+                            <Modal.Title><Trans>Flashcards Collection</Trans></Modal.Title>
+                            <Form.Check
+                                type="switch"
+                                id="show-details-switch"
+                                label={<Trans>Show Details</Trans>}
+                                checked={showDetails}
+                                onChange={(e) => setShowDetails(e.target.checked)}
+                            />
+                        </div>
+                        <Form.Control
+                            type="text"
+                            placeholder={t`Filter flashcards`}
+                            value={filterText}
+                            onChange={handleFilterChange}
+                        />
+                    </div>
                 </Modal.Header>
-                <Modal.Body>
-                    {flashcards?.length === 0 && <p>No flashcards found</p>}
-                    {flashcards?.length > 0 && flashcards.map((flashcard, index) => (
+                <Modal.Body style={{ maxHeight: '70vh', overflowY: 'auto' }}>
+                    {filteredFlashcards?.length === 0 && <p>No flashcards found</p>}
+                    {filteredFlashcards?.length > 0 && filteredFlashcards.map((flashcard, index) => (
                         <div key={index}>
                             <FlashcardEditor
                                 card={flashcard}
                                 onSave={handleSaveFlashcard}
                                 onDelete={handleDeleteFlashcard}
+                                showDetails={showDetails}
                             />
-                            {/* <p><strong>Collection:</strong> {flashcard.collection}</p>
-                            <p><strong>Text:</strong> {flashcard.front} ({flashcard.frontLanguage})</p>
-                            <p><strong>Translation:</strong> {flashcard.back}</p>
-                            <p><strong>Last Reviewed:</strong> {flashcard.lastReviewed}</p>
-                            <p><strong>Planning Review:</strong> {flashcard.nextReview}</p>
-                            <p><strong>Box:</strong> {flashcard.box}</p>
-                            <p><strong>Front Language:</strong> {flashcard.frontLanguage}</p>
-                            <p><strong>Back Language:</strong> {flashcard.backLanguage}</p>
-                            <p><strong>Created:</strong> {flashcard.created}</p>
-                            <p><strong>User ID:</strong> {flashcard.userId}</p>
-                            <p><strong>Video ID:</strong> {flashcard.videoId}</p>
-                            <p><strong>Seconds:</strong> {flashcard.seconds}</p> */}
                             <hr />
                         </div>
                     ))}
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleFlashcardsCollectionViewClose}>
-                        Close
-                    </Button>
+                <Modal.Footer
+                    style={{ position: 'sticky', bottom: 0, backgroundColor: 'white', zIndex: 1000 }}
+                    className='bg-light'
+                >
+                    <div className="d-flex justify-content-between w-100">
+                        <Button
+                            onClick={handleExportToCSV}
+                            className="btn btn-secondary"
+                        >
+                            {<Trans>Export</Trans>}
+                        </Button>
+                        <Button className="btn btn-danger" onClick={handleFlashcardsCollectionViewClose}>
+                            {<Trans>Close</Trans>}
+                        </Button>
+                    </div>
                 </Modal.Footer>
             </Modal>
             <Modal show={showFlashcardExamViewModal}>
@@ -680,9 +805,62 @@ const TopDropdownMenu = ({
                     </Button>
                 </Modal.Footer>
             </Modal>
+            <Modal show={showRootBinyanTenseViewModal}
+                onHide={handleShowRootBinyanTenseTableDrillClose}
+                fullscreen={true}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{<Trans>Root/Binyan/Tense</Trans>}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <RootBinyanTenseTableDrill
+                        user={user}
+                        uiLanguage={uiLanguage}
+                    />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleShowRootBinyanTenseTableDrillClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={showAddCardModal} onHide={closeAddFlascardView}>
+                <Modal.Header closeButton>
+                    <Modal.Title><Trans>Add New Card</Trans></Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group controlId="formCardFront">
+                            <Form.Label><Trans>Front</Trans></Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={newCardFront}
+                                onChange={(e) => setNewCardFront(e.target.value)}
+                            />
+                            <Form.Label><Trans>Back Side</Trans></Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={newCardBack}
+                                onChange={(e) => setNewCardBack(e.target.value)}
+                            />
+                        </Form.Group>
+                        <Button variant="secondary" onClick={() => translateFlashcard(newCardFront)}>
+                            <Trans>Translate</Trans>
+                        </Button>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={closeAddFlascardView}>
+                        <Trans>Cancel</Trans>
+                    </Button>
+                    <Button variant="primary" onClick={handleAddCardConfirm}>
+                        OK
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
 };
 
 export default TopDropdownMenu;
+
 

@@ -12,7 +12,6 @@ const RootBinyanTenseTableDrill = (
     {
         user,
         uiLanguage,
-        onClose
     }
 ) => {
     const [root, setRoot] = useState('');
@@ -111,9 +110,6 @@ const RootBinyanTenseTableDrill = (
         setCurrBinyan(binyan);
         setCurrTense(tense);
     };
-    const handleClose = () => {
-        onClose();
-    };
     const setBinyanWrapper = (value) => {
         setBinyan(value);
         setBinyanCharacteristicDiv(value);
@@ -127,8 +123,8 @@ const RootBinyanTenseTableDrill = (
     };
     return (
         <>
-            <div className='row pt-2'>
-                <div className='col-2'>
+            <div className='row pt-2 mb-3'>
+                <div className='col-12 col-md-2 mb-3'>
                     <input
                         id="root"
                         className="form-control text-right me-2"
@@ -148,9 +144,9 @@ const RootBinyanTenseTableDrill = (
                         dir="rtl"
                     />
                 </div>
-                <div className='col-7'>
+                <div className='col-12 col-md-7 mb-3'>
                     <div className='row'>
-                        <div className='col-4'>
+                        <div className='col-12 col-md-4 mb-3'>
                             <select
                                 id="binyan"
                                 className="form-select me-2"
@@ -166,16 +162,16 @@ const RootBinyanTenseTableDrill = (
                             </select>
                         </div>
                         <div id="binyanCharacteristicDiv"
-                            className='border border-dark rounded p-2 col-8'
+                            className='border border-dark rounded p-2 col-12 col-md-8 mt-2 mt-md-0 mb-3'
                             style={{ maxHeight: '150px', overflowY: 'auto', backgroundColor: '#f8f9fa' }}
                             display={binyan ? 'block' : 'none'}
                         >
                         </div>
                     </div>
                 </div>
-                <div className='col-3'>
+                <div className='col-12 col-md-3 mb-3'>
                     <div className='row'>
-                        <div className='col-8'>
+                        <div className='col-8 mb-3'>
                             <select
                                 id="tense"
                                 className="form-select me-2 col-1"
@@ -190,7 +186,7 @@ const RootBinyanTenseTableDrill = (
                                 ))}
                             </select>
                         </div>
-                        <div className='col-4'>
+                        <div className='col-4 mb-3'>
                             <button id="submitBtn"
                                 className="btn btn-danger"
                                 onClick={handleSubmit}
@@ -219,14 +215,6 @@ const RootBinyanTenseTableDrill = (
                         />
                     }
                 </div>
-            </div>
-            <div id="closeBtnDiv" className='row justify-content-center'>
-                <button
-                    className="btn btn-primary mt-2 col-1"
-                    onClick={handleClose}
-                >
-                    Close
-                </button>
             </div>
         </>
     );
