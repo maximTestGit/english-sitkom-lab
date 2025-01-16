@@ -33,78 +33,86 @@ msgstr "{speed} от Нормальной скорости для Вашего �
 #~ msgid "{uiLanguage} subtitles have been loaded successfully."
 #~ msgstr "{uiLanguage} субтитры успешно загружены."
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:64
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:63
 msgid "<br>כתב: הֻכְתַּב (hukhtav) - \"it was dictated\""
 msgstr "<br>כתב: הֻכְתַּב (hukhtav) - \"это было продиктовано\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:58
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:57
 msgid "<br>כתב: הִכְתִּיב (hikhtiv) - \"he dictated\""
 msgstr "<br>כתב: הִכְתִּיב (hikhtiv) - \"он продиктовал\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:70
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:69
 msgid "<br>כתב: הִתְכַּתֵּב (hitkatev) - \"he corresponded\""
 msgstr "<br>כתב: הִתְכַּתֵּב (hitkatev) - \"он переписывался\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:34
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:33
 msgid "<br>כתב: כָּתַב (katav) - \"he wrote\""
 msgstr "<br>כתב: כָּתַב (katav) - \"он написал\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:46
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:45
 msgid "<br>כתב: כִּתֵּב (kitev) - \"he corresponded\""
 msgstr "<br>כתב: כִּתֵּב (kitev) - \"он переписывался\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:52
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:51
 msgid "<br>כתב: כֻּתַּב (kutav) - \"it was written intensively\""
 msgstr "<br>כתב: כֻּתַּב (kutav) - \"это было интенсивно написано\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:40
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:39
 msgid "<br>כתב: נִכְתַּב (nikhtav) - \"it was written\""
 msgstr "<br>כתב: נִכְתַּב (nikhtav) - \"это было написано\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:41
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:40
 msgid "<br>להכתב: לְהִכָּתֵב (lehikatev) - \"to be written\""
 msgstr "<br>להכתב: לְהִכָּתֵב (lehikatev) - \"быть написанным\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:65
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:64
 msgid "<br>להכתיב: לְהֻכְתַּב (lehuktav) - \"to be dictated\""
 msgstr "<br>להכתיב: לְהֻכְתַּב (lehuktav) - \"быть продиктованным\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:59
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:58
 msgid "<br>להכתיב: לְהַכְתִּיב (lehaktiv) - \"to dictate\""
 msgstr "<br>להכתיב: לְהַכְתִּיב (lehaktiv) - \"диктовать\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:71
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:70
 msgid "<br>להתכתב: לְהִתְכַּתֵּב (lehitkatev) - \"to correspond\""
 msgstr "<br>להתכתב: לְהִתְכַּתֵּב (lehitkatev) - \"переписываться\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:35
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:34
 msgid "<br>לכתוב: לִכְתּוֹב (likhtov) - \"to write\""
 msgstr "<br>לכתוב: לִכְתּוֹב (likhtov) - \"писать\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:47
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:46
 msgid "<br>לכתיב: לְכַתֵּב (lekatev) - \"to correspond\""
 msgstr "<br>לכתיב: לְכַתֵּב (lekatev) - \"переписываться\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:53
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:52
 msgid "<br>לכתיב: לְכֻתַּב (lekutav) - \"to be written intensively\""
 msgstr "<br>לכתיב: לְכֻתַּב (lekutav) - \"быть интенсивно написанным\""
 
-#: components/topDropdownMenu.js:477
+#: components/topDropdownMenu.js:570
 msgid "About"
 msgstr "Информация"
 
-#: components/topDropdownMenu.js:478
+#: components/topDropdownMenu.js:571
 msgid "About the Application"
 msgstr "О приложении"
 
-#: components/topDropdownMenu.js:418
-#: components/topDropdownMenu.js:424
+#: components/topDropdownMenu.js:510
+#: components/topDropdownMenu.js:516
 msgid "Account"
 msgstr "Пользователь"
 
-#: components/topDropdownMenu.js:440
+#: components/topDropdownMenu.js:532
 msgid "Add custom Playlist"
 msgstr "Добавить плейлист"
+
+#: components/topDropdownMenu.js:547
+msgid "Add Flashcard"
+msgstr "Добавить карточку"
+
+#: components/topDropdownMenu.js:828
+msgid "Add New Card"
+msgstr "Добавить новую карточку"
 
 #: components/captionBox.js:184
 msgid "AI-Generated Interactive Exercise (Experimental)"
@@ -118,6 +126,10 @@ msgstr "Анализ"
 msgid "Answer"
 msgstr "Ответ"
 
+#: components/topDropdownMenu.js:839
+msgid "Back Side"
+msgstr "Обратная сторона"
+
 #: components/drills/hebrew/rootBinyanTenseTableDrill.js:153
 #~ msgid "Binyan (בניין)"
 #~ msgstr "Биньян (בניין)"
@@ -126,7 +138,7 @@ msgstr "Ответ"
 msgid "Blure Youtube Captions"
 msgstr "Скрыть Youtube субтитры"
 
-#: components/flashcardEditor.js:91
+#: components/flashcardEditor.js:97
 msgid "Box:"
 msgstr "Коробка:"
 
@@ -138,11 +150,15 @@ msgstr "Коробка:"
 msgid "Camera"
 msgstr "Камера"
 
+#: components/topDropdownMenu.js:853
+msgid "Cancel"
+msgstr "Отмена"
+
 #: components/exerciseView.js:655
 msgid "Captions for \"{0}\" uploaded successfully!"
 msgstr "Субтитры для \"{0}\" успешно загружены!"
 
-#: components/flashcardEditor.js:45
+#: components/flashcardEditor.js:50
 msgid "Card"
 msgstr "Карточка"
 
@@ -150,19 +166,23 @@ msgstr "Карточка"
 msgid "Card {0} of {1}"
 msgstr "Карточка {0} из {1}"
 
-#: components/flashcardEditor.js:85
+#: components/flashcardEditor.js:91
 msgid "Card Details:"
 msgstr "Детали карточки:"
 
-#: components/topDropdownMenu.js:443
+#: components/topDropdownMenu.js:535
 msgid "Clear Memory"
 msgstr "Очистить память"
 
-#: components/flashcardEditor.js:88
+#: components/topDropdownMenu.js:787
+msgid "Close"
+msgstr "Закрыть"
+
+#: components/flashcardEditor.js:94
 msgid "Collection:"
 msgstr "Коллекция:"
 
-#: components/topDropdownMenu.js:481
+#: components/topDropdownMenu.js:574
 msgid "Contact Me"
 msgstr "Связаться со мной"
 
@@ -170,19 +190,19 @@ msgstr "Связаться со мной"
 msgid "Correct"
 msgstr "Правильно"
 
-#: components/flashcardEditor.js:92
+#: components/flashcardEditor.js:98
 msgid "Created:"
 msgstr "Создано:"
 
-#: components/flashcardEditor.js:50
+#: components/flashcardEditor.js:55
 msgid "Delete"
 msgstr "Удалить"
 
-#: components/topDropdownMenu.js:458
+#: components/topDropdownMenu.js:551
 msgid "Drils"
 msgstr "Упражнения"
 
-#: components/topDropdownMenu.js:518
+#: components/topDropdownMenu.js:611
 msgid "Email"
 msgstr "Электронная почта"
 
@@ -190,9 +210,9 @@ msgstr "Электронная почта"
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
 msgstr "Элемент \"{textToProcess}\" добавлен в вашу коллекцию карточек"
 
-#: components/app.js:111
+#: components/app.js:102
+#: components/app.js:110
 #: components/app.js:119
-#: components/app.js:128
 #: components/exerciseView.js:685
 msgid "Error"
 msgstr "Ошибка"
@@ -221,7 +241,11 @@ msgstr "Упражнение"
 #~ msgid "Exercise Captions"
 #~ msgstr "Субтитры Упражнения"
 
-#: components/topDropdownMenu.js:429
+#: components/topDropdownMenu.js:784
+msgid "Export"
+msgstr "Экспорт"
+
+#: components/topDropdownMenu.js:521
 msgid "File"
 msgstr "Файл"
 
@@ -229,19 +253,31 @@ msgstr "Файл"
 msgid "File \"{fileName}\" saved successfully!"
 msgstr "Файл \"{fileName}\" успешно сохранен!"
 
-#: components/topDropdownMenu.js:452
+#: components/topDropdownMenu.js:755
+msgid "Filter flashcards"
+msgstr "Фильтровать карточки"
+
+#: components/topDropdownMenu.js:544
 msgid "Flashcards"
 msgstr "Карточки"
 
-#: components/topDropdownMenu.js:669
+#: components/topDropdownMenu.js:744
+msgid "Flashcards Collection"
+msgstr "Коллекция карточек"
+
+#: components/topDropdownMenu.js:794
 msgid "Flashcards Exam"
 msgstr "Экзамен по карточкам"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:82
+#: components/topDropdownMenu.js:833
+msgid "Front"
+msgstr "Лицевая сторона"
+
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:81
 msgid "Future"
 msgstr "Будущее время"
 
-#: components/topDropdownMenu.js:410
+#: components/topDropdownMenu.js:493
 msgid "Hello"
 msgstr "Привет,"
 
@@ -250,7 +286,7 @@ msgstr "Привет,"
 #~ msgid "Hello {0}!"
 #~ msgstr "Привет, {0}!"
 
-#: components/app.js:92
+#: components/app.js:90
 msgid "Hello {name}"
 msgstr "Привет, {name}"
 
@@ -259,8 +295,8 @@ msgstr "Привет, {name}"
 msgid "Hint"
 msgstr "Подсказка"
 
-#: components/topDropdownMenu.js:466
-#: components/topDropdownMenu.js:472
+#: components/topDropdownMenu.js:559
+#: components/topDropdownMenu.js:565
 msgid "Home"
 msgstr "Главная"
 
@@ -268,7 +304,7 @@ msgstr "Главная"
 msgid "Homework uploaded to the server successfully!"
 msgstr "Домашнее задание успешно загружено на сервер!"
 
-#: components/topDropdownMenu.js:480
+#: components/topDropdownMenu.js:573
 msgid "How To Register(Free)?"
 msgstr "Как зарегистрироваться (бесплатно)?"
 
@@ -276,7 +312,7 @@ msgstr "Как зарегистрироваться (бесплатно)?"
 #~ msgid "How To?"
 #~ msgstr "Как это сделать?"
 
-#: components/topDropdownMenu.js:570
+#: components/topDropdownMenu.js:663
 msgid "I Learn Language"
 msgstr "Я изучаю язык"
 
@@ -284,11 +320,11 @@ msgstr "Я изучаю язык"
 msgid "Incorrect"
 msgstr "Неправильно"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:98
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:97
 msgid "Invalid Input:"
 msgstr "Неверный ввод:"
 
-#: components/flashcardEditor.js:93
+#: components/flashcardEditor.js:99
 msgid "Last Reviewed:"
 msgstr "Последняя проверка:"
 
@@ -296,11 +332,11 @@ msgstr "Последняя проверка:"
 #~ msgid "Learning Language"
 #~ msgstr "Язык обучения"
 
-#: components/topDropdownMenu.js:419
+#: components/topDropdownMenu.js:511
 msgid "Login"
 msgstr "Вход"
 
-#: components/app.js:112
+#: components/app.js:103
 msgid "Login {name} failed"
 msgstr "Вход {name} не удался"
 
@@ -308,11 +344,11 @@ msgstr "Вход {name} не удался"
 #~ msgid "Login failed!"
 #~ msgstr "Ошибка входа!"
 
-#: components/topDropdownMenu.js:425
+#: components/topDropdownMenu.js:517
 msgid "Logout"
 msgstr "Выход"
 
-#: components/app.js:120
+#: components/app.js:111
 msgid "Logout {name} failed"
 msgstr "Выход {name} не удался"
 
@@ -328,17 +364,17 @@ msgstr "Громкая подсказка Вашего текста"
 msgid "Mute Player when you talk"
 msgstr "Выключить звук Вашего текста"
 
-#: components/topDropdownMenu.js:530
-#: components/topDropdownMenu.js:582
+#: components/topDropdownMenu.js:623
+#: components/topDropdownMenu.js:679
 msgid "My Language"
 msgstr "Мой язык"
 
-#: components/topDropdownMenu.js:465
-#: components/topDropdownMenu.js:471
+#: components/topDropdownMenu.js:558
+#: components/topDropdownMenu.js:564
 msgid "Navigate"
 msgstr "Перейти"
 
-#: components/flashcardEditor.js:94
+#: components/flashcardEditor.js:100
 msgid "Next Review:"
 msgstr "Следующая проверка:"
 
@@ -382,32 +418,32 @@ msgstr "Нормальная скорость для Вашего текста"
 msgid "OK"
 msgstr "ОК"
 
-#: components/topDropdownMenu.js:433
+#: components/topDropdownMenu.js:525
 msgid "Open .json"
 msgstr "Открыть .json"
 
-#: components/topDropdownMenu.js:431
+#: components/topDropdownMenu.js:523
 msgid "Open .srt"
 msgstr "Открыть .srt"
 
-#: components/topDropdownMenu.js:439
+#: components/topDropdownMenu.js:531
 msgid "Open custom video"
 msgstr "Открыть видео"
 
-#: components/topDropdownMenu.js:441
+#: components/topDropdownMenu.js:533
 msgid "Open Exercise File"
 msgstr "Открыть файл упражнения"
 
-#: components/topDropdownMenu.js:438
-#: components/topDropdownMenu.js:448
+#: components/topDropdownMenu.js:530
+#: components/topDropdownMenu.js:540
 msgid "Open Settings"
 msgstr "Открыть настройки"
 
-#: components/topDropdownMenu.js:474
+#: components/topDropdownMenu.js:567
 msgid "Open video on Youtube"
 msgstr "Открыть видео на Youtube"
 
-#: components/app.js:91
+#: components/app.js:89
 #: components/captionBox.js:218
 #: components/exerciseView.js:654
 #: components/exerciseView.js:678
@@ -420,11 +456,11 @@ msgstr "Операция завершена успешно"
 #~ msgid "Operation Success"
 #~ msgstr "Операция завершена успешно"
 
-#: components/flashcardEditor.js:89
+#: components/flashcardEditor.js:95
 msgid "Origin Language:"
 msgstr "Исходный язык:"
 
-#: components/topDropdownMenu.js:522
+#: components/topDropdownMenu.js:615
 msgid "Password"
 msgstr "Пароль"
 
@@ -432,7 +468,7 @@ msgstr "Пароль"
 #~ msgid "Passwords do not match!"
 #~ msgstr "Пароли не совпадают!"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:81
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:80
 msgid "Past"
 msgstr "Прошедшее время"
 
@@ -444,11 +480,11 @@ msgstr "Обратите внимание, что эти субтитры соз
 msgid "Please restart recording!"
 msgstr "Пожалуйста, перезапустите запись!"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:99
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:98
 msgid "Please select a root, binyan, and tense to proceed!"
 msgstr "Пожалуйста, выберите корень, биньян и время, чтобы продолжить!"
 
-#: components/helpers/fetchData.js:307
+#: components/helpers/fetchData.js:310
 msgid "Please wait"
 msgstr "Пожалуйста, подождите"
 
@@ -456,7 +492,7 @@ msgstr "Пожалуйста, подождите"
 msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
 msgstr "Пожалуйста, сохраните домашнее задание в файл и попробуйте позже. Свяжитесь с разработчиком, если проблема не исчезнет."
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:80
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:79
 msgid "Present"
 msgstr "Настоящее время"
 
@@ -476,12 +512,12 @@ msgstr "Вопрос"
 msgid "Recording Synchronization Error"
 msgstr "Ошибка синхронизации записи"
 
-#: components/topDropdownMenu.js:420
-#: components/topDropdownMenu.js:509
+#: components/topDropdownMenu.js:512
+#: components/topDropdownMenu.js:602
 msgid "Register"
 msgstr "Регистрация"
 
-#: components/app.js:129
+#: components/app.js:120
 msgid "Register {name} failed, try later"
 msgstr "Регистрация {name} не удалась, попробуйте позже"
 
@@ -489,11 +525,11 @@ msgstr "Регистрация {name} не удалась, попробуйте 
 #~ msgid "Registration failed!"
 #~ msgstr "Ошибка регистрации!"
 
-#: components/topDropdownMenu.js:442
+#: components/topDropdownMenu.js:534
 msgid "Reload Playlist"
 msgstr "Перезагрузить плейлист"
 
-#: components/flashcardEditor.js:72
+#: components/flashcardEditor.js:77
 msgid "Restore"
 msgstr "Восстановить"
 
@@ -501,15 +537,16 @@ msgstr "Восстановить"
 #~ msgid "Root (שורש)"
 #~ msgstr "Корень (שורש)"
 
-#: components/topDropdownMenu.js:460
+#: components/topDropdownMenu.js:553
+#: components/topDropdownMenu.js:812
 msgid "Root/Binyan/Tense"
 msgstr "Корень/Биньян/Время"
 
-#: components/flashcardEditor.js:79
+#: components/flashcardEditor.js:84
 msgid "Save"
 msgstr "Сохранить"
 
-#: components/topDropdownMenu.js:430
+#: components/topDropdownMenu.js:522
 msgid "Save .srt"
 msgstr "Сохранить .srt"
 
@@ -517,7 +554,7 @@ msgstr "Сохранить .srt"
 msgid "Select"
 msgstr "Выделить"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:185
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:181
 msgid "Select Tense"
 msgstr "Выберите время"
 
@@ -526,13 +563,17 @@ msgstr "Выберите время"
 msgid "Select text to process"
 msgstr "Выделите текст для обработки"
 
-#: components/topDropdownMenu.js:565
+#: components/topDropdownMenu.js:658
 msgid "Settings"
 msgstr "Настройки"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:200
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:196
 msgid "Show"
 msgstr "Показать"
+
+#: components/topDropdownMenu.js:748
+msgid "Show Details"
+msgstr "Показать детали"
 
 #: components/data/showCaptionsOptions.js:4
 msgid "Show No Captions"
@@ -562,6 +603,10 @@ msgstr "Показать учебные субтитры"
 msgid "Show Training Subtitles"
 msgstr "Показать учебные субтитры"
 
+#: components/topDropdownMenu.js:500
+msgid "Site language"
+msgstr "Язык сайта"
+
 #: components/playbackSettings.js:58
 msgid "Slight Prompt when you talk"
 msgstr "Тихая подсказка Вашего текста"
@@ -574,7 +619,7 @@ msgstr "Тихая подсказка Вашего текста"
 msgid "Start (sec)"
 msgstr "Начало (сек)"
 
-#: components/topDropdownMenu.js:454
+#: components/topDropdownMenu.js:546
 msgid "Start Test"
 msgstr "Начать тест"
 
@@ -603,31 +648,31 @@ msgstr "Текст"
 #~ msgid "Text Analysis"
 #~ msgstr "Анализ текста"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:57
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:56
 msgid "The Hif'il(הִפְעִיל) used to cause the action of the verb."
 msgstr "Биньян Хиф'иль(הִפְעִיל) используется для обозначения причинного действия глагола."
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:69
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:68
 msgid "The Hitpa'el(הִתְפַּעֵל) used for reflexive actions."
 msgstr "Биньян Хитпа'эль(הִתְפַּעֵל) используется для возвратных действий."
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:63
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:62
 msgid "The Huf'al(הֻפְעַל) the passive form of Hif'il."
 msgstr "Биньян Хуф'аль(הֻפְעַל) - пассивная форма биньяна Хиф'иль."
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:39
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:38
 msgid "The Nif'al(נִפְעַל) used for passive voice of Pa'al or reflexive actions."
 msgstr "Биньян Ниф'аль(נִפְעַל) используется для пассивного залога биньяна Па'аль или возвратных действий."
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:33
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:32
 msgid "The Pa'al(פעל ,קַל) used for simple, active verbs."
 msgstr "Биньян Па'аль(פעל ,קַל) используется для простых активных глаголов."
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:45
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:44
 msgid "The Pi'el(פִּעֵל) used to intensify the meaning of the verb."
 msgstr "Биньян Пи'эль(פִּעֵל) используется для усиления значения глагола."
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:51
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:50
 msgid "The Pu'al(פֻּעַל) the passive form of Pi'el."
 msgstr "Биньян Пу'аль(פֻּעַל) - пассивная форма биньяна Пи'эль."
 
@@ -639,8 +684,8 @@ msgstr "Биньян Пу'аль(פֻּעַל) - пассивная форма �
 msgid "They are provided solely as a reference tool for practicing speech."
 msgstr "Они предоставляются исключительно в качестве справочного инструмента для практики речи."
 
-#: components/topDropdownMenu.js:437
-#: components/topDropdownMenu.js:447
+#: components/topDropdownMenu.js:529
+#: components/topDropdownMenu.js:539
 msgid "Tools"
 msgstr "Инструменты"
 
@@ -648,23 +693,27 @@ msgstr "Инструменты"
 msgid "Training subtitles have been loaded successfully."
 msgstr "Учебные субтитры успешно загружены."
 
+#: components/topDropdownMenu.js:847
+msgid "Translate"
+msgstr "Перевести"
+
 #: components/captionBox.js:104
 msgid "Translation"
 msgstr "Перевод"
 
-#: components/flashcardEditor.js:90
+#: components/flashcardEditor.js:96
 msgid "Translation Language:"
 msgstr "Язык перевода:"
 
-#: components/flashcardEditor.js:54
+#: components/flashcardEditor.js:59
 msgid "Translation:"
 msgstr "Перевод:"
 
-#: components/topDropdownMenu.js:432
+#: components/topDropdownMenu.js:524
 msgid "Upload .srt to Server"
 msgstr "Загрузить .srt на сервер"
 
-#: components/topDropdownMenu.js:514
+#: components/topDropdownMenu.js:607
 msgid "Username"
 msgstr "Имя пользователя"
 
@@ -672,11 +721,11 @@ msgstr "Имя пользователя"
 msgid "Verb"
 msgstr "Глагол"
 
-#: components/topDropdownMenu.js:526
+#: components/topDropdownMenu.js:619
 msgid "Verify Password"
 msgstr "Подтвердите пароль"
 
-#: components/topDropdownMenu.js:453
+#: components/topDropdownMenu.js:545
 msgid "View Colection"
 msgstr "Просмотр коллекции"
 
@@ -722,12 +771,12 @@ msgstr "Youglish"
 msgid "Your Line"
 msgstr "Ваш текст"
 
-#: components/helpers/fetchData.js:308
+#: components/helpers/fetchData.js:311
 msgid "Your request is being processed..."
 msgstr "Ваш запрос обрабатывается..."
 
-#: components/topDropdownMenu.js:467
-#: components/topDropdownMenu.js:473
+#: components/topDropdownMenu.js:560
+#: components/topDropdownMenu.js:566
 msgid "Youtube"
 msgstr "Youtube"
 
@@ -735,30 +784,30 @@ msgstr "Youtube"
 msgid "YouTube"
 msgstr "YouTube"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:62
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:61
 msgid "הופעל - Huf'al"
 msgstr "הופעל - Хуф'аль"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:56
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:55
 msgid "הפעיל - Hif'il"
 msgstr "הפעיל - Хиф'иль"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:68
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:67
 msgid "התפעל - Hitpa'el"
 msgstr "התפעל - Хитпа'эль"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:38
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:37
 msgid "נפעל - Nif'al"
 msgstr "נפעל - Ниф'аль"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:50
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:49
 msgid "פועל - Pu'al"
 msgstr "פועל - Пу'аль"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:44
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:43
 msgid "פיעל - Pi'el"
 msgstr "פיעל - Пи'эль"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:32
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:31
 msgid "פעל - Pa'al"
 msgstr "פעל - Па'аль"

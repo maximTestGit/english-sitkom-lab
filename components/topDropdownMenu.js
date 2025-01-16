@@ -24,6 +24,7 @@ import {
 import FlashcardExam from './flashcardExam';
 import FlashcardEditor from './flashcardEditor';
 import RootBinyanTenseTableDrill from './drills/hebrew/rootBinyanTenseTableDrill';
+import RootBinyanTenseTransDrill from './drills/hebrew/rootBinyanTenseTransDrill';
 import { saveAs } from 'file-saver'; // Make sure to install file-saver package
 import {
     getTranslation,
@@ -67,6 +68,7 @@ const TopDropdownMenu = ({
     const [flashcards, setFlashcards] = useState([]);
     const [showFlashcardExamViewModal, setShowFlashcardExamViewModal] = useState(false);
     const [showRootBinyanTenseViewModal, setShowRootBinyanTenseViewModal] = useState(false);
+    const [showRootBinyanTenseTransViewModal, setShowRootBinyanTenseTransViewModal] = useState(false);
     const [examCards, setExamCards] = useState([]);
     const [examAnswers, setExamAnswers] = useState([]);
     const [showDetails, setShowDetails] = useState(false);
@@ -370,6 +372,13 @@ const TopDropdownMenu = ({
         setShowRootBinyanTenseViewModal(false);
     };
 
+    const handleShowRootBinyanTenseTransDrilView = () => {
+        setShowRootBinyanTenseTransViewModal(true);
+    };
+    const handleShowRootBinyanTenseTransDrillClose = () => {
+        setShowRootBinyanTenseTransViewModal(false);
+    };
+
     const handleFlashcardsCollectionSession = async () => {
         document.body.style.cursor = 'wait';
         try {
@@ -454,6 +463,7 @@ const TopDropdownMenu = ({
             const newFlashcards = normalizeFlashcardsCollection(flashcardsCollection);
             setFlashcards(newFlashcards);
             console.log('Flashcards Collection:', flashcardsCollection);
+            showAddCardModalForm();
             setShowAddCardModal(true)
         } finally {
             document.body.style.cursor = 'default';
@@ -472,10 +482,16 @@ const TopDropdownMenu = ({
         setShowAddCardModal(false);
     }
 
-    const translateFlashcard = async (front) => {
-        const fromLanguage = extractCulture(learningLanguage);
-        const translatedText = await getTranslation(user, front, fromLanguage, uiLanguage);
-        setNewCardBack(translatedText);
+    const translateFlashcard = async (front, back) => {
+        if (front) {
+            const fromLanguage = extractCulture(learningLanguage);
+            const translatedText = await getTranslation(user, front, fromLanguage, uiLanguage);
+            setNewCardBack(translatedText);
+        } else if (back) {
+            const toLanguage = extractCulture(learningLanguage);
+            const translatedText = await getTranslation(user, back, uiLanguage, toLanguage);
+            setNewCardFront(translatedText);
+        }
     }
 
     const handleFilterChange = (e) => {
@@ -486,6 +502,10 @@ const TopDropdownMenu = ({
         flashcard.front.toLowerCase().includes(filterText.toLowerCase()) ||
         flashcard.back.toLowerCase().includes(filterText.toLowerCase())
     );
+    const showAddCardModalForm = () => {
+        setNewCardBack(null);
+        setNewCardFront(null);
+    }
     return (
         <>
             <Navbar bg="light" expand="sm">
@@ -547,12 +567,11 @@ const TopDropdownMenu = ({
                                 <NavDropdown.Item onClick={handleFlashcardsAddNewCardView}><Trans>Add Flashcard</Trans></NavDropdown.Item>
                             </NavDropdown>
                         )}
-                        {user && (
+                        {user && learningLanguage === 'he-IL' && (
                             < NavDropdown title={<Trans>Drils</Trans>} id="tools-dropdown">
-                                {learningLanguage === 'he-IL' &&
-                                    <NavDropdown.Item onClick={handleShowRootBinyanTenseTableDrilView}><Trans>Root/Binyan/Tense</Trans></NavDropdown.Item>
-                                }
-                            </NavDropdown>
+                                <NavDropdown.Item onClick={handleShowRootBinyanTenseTableDrilView}><Trans>Root/Binyan/Tense</Trans></NavDropdown.Item>
+                                <NavDropdown.Item onClick={handleShowRootBinyanTenseTransDrilView}><Trans>Root/Binyan/Tense Translation</Trans></NavDropdown.Item>
+                                </NavDropdown>
                         )}
                         {!videoData && (
                             <NavDropdown title={<Trans>Navigate</Trans>} id="navigate-dropdown">
@@ -698,39 +717,37 @@ const TopDropdownMenu = ({
                     </Form>
                 </Modal.Body>
             </Modal >
-            {isCustomVideoModalOpen && (
-                <div className="modal" style={{ display: 'block' }}>
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title">Open Video</h5>
-                                <button type="button" className="btn-close" onClick={handleOpenVideoLinkClose}></button>
-                            </div>
-                            <div className="modal-body">
-                                <input
-                                    type="text"
-                                    className="form-control mb-2"
-                                    placeholder="Enter video title"
-                                    value={customVideoTitle}
-                                    onChange={(e) => Custom(e.target.value)}
-                                />
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Enter video URL"
-                                    value={customVideoUrl}
-                                    onChange={(e) => setCustomVideoUrl(e.target.value)}
-                                />
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" onClick={handleOpenVideoLinkClose}>Close</button>
-                                <button type="button" className="btn btn-primary" onClick={handleOpenVideo}>Open</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )
-            }
+            <Modal show={isCustomVideoModalOpen} onHide={handleOpenVideoLinkClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Open Video</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group>
+                            <Form.Control
+                                type="text"
+                                className="form-control mb-2"
+                                placeholder="Enter video title"
+                                value={customVideoTitle}
+                                onChange={(e) => Custom(e.target.value)}
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Control
+                                type="text"
+                                className="form-control"
+                                placeholder="Enter video URL"
+                                value={customVideoUrl}
+                                onChange={(e) => setCustomVideoUrl(e.target.value)}
+                            />
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleOpenVideoLinkClose}>Close</Button>
+                    <Button variant="primary" onClick={handleOpenVideo}>Open</Button>
+                </Modal.Footer>
+            </Modal>
             <Modal show={showFlashcardsModal}
                 onHide={() => setShowFlashcardsModal(false)}
                 dialogClassName="modal-dialog-scrollable"
@@ -823,7 +840,25 @@ const TopDropdownMenu = ({
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <Modal show={showAddCardModal} onHide={closeAddFlascardView}>
+            <Modal show={showRootBinyanTenseTransViewModal}
+                onHide={handleShowRootBinyanTenseTransDrillClose}
+                fullscreen={true}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{<Trans>Root/Binyan/Tense Translation</Trans>}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <RootBinyanTenseTransDrill
+                        user={user}
+                        uiLanguage={uiLanguage}
+                    />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleShowRootBinyanTenseTransDrillClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={showAddCardModal} onHide={closeAddFlascardView} onShow={showAddCardModalForm}>
                 <Modal.Header closeButton>
                     <Modal.Title><Trans>Add New Card</Trans></Modal.Title>
                 </Modal.Header>
@@ -843,7 +878,7 @@ const TopDropdownMenu = ({
                                 onChange={(e) => setNewCardBack(e.target.value)}
                             />
                         </Form.Group>
-                        <Button variant="secondary" onClick={() => translateFlashcard(newCardFront)}>
+                        <Button variant="secondary" onClick={() => translateFlashcard(newCardFront, newCardBack)}>
                             <Trans>Translate</Trans>
                         </Button>
                     </Form>

@@ -16,7 +16,9 @@ import {
   getFlashcardUpdateResultUrlPost,
   getUpdateFlashcardDataUrlPost,
   getDeleteFlashcardUrlPost,
-  getBinyanimForRootUrlPost
+  getBinyanimForRootUrlPost,
+  getHebrewRootBinyanExerciseUrlPost,
+  getGenerateHebrewRootBinyanExerciseAnalysisUrlPost
 } from './../data/configurator';
 import {
   storageDataAttributes,
@@ -312,9 +314,6 @@ const handleWaitForAction = (isStarted, onHandleWaitForAction = null) => {
       allowOutsideClick: false,
       allowEscapeKey: false,
       showConfirmButton: false,
-      onBeforeOpen: () => {
-        Swal.showLoading();
-      }
     });
   } else {
     document.body.style.cursor = 'default';
@@ -347,5 +346,40 @@ async function fetchDataFromSourcePost(user, url, data, customHandleWaitForActio
     handleWaitForAction(false, customHandleWaitForAction);
   }
   return result;
+}
+
+export async function GenerateHebrewRootBinyanExercise(
+  user,
+  root,
+  binyan,
+  tense,
+  userLanguage,
+  complexity,
+  style,
+  length
+) {
+  const url = getHebrewRootBinyanExerciseUrlPost();
+  const data = {
+    root,
+    binyan,
+    tense,
+    userLanguage,
+    complexity,
+    style,
+    length
+  };
+  const result = await fetchDataFromSourcePost(user, url, data);
+  console.log('info', `GenerateHebrewRootBinyanExercise: result: ${JSON.stringify(result)}`);
+  return result;
+}
+
+export async function GenerateHebrewRootBinyanExerciseAnalysis(
+  user, hebrewText, userLanguage, userInput
+) {
+  const url = getGenerateHebrewRootBinyanExerciseAnalysisUrlPost();
+  const data = { user, hebrewText, userLanguage, userInput };
+  const result = await fetchDataFromSourcePost(user, url, data);
+  console.log('info', `GenerateHebrewRootBinyanExerciseAnalysis: result: ${JSON.stringify(result)}`);
+  return result.analysis;
 }
 

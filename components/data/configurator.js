@@ -242,3 +242,19 @@ export function getHelpUrl(culture) {
     const result = `https://about.tube2fluency.com/${helpSubpath ?? ''}`;
     return result;
 }
+
+export function getHebrewRootBinyanExerciseUrlPost() {
+    let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-hebrew-root-binyan-exercise-2-0`;
+    if (inDebugEnv) {
+        url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-hebrew-root-binyan-exercise-test`;
+    }
+    return url;
+}
+
+export function getGenerateHebrewRootBinyanExerciseAnalysisUrlPost() {
+    let url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-hebrew-root-binyan-exercise-analysis-2-0`;
+    if (inDebugEnv) {
+        url = `https://us-central1-youtube-project-404109.cloudfunctions.net/function-hebrew-root-binyan-exercise-analysis-test`;
+    }
+    return url;
+}
