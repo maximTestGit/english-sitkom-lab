@@ -30,60 +30,60 @@ msgstr "{speed} of Normal Speed when you talk"
 #~ msgstr "{uiLanguage} subtitles have been loaded successfully."
 
 #: components/drills/hebrew/data/binyanimData.js:37
-msgid "<br>כתב: הֻכְתַּב (hukhtav) - \"it was dictated\""
-msgstr "<br>כתב: הֻכְתַּב (hukhtav) - \"it was dictated\""
+#~ msgid "<br>כתב: הֻכְתַּב (hukhtav) - \"it was dictated\""
+#~ msgstr "<br>כתב: הֻכְתַּב (hukhtav) - \"it was dictated\""
 
 #: components/drills/hebrew/data/binyanimData.js:31
-msgid "<br>כתב: הִכְתִּיב (hikhtiv) - \"he dictated\""
-msgstr "<br>כתב: הִכְתִּיב (hikhtiv) - \"he dictated\""
+#~ msgid "<br>כתב: הִכְתִּיב (hikhtiv) - \"he dictated\""
+#~ msgstr "<br>כתב: הִכְתִּיב (hikhtiv) - \"he dictated\""
 
 #: components/drills/hebrew/data/binyanimData.js:43
-msgid "<br>כתב: הִתְכַּתֵּב (hitkatev) - \"he corresponded\""
-msgstr "<br>כתב: הִתְכַּתֵּב (hitkatev) - \"he corresponded\""
+#~ msgid "<br>כתב: הִתְכַּתֵּב (hitkatev) - \"he corresponded\""
+#~ msgstr "<br>כתב: הִתְכַּתֵּב (hitkatev) - \"he corresponded\""
 
 #: components/drills/hebrew/data/binyanimData.js:7
-msgid "<br>כתב: כָּתַב (katav) - \"he wrote\""
-msgstr "<br>כתב: כָּתַב (katav) - \"he wrote\""
+#~ msgid "<br>כתב: כָּתַב (katav) - \"he wrote\""
+#~ msgstr "<br>כתב: כָּתַב (katav) - \"he wrote\""
 
 #: components/drills/hebrew/data/binyanimData.js:19
-msgid "<br>כתב: כִּתֵּב (kitev) - \"he corresponded\""
-msgstr "<br>כתב: כִּתֵּב (kitev) - \"he corresponded\""
+#~ msgid "<br>כתב: כִּתֵּב (kitev) - \"he corresponded\""
+#~ msgstr "<br>כתב: כִּתֵּב (kitev) - \"he corresponded\""
 
 #: components/drills/hebrew/data/binyanimData.js:25
-msgid "<br>כתב: כֻּתַּב (kutav) - \"it was written intensively\""
-msgstr "<br>כתב: כֻּתַּב (kutav) - \"it was written intensively\""
+#~ msgid "<br>כתב: כֻּתַּב (kutav) - \"it was written intensively\""
+#~ msgstr "<br>כתב: כֻּתַּב (kutav) - \"it was written intensively\""
 
 #: components/drills/hebrew/data/binyanimData.js:13
-msgid "<br>כתב: נִכְתַּב (nikhtav) - \"it was written\""
-msgstr "<br>כתב: נִכְתַּב (nikhtav) - \"it was written\""
+#~ msgid "<br>כתב: נִכְתַּב (nikhtav) - \"it was written\""
+#~ msgstr "<br>כתב: נִכְתַּב (nikhtav) - \"it was written\""
 
 #: components/drills/hebrew/data/binyanimData.js:14
-msgid "<br>להכתב: לְהִכָּתֵב (lehikatev) - \"to be written\""
-msgstr "<br>להכתב: לְהִכָּתֵב (lehikatev) - \"to be written\""
+#~ msgid "<br>להכתב: לְהִכָּתֵב (lehikatev) - \"to be written\""
+#~ msgstr "<br>להכתב: לְהִכָּתֵב (lehikatev) - \"to be written\""
 
 #: components/drills/hebrew/data/binyanimData.js:38
-msgid "<br>להכתיב: לְהֻכְתַּב (lehuktav) - \"to be dictated\""
-msgstr "<br>להכתיב: לְהֻכְתַּב (lehuktav) - \"to be dictated\""
+#~ msgid "<br>להכתיב: לְהֻכְתַּב (lehuktav) - \"to be dictated\""
+#~ msgstr "<br>להכתיב: לְהֻכְתַּב (lehuktav) - \"to be dictated\""
 
 #: components/drills/hebrew/data/binyanimData.js:32
-msgid "<br>להכתיב: לְהַכְתִּיב (lehaktiv) - \"to dictate\""
-msgstr "<br>להכתיב: לְהַכְתִּיב (lehaktiv) - \"to dictate\""
+#~ msgid "<br>להכתיב: לְהַכְתִּיב (lehaktiv) - \"to dictate\""
+#~ msgstr "<br>להכתיב: לְהַכְתִּיב (lehaktiv) - \"to dictate\""
 
 #: components/drills/hebrew/data/binyanimData.js:44
-msgid "<br>להתכתב: לְהִתְכַּתֵּב (lehitkatev) - \"to correspond\""
-msgstr "<br>להתכתב: לְהִתְכַּתֵּב (lehitkatev) - \"to correspond\""
+#~ msgid "<br>להתכתב: לְהִתְכַּתֵּב (lehitkatev) - \"to correspond\""
+#~ msgstr "<br>להתכתב: לְהִתְכַּתֵּב (lehitkatev) - \"to correspond\""
 
 #: components/drills/hebrew/data/binyanimData.js:8
-msgid "<br>לכתוב: לִכְתּוֹב (likhtov) - \"to write\""
-msgstr "<br>לכתוב: לִכְתּוֹב (likhtov) - \"to write\""
+#~ msgid "<br>לכתוב: לִכְתּוֹב (likhtov) - \"to write\""
+#~ msgstr "<br>לכתוב: לִכְתּוֹב (likhtov) - \"to write\""
 
 #: components/drills/hebrew/data/binyanimData.js:20
-msgid "<br>לכתיב: לְכַתֵּב (lekatev) - \"to correspond\""
-msgstr "<br>לכתיב: לְכַתֵּב (lekatev) - \"to correspond\""
+#~ msgid "<br>לכתיב: לְכַתֵּב (lekatev) - \"to correspond\""
+#~ msgstr "<br>לכתיב: לְכַתֵּב (lekatev) - \"to correspond\""
 
 #: components/drills/hebrew/data/binyanimData.js:26
-msgid "<br>לכתיב: לְכֻתַּב (lekutav) - \"to be written intensively\""
-msgstr "<br>לכתיב: לְכֻתַּב (lekutav) - \"to be written intensively\""
+#~ msgid "<br>לכתיב: לְכֻתַּב (lekutav) - \"to be written intensively\""
+#~ msgstr "<br>לכתיב: לְכֻתַּב (lekutav) - \"to be written intensively\""
 
 #: components/topDropdownMenu.js:589
 msgid "About"
@@ -303,7 +303,6 @@ msgid "Front"
 msgstr "Front"
 
 #: components/drills/hebrew/chooseBinyanParams.js:112
-#: components/drills/hebrew/data/binyanimData.js:51
 msgid "Future"
 msgstr "Future"
 
@@ -530,7 +529,6 @@ msgstr "Password"
 #~ msgstr "Passwords do not match!"
 
 #: components/drills/hebrew/chooseBinyanParams.js:111
-#: components/drills/hebrew/data/binyanimData.js:50
 msgid "Past"
 msgstr "Past"
 
@@ -560,7 +558,6 @@ msgid "Please, save your homework to the file and try again later. Contact the d
 msgstr "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
 
 #: components/drills/hebrew/chooseBinyanParams.js:110
-#: components/drills/hebrew/data/binyanimData.js:49
 msgid "Present"
 msgstr "Present"
 
@@ -730,6 +727,10 @@ msgstr "Subject"
 #~ msgid "Tense: {tense}"
 #~ msgstr "Tense: {tense}"
 
+#: components/drills/hebrew/data/binyanimData.js:47
+#~ msgid "test"
+#~ msgstr "test"
+
 #: components/captionsView.js:297
 msgid "Text"
 msgstr "Text"
@@ -739,32 +740,32 @@ msgstr "Text"
 #~ msgstr "Text Analysis"
 
 #: components/drills/hebrew/data/binyanimData.js:30
-msgid "The Hif'il(הִפְעִיל) used to cause the action of the verb."
-msgstr "The Hif'il(הִפְעִיל) used to cause the action of the verb."
+#~ msgid "The Hif'il(הִפְעִיל) used to cause the action of the verb."
+#~ msgstr "The Hif'il(הִפְעִיל) used to cause the action of the verb."
 
 #: components/drills/hebrew/data/binyanimData.js:42
-msgid "The Hitpa'el(הִתְפַּעֵל) used for reflexive actions."
-msgstr "The Hitpa'el(הִתְפַּעֵל) used for reflexive actions."
+#~ msgid "The Hitpa'el(הִתְפַּעֵל) used for reflexive actions."
+#~ msgstr "The Hitpa'el(הִתְפַּעֵל) used for reflexive actions."
 
 #: components/drills/hebrew/data/binyanimData.js:36
-msgid "The Huf'al(הֻפְעַל) the passive form of Hif'il."
-msgstr "The Huf'al(הֻפְעַל) the passive form of Hif'il."
+#~ msgid "The Huf'al(הֻפְעַל) the passive form of Hif'il."
+#~ msgstr "The Huf'al(הֻפְעַל) the passive form of Hif'il."
 
 #: components/drills/hebrew/data/binyanimData.js:12
-msgid "The Nif'al(נִפְעַל) used for passive voice of Pa'al or reflexive actions."
-msgstr "The Nif'al(נִפְעַל) used for passive voice of Pa'al or reflexive actions."
+#~ msgid "The Nif'al(נִפְעַל) used for passive voice of Pa'al or reflexive actions."
+#~ msgstr "The Nif'al(נִפְעַל) used for passive voice of Pa'al or reflexive actions."
 
 #: components/drills/hebrew/data/binyanimData.js:6
-msgid "The Pa'al(פעל ,קַל) used for simple, active verbs."
-msgstr "The Pa'al(פעל ,קַל) used for simple, active verbs."
+#~ msgid "The Pa'al(פעל ,קַל) used for simple, active verbs."
+#~ msgstr "The Pa'al(פעל ,קַל) used for simple, active verbs."
 
 #: components/drills/hebrew/data/binyanimData.js:18
-msgid "The Pi'el(פִּעֵל) used to intensify the meaning of the verb."
-msgstr "The Pi'el(פִּעֵל) used to intensify the meaning of the verb."
+#~ msgid "The Pi'el(פִּעֵל) used to intensify the meaning of the verb."
+#~ msgstr "The Pi'el(פִּעֵל) used to intensify the meaning of the verb."
 
 #: components/drills/hebrew/data/binyanimData.js:24
-msgid "The Pu'al(פֻּעַל) the passive form of Pi'el."
-msgstr "The Pu'al(פֻּעַל) the passive form of Pi'el."
+#~ msgid "The Pu'al(פֻּעַל) the passive form of Pi'el."
+#~ msgstr "The Pu'al(פֻּעַל) the passive form of Pi'el."
 
 #: components/exerciseView.js:562
 #~ msgid "The YouTube publishing feature is temporarily unavailable. Please contact the developer if necessary."
@@ -877,16 +878,16 @@ msgid "YouTube"
 msgstr "YouTube"
 
 #: components/drills/hebrew/data/binyanimData.js:35
-msgid "הופעל - Huf'al"
-msgstr "הופעל - Huf'al"
+#~ msgid "הופעל - Huf'al"
+#~ msgstr "הופעל - Huf'al"
 
 #: components/drills/hebrew/data/binyanimData.js:29
-msgid "הפעיל - Hif'il"
-msgstr "הפעיל - Hif'il"
+#~ msgid "הפעיל - Hif'il"
+#~ msgstr "הפעיל - Hif'il"
 
 #: components/drills/hebrew/data/binyanimData.js:41
-msgid "התפעל - Hitpa'el"
-msgstr "התפעל - Hitpa'el"
+#~ msgid "התפעל - Hitpa'el"
+#~ msgstr "התפעל - Hitpa'el"
 
 #: components/drills/hebrew/data/binyanimData.js:11
 #~ msgid "נפעל - Nif'al"
