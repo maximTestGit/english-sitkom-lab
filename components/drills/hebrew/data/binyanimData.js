@@ -2,25 +2,25 @@ import { Trans, t } from '@lingui/macro';
 
 export const binyanim = [
     {
-        value: 'paal', label: t`פעל - Pa'al`, code: "0", characteristic:
+        value: 'paal', label: `פעל - Pa'al`, code: "0", characteristic:
             t`The Pa'al(פעל ,קַל) used for simple, active verbs.` +
             t`<br>כתב: כָּתַב (katav) - "he wrote"` +
             t`<br>לכתוב: לִכְתּוֹב (likhtov) - "to write"`
     },
     {
-        value: 'nifal', label: t`נפעל - Nif'al`, code: "10", characteristic:
+        value: 'nifal', label: `נפעל - Nif'al`, code: "10", characteristic:
             t`The Nif'al(נִפְעַל) used for passive voice of Pa'al or reflexive actions.` +
             t`<br>כתב: נִכְתַּב (nikhtav) - "it was written" ` +
             t`<br>להכתב: לְהִכָּתֵב (lehikatev) - "to be written"`
     },
     {
-        value: 'piel', label: t`פיעל - Pi'el`, code: "20", characteristic:
+        value: 'piel', label: `פיעל - Pi'el`, code: "20", characteristic:
             t`The Pi'el(פִּעֵל) used to intensify the meaning of the verb.` +
             t`<br>כתב: כִּתֵּב (kitev) - "he corresponded" ` +
             t`<br>לכתיב: לְכַתֵּב (lekatev) - "to correspond"`
     },
     {
-        value: 'pual', label: t`פועל - Pu'al`, code: "30", characteristic:
+        value: 'pual', label: `פועל - Pu'al`, code: "30", characteristic:
             t`The Pu'al(פֻּעַל) the passive form of Pi'el.` +
             t`<br>כתב: כֻּתַּב (kutav) - "it was written intensively" ` +
             t`<br>לכתיב: לְכֻתַּב (lekutav) - "to be written intensively"`

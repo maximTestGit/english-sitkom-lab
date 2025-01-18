@@ -889,17 +889,17 @@ msgid "התפעל - Hitpa'el"
 msgstr "התפעל - Хитпа'эль"
 
 #: components/drills/hebrew/data/binyanimData.js:11
-msgid "נפעל - Nif'al"
-msgstr "נפעל - Ниф'аль"
+#~ msgid "נפעל - Nif'al"
+#~ msgstr "נפעל - Ниф'аль"
 
 #: components/drills/hebrew/data/binyanimData.js:23
-msgid "פועל - Pu'al"
-msgstr "פועל - Пу'аль"
+#~ msgid "פועל - Pu'al"
+#~ msgstr "פועל - Пу'аль"
 
 #: components/drills/hebrew/data/binyanimData.js:17
-msgid "פיעל - Pi'el"
-msgstr "פיעל - Пи'эль"
+#~ msgid "פיעל - Pi'el"
+#~ msgstr "פיעל - Пи'эль"
 
 #: components/drills/hebrew/data/binyanimData.js:5
-msgid "פעל - Pa'al"
-msgstr "פעל - Па'аль"
+#~ msgid "פעל - Pa'al"
+#~ msgstr "פעל - Па'аль"
