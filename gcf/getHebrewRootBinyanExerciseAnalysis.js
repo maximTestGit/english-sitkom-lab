@@ -68,7 +68,7 @@ async function getHebrewRootBinyanExerciseAnalysisData(hebrewText, userLanguage,
     const prompt =
         `    Analyze the translation of the following Hebrew text provided by the user. The Hebrew text is: "${hebrewText}". The user's translation input is: "${userInput}". 
     Provide a concise analysis of the translation in the user's specified language: "${userLanguage}". 
-    Return only one string containing the analysis, with no additional details or explanations.
+    Return only one string containing the analysis in ${userLanguage}, with no additional details or explanations.
     `;
     const systemRole = 'You are an expert Hebrew language teacher and curriculum developer specializing in creating engaging and effective Hebrew learning materials. Your expertise spans all levels of Hebrew proficiency, from beginners to advanced learners. You have a deep understanding of Hebrew grammar, vocabulary, idiomatic expressions, and cultural context'
     const result = await assistantRequest(systemRole, prompt);
