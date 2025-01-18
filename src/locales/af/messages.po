@@ -110,7 +110,7 @@ msgstr "Voeg Flitskaart by"
 msgid "Add New Card"
 msgstr "Voeg Nuwe Kaart By"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:96
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:103
 msgid "Advanced"
 msgstr "Gevorderd"
 
@@ -130,7 +130,7 @@ msgstr "Antwoord"
 msgid "Back Side"
 msgstr "Agterkant"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:94
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:101
 msgid "Beginner"
 msgstr "Beginner"
 
@@ -178,7 +178,7 @@ msgstr "Kaart {0} van {1}"
 msgid "Card Details:"
 msgstr "Kaart Besonderhede:"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:167
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:174
 msgid "Check Answer"
 msgstr "Kontroleer Antwoord"
 
@@ -194,7 +194,7 @@ msgstr "Maak toe"
 msgid "Collection:"
 msgstr "Versameling:"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:91
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:98
 msgid "Complexity"
 msgstr "Kompleksiteit"
 
@@ -226,7 +226,7 @@ msgstr "E-pos"
 msgid "Enter Root"
 msgstr "Voer Wortel In"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:157
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:164
 msgid "Enter your translation here..."
 msgstr "Voer jou vertaling hier in..."
 
@@ -254,6 +254,7 @@ msgid "Error uploading Captions for \"{0}\"!"
 msgstr "Fout met oplaai van onderskrifte vir \"{0}\"!"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:56
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:54
 msgid "Example"
 msgstr "Voorbeeld"
 
@@ -297,11 +298,12 @@ msgstr "Flitskaarte Eksamen"
 msgid "Front"
 msgstr "Voorkant"
 
+#: components/drills/hebrew/chooseBinyanParams.js:112
 #: components/drills/hebrew/data/binyanimData.js:51
 msgid "Future"
 msgstr "Toekomende Tyd"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:124
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:131
 msgid "Generate Exercise"
 msgstr "Genereer Oefening"
 
@@ -315,6 +317,8 @@ msgstr "Hallo {name}"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:54
 #: components/drills/hebrew/hebrewVerbConjExercise.js:83
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:52
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:81
 msgid "Hint"
 msgstr "Wenk"
 
@@ -343,7 +347,7 @@ msgstr "Ek Leer Taal"
 msgid "Incorrect"
 msgstr "Verkeerde"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:95
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:102
 msgid "Intermediate"
 msgstr "Intermediêr"
 
@@ -352,15 +356,15 @@ msgstr "Intermediêr"
 msgid "Invalid Input:"
 msgstr "Ongeldige Invoer:"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:105
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:112
 msgid "Joke"
 msgstr "Grap"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:93
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:100
 msgid "Kid"
 msgstr "Kind"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:104
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:111
 msgid "Kids"
 msgstr "Kinders"
 
@@ -450,7 +454,7 @@ msgstr "Normale Spoed Speler"
 msgid "Normal Speed when you talk"
 msgstr "Normale Spoed wanneer jy praat"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:113
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:120
 msgid "Number of sentences"
 msgstr "Aantal sinne"
 
@@ -508,11 +512,12 @@ msgstr "Oorsprong Taal:"
 msgid "Password"
 msgstr "Wagwoord"
 
+#: components/drills/hebrew/chooseBinyanParams.js:111
 #: components/drills/hebrew/data/binyanimData.js:50
 msgid "Past"
 msgstr "Verlede Tyd"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:107
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:114
 msgid "Philosophy"
 msgstr "Filosofie"
 
@@ -537,6 +542,7 @@ msgstr "Wag asseblief"
 msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
 msgstr "Stoor asseblief jou huiswerk na die lêer en probeer later weer. Kontak die ontwikkelaar indien die probleem voortduur."
 
+#: components/drills/hebrew/chooseBinyanParams.js:110
 #: components/drills/hebrew/data/binyanimData.js:49
 msgid "Present"
 msgstr "Teenwoordige Tyd"
@@ -604,7 +610,7 @@ msgstr "Kies"
 msgid "Select Binyan"
 msgstr "Kies Binyan"
 
-#: components/drills/hebrew/chooseBinyanParams.js:109
+#: components/drills/hebrew/chooseBinyanParams.js:108
 msgid "Select Tense"
 msgstr "Kies Tyd"
 
@@ -617,7 +623,7 @@ msgstr "Kies teks om te verwerk"
 msgid "Settings"
 msgstr "Instellings"
 
-#: components/drills/hebrew/chooseBinyanParams.js:125
+#: components/drills/hebrew/chooseBinyanParams.js:123
 msgid "Show"
 msgstr "Wys"
 
@@ -653,7 +659,7 @@ msgstr "Wys Oefen Onderskrifte"
 msgid "Show Training Subtitles"
 msgstr "Wys Oefen Onderskrifte"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:149
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:156
 msgid "Show Translation"
 msgstr "Wys Vertaling"
 
@@ -669,7 +675,7 @@ msgstr "Klein Opskrif wanneer jy praat"
 #~ msgid "Speech synthesis is not supported in this browser."
 #~ msgstr "Spraaksintese word nie in hierdie blaaier ondersteun nie."
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:106
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:113
 msgid "Sports"
 msgstr "Sport"
 
@@ -681,11 +687,12 @@ msgstr "Begin (sek)"
 msgid "Start Test"
 msgstr "Begin Toets"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:102
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:109
 msgid "Style"
 msgstr "Styl"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:52
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:50
 msgid "Subject"
 msgstr "Onderwerp"
 
@@ -780,6 +787,7 @@ msgid "Username"
 msgstr "Gebruikersnaam"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:53
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:51
 msgid "Verb"
 msgstr "Werkwoord"
 
@@ -792,6 +800,7 @@ msgid "View Colection"
 msgstr "Bekyk Versameling"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:55
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:53
 msgid "Voice Hint"
 msgstr "Stem Wenk"
 

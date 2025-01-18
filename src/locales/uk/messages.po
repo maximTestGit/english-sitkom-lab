@@ -114,7 +114,7 @@ msgstr "Додати картку"
 msgid "Add New Card"
 msgstr "Додати нову картку"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:96
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:103
 msgid "Advanced"
 msgstr "Просунутий"
 
@@ -134,7 +134,7 @@ msgstr "Відповідь"
 msgid "Back Side"
 msgstr "Зворотний бік"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:94
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:101
 msgid "Beginner"
 msgstr "Початківець"
 
@@ -182,7 +182,7 @@ msgstr "Картка {0} з {1}"
 msgid "Card Details:"
 msgstr "Деталі карти:"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:167
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:174
 msgid "Check Answer"
 msgstr "Перевірити відповідь"
 
@@ -198,7 +198,7 @@ msgstr "Закрити"
 msgid "Collection:"
 msgstr "Колекція:"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:91
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:98
 msgid "Complexity"
 msgstr "Складність"
 
@@ -230,7 +230,7 @@ msgstr "Електронна пошта"
 msgid "Enter Root"
 msgstr "Введіть корінь"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:157
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:164
 msgid "Enter your translation here..."
 msgstr "Введіть свій переклад тут..."
 
@@ -258,6 +258,7 @@ msgid "Error uploading Captions for \"{0}\"!"
 msgstr "Помилка завантаження субтитрів для \"{0}\"!"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:56
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:54
 msgid "Example"
 msgstr "Приклад"
 
@@ -301,11 +302,12 @@ msgstr "Екзамен з карток"
 msgid "Front"
 msgstr "Передній бік"
 
+#: components/drills/hebrew/chooseBinyanParams.js:112
 #: components/drills/hebrew/data/binyanimData.js:51
 msgid "Future"
 msgstr "Майбутній час"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:124
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:131
 msgid "Generate Exercise"
 msgstr "Створити вправу"
 
@@ -324,6 +326,8 @@ msgstr "Привіт, {name}"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:54
 #: components/drills/hebrew/hebrewVerbConjExercise.js:83
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:52
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:81
 msgid "Hint"
 msgstr "Підказка"
 
@@ -352,7 +356,7 @@ msgstr "Я вивчаю мову"
 msgid "Incorrect"
 msgstr "Неправильно"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:95
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:102
 msgid "Intermediate"
 msgstr "Середній"
 
@@ -361,15 +365,15 @@ msgstr "Середній"
 msgid "Invalid Input:"
 msgstr "Неправильне введення:"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:105
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:112
 msgid "Joke"
 msgstr "Жарт"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:93
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:100
 msgid "Kid"
 msgstr "Дитина"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:104
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:111
 msgid "Kids"
 msgstr "Діти"
 
@@ -463,7 +467,7 @@ msgstr "Нормальна швидкість плеєра"
 msgid "Normal Speed when you talk"
 msgstr "Нормальна швидкість для вашого тексту"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:113
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:120
 msgid "Number of sentences"
 msgstr "Кількість речень"
 
@@ -525,11 +529,12 @@ msgstr "Пароль"
 #~ msgid "Passwords do not match!"
 #~ msgstr "Паролі не співпадають!"
 
+#: components/drills/hebrew/chooseBinyanParams.js:111
 #: components/drills/hebrew/data/binyanimData.js:50
 msgid "Past"
 msgstr "Минулий час"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:107
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:114
 msgid "Philosophy"
 msgstr "Філософія"
 
@@ -554,6 +559,7 @@ msgstr "Будь ласка, зачекайте"
 msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
 msgstr "Будь ласка, збережіть домашнє завдання у файл і спробуйте пізніше. Зв'яжіться з розробником, якщо проблема не зникне."
 
+#: components/drills/hebrew/chooseBinyanParams.js:110
 #: components/drills/hebrew/data/binyanimData.js:49
 msgid "Present"
 msgstr "Теперішній час"
@@ -625,7 +631,7 @@ msgstr "Виділити"
 msgid "Select Binyan"
 msgstr "Виберіть Біньян"
 
-#: components/drills/hebrew/chooseBinyanParams.js:109
+#: components/drills/hebrew/chooseBinyanParams.js:108
 msgid "Select Tense"
 msgstr "Виберіть час"
 
@@ -638,7 +644,7 @@ msgstr "Виділіть текст для обробки"
 msgid "Settings"
 msgstr "Налаштування"
 
-#: components/drills/hebrew/chooseBinyanParams.js:125
+#: components/drills/hebrew/chooseBinyanParams.js:123
 msgid "Show"
 msgstr "Показати"
 
@@ -674,7 +680,7 @@ msgstr "Показати навчальні субтитри"
 msgid "Show Training Subtitles"
 msgstr "Показати навчальні субтитри"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:149
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:156
 msgid "Show Translation"
 msgstr "Показати переклад"
 
@@ -690,7 +696,7 @@ msgstr "Тиха підказка вашого тексту"
 #~ msgid "Speech synthesis is not supported in this browser."
 #~ msgstr "Синтез мовлення не підтримується в цьому браузері."
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:106
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:113
 msgid "Sports"
 msgstr "Спорт"
 
@@ -702,11 +708,12 @@ msgstr "Початок (сек)"
 msgid "Start Test"
 msgstr "Почати тест"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:102
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:109
 msgid "Style"
 msgstr "Стиль"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:52
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:50
 msgid "Subject"
 msgstr "Підмет"
 
@@ -801,6 +808,7 @@ msgid "Username"
 msgstr "Ім'я користувача"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:53
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:51
 msgid "Verb"
 msgstr "Дієслово"
 
@@ -813,6 +821,7 @@ msgid "View Colection"
 msgstr "Переглянути колекцію"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:55
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:53
 msgid "Voice Hint"
 msgstr "Голосова підказка"
 

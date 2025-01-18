@@ -110,7 +110,7 @@ msgstr "הוסף כרטיס זיכרון"
 msgid "Add New Card"
 msgstr "הוסף כרטיס חדש"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:96
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:103
 msgid "Advanced"
 msgstr "מתקדם"
 
@@ -130,7 +130,7 @@ msgstr "תשובה"
 msgid "Back Side"
 msgstr "צד אחורי"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:94
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:101
 msgid "Beginner"
 msgstr "מתחיל"
 
@@ -178,7 +178,7 @@ msgstr "כרטיס {0} מתוך {1}"
 msgid "Card Details:"
 msgstr "פרטי הכרטיס:"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:167
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:174
 msgid "Check Answer"
 msgstr "בדוק תשובה"
 
@@ -194,7 +194,7 @@ msgstr "סגור"
 msgid "Collection:"
 msgstr "אוסף:"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:91
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:98
 msgid "Complexity"
 msgstr "מורכבות"
 
@@ -226,7 +226,7 @@ msgstr "אימייל"
 msgid "Enter Root"
 msgstr "הכנס שורש"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:157
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:164
 msgid "Enter your translation here..."
 msgstr "הזן את התרגום שלך כאן..."
 
@@ -254,6 +254,7 @@ msgid "Error uploading Captions for \"{0}\"!"
 msgstr "שגיאה בהעלאת כתוביות עבור \"{0}\"!"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:56
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:54
 msgid "Example"
 msgstr "דוגמה"
 
@@ -297,11 +298,12 @@ msgstr "מבחן כרטיסי זיכרון"
 msgid "Front"
 msgstr "צד קדמי"
 
+#: components/drills/hebrew/chooseBinyanParams.js:112
 #: components/drills/hebrew/data/binyanimData.js:51
 msgid "Future"
 msgstr "עתיד"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:124
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:131
 msgid "Generate Exercise"
 msgstr "צור תרגיל"
 
@@ -315,6 +317,8 @@ msgstr "שלום {name}"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:54
 #: components/drills/hebrew/hebrewVerbConjExercise.js:83
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:52
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:81
 msgid "Hint"
 msgstr "רמז"
 
@@ -343,7 +347,7 @@ msgstr "אני לומד שפה"
 msgid "Incorrect"
 msgstr "לא נכון"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:95
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:102
 msgid "Intermediate"
 msgstr "בינוני"
 
@@ -352,15 +356,15 @@ msgstr "בינוני"
 msgid "Invalid Input:"
 msgstr "קלט לא חוקי:"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:105
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:112
 msgid "Joke"
 msgstr "בדיחה"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:93
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:100
 msgid "Kid"
 msgstr "ילד"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:104
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:111
 msgid "Kids"
 msgstr "ילדים"
 
@@ -450,7 +454,7 @@ msgstr "נגן במהירות רגילה"
 msgid "Normal Speed when you talk"
 msgstr "מהירות רגילה כשאתה מדבר"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:113
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:120
 msgid "Number of sentences"
 msgstr "מספר המשפטים"
 
@@ -508,11 +512,12 @@ msgstr "שפת מקור:"
 msgid "Password"
 msgstr "סיסמה"
 
+#: components/drills/hebrew/chooseBinyanParams.js:111
 #: components/drills/hebrew/data/binyanimData.js:50
 msgid "Past"
 msgstr "עבר"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:107
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:114
 msgid "Philosophy"
 msgstr "פילוסופיה"
 
@@ -537,6 +542,7 @@ msgstr "אנא המתן"
 msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
 msgstr "אנא שמור את שיעורי הבית לקובץ ונסה שוב מאוחר יותר. צור קשר עם המפתח אם הבעיה נמשכת."
 
+#: components/drills/hebrew/chooseBinyanParams.js:110
 #: components/drills/hebrew/data/binyanimData.js:49
 msgid "Present"
 msgstr "הווה"
@@ -604,7 +610,7 @@ msgstr "בחר"
 msgid "Select Binyan"
 msgstr "בחר בניין"
 
-#: components/drills/hebrew/chooseBinyanParams.js:109
+#: components/drills/hebrew/chooseBinyanParams.js:108
 msgid "Select Tense"
 msgstr "בחר זמן"
 
@@ -617,7 +623,7 @@ msgstr "בחר טקסט לעיבוד"
 msgid "Settings"
 msgstr "הגדרות"
 
-#: components/drills/hebrew/chooseBinyanParams.js:125
+#: components/drills/hebrew/chooseBinyanParams.js:123
 msgid "Show"
 msgstr "הצג"
 
@@ -653,7 +659,7 @@ msgstr "הצג כתוביות תרגול"
 msgid "Show Training Subtitles"
 msgstr "הצג כתוביות תרגול"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:149
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:156
 msgid "Show Translation"
 msgstr "הצג תרגום"
 
@@ -669,7 +675,7 @@ msgstr "הערה קלה כשאתה מדבר"
 #~ msgid "Speech synthesis is not supported in this browser."
 #~ msgstr "הסינתזה של דיבור אינה נתמכת בדפדפן זה."
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:106
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:113
 msgid "Sports"
 msgstr "ספורט"
 
@@ -681,11 +687,12 @@ msgstr "התחלה (שניות)"
 msgid "Start Test"
 msgstr "התחל מבחן"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:102
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:109
 msgid "Style"
 msgstr "סגנון"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:52
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:50
 msgid "Subject"
 msgstr "נושא"
 
@@ -788,6 +795,7 @@ msgid "Username"
 msgstr "שם משתמש"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:53
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:51
 msgid "Verb"
 msgstr "פועל"
 
@@ -800,6 +808,7 @@ msgid "View Colection"
 msgstr "הצג אוסף"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:55
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:53
 msgid "Voice Hint"
 msgstr "רמז קולי"
 

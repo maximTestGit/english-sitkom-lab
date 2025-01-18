@@ -110,7 +110,7 @@ msgstr "Dodaj karticu"
 msgid "Add New Card"
 msgstr "Dodaj novu karticu"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:96
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:103
 msgid "Advanced"
 msgstr "Napredno"
 
@@ -130,7 +130,7 @@ msgstr "Odgovor"
 msgid "Back Side"
 msgstr "Stražnja strana"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:94
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:101
 msgid "Beginner"
 msgstr "Početnik"
 
@@ -178,7 +178,7 @@ msgstr "Kartica {0} od {1}"
 msgid "Card Details:"
 msgstr "Detalji kartice:"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:167
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:174
 msgid "Check Answer"
 msgstr "Provjeri odgovor"
 
@@ -194,7 +194,7 @@ msgstr "Zatvori"
 msgid "Collection:"
 msgstr "Kolekcija:"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:91
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:98
 msgid "Complexity"
 msgstr "Složenost"
 
@@ -226,7 +226,7 @@ msgstr "E-pošta"
 msgid "Enter Root"
 msgstr "Unesite korijen"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:157
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:164
 msgid "Enter your translation here..."
 msgstr "Unesite svoj prijevod ovdje..."
 
@@ -254,6 +254,7 @@ msgid "Error uploading Captions for \"{0}\"!"
 msgstr "Greška pri učitavanju titlova za \"{0}\"!"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:56
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:54
 msgid "Example"
 msgstr "Primjer"
 
@@ -297,11 +298,12 @@ msgstr "Ispit kartica za učenje"
 msgid "Front"
 msgstr "Prednja strana"
 
+#: components/drills/hebrew/chooseBinyanParams.js:112
 #: components/drills/hebrew/data/binyanimData.js:51
 msgid "Future"
 msgstr "Budućnost"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:124
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:131
 msgid "Generate Exercise"
 msgstr "Generiraj vježbu"
 
@@ -315,6 +317,8 @@ msgstr "Pozdrav {name}"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:54
 #: components/drills/hebrew/hebrewVerbConjExercise.js:83
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:52
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:81
 msgid "Hint"
 msgstr "Savjet"
 
@@ -343,7 +347,7 @@ msgstr "Učim jezik"
 msgid "Incorrect"
 msgstr "Netočno"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:95
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:102
 msgid "Intermediate"
 msgstr "Srednje"
 
@@ -352,15 +356,15 @@ msgstr "Srednje"
 msgid "Invalid Input:"
 msgstr "Neispravan unos:"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:105
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:112
 msgid "Joke"
 msgstr "Šala"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:93
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:100
 msgid "Kid"
 msgstr "Dijete"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:104
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:111
 msgid "Kids"
 msgstr "Djeca"
 
@@ -446,7 +450,7 @@ msgstr "Reprodukcija normalnom brzinom"
 msgid "Normal Speed when you talk"
 msgstr "Normalna brzina kada  vi govorite"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:113
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:120
 msgid "Number of sentences"
 msgstr "Broj rečenica"
 
@@ -504,11 +508,12 @@ msgstr "Izvorni jezik:"
 msgid "Password"
 msgstr "Lozinka"
 
+#: components/drills/hebrew/chooseBinyanParams.js:111
 #: components/drills/hebrew/data/binyanimData.js:50
 msgid "Past"
 msgstr "Prošlost"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:107
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:114
 msgid "Philosophy"
 msgstr "Filozofija"
 
@@ -533,6 +538,7 @@ msgstr "Molimo pričekajte"
 msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
 msgstr "Molimo spremite svoju zadaću u datoteku i pokušajte ponovno kasnije. Kontaktirajte programera ako problem potraje."
 
+#: components/drills/hebrew/chooseBinyanParams.js:110
 #: components/drills/hebrew/data/binyanimData.js:49
 msgid "Present"
 msgstr "Sadašnjost"
@@ -600,7 +606,7 @@ msgstr "Odaberi"
 msgid "Select Binyan"
 msgstr "Odaberite Binyan"
 
-#: components/drills/hebrew/chooseBinyanParams.js:109
+#: components/drills/hebrew/chooseBinyanParams.js:108
 msgid "Select Tense"
 msgstr "Odaberite vrijeme"
 
@@ -613,7 +619,7 @@ msgstr "Odaberite tekst za obradu"
 msgid "Settings"
 msgstr "Postavke"
 
-#: components/drills/hebrew/chooseBinyanParams.js:125
+#: components/drills/hebrew/chooseBinyanParams.js:123
 msgid "Show"
 msgstr "Prikaži"
 
@@ -649,7 +655,7 @@ msgstr "Prikaži titlove za vježbanje"
 msgid "Show Training Subtitles"
 msgstr "Prikaži podnaslove za vježbanje"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:149
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:156
 msgid "Show Translation"
 msgstr "Prikaži prijevod"
 
@@ -665,7 +671,7 @@ msgstr "Tihi signal kada vi govorite"
 #~ msgid "Speech synthesis is not supported in this browser."
 #~ msgstr "Sinteza govora nije podržana u ovom pregledniku."
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:106
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:113
 msgid "Sports"
 msgstr "Sport"
 
@@ -677,11 +683,12 @@ msgstr "Početak (sek)"
 msgid "Start Test"
 msgstr "Započni test"
 
-#: components/drills/hebrew/rootBinyanTenseTextExercise.js:102
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:109
 msgid "Style"
 msgstr "Stil"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:52
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:50
 msgid "Subject"
 msgstr "Predmet"
 
@@ -772,6 +779,7 @@ msgid "Username"
 msgstr "Korisničko ime"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:53
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:51
 msgid "Verb"
 msgstr "Glagol"
 
@@ -784,6 +792,7 @@ msgid "View Colection"
 msgstr "Pregledaj kolekciju"
 
 #: components/drills/hebrew/hebrewVerbConjExercise.js:55
+#: components/drills/hebrew/hebrewVerbConjugationTable.js:53
 msgid "Voice Hint"
 msgstr "Glasovni savjet"
 
