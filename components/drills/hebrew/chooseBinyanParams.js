@@ -105,8 +105,9 @@ const ChooseBinyanParams = ({
                             className="form-select me-2 col-1"
                             //  value={tense}
                             onChange={(e) => handleSetTense(e.target.value)}
-                            placeholder={t`Select Tense`}
+                            //placeholder={t`Select Tense`}
                         >
+                            <option value="" selected="true"><Trans>Select Tense</Trans></option>
                             <option value="present"><Trans>Present</Trans></option>
                             <option value="past"><Trans>Past</Trans></option>
                             <option value="future"><Trans>Future</Trans></option>

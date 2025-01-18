@@ -340,8 +340,14 @@ async function fetchDataFromSourcePost(user, url, data, customHandleWaitForActio
       headers: headers,
       body: JSON.stringify(data)
     });
-
-    result = response.ok ? await response.json() : null;
+    if (response.ok) {
+      let resultText = await response.text();
+      if (resultText.includes("```json")) {
+        resultText = resultText.replace(/```json/g, '');
+        resultText = resultText.replace(/```/g, '');
+      }
+      result = JSON.parse(resultText);
+    }
   } finally {
     handleWaitForAction(false, customHandleWaitForAction);
   }
