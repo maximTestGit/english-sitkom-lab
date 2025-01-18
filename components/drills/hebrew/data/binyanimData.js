@@ -48,7 +48,6 @@ export const binyanim = [
 export const tenses = [
     { value: 'present', label: t`Present` },
     { value: 'past', label: t`Past` },
-    { value: 'future', label: t`Future` }//,
-    //{ value: 'imperative', label: t`Imperative` }
+    { value: 'future', label: t`Future` }
 ];
 
