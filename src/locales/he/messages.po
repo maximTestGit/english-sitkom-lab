@@ -29,86 +29,90 @@ msgstr "מנגן {speed} ממהירות רגילה כשאתה מדבר"
 #~ msgid "{uiLanguage} subtitles have been loaded successfully."
 #~ msgstr "כתוביות {uiLanguage} נטענו בהצלחה."
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:63
+#: components/drills/hebrew/data/binyanimData.js:37
 msgid "<br>כתב: הֻכְתַּב (hukhtav) - \"it was dictated\""
 msgstr "<br>כתב: הֻכְתַּב (hukhtav) - \"זה הוכתב\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:57
+#: components/drills/hebrew/data/binyanimData.js:31
 msgid "<br>כתב: הִכְתִּיב (hikhtiv) - \"he dictated\""
 msgstr "<br>כתב: הִכְתִּיב (hikhtiv) - \"הוא הכתיב\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:69
+#: components/drills/hebrew/data/binyanimData.js:43
 msgid "<br>כתב: הִתְכַּתֵּב (hitkatev) - \"he corresponded\""
 msgstr "<br>כתב: הִתְכַּתֵּב (hitkatev) - \"הוא התכתב\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:33
+#: components/drills/hebrew/data/binyanimData.js:7
 msgid "<br>כתב: כָּתַב (katav) - \"he wrote\""
 msgstr "<br>כתב: כָּתַב (katav) - \"הוא כתב\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:45
+#: components/drills/hebrew/data/binyanimData.js:19
 msgid "<br>כתב: כִּתֵּב (kitev) - \"he corresponded\""
 msgstr "<br>כתב: כִּתֵּב (kitev) - \"הוא התכתב\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:51
+#: components/drills/hebrew/data/binyanimData.js:25
 msgid "<br>כתב: כֻּתַּב (kutav) - \"it was written intensively\""
 msgstr "<br>כתב: כֻּתַּב (kutav) - \"זה נכתב בעוצמה\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:39
+#: components/drills/hebrew/data/binyanimData.js:13
 msgid "<br>כתב: נִכְתַּב (nikhtav) - \"it was written\""
 msgstr "<br>כתב: נִכְתַּב (nikhtav) - \"זה נכתב\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:40
+#: components/drills/hebrew/data/binyanimData.js:14
 msgid "<br>להכתב: לְהִכָּתֵב (lehikatev) - \"to be written\""
 msgstr "<br>להכתב: לְהִכָּתֵב (lehikatev) - \"להיכתב\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:64
+#: components/drills/hebrew/data/binyanimData.js:38
 msgid "<br>להכתיב: לְהֻכְתַּב (lehuktav) - \"to be dictated\""
 msgstr "<br>להכתיב: לְהֻכְתַּב (lehuktav) - \"להיות מוכתב\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:58
+#: components/drills/hebrew/data/binyanimData.js:32
 msgid "<br>להכתיב: לְהַכְתִּיב (lehaktiv) - \"to dictate\""
 msgstr "<br>להכתיב: לְהַכְתִּיב (lehaktiv) - \"להכתיב\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:70
+#: components/drills/hebrew/data/binyanimData.js:44
 msgid "<br>להתכתב: לְהִתְכַּתֵּב (lehitkatev) - \"to correspond\""
 msgstr "<br>להתכתב: לְהִתְכַּתֵּב (lehitkatev) - \"להתכתב\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:34
+#: components/drills/hebrew/data/binyanimData.js:8
 msgid "<br>לכתוב: לִכְתּוֹב (likhtov) - \"to write\""
 msgstr "<br>לכתוב: לִכְתּוֹב (likhtov) - \"לכתוב\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:46
+#: components/drills/hebrew/data/binyanimData.js:20
 msgid "<br>לכתיב: לְכַתֵּב (lekatev) - \"to correspond\""
 msgstr "<br>לכתיב: לְכַתֵּב (lekatev) - \"להתכתב\""
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:52
+#: components/drills/hebrew/data/binyanimData.js:26
 msgid "<br>לכתיב: לְכֻתַּב (lekutav) - \"to be written intensively\""
 msgstr "<br>לכתיב: לְכֻתַּב (lekutav) - \"להיכתב באופן אינטנסיבי\""
 
-#: components/topDropdownMenu.js:570
+#: components/topDropdownMenu.js:589
 msgid "About"
 msgstr "מידע"
 
-#: components/topDropdownMenu.js:571
+#: components/topDropdownMenu.js:590
 msgid "About the Application"
 msgstr "אודות היישום"
 
-#: components/topDropdownMenu.js:510
-#: components/topDropdownMenu.js:516
+#: components/topDropdownMenu.js:530
+#: components/topDropdownMenu.js:536
 msgid "Account"
 msgstr "חשבון"
 
-#: components/topDropdownMenu.js:532
+#: components/topDropdownMenu.js:552
 msgid "Add custom Playlist"
 msgstr "הוסף רשימת השמעה מותאמת אישית"
 
-#: components/topDropdownMenu.js:547
+#: components/topDropdownMenu.js:567
 msgid "Add Flashcard"
 msgstr "הוסף כרטיס זיכרון"
 
-#: components/topDropdownMenu.js:828
+#: components/topDropdownMenu.js:863
 msgid "Add New Card"
 msgstr "הוסף כרטיס חדש"
+
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:96
+msgid "Advanced"
+msgstr "מתקדם"
 
 #: components/captionBox.js:184
 msgid "AI-Generated Interactive Exercise (Experimental)"
@@ -122,13 +126,21 @@ msgstr "ניתוח"
 msgid "Answer"
 msgstr "תשובה"
 
-#: components/topDropdownMenu.js:839
+#: components/topDropdownMenu.js:874
 msgid "Back Side"
 msgstr "צד אחורי"
+
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:94
+msgid "Beginner"
+msgstr "מתחיל"
 
 #: components/drills/hebrew/rootBinyanTenseTableDrill.js:153
 #~ msgid "Binyan (בניין)"
 #~ msgstr "בניין"
+
+#: components/drills/hebrew/chooseBinyanParams.js:94
+msgid "Binyan Characteristic"
+msgstr "מאפיין בניין"
 
 #: components/playbackSettings.js:93
 msgid "Blure Youtube Captions"
@@ -146,7 +158,7 @@ msgstr "תיבה:"
 msgid "Camera"
 msgstr "מצלמה"
 
-#: components/topDropdownMenu.js:853
+#: components/topDropdownMenu.js:888
 msgid "Cancel"
 msgstr "בטל"
 
@@ -166,11 +178,15 @@ msgstr "כרטיס {0} מתוך {1}"
 msgid "Card Details:"
 msgstr "פרטי הכרטיס:"
 
-#: components/topDropdownMenu.js:535
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:167
+msgid "Check Answer"
+msgstr "בדוק תשובה"
+
+#: components/topDropdownMenu.js:555
 msgid "Clear Memory"
 msgstr "נקה זיכרון"
 
-#: components/topDropdownMenu.js:787
+#: components/topDropdownMenu.js:804
 msgid "Close"
 msgstr "סגור"
 
@@ -178,7 +194,11 @@ msgstr "סגור"
 msgid "Collection:"
 msgstr "אוסף:"
 
-#: components/topDropdownMenu.js:574
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:91
+msgid "Complexity"
+msgstr "מורכבות"
+
+#: components/topDropdownMenu.js:593
 msgid "Contact Me"
 msgstr "צור קשר"
 
@@ -194,13 +214,21 @@ msgstr "נוצר:"
 msgid "Delete"
 msgstr "מחק"
 
-#: components/topDropdownMenu.js:551
+#: components/topDropdownMenu.js:571
 msgid "Drils"
 msgstr "תרגילים"
 
-#: components/topDropdownMenu.js:611
+#: components/topDropdownMenu.js:630
 msgid "Email"
 msgstr "אימייל"
+
+#: components/drills/hebrew/chooseBinyanParams.js:56
+msgid "Enter Root"
+msgstr "הכנס שורש"
+
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:157
+msgid "Enter your translation here..."
+msgstr "הזן את התרגום שלך כאן..."
 
 #: components/captionBox.js:219
 msgid "Entry \"{textToProcess}\" is added to your flashcard collection"
@@ -225,7 +253,7 @@ msgstr "שגיאה בשמירת הקובץ."
 msgid "Error uploading Captions for \"{0}\"!"
 msgstr "שגיאה בהעלאת כתוביות עבור \"{0}\"!"
 
-#: components/drills/hebrew/hebrewVerbConjugationTable.js:54
+#: components/drills/hebrew/hebrewVerbConjExercise.js:56
 msgid "Example"
 msgstr "דוגמה"
 
@@ -237,11 +265,11 @@ msgstr "תרגול"
 #~ msgid "Exercise Captions"
 #~ msgstr "כתוביות תרגול"
 
-#: components/topDropdownMenu.js:784
+#: components/topDropdownMenu.js:801
 msgid "Export"
 msgstr "ייצא"
 
-#: components/topDropdownMenu.js:521
+#: components/topDropdownMenu.js:541
 msgid "File"
 msgstr "קובץ"
 
@@ -249,31 +277,35 @@ msgstr "קובץ"
 msgid "File \"{fileName}\" saved successfully!"
 msgstr "הקובץ \"{fileName}\" נשמר בהצלחה!"
 
-#: components/topDropdownMenu.js:755
+#: components/topDropdownMenu.js:772
 msgid "Filter flashcards"
 msgstr "סנן כרטיסי זיכרון"
 
-#: components/topDropdownMenu.js:544
+#: components/topDropdownMenu.js:564
 msgid "Flashcards"
 msgstr "כרטיסי זיכרון"
 
-#: components/topDropdownMenu.js:744
+#: components/topDropdownMenu.js:761
 msgid "Flashcards Collection"
 msgstr "אוסף כרטיסי זיכרון"
 
-#: components/topDropdownMenu.js:794
+#: components/topDropdownMenu.js:811
 msgid "Flashcards Exam"
 msgstr "מבחן כרטיסי זיכרון"
 
-#: components/topDropdownMenu.js:833
+#: components/topDropdownMenu.js:868
 msgid "Front"
 msgstr "צד קדמי"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:81
+#: components/drills/hebrew/data/binyanimData.js:51
 msgid "Future"
 msgstr "עתיד"
 
-#: components/topDropdownMenu.js:493
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:124
+msgid "Generate Exercise"
+msgstr "צור תרגיל"
+
+#: components/topDropdownMenu.js:513
 msgid "Hello"
 msgstr "שלום"
 
@@ -281,13 +313,13 @@ msgstr "שלום"
 msgid "Hello {name}"
 msgstr "שלום {name}"
 
-#: components/drills/hebrew/hebrewVerbConjugationTable.js:52
-#: components/drills/hebrew/hebrewVerbConjugationTable.js:81
+#: components/drills/hebrew/hebrewVerbConjExercise.js:54
+#: components/drills/hebrew/hebrewVerbConjExercise.js:83
 msgid "Hint"
 msgstr "רמז"
 
-#: components/topDropdownMenu.js:559
-#: components/topDropdownMenu.js:565
+#: components/topDropdownMenu.js:578
+#: components/topDropdownMenu.js:584
 msgid "Home"
 msgstr "דף הבית"
 
@@ -295,7 +327,7 @@ msgstr "דף הבית"
 msgid "Homework uploaded to the server successfully!"
 msgstr "שיעורי הבית הועלו לשרת בהצלחה!"
 
-#: components/topDropdownMenu.js:573
+#: components/topDropdownMenu.js:592
 msgid "How To Register(Free)?"
 msgstr "איך להירשם (חינם)?"
 
@@ -303,7 +335,7 @@ msgstr "איך להירשם (חינם)?"
 #~ msgid "How To?"
 #~ msgstr "איך?"
 
-#: components/topDropdownMenu.js:663
+#: components/topDropdownMenu.js:682
 msgid "I Learn Language"
 msgstr "אני לומד שפה"
 
@@ -311,9 +343,26 @@ msgstr "אני לומד שפה"
 msgid "Incorrect"
 msgstr "לא נכון"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:97
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:95
+msgid "Intermediate"
+msgstr "בינוני"
+
+#: components/drills/hebrew/chooseBinyanParams.js:29
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:38
 msgid "Invalid Input:"
 msgstr "קלט לא חוקי:"
+
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:105
+msgid "Joke"
+msgstr "בדיחה"
+
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:93
+msgid "Kid"
+msgstr "ילד"
+
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:104
+msgid "Kids"
+msgstr "ילדים"
 
 #: components/flashcardEditor.js:99
 msgid "Last Reviewed:"
@@ -323,7 +372,7 @@ msgstr "נבדק לאחרונה:"
 #~ msgid "Learning Language"
 #~ msgstr "שפת לימוד"
 
-#: components/topDropdownMenu.js:511
+#: components/topDropdownMenu.js:531
 msgid "Login"
 msgstr "התחבר"
 
@@ -331,7 +380,7 @@ msgstr "התחבר"
 msgid "Login {name} failed"
 msgstr "ההתחברות של {name} נכשלה"
 
-#: components/topDropdownMenu.js:517
+#: components/topDropdownMenu.js:537
 msgid "Logout"
 msgstr "התנתק"
 
@@ -351,13 +400,13 @@ msgstr "הערה רועשת כשאתה מדבר"
 msgid "Mute Player when you talk"
 msgstr "השקט נגן כשאתה מדבר"
 
-#: components/topDropdownMenu.js:623
-#: components/topDropdownMenu.js:679
+#: components/topDropdownMenu.js:642
+#: components/topDropdownMenu.js:698
 msgid "My Language"
 msgstr "השפה שלי"
 
-#: components/topDropdownMenu.js:558
-#: components/topDropdownMenu.js:564
+#: components/topDropdownMenu.js:577
+#: components/topDropdownMenu.js:583
 msgid "Navigate"
 msgstr "ניווט"
 
@@ -401,32 +450,40 @@ msgstr "נגן במהירות רגילה"
 msgid "Normal Speed when you talk"
 msgstr "מהירות רגילה כשאתה מדבר"
 
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:113
+msgid "Number of sentences"
+msgstr "מספר המשפטים"
+
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:117
+#~ msgid "Number of sentences: {num}"
+#~ msgstr "מספר המשפטים: {num}"
+
 #: components/exerciseView.js:582
 msgid "OK"
 msgstr "אישור"
 
-#: components/topDropdownMenu.js:525
+#: components/topDropdownMenu.js:545
 msgid "Open .json"
 msgstr "פתח .json"
 
-#: components/topDropdownMenu.js:523
+#: components/topDropdownMenu.js:543
 msgid "Open .srt"
 msgstr "פתח .srt"
 
-#: components/topDropdownMenu.js:531
+#: components/topDropdownMenu.js:551
 msgid "Open custom video"
 msgstr "פתח וידאו מותאם אישית"
 
-#: components/topDropdownMenu.js:533
+#: components/topDropdownMenu.js:553
 msgid "Open Exercise File"
 msgstr "פתח קובץ תרגול"
 
-#: components/topDropdownMenu.js:530
-#: components/topDropdownMenu.js:540
+#: components/topDropdownMenu.js:550
+#: components/topDropdownMenu.js:560
 msgid "Open Settings"
 msgstr "פתח הגדרות"
 
-#: components/topDropdownMenu.js:567
+#: components/topDropdownMenu.js:586
 msgid "Open video on Youtube"
 msgstr "פתח וידאו ביוטיוב"
 
@@ -447,13 +504,17 @@ msgstr "הפעולה הושלמה בהצלחה"
 msgid "Origin Language:"
 msgstr "שפת מקור:"
 
-#: components/topDropdownMenu.js:615
+#: components/topDropdownMenu.js:634
 msgid "Password"
 msgstr "סיסמה"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:80
+#: components/drills/hebrew/data/binyanimData.js:50
 msgid "Past"
 msgstr "עבר"
+
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:107
+msgid "Philosophy"
+msgstr "פילוסופיה"
 
 #: components/exerciseView.js:137
 msgid "Please note that these subtitles are auto-generated and may contain semantic and contextual mistakes."
@@ -463,11 +524,12 @@ msgstr "שימו לב שכתוביות אלו נוצרו אוטומטית ועש
 msgid "Please restart recording!"
 msgstr "אנא הפעל מחדש את ההקלטה!"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:98
+#: components/drills/hebrew/chooseBinyanParams.js:30
+#: components/drills/hebrew/rootBinyanTenseTableDrill.js:39
 msgid "Please select a root, binyan, and tense to proceed!"
 msgstr "אנא בחר שורש, בניין וזמן כדי להמשיך!"
 
-#: components/helpers/fetchData.js:310
+#: components/helpers/fetchData.js:312
 msgid "Please wait"
 msgstr "אנא המתן"
 
@@ -475,7 +537,7 @@ msgstr "אנא המתן"
 msgid "Please, save your homework to the file and try again later. Contact the developer if the problem persists."
 msgstr "אנא שמור את שיעורי הבית לקובץ ונסה שוב מאוחר יותר. צור קשר עם המפתח אם הבעיה נמשכת."
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:79
+#: components/drills/hebrew/data/binyanimData.js:49
 msgid "Present"
 msgstr "הווה"
 
@@ -495,8 +557,8 @@ msgstr "שאלה"
 msgid "Recording Synchronization Error"
 msgstr "שגיאת סנכרון הקלטה"
 
-#: components/topDropdownMenu.js:512
-#: components/topDropdownMenu.js:602
+#: components/topDropdownMenu.js:532
+#: components/topDropdownMenu.js:621
 msgid "Register"
 msgstr "הירשם"
 
@@ -504,7 +566,7 @@ msgstr "הירשם"
 msgid "Register {name} failed, try later"
 msgstr "ההרשמה של {name} נכשלה, נסה מאוחר יותר"
 
-#: components/topDropdownMenu.js:534
+#: components/topDropdownMenu.js:554
 msgid "Reload Playlist"
 msgstr "טען מחדש את רשימת ההשמעה"
 
@@ -516,16 +578,21 @@ msgstr "שחזר"
 #~ msgid "Root (שורש)"
 #~ msgstr "שורש"
 
-#: components/topDropdownMenu.js:553
-#: components/topDropdownMenu.js:812
+#: components/topDropdownMenu.js:572
+#: components/topDropdownMenu.js:829
 msgid "Root/Binyan/Tense"
 msgstr "שורש/בניין/זמן"
+
+#: components/topDropdownMenu.js:573
+#: components/topDropdownMenu.js:847
+msgid "Root/Binyan/Tense Translation"
+msgstr "תרגום שורש/בניין/זמן"
 
 #: components/flashcardEditor.js:84
 msgid "Save"
 msgstr "שמור"
 
-#: components/topDropdownMenu.js:522
+#: components/topDropdownMenu.js:542
 msgid "Save .srt"
 msgstr "שמור .srt"
 
@@ -533,7 +600,11 @@ msgstr "שמור .srt"
 msgid "Select"
 msgstr "בחר"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:181
+#: components/drills/hebrew/chooseBinyanParams.js:83
+msgid "Select Binyan"
+msgstr "בחר בניין"
+
+#: components/drills/hebrew/chooseBinyanParams.js:109
 msgid "Select Tense"
 msgstr "בחר זמן"
 
@@ -542,15 +613,15 @@ msgstr "בחר זמן"
 msgid "Select text to process"
 msgstr "בחר טקסט לעיבוד"
 
-#: components/topDropdownMenu.js:658
+#: components/topDropdownMenu.js:677
 msgid "Settings"
 msgstr "הגדרות"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:196
+#: components/drills/hebrew/chooseBinyanParams.js:125
 msgid "Show"
 msgstr "הצג"
 
-#: components/topDropdownMenu.js:748
+#: components/topDropdownMenu.js:765
 msgid "Show Details"
 msgstr "הצג פרטים"
 
@@ -582,7 +653,11 @@ msgstr "הצג כתוביות תרגול"
 msgid "Show Training Subtitles"
 msgstr "הצג כתוביות תרגול"
 
-#: components/topDropdownMenu.js:500
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:149
+msgid "Show Translation"
+msgstr "הצג תרגום"
+
+#: components/topDropdownMenu.js:520
 msgid "Site language"
 msgstr "שפת האתר"
 
@@ -594,15 +669,23 @@ msgstr "הערה קלה כשאתה מדבר"
 #~ msgid "Speech synthesis is not supported in this browser."
 #~ msgstr "הסינתזה של דיבור אינה נתמכת בדפדפן זה."
 
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:106
+msgid "Sports"
+msgstr "ספורט"
+
 #: components/captionsView.js:296
 msgid "Start (sec)"
 msgstr "התחלה (שניות)"
 
-#: components/topDropdownMenu.js:546
+#: components/topDropdownMenu.js:566
 msgid "Start Test"
 msgstr "התחל מבחן"
 
-#: components/drills/hebrew/hebrewVerbConjugationTable.js:50
+#: components/drills/hebrew/rootBinyanTenseTextExercise.js:102
+msgid "Style"
+msgstr "סגנון"
+
+#: components/drills/hebrew/hebrewVerbConjExercise.js:52
 msgid "Subject"
 msgstr "נושא"
 
@@ -627,27 +710,27 @@ msgstr "טקסט"
 #~ msgid "Text Analysis"
 #~ msgstr "ניתוח טקסט"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:56
+#: components/drills/hebrew/data/binyanimData.js:30
 msgid "The Hif'il(הִפְעִיל) used to cause the action of the verb."
 msgstr "ההפעיל (הִפְעִיל) משמש לגרום לפעולת הפועל."
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:68
+#: components/drills/hebrew/data/binyanimData.js:42
 msgid "The Hitpa'el(הִתְפַּעֵל) used for reflexive actions."
 msgstr "ההתפעל (הִתְפַּעֵל) משמש לפעולות חוזרות."
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:62
+#: components/drills/hebrew/data/binyanimData.js:36
 msgid "The Huf'al(הֻפְעַל) the passive form of Hif'il."
 msgstr "ההופעל (הֻפְעַל) הוא הצורה הסבילה של ההפעיל."
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:38
+#: components/drills/hebrew/data/binyanimData.js:12
 msgid "The Nif'al(נִפְעַל) used for passive voice of Pa'al or reflexive actions."
 msgstr "הנפעל (נִפְעַל) משמש לצורת הסביל של הפעל או לפעולות חוזרות."
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:32
+#: components/drills/hebrew/data/binyanimData.js:6
 msgid "The Pa'al(פעל ,קַל) used for simple, active verbs."
 msgstr "הפעל (פעל ,קַל) משמש לפעלים פשוטים ופעילים."
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:44
+#: components/drills/hebrew/data/binyanimData.js:18
 msgid "The Pi'el(פִּעֵל) used to intensify the meaning of the verb."
 msgstr "הפיעל (פִּעֵל) משמש להדגשת משמעות הפועל."
 
@@ -655,7 +738,7 @@ msgstr "הפיעל (פִּעֵל) משמש להדגשת משמעות הפועל.
 #~ msgid "The Pi\\'el(פִּעֵל) used to intensify the meaning of the verb."
 #~ msgstr "הפיעל (פִּעֵל) משמש להדגשת משמעות הפועל."
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:50
+#: components/drills/hebrew/data/binyanimData.js:24
 msgid "The Pu'al(פֻּעַל) the passive form of Pi'el."
 msgstr "הפועל (פֻּעַל) הוא צורת הסביל של הפיעל."
 
@@ -671,8 +754,8 @@ msgstr "הפועל (פֻּעַל) הוא צורת הסביל של הפיעל."
 msgid "They are provided solely as a reference tool for practicing speech."
 msgstr "הן ניתנות אך ורק ככלי עזר לתרגול דיבור."
 
-#: components/topDropdownMenu.js:529
-#: components/topDropdownMenu.js:539
+#: components/topDropdownMenu.js:549
+#: components/topDropdownMenu.js:559
 msgid "Tools"
 msgstr "כלים"
 
@@ -680,7 +763,7 @@ msgstr "כלים"
 msgid "Training subtitles have been loaded successfully."
 msgstr "כתוביות האימון נטענו בהצלחה."
 
-#: components/topDropdownMenu.js:847
+#: components/topDropdownMenu.js:882
 msgid "Translate"
 msgstr "תרגם"
 
@@ -696,27 +779,27 @@ msgstr "שפת תרגום:"
 msgid "Translation:"
 msgstr "תרגום:"
 
-#: components/topDropdownMenu.js:524
+#: components/topDropdownMenu.js:544
 msgid "Upload .srt to Server"
 msgstr "העלה .srt לשרת"
 
-#: components/topDropdownMenu.js:607
+#: components/topDropdownMenu.js:626
 msgid "Username"
 msgstr "שם משתמש"
 
-#: components/drills/hebrew/hebrewVerbConjugationTable.js:51
+#: components/drills/hebrew/hebrewVerbConjExercise.js:53
 msgid "Verb"
 msgstr "פועל"
 
-#: components/topDropdownMenu.js:619
+#: components/topDropdownMenu.js:638
 msgid "Verify Password"
 msgstr "אמת סיסמה"
 
-#: components/topDropdownMenu.js:545
+#: components/topDropdownMenu.js:565
 msgid "View Colection"
 msgstr "הצג אוסף"
 
-#: components/drills/hebrew/hebrewVerbConjugationTable.js:53
+#: components/drills/hebrew/hebrewVerbConjExercise.js:55
 msgid "Voice Hint"
 msgstr "רמז קולי"
 
@@ -758,12 +841,12 @@ msgstr "יוגליש"
 msgid "Your Line"
 msgstr "השורה שלך"
 
-#: components/helpers/fetchData.js:311
+#: components/helpers/fetchData.js:313
 msgid "Your request is being processed..."
 msgstr "הבקשה שלך בעיבוד..."
 
-#: components/topDropdownMenu.js:560
-#: components/topDropdownMenu.js:566
+#: components/topDropdownMenu.js:579
+#: components/topDropdownMenu.js:585
 msgid "Youtube"
 msgstr "יוטיוב"
 
@@ -771,30 +854,30 @@ msgstr "יוטיוב"
 msgid "YouTube"
 msgstr "יוטיוב"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:61
+#: components/drills/hebrew/data/binyanimData.js:35
 msgid "הופעל - Huf'al"
 msgstr "הופעל - Huf'al"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:55
+#: components/drills/hebrew/data/binyanimData.js:29
 msgid "הפעיל - Hif'il"
 msgstr "הפעיל - Hif'il"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:67
+#: components/drills/hebrew/data/binyanimData.js:41
 msgid "התפעל - Hitpa'el"
 msgstr "התפעל - Hitpa'el"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:37
+#: components/drills/hebrew/data/binyanimData.js:11
 msgid "נפעל - Nif'al"
 msgstr "נפעל - Nif'al"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:49
+#: components/drills/hebrew/data/binyanimData.js:23
 msgid "פועל - Pu'al"
 msgstr "פועל - Pu'al"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:43
+#: components/drills/hebrew/data/binyanimData.js:17
 msgid "פיעל - Pi'el"
 msgstr "פיעל - Pi'el"
 
-#: components/drills/hebrew/rootBinyanTenseTableDrill.js:31
+#: components/drills/hebrew/data/binyanimData.js:5
 msgid "פעל - Pa'al"
 msgstr "פעל - Pa'al"

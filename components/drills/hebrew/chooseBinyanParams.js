@@ -80,7 +80,7 @@ const ChooseBinyanParams = ({
                                 handleSetBinyan(e.target.value);
                             }}
                         >
-                            <option value="">Select Binyan</option>
+                            <option value=""><Trans>Select Binyan</Trans></option>
                             {binyanim.map((item) => (
                                 <option key={item.value} value={item.value}>
                                     {item.label}

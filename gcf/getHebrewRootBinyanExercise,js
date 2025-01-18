@@ -103,7 +103,8 @@ The response should be structured exactly as shown above, with all fields popula
 
     const prompt =
         `Generate a short story in Hebrew with the following parameters:` +
-        `- the verb of the following hebrew root: ${root}` +
+        `- style: ${style}` +
+        `- use as much as possible the verb of the following hebrew root: ${root}` +
         `- of the binyan: ${binyan}` +
         `- Tense: ${tense}` +
         `- Number of sentences: ${length}` +

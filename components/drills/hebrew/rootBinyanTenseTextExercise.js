@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Trans, t } from '@lingui/macro';
 import { getCultureLanguageName } from '../../data/configurator';
 import { GenerateHebrewRootBinyanExercise, GenerateHebrewRootBinyanExerciseAnalysis } from '../../helpers/fetchData';
@@ -18,14 +18,32 @@ const RootBinyanTenseTextExercise = ({
 
   // State for generated text and user input
   const [hebrewText, setHebrewText] = useState('');
-  const [userLanguageText, setUserLanguageText] = useState('');
   const [userInput, setUserInput] = useState('');
-  const [analysisResult, setAnalysisResult] = useState(null);
+  const [userInputCopy, setUserInputCopy] = useState('');
+  const [autoTranslation, setAutoTranslation] = useState('');
+  const [analysisResult, setAnalysisResult] = useState('');
+
+  const [showTranslation, setShowTranslation] = useState(false);
+
+  const handleToggleTranslation = () => {
+    setShowTranslation(!showTranslation);
+  };
+
+  useEffect(() => {
+    if (showTranslation) {
+      setUserInputCopy(userInput);
+      setUserInput(autoTranslation);
+    } else {
+      setUserInput(userInputCopy);
+      setUserInputCopy('');
+    }
+  }, [showTranslation]);
 
   const handleApply = async () => {
-    setHebrewText('');
-    setUserLanguageText('');
-    setUserInput(''); // Clear previous user input
+    setShowTranslation(false);
+    setHebrewTextWrapper('');
+    setUserInputWrapper('');
+    setAutoTranslation('');
     setAnalysisResult('');
 
     console.log('Applying changes...',
@@ -51,60 +69,68 @@ const RootBinyanTenseTextExercise = ({
       length
     );
 
-    setHebrewText(result.text);
-    setUserLanguageText(result.textTranslation);
-    setUserInput(result.textTranslation); // Clear previous user input
+    setHebrewTextWrapper(result.text);
+    setAutoTranslation(result.textTranslation);
+    setUserInputWrapper('');
   };
 
   const handleCheck = async () => {
     const analysis = await GenerateHebrewRootBinyanExerciseAnalysis(user, hebrewText, getCultureLanguageName(userCulture), userInput);
     setAnalysisResult(analysis);
   };
-
+  const setUserInputWrapper = (value) => {
+    setUserInput(value);
+    console.log('setUserInputWrapper', value);
+  };
+  const setHebrewTextWrapper = (value) => {
+    setHebrewText(value);
+    console.log('setHebrewTextWrapper', value);
+  };
   return (
     <div className="w-full h-full">
       <h4 className="text-center mb-3">{root}/{binyan}/{tense}</h4>
       <div>
         <div id='ComplexityStyleLengthArea'
-          className="d-flex flex-row align-items-center mb-2 border p-1">
+          className="d-flex flex-row align-items-center mb-2 border p-1 flex-wrap">
           <div id="ComplexityArea"
             className='me-3'
           >
-            <label className="block me-2">Complexity</label>
+            <label className="block me-2"><Trans>Complexity</Trans></label>
             <select value={complexity} onChange={(e) => setComplexity(e.target.value)} className="w-full">
-              <option value="kid">Kid</option>
-              <option value="beginner">Beginner</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="advanced">Advanced</option>
+              <option value="kid"><Trans>Kid</Trans></option>
+              <option value="beginner"><Trans>Beginner</Trans></option>
+              <option value="intermediate"><Trans>Intermediate</Trans></option>
+              <option value="advanced"><Trans>Advanced</Trans></option>
             </select>
           </div>
           <div id='StyleArea'
             className='me-3'
           >
-            <label className=" me-2">Style</label>
+            <label className=" me-2"><Trans>Style</Trans></label>
             <select value={style} onChange={(e) => setStyle(e.target.value)} className="w-full">
-              <option value="Kids">Kids</option>
-              <option value="Joke" selected="true">Joke</option>
-              <option value="Dialogue">Dialogue</option>
-              <option value="Sport">Sport</option>
-              <option value="Philosophy">Philosophy</option>
+              <option value="Kids"><Trans>Kids</Trans></option>
+              <option value="Joke" selected="true"><Trans>Joke</Trans></option>
+              <option value="Sports"><Trans>Sports</Trans></option>
+              <option value="Philosophy"><Trans>Philosophy</Trans></option>
             </select>
           </div>
           <div id='LengthArea'
             className='me-3'
           >
-            <label className="block me-2">Length</label>
+            <label className="block me-2"><Trans>Number of sentences</Trans></label>
             <select value={length} onChange={(e) => setLength(parseInt(e.target.value))} className="w-full">
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
                 <option key={num} value={num}>
-                  {num} sentence{num > 1 ? 's' : ''}
+                  {num}
                 </option>
               ))}
             </select>
           </div>
-          <button id='ApplyButton' onClick={handleApply} >
-            Generate Exercise
-          </button>
+          <div className="w-full mt-2">
+            <button id='ApplyButton' onClick={handleApply} className="w-full">
+              <Trans>Generate Exercise</Trans>
+            </button>
+          </div>
         </div>
         <div id='TextAreasDiv' className="d-flex flex-column mb-3">
           <textarea
@@ -117,21 +143,35 @@ const RootBinyanTenseTextExercise = ({
             }}
             dir="rtl"
           />
+          <div className="form-check form-switch">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="flexSwitchCheckDefault"
+              checked={showTranslation}
+              onChange={handleToggleTranslation}
+              disabled={!autoTranslation}
+            />
+            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
+              <Trans>Show Translation</Trans>
+            </label>
+          </div>
           <textarea
             id='UserTranslationText'
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
             className="w-full"
-            placeholder="Enter your translation here..."
+            placeholder={t`Enter your translation here...`}
             style={{ height: '150px', maxHeight: '300px' }}
+            readOnly={showTranslation}
           />
         </div>
         <button
           onClick={handleCheck}
           className="w-full mb-2"
-          disabled={!userInput}
+          disabled={!userInput || showTranslation}
         >
-          Check Answer
+          <Trans>Check Answer</Trans>
         </button>
         <div id='AnalysisArea' className="d-flex flex-column mb-3">
           <textarea
