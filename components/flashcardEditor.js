@@ -115,7 +115,7 @@ const FlashcardEditor = ({
                                 <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Created:`}</strong> {card.created}</li>
                                 <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Last Reviewed:`}</strong> {card.lastReviewed}</li>
                                 <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Next Review:`}</strong> {card.nextReview}</li>
-                                {/* <li className="list-group-item" style={{ backgroundColor: background }}><strong>Front:</strong> {card.front}</li> */}}
+                                {/* <li className="list-group-item" style={{ backgroundColor: background }}><strong>Front:</strong> {card.front}</li> */}
                             </ul>
                         </div>
                     }
