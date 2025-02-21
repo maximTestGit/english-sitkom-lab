@@ -97,7 +97,7 @@ const FlashcardEditor = ({
                         card.videoId &&
                         <div id='linkArea' className="row">
                             <a href={getCardVideoLink()} target="_blank" rel="noopener noreferrer">
-                                {t`Go to Video`}
+                                {t`YouTube`}
                             </a>
                         </div>
                     }
