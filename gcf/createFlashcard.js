@@ -38,8 +38,8 @@ exports.createFlashcard = async (req, res) => {
                 return res.status(405).send('Method Not Allowed');
             }
 
-            const { frontLanguage, backLanguage, front, back, videoId, seconds, collection } = req.body;
-            const { docRef, flashcard } = await createFlashcardEntry(decodedToken.uid, frontLanguage, backLanguage, front, back, videoId, seconds, collection);
+            const { frontLanguage, backLanguage, front, back, videoId, seconds, duration, collection } = req.body;
+            const { docRef, flashcard } = await createFlashcardEntry(decodedToken.uid, frontLanguage, backLanguage, front, back, videoId, seconds, duration, collection);
 
             res.status(200).send({id: docRef.id, card: flashcard});
             console.log(`createFlashcard: Flashcard created successfully ${docRef.id} frontLanguage:${frontLanguage} front: ${front} back: ${back}`);
@@ -50,7 +50,7 @@ exports.createFlashcard = async (req, res) => {
     });
 };
 
-async function createFlashcardEntry(userId, frontLanguage, backLanguage, front, back, videoId, seconds, collection = 'default') {
+async function createFlashcardEntry(userId, frontLanguage, backLanguage, front, back, videoId, seconds, duration, collection = 'default') {
     const flashcard = {
         userId,
         frontLanguage,
@@ -63,6 +63,7 @@ async function createFlashcardEntry(userId, frontLanguage, backLanguage, front, 
         lastReviewed: null,
         videoId,
         seconds,
+        duration,
         collection,
     };
 

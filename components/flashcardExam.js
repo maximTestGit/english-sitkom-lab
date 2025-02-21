@@ -91,8 +91,15 @@ const FlashcardExam = ({ cards, onIKnowIt }) => {
     };
 
     const openYouTube = () => {
-        const timeParam = currentCard.seconds ? `&t=${currentCard.seconds}s` : '';
-        window.open(`https://www.youtube.com/watch?v=${currentCard.videoId}${timeParam}`, '_blank');
+        const videoId = currentCard.videoId;
+        const seconds = currentCard.seconds || 0;
+        const duration = currentCard.duration || 5;
+        const startInt = Math.round(seconds);
+        const endInt = Math.round(seconds + duration);
+        const url = `https://www.youtube.com/embed/${videoId}?start=${startInt}&end=${endInt}&autoplay=1`;//`https://www.youtube.com/watch?v=${videoId}&t=${seconds}s`;
+        window.open(url, '_blank');
+        //const timeParam = currentCard.seconds ? `&t=${currentCard.seconds}&${currentCard.seconds}` : '';
+        //window.open(`https://www.youtube.com/watch?v=${currentCard.videoId}${timeParam}`, '_blank');
     };
 
     const openYouglish = () => {

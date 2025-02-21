@@ -42,20 +42,28 @@ const FlashcardEditor = ({
             onDelete(card);
         }
     }
+    function getCardVideoLink() {
+        const videoId = card.videoId;
+        const seconds = card.seconds || 0;
+        const duration = card.duration || 5;
+        const startInt = Math.round(seconds);
+        const endInt = Math.round(seconds + duration);
+        return `https://www.youtube.com/embed/${videoId}?start=${startInt}&end=${endInt}&autoplay=1`;//`https://www.youtube.com/watch?v=${videoId}&t=${seconds}s`;
+    }
     return (
         <div className="container mt-3" >
             <div className="row">
                 <div className="col-12">
-                    <div className="row">
+                    <div id='frontArea' className="row">
                         <h4 className="col-8">{t`Card`} [{card.front}]</h4>
-                        <button
+                        <button id='deleteButton'
                             className="btn btn-danger col-2"
                             onClick={handleDelete}
                         >
                             {t`Delete`}
                         </button>
                     </div>
-                    <div className="form-group">
+                    <div id='backArea' className="form-group">
                         <label htmlFor="backProperty" className="form-label"><strong>{t`Translation:`}</strong></label>
                         <input
                             type="text"
@@ -64,7 +72,7 @@ const FlashcardEditor = ({
                             value={editedBack}
                             onChange={handleChange}
                             onFocus={handleFocus}
-                            style={{ backgroundColor: isEditing ? '#ffcccc' : 'white' }} // Apply background color
+                        // Apply background color
                         />
                     </div>
 
@@ -85,6 +93,15 @@ const FlashcardEditor = ({
                         </button>
                     </div>
 
+                    {
+                        card.videoId &&
+                        <div id='linkArea' className="row">
+                            <a href={getCardVideoLink()} target="_blank" rel="noopener noreferrer">
+                                {t`Go to Video`}
+                            </a>
+                        </div>
+                    }
+
                     {showDetails &&
                         <div className="container mt-3" style={{ fontSize: '0.9em' }}>
                             <div>
@@ -98,7 +115,7 @@ const FlashcardEditor = ({
                                 <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Created:`}</strong> {card.created}</li>
                                 <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Last Reviewed:`}</strong> {card.lastReviewed}</li>
                                 <li className="list-group-item" style={{ backgroundColor: detailsBackground }}><strong>{t`Next Review:`}</strong> {card.nextReview}</li>
-                                {/* <li className="list-group-item" style={{ backgroundColor: background }}><strong>Front:</strong> {card.front}</li> */}
+                                {/* <li className="list-group-item" style={{ backgroundColor: background }}><strong>Front:</strong> {card.front}</li> */}}
                             </ul>
                         </div>
                     }

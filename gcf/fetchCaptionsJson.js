@@ -71,10 +71,10 @@ exports.fetchCaptionsJson = async (req, res) => {
             // setting defaults for testing 
             console.log(`fetchCaptionsJson: input videoId: ${videoId} language:${language} user:${user}`);
             if (!videoId) {
-                videoId = "hgE9Nl8yTMs"
+                videoId = "6DkntGXQsmw" //"hgE9Nl8yTMs"
             }
             if (!language) {
-                language = "Russian"
+                language = "English"
             }
             if (!originalLanguage) {
                 originalLanguage = "English"
@@ -85,24 +85,24 @@ exports.fetchCaptionsJson = async (req, res) => {
             console.log(`fetchCaptionsJson: request videoId: ${videoId} language:${language} user:${user}`);
             // ----------------------------
 
-            //let toSave = false;
             let videoInfo = null;
             // try to get captions on target language
-            let captions = await tryToGetCaptions(videoId, language, user, videoInfo);
-            console.log(`captionsFetch: --- initial tryToGetCaptions:${language}: captions found: ${captions}`);
+            let { captions, toSave } = await tryToGetCaptions(videoId, language, user, videoInfo);
+            console.log(`fetchCaptionsJson: --- initial tryToGetCaptions:${language}: captions found: ${captions}, toSave:${toSave}`);
 
             if (!captions && originalLanguage !== language) {
                 // if not found, try to find captions in original language
                 // and translate them to the target language
-                const originalCaptions = await tryToGetCaptions(videoId, originalLanguage, user, videoInfo); // as string
+                let { originalCaptions } = await tryToGetCaptions(videoId, originalLanguage, user, videoInfo); // as string
                 captions = await translateSrtContent(originalCaptions, originalLanguage, language); // as string
-                console.log(`captionsFetch: --- initial with translation tryToGetCaptions:${originalLanguage}: captions found: ${captions}`);
-                //toSave = true;
+                console.log(`fetchCaptionsJson: --- initial with translation tryToGetCaptions:${originalLanguage}: captions found: ${captions}`);
             }
 
             if (!captions && videoInfo) {
                 // if not found, try to find auto-generated captions on target language on YouTube
                 captions = await getCaptionsFromYoutube(videoId, videoInfo, language, false); // as string
+                // NB: i dont want to save auto-generated captions
+                // so we keep toSave as false
                 console.log(`fetchCaptionsJson: --- auto-gen on target getCaptionsFromYoutube:${language}: captions found: ${captions}`);
             }
 
@@ -115,21 +115,18 @@ exports.fetchCaptionsJson = async (req, res) => {
                     captions = await translateSrtContent(originalCaptions, originalLanguage, language); // as string
                     console.log(`fetchCaptionsJson: --- auto-gen on original getCaptionsFromYoutube:${originalLanguage}: captions found: ${captions}`);
                 }
-                //toSave = true;
             }
 
-            /*
             if (toSave) {
-                console.log(`captionsFetch: captions found: ${captions}`);
+                console.log(`fetchCaptionsJson: captions to save for videoId: ${videoId}`);
                 if (captions) {
-                    await saveCaptionToStorage(videoId, language, user, captions);
+                    await saveCaptionToStorage(videoId, language, captions);
                 }
             }
-                */
             if (captions) {
                 res.send(captions);
             } else {
-                console.log('captionsFetch: No captions found');
+                console.log('fetchCaptionsJson: No captions found');
                 res.status(404).json({ error: 'No captions found' });
             }
         } catch (error) {
@@ -140,7 +137,7 @@ exports.fetchCaptionsJson = async (req, res) => {
     )
 }
 
-async function saveCaptionToStorage(videoId, language, user, captions) {
+async function saveCaptionToStorage(videoId, language, captions) {
     const documentId = generateCaptionsDocumentId(videoId, language, adminUser);
     const docRef = db.collection('videoCaptions').doc(documentId);
     const timestamp = adminFB.firestore.FieldValue.serverTimestamp();
@@ -149,16 +146,16 @@ async function saveCaptionToStorage(videoId, language, user, captions) {
         captions,
         videoId,
         language,
-        user,
+        adminUser,
         timestamp
     };
-    console.log(`saveCaptionToStorage: doc: ${JSON.stringify(doc)}`);
+    console.log(`fetchCaptionsJson: saveCaptionToStorage: doc: ${JSON.stringify(doc)}`);
     await docRef.set(doc);
 }
 
 async function tryToGetCaptions(videoId, language, user, videoInfo) {
     // try to fetch captions from different sources according to priority
-
+    let toSave = false;
     // 1st, try to get captions uploaded by the user
     let captions = await getCaptionsFromStorage(videoId, language, user); // as string
     console.log(`fetchCaptionsJson: tryToGetCaptions: getCaptionsFromStorage: --- of user language:${language} user:${user}: captions: ${captions}`);
@@ -177,12 +174,13 @@ async function tryToGetCaptions(videoId, language, user, videoInfo) {
         if (videoInfo) {
             captions = await getCaptionsFromYoutube(videoId, videoInfo, language, true); // as string
             console.log(`fetchCaptionsJson: tryToGetCaptions: getCaptionsFromYoutube: --- of language:${language} captions: ${captions}`);
+            toSave = captions ? true : false;
         } else {
             console.log(`fetchCaptionsJson: no videoInfo for request videoId: ${videoId} language:${language} user:${user}: captions: ${captions}`);
         }
         console.log(`fetchCaptionsJson: tryToGetCaptions: result: --- captions: ${captions}`);
     }
-    return captions;
+    return { captions, toSave };
 }
 
 async function fetchPlayerInfo(videoId) {
@@ -244,25 +242,25 @@ async function fetchPlayerInfo(videoId) {
 
     let responseData = await response.text();
     let result = JSON.parse(responseData);
-    console.log(`fetchPlayerInfo: response: ${JSON.stringify(result)}`);
+    console.log(`fetchCaptionsJson: fetchPlayerInfo: response: ${JSON.stringify(result)}`);
 
     return result;
 }
 
 function getFetchCaptionsUrl(videoInfo, language, strict) {
     var captionsUrl = getCaptionsTrack(videoInfo, language, strict);
-    console.log(`fetchCaptionsUrl: url="${captionsUrl}"`);
+    console.log(`fetchCaptionsJson: fetchCaptionsUrl: url="${captionsUrl}"`);
     return captionsUrl;
 }
 
 function getCaptionsTrack(videoInfo, trackName, strict) {
-    console.log(`getCaptionsTrack: ${trackName} strict: ${strict}`);
+    console.log(`fetchCaptionsJson: getCaptionsTrack: ${trackName} strict: ${strict}`);
 
     let captionTracks = videoInfo?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
     if (captionTracks) {
         for (let track of captionTracks) {
-            console.log(`getCaptionsTrack: current track: ${track}`);
-            console.log(`getCaptionsTrack: ${track.name.simpleText} vs ${trackName}: ${track.baseUrl}`);
+            console.log(`fetchCaptionsJson: getCaptionsTrack: current track: ${track}`);
+            console.log(`fetchCaptionsJson: getCaptionsTrack: ${track.name.simpleText} vs ${trackName}: ${track.baseUrl}`);
             if (strict) {
                 if (track.name.simpleText === trackName) {
                     return track.baseUrl;
@@ -283,7 +281,7 @@ async function fetchCaptionsFromUrl(fetchCaptionsUrl) {
         const response = await fetch(fetchCaptionsUrl);
         var captions = null;
         if (response.ok) {
-            console.log('fetchCaptionsFromUrl: response is ok');
+            console.log('fetchCaptionsJsonfetchCaptionsFromUrl: response is ok');
             const data = await response.text();
 
             parseString(data, (err, result) => {
@@ -291,17 +289,17 @@ async function fetchCaptionsFromUrl(fetchCaptionsUrl) {
                     console.error('Error parsing XML:', err);
                 }
                 else {
-                    //console.log('Parsed XML:', result);
+                    //console.log('fetchCaptionsJson: Parsed XML:', result);
                     captions = result;
                 }
             });
-            console.log('-------------------------');
+            console.log('fetchCaptionsJson: ------------ JSON -------------');
             console.log(JSON.stringify(captions));
-            console.log('-------------------------');
+            console.log('fetchCaptionsJson: -------------------------');
         }
         return captions;
     } catch (error) {
-        console.error("Error:", error);
+        console.error("fetchCaptionsJson: Error:", error);
     }
 }
 
@@ -345,9 +343,9 @@ async function getCaptionsFromStorage(videoId, language, user) {
     let doc = await docRef.get();
 
     if (doc.exists) {
-        console.log(`captionsFetchFromStorage: Found captions for specific user: document.caption: ${doc.data().captions}`);
+        console.log(`fetchCaptionsJson: FromStorage: Found captions for specific user: document.caption: ${doc.data().captions}`);
         result = doc.data().captions;
-        console.log(`captionsFetchFromStorage: Found captions for specific user result: ${result}`);
+        console.log(`fetchCaptionsJson: FromStorage: Found captions for specific user result: ${result}`);
     }
     return result;
 }
@@ -449,10 +447,10 @@ function getLanguageCode(languageName) {
 }
 
 async function getTranslation(text, fromLanguage, toLanguage) {
-    console.log(`translateSrtContent::getTranslation: Text: ${text} from ${fromLanguage} to ${toLanguage}`);
+    console.log(`fetchCaptionsJson: translateSrtContent::getTranslation: Text: ${text} from ${fromLanguage} to ${toLanguage}`);
     const toLanguageCode = getLanguageCode(toLanguage);
     const [translation] = await translate.translate(text, toLanguageCode);
-    console.log(`translateSrtContent::getTranslation: Text: ${text} to ${translation}`);
+    console.log(`fetchCaptionsJson: translateSrtContent::getTranslation: Text: ${text} to ${translation}`);
     return translation;
 }
 
@@ -473,8 +471,8 @@ async function translateSrtContentAI(captions, fromLanguage, toLanguage) {
         'Authorization': `Bearer ${apiKey}`
     };
 
-    console.log(`translateSrtContent prompt: ${prompt}`);
-    console.log(`translateSrtContent content: ${captions}`);
+    console.log(`fetchCaptionsJson: translateSrtContent prompt: ${prompt}`);
+    console.log(`fetchCaptionsJson: translateSrtContent content: ${captions}`);
     const data = {
         model: 'gpt-3.5-turbo',
         messages: [
@@ -492,18 +490,18 @@ async function translateSrtContentAI(captions, fromLanguage, toLanguage) {
     };
 
     try {
-        console.log(`translateSrtContent: START request for assistanceRequest url: ${url}`);
+        console.log(`fetchCaptionsJson: translateSrtContent: START request for assistanceRequest url: ${url}`);
         const response = await fetch(url, options);
-        console.log('translateSrtContent: Response of assistanceRequest:', response);
+        console.log('fetchCaptionsJson: translateSrtContent: Response of assistanceRequest:', response);
         if (!response.ok) {
             console.error(`translateSrtContent: Error in assistanceRequest: response status: ${response.status}`);
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const resultData = await response.json();
-        console.log('translateSrtContent: Result:', resultData);
+        console.log('fetchCaptionsJson: translateSrtContent: Result:', resultData);
 
         result = resultData.choices[0].message.content;
-        console.log('translateSrtContent: Response Text:', result);
+        console.log('fetchCaptionsJson: translateSrtContent: Response Text:', result);
     } catch (error) {
         console.error('translateSrtContent: Error:', error);
         throw error;

@@ -44,21 +44,28 @@ export async function fetchRetrieveCaptions(user, videoId, language, originalLan
 
   if (!result || result.length === 0) { // not found or no cache
     console.log(`fetchRetrieveCaptions: videoId: ${videoId}, language: ${language}, playlistId: ${playlistId}, userName: ${userName}, refetchFromSource: ${refetchFromSource}`);
-    const url = getCaptionsUrlPost();
 
-    const data = {
-      videoId: videoId,
-      language: language,
-      originalLanguage: originalLanguage,
-      user: userName,
-      playlistId: playlistId,
-    };
-    result = await fetchDataFromSourcePost(user, url, data);
+    result = await fetchCaption(videoId, language, originalLanguage, userName, playlistId, result, user);
+
     if (result && result.length > 0) {
       saveDataToLocalStorage(prefixCaptionsData, key, result, null);
       saveDataToLocalStorage(prefixCaptionsLanguage, key, language, null);
     }
   }
+  return result;
+}
+
+async function fetchCaption(videoId, language, originalLanguage, userName, playlistId, result, user) {
+  const url = getCaptionsUrlPost();
+
+  const data = {
+    videoId: videoId,
+    language: language,
+    originalLanguage: originalLanguage,
+    user: userName,
+    playlistId: playlistId,
+  };
+  result = await fetchDataFromSourcePost(user, url, data);
   return result;
 }
 
@@ -119,7 +126,7 @@ export async function getTranslation(user, text, sourceLanguage, targetLanguage)
   return result?.translation;
 }
 
-export async function saveTextToFlashcards(user, text, frontLanguage, backLanguage, videoId, seconds, frontTranslation) {
+export async function saveTextToFlashcards(user, text, frontLanguage, backLanguage, videoId, seconds, duration, frontTranslation) {
   const decodedFront = decodeURIComponent(text);
   let back = frontTranslation;
   if (back === undefined || back === null || back === "") {
@@ -133,7 +140,8 @@ export async function saveTextToFlashcards(user, text, frontLanguage, backLangua
     front: text,
     back,
     videoId,
-    seconds
+    seconds,
+    duration
   };
   await fetchDataFromSourcePost(user, url, data);
 }

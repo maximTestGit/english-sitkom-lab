@@ -213,7 +213,9 @@ const CaptionBox = (
     }
     const onAddSelectionToDict = async (textToProcess) => {
         const frontLanguage = extractCulture(learningLanguage);
-        await saveTextToFlashcards(user, textToProcess, frontLanguage, uiLanguage, videoData.videoId, parseFloat(caption.start));
+        await saveTextToFlashcards(user, textToProcess, frontLanguage, uiLanguage, videoData.videoId,
+            parseFloat(caption.start),
+            Math.max(1, parseFloat(caption.duration)));
         Swal.fire({
             title: t`Operation completed successfully`,
             text: t`Entry "${textToProcess}" is added to your flashcard collection`,

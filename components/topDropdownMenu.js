@@ -474,7 +474,7 @@ const TopDropdownMenu = ({
         //const newCard = { front: newCardFront, back: '' };
         //setFlashcards([...flashcards, newCard]);
         const frontLanguage = extractCulture(learningLanguage);
-        await saveTextToFlashcards(user, newCardFront, frontLanguage, uiLanguage, null, null, newCardBack);
+        await saveTextToFlashcards(user, newCardFront, frontLanguage, uiLanguage, null, null, null, newCardBack);
         setShowAddCardModal(false);
         setNewCardFront('');
     };

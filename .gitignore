@@ -30,11 +30,5 @@ yarn-error.log*
 
 # vercel
 .vercel
-.vs/VSWorkspaceState.json
-.vs/VSWorkspaceState.json
-.vs/VSWorkspaceState.json
-.vs/english-sitkom-lab/v17/.wsuo
-SyncToy_036cde5f-b893-44e5-b99a-f142f7fc6dcd.dat
+.vscode/settings.json
 SyncToy_fe4d232d-5383-4f61-8de2-3a4adc116625.dat
-components/temp/
-.vscode/
