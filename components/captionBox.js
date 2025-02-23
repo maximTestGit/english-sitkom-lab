@@ -61,13 +61,17 @@ const CaptionBox = (
     const getTextToProcess = (selectionOnly = false) => {
         let textToProcess = null;
         if (caption) {
-            textToProcess = window.getSelection()?.toString();
-            if (!selectionOnly && (!textToProcess || textToProcess.length === 0)) {
+            const selectedText = window.getSelection()?.toString();
+            if (selectionOnly && selectedText?.length > 0) {
+                if (caption.text.includes(selectedText)) {
+                    textToProcess = selectedText;
+                }
+            } else {
                 textToProcess = caption.text;
             }
-        }
-        if (textToProcess) {
-            textToProcess = decodeHtml(textToProcess.trim());
+            if (textToProcess) {
+                textToProcess = decodeHtml(textToProcess.trim());
+            }
         }
         return textToProcess;
     };
