@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getCultureLanguageName } from './data/configurator';
 import { t, Trans } from '@lingui/macro';
+import { getCardYoutubeClipLink, getCardYouglishLink} from './helpers/flashcardHelper';
+
 
 const FlashcardExam = ({ cards, onIKnowIt }) => {
     const [shuffledCards, setShuffledCards] = useState([]);
@@ -91,20 +93,13 @@ const FlashcardExam = ({ cards, onIKnowIt }) => {
     };
 
     const openYouTube = () => {
-        const videoId = currentCard.videoId;
-        const seconds = currentCard.seconds || 0;
-        const duration = currentCard.duration || 5;
-        const startInt = Math.round(seconds);
-        const endInt = Math.round(seconds + duration);
-        const url = `https://www.youtube.com/embed/${videoId}?start=${startInt}&end=${endInt}&autoplay=1`;//`https://www.youtube.com/watch?v=${videoId}&t=${seconds}s`;
+        const url = getCardYoutubeClipLink(currentCard);//`https://www.youtube.com/embed/${videoId}?start=${startInt}&end=${endInt}&autoplay=1`;//`https://www.youtube.com/watch?v=${videoId}&t=${seconds}s`;
         window.open(url, '_blank');
-        //const timeParam = currentCard.seconds ? `&t=${currentCard.seconds}&${currentCard.seconds}` : '';
-        //window.open(`https://www.youtube.com/watch?v=${currentCard.videoId}${timeParam}`, '_blank');
     };
 
     const openYouglish = () => {
-        const text = currentCard.front;
-        window.open(`https://youglish.com/pronounce/${encodeURIComponent(text)}/${getCultureLanguageName(currentCard.language)}`, '_blank');
+        const url = getCardYouglishLink(currentCard);
+        window.open(url, '_blank');
     };
 
     const questionText = currentCard.inverted ? currentCard.back : currentCard.front;

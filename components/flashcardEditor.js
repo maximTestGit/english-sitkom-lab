@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getCultureLanguageName } from './data/configurator';
+import { getCardYoutubeClipLink, getCardYouglishLink } from './helpers/flashcardHelper';
 import { t, Trans } from '@lingui/macro';
 
 const FlashcardEditor = ({
@@ -42,16 +43,34 @@ const FlashcardEditor = ({
             onDelete(card);
         }
     }
-    function getCardVideoLink() {
-        const videoId = card.videoId;
-        const seconds = card.seconds || 0;
-        const duration = card.duration || 5;
-        const startInt = Math.round(seconds);
-        const endInt = Math.round(seconds + duration);
-        return `https://www.youtube.com/embed/${videoId}?start=${startInt}&end=${endInt}&autoplay=1`;//`https://www.youtube.com/watch?v=${videoId}&t=${seconds}s`;
-    }
+
+    const openYouTube = () => {
+        const url = getCardYoutubeClipLink(card);//`https://www.youtube.com/embed/${videoId}?start=${startInt}&end=${endInt}&autoplay=1`;//`https://www.youtube.com/watch?v=${videoId}&t=${seconds}s`;
+        window.open(url, '_blank');
+    };
+
+    const openYouglish = () => {
+        const url = getCardYouglishLink(card);
+        window.open(url, '_blank');
+    };
+
+
     return (
         <div className="container mt-3" >
+            <button
+                className="btn btn-link btn-sm me-2"
+                onClick={openYouTube}
+                disabled={!card.videoId}
+            >
+                {t`YouTube`}
+            </button>
+            <button
+                className="btn btn-link btn-sm"
+                onClick={openYouglish}
+            >
+                {t`Youglish`}
+            </button>
+
             <div className="row">
                 <div className="col-12">
                     <div id='frontArea' className="row">
@@ -92,15 +111,6 @@ const FlashcardEditor = ({
                             {t`Save`}
                         </button>
                     </div>
-
-                    {
-                        card.videoId &&
-                        <div id='linkArea' className="row">
-                            <a href={getCardVideoLink()} target="_blank" rel="noopener noreferrer">
-                                {t`YouTube`}
-                            </a>
-                        </div>
-                    }
 
                     {showDetails &&
                         <div className="container mt-3" style={{ fontSize: '0.9em' }}>

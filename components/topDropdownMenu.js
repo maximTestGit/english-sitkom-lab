@@ -391,7 +391,7 @@ const TopDropdownMenu = ({
                     cardId: flashcard.cardId,
                     front: flashcard.front,
                     back: flashcard.back,
-                    language: flashcard.frontLanguage,
+                    frontLanguage: flashcard.frontLanguage,
                     videoId: flashcard.videoId,
                     seconds: flashcard.seconds
                 };
